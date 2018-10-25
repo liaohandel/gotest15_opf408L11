@@ -1,4 +1,4 @@
-console.log("[linkgateway ] start opf403 webapp_gx8x2 2011009x1 ...");
+console.log("[linkgateway ] start gotest15_opf408L10 webapp_gx8x2 2011009x1 ...");
 
 var EventEmitter = require('events').EventEmitter; 
 var event = new EventEmitter(); 
@@ -33,8 +33,8 @@ var spawn = require('child_process').spawn;
 
 //var start_cmdStr = 'sudo pm2 start /home/pi/opcom_prj/gotest6_opf402/ipcamssh8022set';
 //var stop_cmdStr = 'sudo pm2 delete /home/pi/opcom_prj/gotest6_opf402/ipcamssh8022set';
-var start_cmdStr = "sudo sh /home/pi/opcom_prj/gotest5_opf403/getsshx5.sh";
-var stop_cmdStr = "sudo sh /home/pi/opcom_prj/gotest5_opf403/stopsshx5.sh";
+var start_cmdStr = "sudo sh /home/pi/opcom_prj/gotest15_opf408L10/getsshx5.sh";
+var stop_cmdStr = "sudo sh /home/pi/opcom_prj/gotest15_opf408L10/stopsshx5.sh";
 
 var pdbuffer  = require('./pdbuffer_v02.js');
 var autocmd = require('./autocmd_gx8.js');
