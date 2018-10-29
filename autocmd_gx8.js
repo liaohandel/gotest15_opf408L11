@@ -10,12 +10,12 @@ var Client = require('node-rest-client').Client;
 var client = new Client();
 var cargs = {
     requestConfig: {
-        timeout: 500,
+        timeout: 10, //500,
         noDelay: true,
         keepAlive: true
     },
     responseConfig: {
-        timeout: 1000 //response timeout 
+        timeout: 10 //1000 //response timeout 
     }
 };
 
@@ -1474,7 +1474,8 @@ function active_keypadjob(kpos,kcode,kactive){
 	console.log("sudo active update to webui =>"+updatekeysstuatusurl);
 	client.get(updatekeysstuatusurl,cargs, function (data, response) {
 		console.log("keypad active update to webui   ok ...");
-	}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+	}).on("error", function(err) {console.log("err for client");});
+	//}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 
 	//autopushkeypad(kpos,kcode,kactive);
 	
