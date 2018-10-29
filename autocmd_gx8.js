@@ -1474,7 +1474,8 @@ function active_keypadjob(kpos,kcode,kactive){
 	console.log("sudo active update to webui =>"+updatekeysstuatusurl);
 	client.get(updatekeysstuatusurl,cargs, function (data, response) {
 		console.log("keypad active update to webui   ok ...");
-	}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+	//}).on("error", function(err) {console.log("err for client");});
+	}).on("error", function(err) {console.log("err for clientx1");}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
 
 	//autopushkeypad(kpos,kcode,kactive);
 	

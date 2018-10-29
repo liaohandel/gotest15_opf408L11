@@ -163,13 +163,19 @@ function sysload(callback){
 
 function sysupdate(callback){	
 
-	let uuiddata = JSON.stringify(xpdjobj);					
-	fs.writeFile(filepath,uuiddata,function(error){
-		if(error){ //如果有錯誤，把訊息顯示並離開程式
-			console.log('PDDATA.txt update ERR ! ');
-		}		
-		callback(err);
-	});
+	let uuiddata = JSON.stringify(xpdjobj);	
+	
+	// fs.writeFile(filepath,uuiddata,function(error){
+		// if(error){ //如果有錯誤，把訊息顯示並離開程式
+			// console.log('PDDATA.txt update ERR ! ');
+		// }		
+		// callback(err);
+	// });
+	
+	fs.writeFileSync(filepath,uuiddata);	
+	console.log('PDDATA.txt update ok ! ');		
+	callback();	
+	
 }
 
 
@@ -192,13 +198,18 @@ function treescan_load(callback){
 }
 
 function treescan_update(callback){	
-	let treescandata = JSON.stringify(jtreescan);					
-	fs.writeFile(filepath_treescan,treescandata,function(error){
-		if(error){ //如果有錯誤，把訊息顯示並離開程式
-			console.log('treescan.txt update ERR ! ');
-		}		
-		callback();
-	});
+	let treescandata = JSON.stringify(jtreescan);		
+	
+	// fs.writeFile(filepath_treescan,treescandata,function(error){
+		// if(error){ //如果有錯誤，把訊息顯示並離開程式
+			// console.log('treescan.txt update ERR ! ');
+		// }		
+		// callback();
+	// });
+	
+	fs.writeFileSync(filepath_treescan,treescandata);	
+	console.log('treescan.txt update ok ! ');		
+	callback();	
 }
 
 //===================================
@@ -219,13 +230,18 @@ function treedata_load(callback){
 }
 
 function treedata_update(callback){	
-	let treedatadata = JSON.stringify(jtreedata);					
-	fs.writeFile(filepath_treedata,treedatadata,function(error){
-		if(error){ //如果有錯誤，把訊息顯示並離開程式
-			console.log('treedata.txt update ERR ! ');
-		}		
-		callback();
-	});	
+	let treedatadata = JSON.stringify(jtreedata);	
+	
+	// fs.writeFile(filepath_treedata,treedatadata,function(error){
+		// if(error){ //如果有錯誤，把訊息顯示並離開程式
+			// console.log('treedata.txt update ERR ! ');
+		// }		
+		// callback();
+	// });	
+	
+	fs.writeFileSync(filepath_treedata,treedatadata);	
+	console.log('treedata.txt update ok ! ');		
+	callback();	
 }
 
 //===================================
@@ -246,13 +262,20 @@ function jautocmd_load(callback){
 }
 
 function jautocmd_update(callback){	
-	let jautocmddata = JSON.stringify(jautocmd);					
-	fs.writeFile(filepath_jautocmd,jautocmddata,function(error){
-		if(error){ //如果有錯誤，把訊息顯示並離開程式
-			console.log('JAUTOCMD.txt update ERR ! ');
-		}		
-		callback();
-	});	
+	let jautocmddata = JSON.stringify(jautocmd);	
+	console.log('JAUTOCMD.txt update run x1! ');	
+	
+	// fs.writeFile(filepath_jautocmd,jautocmddata,function(error){
+		// if(error){ //如果有錯誤，把訊息顯示並離開程式
+			// console.log('JAUTOCMD.txt update ERR ! ');
+		// }		
+		// console.log('JAUTOCMD.txt update ok x2! ');		
+		// callback();
+	// });
+	fs.writeFileSync(filepath_jautocmd,jautocmddata);
+	
+	console.log('JAUTOCMD.txt update ok x3! ');		
+	callback();	
 }
 
 //===================================
@@ -273,13 +296,16 @@ function jkeypd_load(callback){
 }
 
 function jkeypd_update(callback){	
-	let keypddata = JSON.stringify(jkeypd);					
-	fs.writeFile(filepath_keypd,keypddata,function(error){
-		if(error){ //如果有錯誤，把訊息顯示並離開程式
-			console.log('KEYPD.txt update ERR ! ');
-		}		
-		callback();
-	});	
+	let keypddata = JSON.stringify(jkeypd);		
+	
+	// fs.writeFile(filepath_keypd,keypddata,function(error){
+		// if(error){ //如果有錯誤，把訊息顯示並離開程式
+			// console.log('KEYPD.txt update ERR ! ');
+		// }		
+	// });	
+	fs.writeFileSync(filepath_keypd,keypddata);
+	console.log('KEYPD.txt update ok x4! ');		
+	callback();
 }
 
 //=============================

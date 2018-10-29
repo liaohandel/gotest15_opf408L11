@@ -337,7 +337,7 @@ function opf403_regstulinkweb(regdevarr){
 			//console.log(">>web "+regsensor_url);
 			client.get(regsensor_url,cargs, function (data, response) {
 				console.log("sensor uplaod url: load ok...");
-			}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+			}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {console.log("timeout for client");req.abort();});
 		}		
 	}	
 }
@@ -1959,7 +1959,7 @@ app.listen(setport, function () {
 				chkurl = seturl+"/connectcheck"
 				console.log("link=>"+seturl)
 				setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
-				client.get(setddsnurl, function (data, response) {
+				client.get(setddsnurl,cargs, function (data, response) {
 					// parsed response body as js object
 					console.log("get ok...") 
 					//console.log(data.toString());
@@ -1969,7 +1969,7 @@ app.listen(setport, function () {
 					  //console.log('test link ...');
 						chkurl = seturl+"/connectcheck"
 						console.log("chklink=>"+chkurl);
-						client.get(chkurl, function (data, response) {  
+						client.get(chkurl,cargs, function (data, response) {  
 							if(data == null){
 								chkstr = "null";
 							}else{
@@ -2008,9 +2008,10 @@ app.listen(setport, function () {
 								console.log("get x12...") 
 								reload104ddsn();
 							}							
-						});
+						}).on('requestTimeout', function (req) {req.abort();});
+						
 					}, 5 * 60 * 1000);
-				}).on("error", function(err) {console.log("err for client");});
+				}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 			});
 		}else if(pdbuffer.pdjobj.PDDATA.linkoffmode == 1){//off link mode
 			console.log(">>OFF Link Mode !");
@@ -2062,9 +2063,9 @@ function reload75ddsn(){
         chkurl = seturl+"/connectcheck"
 		console.log("link linkbox75C=>"+seturl);
         setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
-		client.get(setddsnurl, function (data, response) {
+		client.get(setddsnurl,cargs, function (data, response) {
 			console.log("get ok...") 				
-		}).on("error", function(err) {console.log("err for client");});		
+		}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});	
 	});
 }
 
@@ -2075,9 +2076,9 @@ function reload85ddsn(){
         chkurl = seturl+"/connectcheck"
 		console.log("link Cube85C=>"+seturl);
         setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
-		client.get(setddsnurl, function (data, response) {
+		client.get(setddsnurl,cargs, function (data, response) {
 			console.log("get ok...") 				
-		}).on("error", function(err) {console.log("err for client");});
+		}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 	});
 }
 
@@ -2088,9 +2089,9 @@ function reload105ddsn(){
         chkurl = seturl+"/connectcheck"
 		console.log("link container OPL002=>"+seturl);
         setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
-		client.get(setddsnurl, function (data, response) {
+		client.get(setddsnurl,cargs, function (data, response) {
 			console.log("get ok...") 				
-		}).on("error", function(err) {console.log("err for client");});	
+		}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 	});
 }
 
@@ -2105,8 +2106,8 @@ function reload104ddsn(){
 		
         chkurl = seturl+"/connectcheck"
         setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
-		client.get(setddsnurl, function (data, response) {
+		client.get(setddsnurl,cargs, function (data, response) {
 			console.log("get ok...") 				
-		}).on("error", function(err) {console.log("err for client");});	
+		}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 	});
 }
