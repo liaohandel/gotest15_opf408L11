@@ -10,12 +10,12 @@ var Client = require('node-rest-client').Client;
 var client = new Client();
 var cargs = {
     requestConfig: {
-        timeout: 500,
+        timeout: 10, //500,
         noDelay: true,
         keepAlive: true
     },
     responseConfig: {
-        timeout: 1000 //response timeout 
+        timeout: 10 //1000 //response timeout 
     }
 };
 
@@ -1476,7 +1476,6 @@ function active_keypadjob(kpos,kcode,kactive){
 		console.log("keypad active update to webui   ok ...");
 	//}).on("error", function(err) {console.log("err for client");});
 	}).on("error", function(err) {console.log("err for clientx1");}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
-
 	//autopushkeypad(kpos,kcode,kactive);
 	
 	updatekeysstuatusurl220 = "http://192.168.5.220/API/v2/KeypadUpdate.php"+"?ID="+pdbuffer.setuuid+"&KeypadID="+kpos+"&Index="+kcode+"&value="+kactive;

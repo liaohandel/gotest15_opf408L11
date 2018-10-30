@@ -262,7 +262,7 @@ function jautocmd_load(callback){
 }
 
 function jautocmd_update(callback){	
-	let jautocmddata = JSON.stringify(jautocmd);	
+	let jautocmddata = JSON.stringify(jautocmd);
 	console.log('JAUTOCMD.txt update run x1! ');	
 	
 	// fs.writeFile(filepath_jautocmd,jautocmddata,function(error){
