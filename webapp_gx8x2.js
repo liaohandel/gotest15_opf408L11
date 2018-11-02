@@ -1957,19 +1957,19 @@ app.listen(setport, function () {
 				}
 				seturl = url
 				chkurl = seturl+"/connectcheck"
-				console.log("link=>"+seturl)
-				setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
-				client.get(setddsnurl,cargs, function (data, response) {
+				setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid;
+				console.log("link=>"+seturl +" to "+ setddsnurl);
+				client.get(setddsnurl, cargs, function (data, response) {
 					// parsed response body as js object
-					console.log("get ok...") 
+					console.log("get ddns ok ...");
 					//console.log(data.toString());
 					//raw response 
 					//console.log(response.query);
 					setInterval(function(){
-					  //console.log('test link ...');
+						console.log('test link ...');
 						chkurl = seturl+"/connectcheck"
 						console.log("chklink=>"+chkurl);
-						client.get(chkurl,cargs, function (data, response) {  
+						client.get(chkurl, function (data, response) {  
 							if(data == null){
 								chkstr = "null";
 							}else{
@@ -1995,7 +1995,7 @@ app.listen(setport, function () {
 								//relink DDNS for ngrok 
 								if(((typeof seturl) == "undefined" ) || (linkchkcount >=3) ){
 									console.log("get x11...") 
-									reload104ddsn();
+									reload105ddsn();
 								}				
 							}
 							
@@ -2006,11 +2006,12 @@ app.listen(setport, function () {
 							//relink DDNS for ngrok 
 							if(((typeof seturl) == "undefined" ) || (linkchkcount >=3) ){
 								console.log("get x12...") 
-								reload104ddsn();
+								reload105ddsn();
 							}							
-						}).on('requestTimeout', function (req) {req.abort();});
+						});
 						
-					}, 5 * 60 * 1000);
+					}, 1 * 60 * 1000);
+					
 				}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 			});
 		}else if(pdbuffer.pdjobj.PDDATA.linkoffmode == 1){//off link mode
@@ -2087,7 +2088,8 @@ function reload105ddsn(){
 	ngrok.connect('192.168.5.105:3000',function (err, url) {
 		seturl = url
         chkurl = seturl+"/connectcheck"
-		console.log("link container OPL002=>"+seturl);
+		console.log("link container opf408L10 or opf403,opdf406 =>"+seturl);
+		
         setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
 		client.get(setddsnurl,cargs, function (data, response) {
 			console.log("get ok...") 				
@@ -2102,9 +2104,9 @@ function reload104ddsn(){
 			// url="http://0000";
 		// }
 		seturl = url;
+        chkurl = seturl+"/connectcheck"
 		console.log("link container OPF408x2 get x13=>"+seturl);
 		
-        chkurl = seturl+"/connectcheck"
         setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
 		client.get(setddsnurl,cargs, function (data, response) {
 			console.log("get ok...") 				
