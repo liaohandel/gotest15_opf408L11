@@ -181,6 +181,7 @@ function sysupdate(callback){
 	
 }
 
+
 //===================================
 function treescan_load(callback){
     fs.readFile(filepath_treescan, function(err, content) {
@@ -265,7 +266,7 @@ function jautocmd_load(callback){
 
 function jautocmd_update(callback){	
 	let jautocmddata = JSON.stringify(jautocmd);
-	//console.log('JAUTOCMD.txt update run x1! ');	
+	console.log('JAUTOCMD.txt update run x1! ');	
 	
 	// fs.writeFile(filepath_jautocmd,jautocmddata,function(error){
 		// if(error){ //如果有錯誤，把訊息顯示並離開程式
@@ -308,150 +309,6 @@ function jkeypd_update(callback){
 	fs.writeFileSync(filepath_keypd,keypddata);
 	console.log('KEYPD.txt update ok x4! ');		
 	callback();
-}
-//===================================
-function sysload_redis(callback) {
-	redisfunc.load_redis("PDDATA", xpdjobj, function () {
-		ddsnurl = xpdjobj.PDDATA.dsnurl;
-		vdsnurl = xpdjobj.PDDATA.videodsnurl;
-		devloadurl = xpdjobj.PDDATA.devloadurl;
-		typeloadurl = xpdjobj.PDDATA.typeloadurl;
-		typechannelurl = xpdjobj.PDDATA.typechannelurl;
-
-		setuuid = redisfunc.uuid; //直接從redisfunc抓取
-
-		dev85statusurl = xpdjobj.PDDATA.dev85statusurl
-		dev105statusurl = xpdjobj.PDDATA.dev105statusurl
-		linkoffmode = xpdjobj.PDDATA.linkoffmode;
-
-		exports.pdjobj = xpdjobj; //#####
-		exports.linkoffmode = linkoffmode
-		exports.setuuid = setuuid
-
-		exports.ddsnurl = ddsnurl
-		exports.vdsnurl = vdsnurl
-		exports.devloadurl = devloadurl
-		exports.typeloadurl = typeloadurl
-		exports.typechannelurl = typechannelurl //
-
-		exports.dev85statusurl = dev85statusurl
-		exports.dev105statusurl = dev105statusurl
-
-		exports.offdev85statusurl = offdev85statusurl
-		exports.offdev105statusurl = offdev105statusurl
-		exports.offdevloadurl = offdevloadurl
-		exports.offtypeloadurl = offtypeloadurl
-		exports.offtypechannelurl = offtypechannelurl
-
-		exports.setdeviceip = setdeviceip
-		exports.setdeviceport = setdeviceport
-
-		exports.setddsnurl = setddsnurl
-		exports.setvdsnurl = setvdsnurl
-		exports.setdevouturl = setdevouturl
-		callback();
-	});
-}
-function sysupdate_redis(sonkey, callback) {
-	if (typeof sonkey != 'string') {
-		callback = sonkey;
-		redisfunc.update_redis("PDDATA", xpdjobj, callback);
-	} else {
-		redisfunc.update_redis("PDDATA", sonkey, xpdjobj, callback);
-	}
-}
-function jautocmd_load_redis(callback) {
-	redisfunc.load_redis("JAUTOCMD", jautocmd, function () {
-		exports.jautocmd = jautocmd;
-		callback();	
-	});
-}
-function jautocmd_update_redis(sonkey, callback) {
-	if (typeof sonkey != 'string') {
-		callback = sonkey;
-		redisfunc.update_redis("JAUTOCMD", jautocmd, callback);
-	} else {
-		redisfunc.update_redis("JAUTOCMD", sonkey, jautocmd, callback);
-	}
-}
-function jkeypd_load_redis(callback) {
-	redisfunc.load_redis("KEYPD", jkeypd, function () {
-		exports.jkeypd = jkeypd;
-		callback();	
-	});
-}
-function jkeypd_update_redis(sonkey, callback) {
-	if (typeof sonkey != 'string') {
-		callback = sonkey;
-		redisfunc.update_redis("KEYPD", jkeypd, callback);
-	} else {
-		redisfunc.update_redis("KEYPD", sonkey, jkeypd, callback);
-	}
-}
-//======================================
-function devtab_load_redis(callback) {
-	xpdjobj.PDDATA.Devtab = {};
-	redisfunc.load_redis("Devtab", xpdjobj.PDDATA.Devtab, function () {
-		callback();	
-	});
-}
-function devtab_update_redis(sonkey, callback) {
-	if (typeof sonkey != 'string') {
-		callback = sonkey;
-		redisfunc.update_redis("Devtab", xpdjobj.PDDATA.Devtab, callback);
-	} else {
-		redisfunc.update_redis("Devtab", sonkey, xpdjobj.PDDATA.Devtab, callback);
-	}
-}
-//======================================
-function devlist_load_redis(callback) {
-	jautocmd.DEVLIST = {};
-	redisfunc.load_redis("DEVLIST", jautocmd.DEVLIST, function () {
-		callback();	
-	});
-}
-function devlist_update_redis(sonkey, callback) {
-	if (typeof sonkey != 'string') {
-		callback = sonkey;
-		redisfunc.update_redis("DEVLIST", jautocmd.DEVLIST, callback);
-	} else {
-		redisfunc.update_redis("DEVLIST", sonkey, jautocmd.DEVLIST, callback);
-	}
-}
-function devlist_reset_redis(callback){
-	jautocmd.DEVLIST = {};
-	redisfunc.load_redis("DEFAUTOLIST", jautocmd.DEVLIST, function () {
-		devlist_update_redis(callback);	
-	});
-}
-//======================================
-function alarmcheck_load_redis(callback) {
-	jautocmd.ALARMCHECK = {};
-	redisfunc.load_redis("ALARMCHECK", jautocmd.ALARMCHECK, function () {
-		callback();	
-	});
-}
-function alarmcheck_update_redis(sonkey, callback) {
-	if (typeof sonkey != 'string') {
-		callback = sonkey;
-		redisfunc.update_redis("ALARMCHECK", jautocmd.ALARMCHECK, callback);
-	} else {
-		redisfunc.update_redis("ALARMCHECK", sonkey, jautocmd.ALARMCHECK, callback);
-	}
-}
-function keylib_load_redis(callback) {
-	jkeypd.KEYLIB = {};
-	redisfunc.load_redis("KEYLIB", jkeypd.KEYLIB, function () {
-		callback();	
-	});
-}
-function keylib_update_redis(sonkey, callback) {
-	if (typeof sonkey != 'string') {
-		callback = sonkey;
-		redisfunc.update_redis("KEYLIB", jkeypd.KEYLIB, callback);
-	} else {
-		redisfunc.update_redis("KEYLIB", sonkey, jkeypd.KEYLIB, callback);
-	}
 }
 
 //=============================
@@ -1267,12 +1124,27 @@ function devalarmbuff(alarmcmd){//fcc10681019f010381
         // console.log("jtreedata ver = ", jtreedata.treever);			
 // });
 
-jautocmd_load(function(){
-		console.log("jautocmd ver =",jautocmd.AUTOSN);		
-});
+// jautocmd_load(function(){
+// 		console.log("jautocmd ver =",jautocmd.AUTOSN);		
+// });
 
-jkeypd_load(function(){
-		console.log("KETPD ver=",jkeypd.KEYVER);		
+// jkeypd_load(function(){
+// 		console.log("KETPD ver=",jkeypd.KEYVER);		
+// });
+
+//redis的buffer載入
+redisfunc.init_redis(function () {
+	setuuid = redisfunc.setuuid;
+	exports.setuuid = setuuid;
+
+	xpdjobj = redisfunc.pdjobj;
+	exports.pdjobj = xpdjobj;
+
+	jautocmd = redisfunc.jautocmd;
+	exports.jautocmd = jautocmd;
+
+	jkeypd = redisfunc.jkeypd;
+	exports.jkeypd = jkeypd;
 });
 
 //=== tree data
@@ -1314,32 +1186,13 @@ exports.jkeypd_load = jkeypd_load
 exports.jkeypd_update = jkeypd_update
 exports.keypadpushbuffer = keypadpushbuffer
 
-//for redis
-//對應原本 PDDATA.txt
-exports.sysload_redis = sysload_redis
-exports.sysupdate_redis = sysupdate_redis
-//對應原本對應原本 JAUTOCMD.txt
-exports.jautocmd_load_redis = jautocmd_load_redis
-exports.jautocmd_update_redis = jautocmd_update_redis
-//對應原本對應原本 KETPD.txt
-exports.jkeypd_load_redis = jkeypd_load_redis
-exports.jkeypd_update_redis = jkeypd_update_redis
-//從pdjobj.PDDATA.Devtab獨立出來，但是值依舊存回原本地方
-exports.devtab_load_redis = devtab_load_redis
-exports.devtab_update_redis = devtab_update_redis
-//從jautocmd.DEVLIST獨立出來，但是值依舊存回原本地方
-exports.devlist_load_redis = devlist_load_redis
-exports.devlist_update_redis = devlist_update_redis
-exports.devlist_reset_redis = devlist_reset_redis
-//從jautocmd.ALARMCHECK獨立出來，但是值依舊存回原本地方
-exports.alarmcheck_load_redis = alarmcheck_load_redis
-exports.alarmcheck_update_redis = alarmcheck_update_redis
-//從jkeypd.KEYLIB獨立出來，但是值依舊存回原本地方
-exports.keylib_load_redis = keylib_load_redis
-exports.keylib_update_redis = keylib_update_redis
+//redisfunc.js
+exports.init_redis = redisfunc.init_redis;
+exports.load_redis = redisfunc.load_redis;
+exports.update_redis = redisfunc.update_redis;
 
-
-
+exports.clear_redis = redisfunc.clear_redis;
+exports.show_all_keys_redis = redisfunc.show_all_keys_redis;
 
 
 
