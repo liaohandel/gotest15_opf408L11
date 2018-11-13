@@ -324,11 +324,11 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 				
 				if(pos == "0000"){//when pos ="0000" is load default auto json 
 					for(jaa in pdbuffer.jautocmd.DEFAUTOLIST){
-						pdbuffer.jautocmd.DEVLIST[jaa] = pdbuffer.jautocmd.DEFAUTOLIST[jaa];
+						//pdbuffer.jautocmd.DEVLIST[jaa] = pdbuffer.jautocmd.DEFAUTOLIST[jaa];//err obj copy #### jobjcopy(ddjdata.DOSEB);
+						pdbuffer.jautocmd.DEVLIST[jaa] = jobjcopy(pdbuffer.jautocmd.DEFAUTOLIST[jaa]);
 					}
 					pdbuffer.jautocmd_update(()=>{
-						console.log("JAUTO Save ok !");
-									
+						console.log("JAUTO Save ok !");									
 					});//update buffer to Files
 					return;
 				}
