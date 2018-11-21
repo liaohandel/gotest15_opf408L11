@@ -1131,8 +1131,8 @@ function devalarmbuff(alarmcmd){//fcc10681019f010381
 // jkeypd_load(function(){
 // 		console.log("KETPD ver=",jkeypd.KEYVER);		
 // });
-
-//redis的buffer載入
+function allload(callback){
+	//redis的buffer載入
 redisfunc.init_redis(function () {
 	setuuid = redisfunc.setuuid;
 	exports.setuuid = setuuid;
@@ -1145,8 +1145,9 @@ redisfunc.init_redis(function () {
 
 	jkeypd = redisfunc.jkeypd;
 	exports.jkeypd = jkeypd;
+	callback();
 });
-
+}
 //=== tree data
 //exports.pdjobj = xpdjobj; //#####
 //exports.jtreescan = jtreescan
@@ -1194,3 +1195,4 @@ exports.update_redis = redisfunc.update_redis;
 exports.clear_redis = redisfunc.clear_redis;
 exports.show_all_keys_redis = redisfunc.show_all_keys_redis;
 
+exports.allload = allload;

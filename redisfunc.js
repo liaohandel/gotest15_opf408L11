@@ -52,10 +52,11 @@ var redis = require('redis'),
 	client = redis.createClient(RDS_PORT, RDS_HOST, RDS_OPTS);
 
 //確認密碼
-client.auth(RDS_PWD, function (err) {
-	if (!err)
-		console.log('Redis password is correct.');
-});
+//暫時不需要密碼
+// client.auth(RDS_PWD, function (err) {
+// 	if (!err)
+// 		console.log('Redis password is correct.');
+// });
 //錯誤回報
 client.on("error", function (err) {
 	console.log("Redis error " + err);
@@ -274,6 +275,101 @@ function load_redis(objpath, callback) {
 			break;
 	}
 	let len = objpatharr.length;
+	console.log('load_redis objpatharr length = ' + len);
+	if (len == 1) {
+		console.log('load_redis if (len == 1) {');
+		console.log('load_redis' + objpatharr[0]);
+		switch (objpatharr[0]) { //因為要完全確定load才能callback，所以串成單一執行續
+			case filefirstname: {
+				console.log('load_redis buffer filefirstname');
+				let keyarr = [];
+				for (let key in keytab) {
+					let keyelement = keytab[key];
+					if (keyelement.file == filefirstname) {
+						keyarr.push(key);
+					}
+				}
+				let nextget = function () {
+					if (keyarr.length == 0) {
+						runcallback(callback);
+						return;
+					}
+					let key = keyarr.shift();
+					let keyelement = keytab[key];
+					client.hget(setuuid, key, function (err, keydata) {
+						if (err) {
+							console.log('Load error key=' + key);
+							return;
+						}
+						setobjdata(xpdjobj, keyelement.path, keydata);
+						nextget();
+					});
+				};
+				nextget();
+				break;
+			}
+			case filefirstname_jautocmd: {
+				console.log('load_redis buffer filefirstname_jautocmd');
+				let keyarr = [];
+				for (let key in keytab) {
+					let keyelement = keytab[key];
+					if (keyelement.file == filefirstname_jautocmd) {
+						keyarr.push(key);
+					}
+				}
+				let nextget = function () {
+					if (keyarr.length == 0) {
+						runcallback(callback);
+						return;
+					}
+					let key = keyarr.shift();
+					let keyelement = keytab[key];
+					client.hget(setuuid, key, function (err, keydata) {
+						if (err) {
+							console.log('Load error key=' + key);
+							return;
+						}
+						setobjdata(jautocmd, keyelement.path, keydata);
+						nextget();
+					});
+				};
+				nextget();
+				break;
+			}
+			case filefirstname_keypd: {
+				console.log('load_redis buffer filefirstname_keypd');
+				let keyarr = [];
+				for (let key in keytab) {
+					let keyelement = keytab[key];
+					if (keyelement.file == filefirstname_keypd) {
+						keyarr.push(key);
+					}
+				}
+				let nextget = function () {
+					if (keyarr.length == 0) {
+						runcallback(callback);
+						return;
+					}
+					let key = keyarr.shift();
+					let keyelement = keytab[key];
+					client.hget(setuuid, key, function (err, keydata) {
+						if (err) {
+							console.log('Load error key=' + key);
+							return;
+						}
+						setobjdata(jkeypd, keyelement.path, keydata);
+						nextget();
+					});
+				};
+				nextget();
+				break;
+			}
+			default:
+				break;
+		}
+		console.log('Redis a buffer load...');
+		return;
+	}
 	for (let i = len; i > 0; i--) {
 		let key = objpatharr.slice(0, i).join("#");
 		if (key in keytab) {
@@ -327,6 +423,77 @@ function update_redis(objpath, callback) {
 	}
 	//從全部串接慢慢地變成減少最後面一層愈串愈少
 	let len = objpatharr.length;
+	console.log('update_redis objpatharr length = ' + len);
+	if (len == 1) {
+		console.log('update_redis if (len == 1) {');
+		console.log('update_redis' + objpatharr[0]);
+		switch (objpatharr[0]) {
+			case filefirstname:
+				console.log('update_redis buffer filefirstname');
+				for (let key in keytab) {
+					let keyelement = keytab[key];
+					let keydata;
+					if (keyelement.file == filefirstname) {
+						keydata = getobjdata(xpdjobj, keyelement.path);
+						if (keydata == undefined) {
+							continue;
+						}
+						keydata = jobjcopy(keydata);
+						let len = keyelement.sub.length;
+						for (let i = 0; i < len; i++) {
+							delete keydata[keyelement.sub[i]];
+						}
+						//統一加上JSON.stringify，減少判斷上的麻煩。
+						client.hset(setuuid, key, JSON.stringify(keydata));
+					}
+				}
+				break;
+			case filefirstname_jautocmd:
+				console.log('update_redis buffer filefirstname_jautocmd');
+				for (let key in keytab) {
+					let keyelement = keytab[key];
+					let keydata;
+					if (keyelement.file == filefirstname_jautocmd) {
+						keydata = getobjdata(jautocmd, keyelement.path);
+						if (keydata == undefined) {
+							continue;
+						}
+						keydata = jobjcopy(keydata);
+						let len = keyelement.sub.length;
+						for (let i = 0; i < len; i++) {
+							delete keydata[keyelement.sub[i]];
+						}
+						//統一加上JSON.stringify，減少判斷上的麻煩。
+						client.hset(setuuid, key, JSON.stringify(keydata));
+					}
+				}
+				break;
+			case filefirstname_keypd:
+				console.log('update_redis buffer filefirstname_keypd');
+				for (let key in keytab) {
+					let keyelement = keytab[key];
+					let keydata;
+					if (keyelement.file == filefirstname_keypd) {
+						keydata = getobjdata(jkeypd, keyelement.path);
+						if (keydata == undefined) {
+							continue;
+						}
+						keydata = jobjcopy(keydata);
+						let len = keyelement.sub.length;
+						for (let i = 0; i < len; i++) {
+							delete keydata[keyelement.sub[i]];
+						}
+						//統一加上JSON.stringify，減少判斷上的麻煩。
+						client.hset(setuuid, key, JSON.stringify(keydata));
+					}
+				}
+				break;
+			default:
+				break;
+		}
+		console.log('Redis a buffer update...');
+		return;
+	}
 	for (let i = len; i > 0; i--) {
 		let key = objpatharr.slice(0, i).join("#");
 		if (key in keytab) {
