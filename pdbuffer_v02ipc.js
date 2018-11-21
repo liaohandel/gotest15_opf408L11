@@ -13,9 +13,9 @@ var os = require('os');
 var util = require('util');
 
 //=== UART comport module 
-//var ch1com = require('./utx7xipccom0')// IPC com port 0 RS232
+var ch1com = require('./utx7xipccom0')// IPC com port 0 RS232
 //var ch1com = require('./utx7xipccom1')// IPC com port 1 RS232
-var ch1com = require('./utx7xipccom0')// rec oxfa and 0xfc command 
+//var ch1com = require('./utx7x1')// rec oxfa and 0xfc command 
 //var ch1com = require('./utx5x2')
 //var ch3com = require('./utx5x3')
 //var ch4com = require('./utx5x4')
@@ -75,7 +75,9 @@ var jautocmd = {} //tree upload buffer
 var filename_keypd = "KEYPD.txt"
 var filepath_keypd = path.join(__dirname, ("/public/" + filename_keypd));
 var jkeypd = {} //tree upload buffer
+var keypadpushbuffer =[];
 
+var tx_timeout_chk = false;
 
 //=== syspub function ===
 function jobjcopy(jobj){
@@ -151,14 +153,17 @@ function sysload(callback){
 
 function sysupdate(callback){	
 
-	let uuiddata = JSON.stringify(xpdjobj);					
-	fs.writeFile(filepath,uuiddata,function(error){
-		if(error){ //如果有錯誤，把訊息顯示並離開程式
-			console.log('PDDATA.txt update ERR ! ');
-			
-		}		
-		callback(err);
-	});
+	let uuiddata = JSON.stringify(xpdjobj);			
+	// fs.writeFile(filepath,uuiddata,function(error){
+		// if(error){ //如果有錯誤，把訊息顯示並離開程式
+			// console.log('PDDATA.txt update ERR ! ');
+		// }		
+		// callback(err);
+	// });
+	
+	fs.writeFileSync(filepath,uuiddata);	
+	console.log('PDDATA.txt update ok ! ');		
+	callback();	
 }
 
 
@@ -181,13 +186,17 @@ function treescan_load(callback){
 }
 
 function treescan_update(callback){	
-	let treescandata = JSON.stringify(jtreescan);					
-	fs.writeFile(filepath_treescan,treescandata,function(error){
-		if(error){ //如果有錯誤，把訊息顯示並離開程式
-			console.log('treescan.txt update ERR ! ');
-		}		
-		callback();
-	});
+	let treescandata = JSON.stringify(jtreescan);		
+	// fs.writeFile(filepath_treescan,treescandata,function(error){
+		// if(error){ //如果有錯誤，把訊息顯示並離開程式
+			// console.log('treescan.txt update ERR ! ');
+		// }		
+		// callback();
+	// });
+	
+	fs.writeFileSync(filepath_treescan,treescandata);	
+	console.log('treescan.txt update ok ! ');		
+	callback();	
 }
 
 //===================================
@@ -208,13 +217,17 @@ function treedata_load(callback){
 }
 
 function treedata_update(callback){	
-	let treedatadata = JSON.stringify(jtreedata);					
-	fs.writeFile(filepath_treedata,treedatadata,function(error){
-		if(error){ //如果有錯誤，把訊息顯示並離開程式
-			console.log('treedata.txt update ERR ! ');
-		}		
-		callback();
-	});	
+	let treedatadata = JSON.stringify(jtreedata);		
+	// fs.writeFile(filepath_treedata,treedatadata,function(error){
+		// if(error){ //如果有錯誤，把訊息顯示並離開程式
+			// console.log('treedata.txt update ERR ! ');
+		// }		
+		// callback();
+	// });	
+	
+	fs.writeFileSync(filepath_treedata,treedatadata);	
+	console.log('treedata.txt update ok ! ');		
+	callback();	
 }
 
 //===================================
@@ -235,13 +248,18 @@ function jautocmd_load(callback){
 }
 
 function jautocmd_update(callback){	
-	let jautocmddata = JSON.stringify(jautocmd);					
-	fs.writeFile(filepath_jautocmd,jautocmddata,function(error){
-		if(error){ //如果有錯誤，把訊息顯示並離開程式
-			console.log('JAUTOCMD.txt update ERR ! ');
-		}		
-		callback();
-	});	
+	let jautocmddata = JSON.stringify(jautocmd);	
+	// fs.writeFile(filepath_jautocmd,jautocmddata,function(error){
+		// if(error){ //如果有錯誤，把訊息顯示並離開程式
+			// console.log('JAUTOCMD.txt update ERR ! ');
+		// }		
+		// console.log('JAUTOCMD.txt update ok x2! ');		
+		// callback();
+	// });
+	fs.writeFileSync(filepath_jautocmd,jautocmddata);
+	
+	console.log('JAUTOCMD.txt update ok x3! ');		
+	callback();	
 }
 
 //===================================
@@ -262,13 +280,15 @@ function jkeypd_load(callback){
 }
 
 function jkeypd_update(callback){	
-	let keypddata = JSON.stringify(jkeypd);					
-	fs.writeFile(filepath_keypd,keypddata,function(error){
-		if(error){ //如果有錯誤，把訊息顯示並離開程式
-			console.log('KEYPD.txt update ERR ! ');
-		}		
-		callback();
-	});	
+	let keypddata = JSON.stringify(jkeypd);				
+	// fs.writeFile(filepath_keypd,keypddata,function(error){
+		// if(error){ //如果有錯誤，把訊息顯示並離開程式
+			// console.log('KEYPD.txt update ERR ! ');
+		// }		
+	// });	
+	fs.writeFileSync(filepath_keypd,keypddata);
+	console.log('KEYPD.txt update ok x4! ');		
+	callback();
 }
 
 //=============================
@@ -575,24 +595,28 @@ function deverrbuff(errcmd){//fcc10681019f010381
 var sstxbuff=[];//txbuffer list
 function totxbuff(ttbuf){
 	let scmd = ttbuf.toString('hex')
+	let sendmask = 0;
+	if(sstxbuff.length == 0 )sendmask = 1;
 	sstxbuff.push(scmd)
-	if (sstxbuff.length == 1){
+	//if (sstxbuff.length == 1){
+	if (sendmask == 1){
 		//event.emit('txbuff_event'); 
-		console.log("start tx run ... ")
+		//console.log("start tx run ... ")/
+		//tx_timeout_chk = false;
 		setTimeout(function() { 
 			event.emit('txbuff_event'); 
-		}, 30);	
+		}, 50);	
 	}
 }
 
 event.on('txbuff_event', function() { 
 	if(sstxbuff.length > 0){
-	   scmd = sstxbuff.shift();
+	   let scmd = sstxbuff.shift();
 	   ch1com.qqsendcmd(scmd,function(){	   
-		   console.log(">>> rxbuff timeout check ...")
-			//setTimeout(function() { 
-			//	event.emit('rxbuff_event'); 
-			//}, 1500); //#### tx bufffer dealy 1300ms ???
+			console.log(">>> rxbuff timeout check ...");
+			setTimeout(function() { 
+				event.emit('rxbuff_event'); 
+			}, 1000); //#### tx bufffer dealy 1300ms ???
 	   });			
 	}
 });
@@ -620,12 +644,14 @@ event.on('rxbuff_event', function() { //####
 			if(sdevsubcmd == '52')deverrbuff(ss);   //when Err Code Message buffer send to server 
 		}
 	}else{		
-		console.log("<<< show cmd rx timeOut Fail rxleng="+ch1com.qrxcmd.length );
+		//console.log("<<< show cmd rx timeOut Fail rxleng="+ch1com.qrxcmd.length );
+		console.log("<<< show cmd cehk rxleng="+ch1com.qrxcmd.length );
+		//tx_timeout_chk = true;		
 	}
 	if(sstxbuff.length > 0){	
 		setTimeout(function() { 
 			event.emit('txbuff_event'); 
-		}, 30);	
+		}, 50);	
 		//event.emit('txbuff_event'); 
 	}	
 });
@@ -673,7 +699,7 @@ event.on('sendalarm_event', function() {
 			//setdevouturl = key105loadurl+"?KEY="+"&STATE="+"&EVENT=";       
 			console.log("url="+setdevouturl);
             //client.get(setdevouturl, function (data, response) {				
-			//});
+			//}).on("error", function(err) {console.log("err for client");});
 			setTimeout(function(){event.emit('sendalarm_event')},10);		
 	}
 });
@@ -698,7 +724,7 @@ event.on('sendkeypad_event', function() { //FCC10681019E010281
 		console.log("type ="+typeof(sdev)+" data="+sdev);
 		setdevouturl = key105loadurl+"?KEY="+sdevkey+"&STATE="+sdevstu+"&EVENT="+sdevevent;       
 		console.log("url="+setdevouturl);
-        client.get(setdevouturl, function (data, response) {});
+        client.get(setdevouturl, function (data, response) {}).on("error", function(err) {console.log("err for client");});
 		setTimeout(function(){event.emit('sendkeypad_event')},10);		
 	}
 });
@@ -743,31 +769,83 @@ function devalarmbuff(alarmcmd){//fcc10681019f010381
 	}
 	
 	ss = alarmcmd
-	//keypad push alarm broadcast to server
-	if(nsdevadd == 0x20){
-		if(sdevreg == "10"){
+	//keypad push alarm broadcast to server ### 20180610 update hadnel 
+	if(nsdevadd == 0x20){// keypad1 and keypad2 maping in E001 0x20 reg:10 , 12
+		if(sdevreg == "10"){  //keypad1 8 keycode:  0x91 .. 0x98
 			//keypad1
-			skeyinx = ss.substring(12,14);	
-			skeystu = ss.substring(14,16);
-			ksop = "K0"+skeyinx
-			jkeypd.KEYLIB.KEYPAD1[ksop]["STATUS"]["stcnt"]= Number("0x"+skeystu);
+			let skeyinx = ss.substr(12,2);	
+			let skeystu = ss.substr(14,2);
+			let kkss = "01"+skeyinx+skeystu;
+			if(keypadpushbuffer.length > 32)keypadpushbuffer=[];//buffer mac 32 item 
+			keypadpushbuffer.push(kkss);
+			
+			// let stpt = Number("0x"+skeystu);
+			// let jketbuff={};
+			// let jkeypush ={};
+			// let keycmask ="ON";
+			// ksop = "K0"+skeyinx
+			// console.log("key="+ksop)
+			// if(ksop in jkeypd.KEYLIB.KEYPAD1){
+				// jketbuff = jkeypd.KEYLIB.KEYPAD1[ksop];
+				// if(stpt < jketbuff.STATUS.stcnt){
+					// keycmask = jketbuff.STATUS.stmask[stpt];
+					// jkeypush = jketbuff.EVENT[keycmask];
+					// for(jkk in jkeypush ){
+						// console.log("keyapi>>"+jkeypush[jkk]);
+					// }
+				// }else{
+					// console.log("keystu="+stpt+"no define in "+ksop);
+				// }
+			// }else{
+				// console.log("key="+ksop+"no define in keypad1")
+			// }
+			
+			//jkeypd.KEYLIB.KEYPAD1[ksop]["STATUS"]["stcnt"]= Number("0x"+skeystu);
 			return
-		}else if(sdevreg == "12"){
+		}else if(sdevreg == "12"){	//keypad2  68 keycode: 0x21 .. 0x6b
 			//keypad2
-			skeyinx = ss.substring(12,14);	
-			skeystu = ss.substring(14,16);
-			ksop = "K0"+skeyinx
-			jkeypd.KEYLIB.KEYPAD2[ksop]["STATUS"]["stcnt"]= Number("0x"+skeystu);
+			let skeyinx = ss.substr(12,2);	
+			let skeystu = ss.substr(14,2);
+			let kkss = "02"+skeyinx+skeystu;
+			if(keypadpushbuffer.length > 32)keypadpushbuffer=[];//buffer mac 32 item 
+			keypadpushbuffer.push(kkss);
+			
+			// let stpt = Number("0x"+skeystu);
+			// let jketbuff={};
+			// let jkeypush ={};
+			// let keycmask ="ON";
+			// ksop = "K0"+skeyinx
+			// console.log("key="+ksop)
+			// if(ksop in jkeypd.KEYLIB.KEYPAD2){
+				// jketbuff = jkeypd.KEYLIB.KEYPAD2[ksop];
+				// if(stpt < jketbuff.STATUS.stcnt){
+					// keycmask = jketbuff.STATUS.stmask[stpt];
+					// jkeypush = jketbuff.EVENT[keycmask];
+					// for(jkk in jkeypush ){
+						// console.log("keyapi>>"+jkeypush[jkk]);
+					// }
+				// }else{
+					// console.log("keystu="+stpt+"no define in "+ksop);
+				// }
+			// }else{
+				// console.log("key="+ksop+"no define in keypad2")
+			// }
+			//jkeypd.KEYLIB.KEYPAD2[ksop]["STATUS"]["stcnt"]= Number("0x"+skeystu);
 			return
 		}
 	}
 	if(nsdevadd == 0x21){
-		if(sdevreg == "10"){
+		if(sdevreg == "10"){  //keypad1 8 keycode:  0x91 .. 0x98
 			//keypad3
 			skeyinx = ss.substring(12,14);	
 			skeystu = ss.substring(14,16);
-			ksop = "K0"+skeyinx
-			jkeypd.KEYLIB.KEYPAD3[ksop]["STATUS"]["stcnt"]= Number("0x"+skeystu);
+			let kkss = "03"+skeyinx+skeystu;
+			if(keypadpushbuffer.length > 32)keypadpushbuffer=[];//buffer mac 32 item 
+			keypadpushbuffer.push(kkss);
+			//jkeypd.KEYLIB.KEYPAD1[ksop]["STATUS"]["stcnt"]= Number("0x"+skeystu);
+			return
+		}else if(sdevreg == "12"){	//keypad2  68 keycode: 0x21 .. 0x6b
+			//keypad4
 			return
 		}
 	}
@@ -840,6 +918,9 @@ function devalarmbuff(alarmcmd){//fcc10681019f010381
 }
 
 
+
+
+
 //=== system start up function call process 
 sysload(function(){	
         console.log("dsnurl = ", ddsnurl);
@@ -885,7 +966,7 @@ exports.jobjcopy = jobjcopy
 exports.eventcall = eventcall
 
 exports.totxbuff = totxbuff
-
+exports.ch1com = ch1com
 
 
 //PDDATA.txt		pdjobj
@@ -907,6 +988,7 @@ exports.jautocmd_update = jautocmd_update
 //KETPD.txt 		jkeypd
 exports.jkeypd_load = jkeypd_load
 exports.jkeypd_update = jkeypd_update
+exports.keypadpushbuffer = keypadpushbuffer
 
 
 

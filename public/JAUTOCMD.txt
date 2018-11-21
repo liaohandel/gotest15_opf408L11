@@ -382,6 +382,34 @@
 				"ON": "0100",
 				"OFF": "0001"
 			}
+		},		
+		"MOTOUPDOWN": {
+			"MODE":4,
+			"STATU":0, 
+			"SENSOR_CONTROL":0,
+			"SCHEDULE": {
+				"EPOS": [
+					{"POS":"B001","CMD":"PUMP","STU":"410000","GROUP":"00"},
+					{"POS":"B002","CMD":"PUMP","STU":"410000","GROUP":"00"},
+					{"POS":"B003","CMD":"PUMP","STU":"410000","GROUP":"00"},
+					{"POS":"B021","CMD":"PUMP","STU":"410000","GROUP":"00"},
+					{"POS":"B022","CMD":"PUMP","STU":"410000","GROUP":"00"},
+					{"POS":"B023","CMD":"PUMP","STU":"410000","GROUP":"00"}
+				],
+				"MOTOPAM":[
+					{"MOD":0,"BASE":80,"OFFSET":5},
+					{"MOD":0,"BASE":80,"OFFSET":5},
+					{"MOD":0,"BASE":80,"OFFSET":5},
+					{"MOD":0,"BASE":80,"OFFSET":5},
+					{"MOD":0,"BASE":80,"OFFSET":5},
+					{"MOD":0,"BASE":80,"OFFSET":5}
+				],
+				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
+				"WEEK": "01111111",
+				"ONLOOP": [
+				  "01000101"
+				]
+			}
 		}
 
 	},
@@ -1238,6 +1266,34 @@
 				"ST": "0001",
 				"ON": "0100",
 				"OFF": "0001"
+			}
+		},		
+		"MOTOUPDOWN": {
+			"MODE":4,
+			"STATU":0, 
+			"SENSOR_CONTROL":0,
+			"SCHEDULE": {
+				"EPOS": [
+					{"POS":"B001","CMD":"PUMP","STU":"410000","GROUP":"00"},
+					{"POS":"B002","CMD":"PUMP","STU":"410000","GROUP":"00"},
+					{"POS":"B003","CMD":"PUMP","STU":"410000","GROUP":"00"},
+					{"POS":"B021","CMD":"PUMP","STU":"410000","GROUP":"00"},
+					{"POS":"B022","CMD":"PUMP","STU":"410000","GROUP":"00"},
+					{"POS":"B023","CMD":"PUMP","STU":"410000","GROUP":"00"}
+				],
+				"MOTOPAM":[
+					{"MOD":0,"BASE":80,"OFFSET":5},
+					{"MOD":0,"BASE":80,"OFFSET":5},
+					{"MOD":0,"BASE":80,"OFFSET":5},
+					{"MOD":0,"BASE":80,"OFFSET":5},
+					{"MOD":0,"BASE":80,"OFFSET":5},
+					{"MOD":0,"BASE":80,"OFFSET":5}
+				],
+				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
+				"WEEK": "01111111",
+				"ONLOOP": [
+				  "01000101"
+				]
 			}
 		}
 

@@ -1951,7 +1951,12 @@ app.listen(setport, function () {
 		
 		
 		if(pdbuffer.pdjobj.PDDATA.linkoffmode == 0){//ext web mode
+			ngrok.disconnect(); // stops all
+			//ngrok.kill(); // kill all link
+			
 			ngrok.connect(setport,function (err, url) {
+				if(err)console.log("link ngrok err=>"+ err);
+				
 				if(url === undefined ){
 					url="http://0000";
 				}
@@ -1965,87 +1970,93 @@ app.listen(setport, function () {
 					//console.log(data.toString());
 					//raw response 
 					//console.log(response.query);
-					setInterval(function(){
-						console.log('test link ...');
-						chkurl = seturl+"/connectcheck"
-						console.log("chklink=>"+chkurl);
-						client.get(chkurl, function (data, response) {  
-							if(data == null){
-								chkstr = "null";
-							}else{
-								chkstr = data.toString(); 
-							}	                     
-							console.log("linkchk ... "+chkstr);
-							if(chkstr === "ready"){                       
-								console.log("linkchk ok ...",linkchkcount)
-								linkchkcount=0;
-								
-								//container_stulinkweb(sensorbuff[sbcount]);//#### link load sensor data 
-								//for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
-												
-								// sbcount++;
-								// if(sbcount>=sbcountmax)sbcount=0;	
-								// opf403_regdev_loadscan(regsensorbuff[sbcount]);//opf402 use reg level load scan 
-								// opf403_regstulinkweb(uploadregsensorbuff[sbcount]);				
-								// opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);							
-								
-							} else {							                       
-								console.log("linkchk fail ...",linkchkcount) 
-								linkchkcount++;
-								//relink DDNS for ngrok 
-								if(((typeof seturl) == "undefined" ) || (linkchkcount >=3) ){
-									console.log("get x11...") 
-									reload105ddsn();
-								}				
-							}
+
+					
+				}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+				
+				//===== ngrok link check @ 20min ================									
+				setInterval(function(){
+					console.log('test link ...');
+					chkurl = seturl+"/connectcheck"
+					console.log("chklink=>"+chkurl);
+					client.get(chkurl, function (data, response) {  
+						if(data == null){
+							chkstr = "null";
+						}else{
+							chkstr = data.toString(); 
+						}	                     
+						console.log("linkchk ... "+chkstr);
+						if(chkstr === "ready"){                       
+							console.log("linkchk ok ...",linkchkcount);
+							linkchkcount=0;
 							
-						}).on("error", function(err) {
-							console.log("err for client");
+							//container_stulinkweb(sensorbuff[sbcount]);//#### link load sensor data 
+							//for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
+											
+							// sbcount++;
+							// if(sbcount>=sbcountmax)sbcount=0;	
+							// opf403_regdev_loadscan(regsensorbuff[sbcount]);//opf402 use reg level load scan 
+							// opf403_regstulinkweb(uploadregsensorbuff[sbcount]);				
+							// opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);							
+							
+						} else {							                       
 							console.log("linkchk fail ...",linkchkcount) 
 							linkchkcount++;
 							//relink DDNS for ngrok 
 							if(((typeof seturl) == "undefined" ) || (linkchkcount >=3) ){
-								console.log("get x12...") 
+								//console.log("get x11...") 
+								linkchkcount=0;
 								reload105ddsn();
-							}							
-						});
+							}				
+						}
 						
-					}, 1 * 60 * 1000);
+					}).on("error", function(err) {
+						console.log("err for client");
+						console.log("linkchk fail ...",linkchkcount) 
+						linkchkcount++;
+						//relink DDNS for ngrok 
+						if(((typeof seturl) == "undefined" ) || (linkchkcount >=3) ){
+							//console.log("get x12...") ;
+							linkchkcount=0;
+							reload105ddsn();
+						}							
+					});
 					
-				}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+				}, 20 * 60 * 1000);
+				
 			});
 		}else if(pdbuffer.pdjobj.PDDATA.linkoffmode == 1){//off link mode
 			console.log(">>OFF Link Mode !");
-			setInterval(function(){				
-				console.log(">>LOCAL OFF Link Mode !");
+			// setInterval(function(){				
+				// console.log(">>LOCAL OFF Link Mode !");
 				
-				//device_stulinkweb(sensorbuff[sbcount]);
-				//for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
+				// //device_stulinkweb(sensorbuff[sbcount]);
+				// //for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
 				
-				sbcount++;
-				if(sbcount>=sbcountmax)sbcount=0;	
-				opf403_regdev_loadscan(regsensorbuff[sbcount]);			
+				// sbcount++;
+				// if(sbcount>=sbcountmax)sbcount=0;	
+				// opf403_regdev_loadscan(regsensorbuff[sbcount]);			
 				
 				
-				//for(pp in sensorbuff[sbcount])devloadscan(sensorbuff[sbcount][pp]);	//load pos data to buffer 5min					
-			}, 3 * 60 * 1000);
+				// //for(pp in sensorbuff[sbcount])devloadscan(sensorbuff[sbcount][pp]);	//load pos data to buffer 5min					
+			// }, 3 * 60 * 1000);
 			
 		}else if(pdbuffer.pdjobj.PDDATA.linkoffmode == 2){//by 220 mode
 			console.log(">>LOCAL server 192.268.5.220 Link Mode !");
-			setInterval(function(){				
-				console.log(">>LOCAL server 192.268.5.220 Link Mode !");
-				//#### link load sensor data 
-				//container_stulinkweb(sensorbuff[sbcount]);//#### link load sensor data 
-				//for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
+			// setInterval(function(){				
+				// console.log(">>LOCAL server 192.268.5.220 Link Mode !");
+				// //#### link load sensor data 
+				// //container_stulinkweb(sensorbuff[sbcount]);//#### link load sensor data 
+				// //for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
 				
-				sbcount++;
-				if(sbcount>=sbcountmax)sbcount=0;	
-				opf403_regdev_loadscan(uploadregsensorbuff[sbcount]);					
-				opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);	
+				// sbcount++;
+				// if(sbcount>=sbcountmax)sbcount=0;	
+				// opf403_regdev_loadscan(uploadregsensorbuff[sbcount]);					
+				// opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);	
 				
-				//### sensor data buffer upload to web server 	
-				//for(pp in sensorbuff[sbcount])devloadscan(sensorbuff[sbcount][pp]);	//load pos data to buffer 5min	
-			}, 3 * 60 * 1000);			
+				// //### sensor data buffer upload to web server 	
+				// //for(pp in sensorbuff[sbcount])devloadscan(sensorbuff[sbcount][pp]);	//load pos data to buffer 5min	
+			// }, 3 * 60 * 1000);			
 			
 		}
 		console.log('Example app listening on port 3000!');		
@@ -2084,8 +2095,15 @@ function reload85ddsn(){
 }
 
 function reload105ddsn(){	
-    console.log('recall ngrok ...');
+    console.log('recall link ngrok ...');
+	ngrok.disconnect(); // stops all
+	//ngrok.kill(); // kill all link
+	
 	ngrok.connect('192.168.5.105:3000',function (err, url) {
+		if(url === undefined ){ //### this chek use the ngrok is fail  unlink .... 20180909 
+			url="http://0000";
+		}
+		
 		seturl = url
         chkurl = seturl+"/connectcheck"
 		console.log("link container opf408L10 or opf403,opdf406 =>"+seturl);
@@ -2098,11 +2116,15 @@ function reload105ddsn(){
 }
 
 function reload104ddsn(){	
-    console.log('recall ngrok ...');
+    console.log('recall link ngrok ...');
+	ngrok.disconnect(); // stops all
+	//ngrok.kill(); // kill all link
+	
 	ngrok.connect('192.168.5.104:3000',function (err, url) {
-		// if(url === undefined ){ //### this chek use the ngrok is fail  unlink .... 20180909 
-			// url="http://0000";
-		// }
+		if(url === undefined ){ //### this chek use the ngrok is fail  unlink .... 20180909 
+			url="http://0000";
+		}
+		
 		seturl = url;
         chkurl = seturl+"/connectcheck"
 		console.log("link container OPF408x2 get x13=>"+seturl);
