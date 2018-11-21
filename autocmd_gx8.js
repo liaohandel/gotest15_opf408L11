@@ -1115,8 +1115,8 @@ var jobitem = {
 		"devpos":[] 
 	};
 	
-var timeloopitem = {"ont":5,"offt":5};
-var chkloopitem = {"stt":"0001","endt":"0900"};
+//var timeloopitem = {"ont":5,"offt":5};
+//var chkloopitem = {"stt":"0001","endt":"0900"};
 
 var runjobitem = {		
 		"schobj":0,stid:null,
@@ -1314,6 +1314,9 @@ function load_autojob(akey,jautodata){
 				console.log(">>limlow="+sch_autojob[akey].limlow+">>limhigh="+sch_autojob[akey].limhigh);
 			}
 		}		
+	}else if(jautodata.MODE == 4){//RUNLOOP
+		if(!("RUNLOOP" in jautodata))return;
+	
 	}
 }
 
