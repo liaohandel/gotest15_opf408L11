@@ -1,4 +1,4 @@
-const vermess = "[opf402 ] start autocmd_gx8 20180701x1 ..."
+const vermess = "[opf408L8 ] start autocmd_gx8 20181208x1 ..."
 console.log(vermess);
 
 var EventEmitter = require('events').EventEmitter; 
@@ -193,10 +193,10 @@ function device_auto_client(devlist,devcmd){
 			
 			}else if(dpos.substr(0,2)=="A0" && dtype=="LED"){				
 				//console.log(">>ledrunloop json="+devcmd+"="+JSON.stringify(pdbuffer.jautocmd.DEVICESET.GROWLED));
-				if(dpos == "A001")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0];
-				if(dpos == "A002")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1];
-				if(dpos == "A021")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2];
-				if(dpos == "A022")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3];
+				if(dpos == "A038")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0]; //B LED write
+				if(dpos == "A039")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1]; //B LED red
+				if(dpos == "A030")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2]; //A LED write
+				if(dpos == "A031")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3]; //A LED red
 				
 				runloopactiveurl = "http://127.0.0.1:3000/"+dtype+'?UUID='+pdbuffer.setuuid+"&POS="+dpos+"&Action="+devcmd+"&STU="+run_stu+"&GROUP="+dgroup
 				console.log(">>ledrunloop and auto  client active send to =>"+runloopactiveurl);
@@ -1112,7 +1112,8 @@ var jobitem = {
 		"loop":[{"ont":5,"offt":5}],
 		"chkloop":[{"stt":"0001","endt":"0900"}],
 		"loopcnt":0 ,
-		"devpos":[] 
+		"devpos":[] ,
+		"motopam":[] 
 	};
 	
 //var timeloopitem = {"ont":5,"offt":5};
@@ -1174,17 +1175,9 @@ function load_autojob(akey,jautodata){
 		sch_autojob[akey].SENSOR_CONTROL = jautodata.SENSOR_CONTROL;	
 		
 		sch_autojob[akey].gotime = "0001";
+		
 		//sch_autojob[akey].goweek = [0,1,2,3,4,5,6];//Number('0x'+cstu)
 		sch_autojob[akey].goweek = [];
-		//nwk=Number('0x'+jautodata.SCHEDULE.WEEK.substr(0,2));
-		//if(nwk & 0x01)sch_autojob[akey].goweek.push(0);
-		//if(nwk & 0x02)sch_autojob[akey].goweek.push(1);
-		//if(nwk & 0x04)sch_autojob[akey].goweek.push(2);
-		//if(nwk & 0x08)sch_autojob[akey].goweek.push(3);
-		//if(nwk & 0x10)sch_autojob[akey].goweek.push(4);
-		//if(nwk & 0x20)sch_autojob[akey].goweek.push(5);
-		//if(nwk & 0x40)sch_autojob[akey].goweek.push(6);	
-		//WEEK = "01111111" [][6][5][4][3][2][1][0]
 		chm6 = jautodata.SCHEDULE.WEEK.substr(1,1);	
 		chm5 = jautodata.SCHEDULE.WEEK.substr(2,1);	
 		chm4 = jautodata.SCHEDULE.WEEK.substr(3,1);	
@@ -1211,12 +1204,10 @@ function load_autojob(akey,jautodata){
 		let chksimitem = {"stt":"0001","endt":"0900"};
 		
 		sch_autojob[akey].loop = [];
-		sch_autojob[akey].chkloop = [];
-		
+		sch_autojob[akey].chkloop = [];		
 		for(ii in jautodata.SCHEDULE.ONLOOP){
 			jsttt = jautodata.SCHEDULE.ONLOOP[ii];
 			console.log("["+ii+"]>>"+jsttt);
-			
 			
 			chksimitem.stt = jsttt.substr(0,4);
 			chksimitem.endt  = jsttt.substr(4,4);
@@ -1230,7 +1221,6 @@ function load_autojob(akey,jautodata){
 				sch_autojob[akey].loop.push(jobjcopy(simoutitem));//###
 				if(xstoff > xston ){
 					simoutitem.ont  =  xstoff - xston ;
-
 				}else{            
 					simoutitem.ont  =  0;
 				}
@@ -1245,22 +1235,18 @@ function load_autojob(akey,jautodata){
 				
 				if(xstoff > xston ){
 					simoutitem.ont  =  xstoff - xston ;
-
 				}else{            
 					simoutitem.ont  =  0;
 				}
 				simoutitem.offt = simend_time - xstoff;
 				sch_autojob[akey].loop.push(jobjcopy(simoutitem));//###
-				
-
-			}else{
-				
+			}else{				
 				if( xston > simoutitem.offt ){
 					simoutitem.offt  =  xston - simoutitem.offt ;
 				}else{            
 					simoutitem.offt  = 1;
 				}        
-				sch_autojob[akey].loop.push(jobjcopy(simoutitem));//###
+				sch_autojob[akey].loop.push(jobjcopy(simoutitem));//###		
 				
 				if(xstoff > xston ){
 					simoutitem.ont  =  xstoff - xston ;
@@ -1272,16 +1258,10 @@ function load_autojob(akey,jautodata){
 			}			
 		}
 		
-		
-		// for(ii in jautodata.SCHEDULE.ONLOOP){
-			// timeitem.ont= jautodata.SCHEDULE.ONLOOP[ii].substr(0,4);
-			// timeitem.offt= jautodata.SCHEDULE.ONLOOP[ii].substr(4,4);
-			// sch_autojob[akey].loop.push(jobjcopy(timeitem));
-		// }		
 		sch_autojob[akey].loopcnt = 0
-		
 		sch_autoloadmark[akey]=0;//auto load to times schedule mark flag 0:no 1:load 
-		console.log(">>load ["+akey+"]="+JSON.stringify(sch_autojob[akey]));		
+		console.log(">>load ["+akey+"]="+JSON.stringify(sch_autojob[akey]));	
+		
 	}else if(jautodata.MODE == 3){//RUNLOOP
 		if(!("RUNLOOP" in jautodata))return;
 		if(!(akey in sch_autojob))sch_autojob[akey]={}	
@@ -1314,8 +1294,86 @@ function load_autojob(akey,jautodata){
 				console.log(">>limlow="+sch_autojob[akey].limlow+">>limhigh="+sch_autojob[akey].limhigh);
 			}
 		}		
-	}else if(jautodata.MODE == 4){//RUNLOOP
-		if(!("RUNLOOP" in jautodata))return;
+	}else if(jautodata.MODE == 4){//LED MOTOUPDOWN
+		if(!("SCHEDULE" in jautodata))return;
+		if(!(akey in sch_autojob))sch_autojob[akey]={}	
+		sch_autojob[akey]= jobjcopy(jobitem);
+		
+		sch_autojob[akey].MODE = 2 //jautodata.MODE;
+		sch_autojob[akey].STATU = jautodata.STATU;			
+		sch_autojob[akey].SENSOR_CONTROL = jautodata.SENSOR_CONTROL;	
+		
+		sch_autojob[akey].gotime = "0001";		
+		sch_autojob[akey].goweek = [1,1,1,1,1,1,1];//Number('0x'+cstu) define every day	mode 4	
+		
+		sch_autojob[akey].devpos = jobjcopy(jautodata.SCHEDULE.EPOS);
+				
+		//=== setup the schedule to time loop ====
+		let simst_time = 0;
+		let simend_time = 23*60+59;//by min count
+		let xston = 0;
+		let xstoff = 0;
+		let simoutitem = {"ont":0,"offt":0};	
+		let chksimitem = {"stt":"0001","endt":"0900"};
+		
+		sch_autojob[akey].loop = [];
+		sch_autojob[akey].chkloop = [];		
+		for(ii in jautodata.SCHEDULE.ONLOOP){
+			jsttt = jautodata.SCHEDULE.ONLOOP[ii];
+			console.log("["+ii+"]>>"+jsttt);
+			
+			chksimitem.stt = jsttt.substr(0,4);
+			chksimitem.endt  = jsttt.substr(4,4);
+			sch_autojob[akey].chkloop.push(jobjcopy(chksimitem));//###
+			
+			xston = Number(jsttt.substr(0,2))*60+ Number(jsttt.substr(2,2));
+			xstoff = Number(jsttt.substr(4,2))*60+ Number(jsttt.substr(6,2));
+			if(ii == 0 ){
+				simoutitem.ont  = 0;
+				simoutitem.offt = xston - simst_time;
+				sch_autojob[akey].loop.push(jobjcopy(simoutitem));//###
+				if(xstoff > xston ){
+					simoutitem.ont  =  xstoff - xston ;
+				}else{            
+					simoutitem.ont  =  0;
+				}
+				simoutitem.offt = xstoff;
+			}else if(ii == jautodata.SCHEDULE.ONLOOP.length-1){        
+				if( xston > simoutitem.offt ){
+					simoutitem.offt  =  xston - simoutitem.offt ;
+				}else{            
+					simoutitem.offt  = 1;
+				}        
+				sch_autojob[akey].loop.push(jobjcopy(simoutitem));//###
+				
+				if(xstoff > xston ){
+					simoutitem.ont  =  xstoff - xston ;
+				}else{            
+					simoutitem.ont  =  0;
+				}
+				simoutitem.offt = simend_time - xstoff;
+				sch_autojob[akey].loop.push(jobjcopy(simoutitem));//###
+			}else{				
+				if( xston > simoutitem.offt ){
+					simoutitem.offt  =  xston - simoutitem.offt ;
+				}else{            
+					simoutitem.offt  = 1;
+				}        
+				sch_autojob[akey].loop.push(jobjcopy(simoutitem));//###		
+				
+				if(xstoff > xston ){
+					simoutitem.ont  =  xstoff - xston ;
+
+				}else{            
+					simoutitem.ont  =  0;
+				}
+				simoutitem.offt = xstoff;
+			}			
+		}
+		
+		sch_autojob[akey].loopcnt = 0
+		sch_autoloadmark[akey]=0;//auto load to times schedule mark flag 0:no 1:load 
+		console.log(">>load ["+akey+"]="+JSON.stringify(sch_autojob[akey]));	
 	
 	}
 }
@@ -1456,10 +1514,10 @@ function active_keypadjob(kpos,kcode,kactive){
 		}
 		
 		if(run_cmd == "LED" && run_active =="ON" ){// setup the LED lev set
-			if(run_pos == "A001")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0];
-			if(run_pos == "A002")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1];
-			if(run_pos == "A021")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2];
-			if(run_pos == "A022")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3];
+			if(run_pos == "A038")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0];//0x60 by B write led level
+			if(run_pos == "A039")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1];//0x61 by B red   led level
+			if(run_pos == "A030")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2];//0x30 by A write led level
+			if(run_pos == "A031")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3];//0x31 by A red   led level
 		}
 		
 		//console.log(">>["+cc+"]"+run_cmd)
@@ -2264,7 +2322,7 @@ function autotmloop(ljob){
 	switch(ljob.SENSOR_CONTROL){
 		case 0://load pam to buffer 			
 
-				ljob.CHKLOOP.SENSORPOS.LEDSTU.LEDSTU = pdbuffer.pdjobj.PDDATA.Devtab.A001.C71.chtab["20"].sub;	
+				ljob.CHKLOOP.SENSORPOS.LEDSTU.LEDSTU = pdbuffer.pdjobj.PDDATA.Devtab.A030.C71.chtab["20"].sub;//####
 				ljob.CHKLOOP.SENSORPOS.INDOORTM1.Value = pdbuffer.pdjobj.PDDATA.Devtab.H001.C77.chtab["A1"].stu;
 				ljob.CHKLOOP.SENSORPOS.INDOORTM2.Value = pdbuffer.pdjobj.PDDATA.Devtab.H002.C77.chtab["A1"].stu;	
 				ljob.CHKLOOP.SENSORPOS.INDOORTM3.Value = pdbuffer.pdjobj.PDDATA.Devtab.H003.C77.chtab["A1"].stu;	

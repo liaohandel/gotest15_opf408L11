@@ -1,4 +1,4 @@
-console.log("[linkgateway ] start gotest15_opf408L10 webapp_gx8x2 2011009x1 ...");
+console.log("[linkgateway ] start gotest15_opf408L10 webapp_gx8x2 20181208x1 ...");
 
 var EventEmitter = require('events').EventEmitter; 
 var event = new EventEmitter(); 
@@ -867,9 +867,9 @@ app.get('/LED', function (req, res) {
 		if(!(funcode in pdbuffer.pdjobj.PDDATA.Devtab[pos]))return;
 		//console.log("5>>"+group)
 		
-		let cregadd = cstu.substr(0,2)//[0][1] 2 byte
+		let cregadd = cstu.substr(0,2)//[0][1] 1 byte
 		
-		let	nstu = Number('0x'+cstu.substr(2,4))//[2][3][4][5] 4 byte
+		let	nstu = Number('0x'+cstu.substr(2,4))//[2][3][4][5] 2 byte
 		let ttbuf = ""
 		if(group==0){
 			//cmdindex = pdbuffer.pdjobj.subcmd[cmd];
@@ -932,10 +932,10 @@ app.get('/LED', function (req, res) {
 					ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];
 					break	
 				case "SET"://%100= 0x00,%80=0x3B,%50=0x44,%30=0x4A
-					if(pos == "A001")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0]=cstu;//0x60 by B write led level
-					if(pos == "A002")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1]=cstu;//0x61 by B red   led level
-					if(pos == "A021")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2]=cstu;//0x30 by A write led level
-					if(pos == "A022")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3]=cstu;//0x31 by A red   led level
+					if(pos == "A038")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0]=cstu;//0x60 by B write led level
+					if(pos == "A039")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1]=cstu;//0x61 by B red   led level
+					if(pos == "A030")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2]=cstu;//0x30 by A write led level
+					if(pos == "A031")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3]=cstu;//0x31 by A red   led level
 					//pdbuffer.jautocmd_update(()=>{
 					//	console.log("JAUTO Save ok !");									
 					//});//update buffer to Files
@@ -1040,7 +1040,7 @@ app.get('/PUMP', function (req, res) {
 		//scmd = rs485v040.s72cmd
 		let cmdindex=0
 		if(!(cmd in pdbuffer.pdjobj.subcmd))return;
-		let funcode  = cmdcode.R485CMDDATA.PUMP[0];
+		let funcode  = cmdcode. .PUMP[0];
 		if(!(funcode in pdbuffer.pdjobj.PDDATA.Devtab[pos]))return;
 		
 		let cregadd = cstu.substr(0,2)//[0][1] 1 byte  "9C12345678"[0][1] [2][3][4][5] [6][7][8][9]

@@ -1,4 +1,4 @@
-console.log("[opf403 ] start regcmd_gx8 20180701x1 ...");
+console.log("[opf408L8 ] start regcmd_gx8 20181208x1 ...");
 
 var router    = require('express').Router();
 
@@ -18,6 +18,7 @@ var cargs = {
 var pdbuffer  = require('./pdbuffer_v02.js');
 var autocmd = require('./autocmd_gx8.js');
 var cmdcode = require("./handelrs485x2");
+
 
 //=== syspub function ===
 function jobjcopy(jobj){
@@ -289,7 +290,7 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 					if(cstu == "03"){//WATERLOOP mode5 ON
 						pdbuffer.jautocmd.WATERLOOP[pos].SENSOR_CONTROL=0;
 						pdbuffer.jautocmd.WATERLOOP[pos].STATU=1;	
-						if(pos == "autotmloop"){
+						if(pos == "autotmloop"){// when start on 自動溫控 之溫度範圍 引用 溫度AUTO設定範圍值 為可調
 							tmlab="TEMPERATURE!LOOP";
 							setrangss = pdbuffer.jautocmd.DEVLIST.AIRCON.RUNLOOP[tmlab];
 							settmlow = setrangss.substr(0,4);
