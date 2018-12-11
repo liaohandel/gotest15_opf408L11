@@ -1,5 +1,5 @@
 {
-	"AUTOSN": "OPF403_20181012x1",
+	"AUTOSN": "OFC408L8_20181211x1",
 	"DEVLIST": {
 		"GROWLED": {
 			"MODE":1, 
@@ -230,6 +230,76 @@
 				]
 			}
 		},
+		
+		"LEDAHI": {
+			"MODE":2,
+			"STATU":0, 
+			"SENSOR_CONTROL":2,
+			"SCHEDULE": {
+				"EPOS": [
+					{"POS":"A031","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A030","CMD":"LED","STU":"220000","GROUP":"00"}
+				],
+				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
+				"WEEK": "01111111",
+				"ONLOOP": [
+				  "00000900",
+				  "15002359"
+				]
+			}
+		},
+		"LEDALOW": {
+			"MODE":2,
+			"STATU":0, 
+			"SENSOR_CONTROL":2,
+			"SCHEDULE": {
+				"EPOS": [
+					{"POS":"A031","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A030","CMD":"LED","STU":"220000","GROUP":"00"}
+				],
+				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
+				"WEEK": "01111111",
+				"ONLOOP": [
+				  "00000500",
+				  "19002359"
+				]
+			}
+		},
+		"LEDBHI": {
+			"MODE":2,
+			"STATU":0, 
+			"SENSOR_CONTROL":2,
+			"SCHEDULE": {
+				"EPOS": [
+					{"POS":"A039","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A038","CMD":"LED","STU":"220000","GROUP":"00"}
+				],
+				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
+				"WEEK": "01111111",
+				"ONLOOP": [
+				  "00000900",
+				  "15002359"
+				]
+			}
+		},
+		"LEDBLOW": {
+			"MODE":2,
+			"STATU":0, 
+			"SENSOR_CONTROL":2,
+			"SCHEDULE": {
+				"EPOS": [
+					{"POS":"A039","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A038","CMD":"LED","STU":"220000","GROUP":"00"}
+				],
+				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
+				"WEEK": "01111111",
+				"ONLOOP": [
+				  "00000500",
+				  "19002359"
+				]
+			}
+		},
+		
 		"LISTREFFAN": {
 			"MODE":0,
 			"STATU":0, 
@@ -247,10 +317,10 @@
 				"LISTREFFAN!LOOP": "000000000000",
 				"MODETRIG":{"low":0,"high":10},
 				"CHKMODE":0,
-				"CHKCOUNT":0
-				
+				"CHKCOUNT":0				
 			}
 		},
+		
 		"ECDOSE": {
 			"MODE":3,
 			"STATU":0,
@@ -279,6 +349,7 @@
 				"PH!LOOP": "02000280"
 			}
 		},
+		
 		"DOSEA": {
 			"MODE":2,
 			"STATU":0, 
@@ -335,6 +406,7 @@
 				]
 			}
 		},
+		
 		"IPCAMC906": {
 			"MODE":1, 
 			"STATU":0,
@@ -383,18 +455,130 @@
 				"OFF": "0001"
 			}
 		},		
+		
+				
+		"MOTOUPDOWNA1": {
+			"MODE":4,
+			"STATU":0, 
+			"SENSOR_CONTROL":0,
+			"SCHEDULE": {
+				"EPOS": [
+					{"POS":"B001","CMD":"PUMP","STU":"000000","GROUP":"00"},
+				],
+				"MOTOPAM":[
+					{"MOD":0,"BASE":80,"OFFSET":5}
+				],
+				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
+				"WEEK": "01111111",
+				"ONLOOP": [
+				  "01000101"
+				]
+			}
+		},		
+		"MOTOUPDOWNA2": {
+			"MODE":4,
+			"STATU":0, 
+			"SENSOR_CONTROL":0,
+			"SCHEDULE": {
+				"EPOS": [
+					{"POS":"B002","CMD":"PUMP","STU":"000000","GROUP":"00"},
+				],
+				"MOTOPAM":[
+					{"MOD":0,"BASE":80,"OFFSET":5}
+				],
+				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
+				"WEEK": "01111111",
+				"ONLOOP": [
+				  "01000101"
+				]
+			}
+		},		
+		"MOTOUPDOWNA3": {
+			"MODE":4,
+			"STATU":0, 
+			"SENSOR_CONTROL":0,
+			"SCHEDULE": {
+				"EPOS": [
+					{"POS":"B003","CMD":"PUMP","STU":"000000","GROUP":"00"},
+				],
+				"MOTOPAM":[
+					{"MOD":0,"BASE":80,"OFFSET":5}
+				],
+				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
+				"WEEK": "01111111",
+				"ONLOOP": [
+				  "01000101"
+				]
+			}
+		},		
+		
+		"MOTOUPDOWNB1": {
+			"MODE":4,
+			"STATU":0, 
+			"SENSOR_CONTROL":0,
+			"SCHEDULE": {
+				"EPOS": [
+					{"POS":"B021","CMD":"PUMP","STU":"000000","GROUP":"00"},
+				],
+				"MOTOPAM":[
+					{"MOD":0,"BASE":80,"OFFSET":5}
+				],
+				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
+				"WEEK": "01111111",
+				"ONLOOP": [
+				  "01000101"
+				]
+			}
+		},		
+		"MOTOUPDOWNB2": {
+			"MODE":4,
+			"STATU":0, 
+			"SENSOR_CONTROL":0,
+			"SCHEDULE": {
+				"EPOS": [
+					{"POS":"B022","CMD":"PUMP","STU":"000000","GROUP":"00"},
+				],
+				"MOTOPAM":[
+					{"MOD":0,"BASE":80,"OFFSET":5}
+				],
+				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
+				"WEEK": "01111111",
+				"ONLOOP": [
+				  "01000101"
+				]
+			}
+		},		
+		"MOTOUPDOWNB3": {
+			"MODE":4,
+			"STATU":0, 
+			"SENSOR_CONTROL":0,
+			"SCHEDULE": {
+				"EPOS": [
+					{"POS":"B023","CMD":"PUMP","STU":"000000","GROUP":"00"},
+				],
+				"MOTOPAM":[
+					{"MOD":0,"BASE":80,"OFFSET":5}
+				],
+				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
+				"WEEK": "01111111",
+				"ONLOOP": [
+				  "01000101"
+				]
+			}
+		},
+		
 		"MOTOUPDOWN": {
 			"MODE":4,
 			"STATU":0, 
 			"SENSOR_CONTROL":0,
 			"SCHEDULE": {
 				"EPOS": [
-					{"POS":"B001","CMD":"PUMP","STU":"410000","GROUP":"00"},
-					{"POS":"B002","CMD":"PUMP","STU":"410000","GROUP":"00"},
-					{"POS":"B003","CMD":"PUMP","STU":"410000","GROUP":"00"},
-					{"POS":"B021","CMD":"PUMP","STU":"410000","GROUP":"00"},
-					{"POS":"B022","CMD":"PUMP","STU":"410000","GROUP":"00"},
-					{"POS":"B023","CMD":"PUMP","STU":"410000","GROUP":"00"}
+					{"POS":"B001","CMD":"PUMP","STU":"000000","GROUP":"00"},
+					{"POS":"B002","CMD":"PUMP","STU":"000000","GROUP":"00"},
+					{"POS":"B003","CMD":"PUMP","STU":"000000","GROUP":"00"},
+					{"POS":"B021","CMD":"PUMP","STU":"000000","GROUP":"00"},
+					{"POS":"B022","CMD":"PUMP","STU":"000000","GROUP":"00"},
+					{"POS":"B023","CMD":"PUMP","STU":"000000","GROUP":"00"}
 				],
 				"MOTOPAM":[
 					{"MOD":0,"BASE":80,"OFFSET":5},
@@ -1004,7 +1188,8 @@
 			"STATU":0,
 			"SENSOR_CONTROL":0,
 			"RUNLOOP":{
-				"EPOS": [{"POS":"E002","CMD":"PUMP","STU":"590000","GROUP":"00"}],
+				"EPOS": [{"POS":"E002","CMD":"PUMP","STU":"590000","GROUP":"00"}
+				],
 				"SENSORPOS": [
 					{"POS":"H001","CMD":"CO2","STU":"910000","GROUP":"00"},
 					{"POS":"H001","CMD":"CO2","STU":"910000","GROUP":"00"},
@@ -1081,6 +1266,84 @@
 				]
 			}
 		},
+		
+		"LEDAHI": {
+			"MODE":2,
+			"STATU":0, 
+			"SENSOR_CONTROL":2,
+			"SCHEDULE": {
+				"EPOS": [
+					{"POS":"A031","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A030","CMD":"LED","STU":"220000","GROUP":"00"},
+					{"POS":"A039","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A038","CMD":"LED","STU":"220000","GROUP":"00"}
+				],
+				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
+				"WEEK": "01111111",
+				"ONLOOP": [
+				  "00000900",
+				  "15002359"
+				]
+			}
+		},
+		"LEDALOW": {
+			"MODE":2,
+			"STATU":0, 
+			"SENSOR_CONTROL":2,
+			"SCHEDULE": {
+				"EPOS": [
+					{"POS":"A031","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A030","CMD":"LED","STU":"220000","GROUP":"00"},
+					{"POS":"A039","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A038","CMD":"LED","STU":"220000","GROUP":"00"}
+				],
+				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
+				"WEEK": "01111111",
+				"ONLOOP": [
+				  "00000500",
+				  "19002359"
+				]
+			}
+		},
+		"LEDBHI": {
+			"MODE":2,
+			"STATU":0, 
+			"SENSOR_CONTROL":2,
+			"SCHEDULE": {
+				"EPOS": [
+					{"POS":"A031","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A030","CMD":"LED","STU":"220000","GROUP":"00"},
+					{"POS":"A039","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A038","CMD":"LED","STU":"220000","GROUP":"00"}
+				],
+				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
+				"WEEK": "01111111",
+				"ONLOOP": [
+				  "00000900",
+				  "15002359"
+				]
+			}
+		},
+		"LEDBLOW": {
+			"MODE":2,
+			"STATU":0, 
+			"SENSOR_CONTROL":2,
+			"SCHEDULE": {
+				"EPOS": [
+					{"POS":"A031","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A030","CMD":"LED","STU":"220000","GROUP":"00"},
+					{"POS":"A039","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A038","CMD":"LED","STU":"220000","GROUP":"00"}
+				],
+				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
+				"WEEK": "01111111",
+				"ONLOOP": [
+				  "00000500",
+				  "19002359"
+				]
+			}
+		},
+		
 		"LISTREFFAN": {
 			"MODE":0,
 			"STATU":0, 
@@ -1096,6 +1359,7 @@
 				"LISTREFFAN!LOOP": "000000000000"
 			}
 		},
+		
 		"ECDOSE": {
 			"MODE":3,
 			"STATU":0,
@@ -1110,7 +1374,7 @@
 				"OUTSENSORPOS": [{"POS":"E002","CMD":"ELECTRONS","STU":"940000","GROUP":"00"}],
 				"ELECTRONS!LOOP": "02000280"
 			}
-		},
+		},		
 		"PHDOSE": {
 			"MODE":3,
 			"STATU":0,
@@ -1124,6 +1388,7 @@
 				"PH!LOOP": "02000280"
 			}
 		},
+		
 		"DOSEA": {
 			"MODE":2,
 			"STATU":0, 
@@ -1220,6 +1485,7 @@
 				]
 			}
 		},
+		
 		"IPCAMC906": {
 			"MODE":1, 
 			"STATU":0,
@@ -1267,7 +1533,8 @@
 				"ON": "0100",
 				"OFF": "0001"
 			}
-		},		
+		},	
+		
 		"MOTOUPDOWN": {
 			"MODE":4,
 			"STATU":0, 
@@ -1540,35 +1807,7 @@
 			"41":["E002","PUMP","3006","0050","0060","0020"],
 			"81":["E002","PUMP","3009","0050","0060","0020"]
 		},
-		"DEVLED":{
-			"60":["A001","LED","3021","0258","1fff","02C0"],
-			"61":["A002","LED","3022","0258","1fff","02C0"],
-			"62":["A003","LED","3023","0258","1fff","02C0"],
-			"63":["A004","LED","3024","0258","1fff","02C0"],
-			"64":["A005","LED","3025","0258","1fff","02C0"],
-			"65":["A006","LED","3026","0258","1fff","02C0"],
-			"66":["A007","LED","3027","0258","1fff","02C0"],
-			"67":["A008","LED","3028","0258","1fff","02C0"],
-			"68":["A009","LED","3029","0258","1fff","02C0"],
-			"69":["A00A","LED","3030","0258","1fff","02C0"],
-			"6A":["A00B","LED","3031","0258","1fff","02C0"],
-			"6B":["A00C","LED","3032","0258","1fff","02C0"],
-			"6C":["A00D","LED","3033","0258","1fff","02C0"],
-			
-			"30":["A021","LED","3034","0258","1fff","02C0"],
-			"31":["A022","LED","3035","0258","1fff","02C0"],
-			"32":["A023","LED","3036","0258","1fff","02C0"],
-			"33":["A024","LED","3037","0258","1fff","02C0"],
-			"34":["A025","LED","3038","0258","1fff","02C0"],
-			"35":["A026","LED","3039","0258","1fff","02C0"],
-			"36":["A027","LED","3040","0258","1fff","02C0"],
-			"37":["A028","LED","3041","0258","1fff","02C0"],
-			"38":["A029","LED","3042","0258","1fff","02C0"],
-			"39":["A02A","LED","3043","0258","1fff","02C0"],
-			"3A":["A02B","LED","3044","0258","1fff","02C0"],
-			"3B":["A02C","LED","3045","0258","1fff","02C0"],
-			"3C":["A02D","LED","3046","0258","1fff","02C0"],
-			
+		"DEVLED":{			
 			"50":["A030","LED","3021","0258","1fff","02C0"],
 			"51":["A031","LED","3022","0258","1fff","02C0"],
 			"52":["A032","LED","3023","0258","1fff","02C0"],
@@ -1591,8 +1830,6 @@
 			
 		}
 	}	
-	
-	
 	
 }
 

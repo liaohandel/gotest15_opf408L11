@@ -134,7 +134,10 @@ function scan_schedule_chkloop(chklist){
 }
 
 function device_auto_client(devlist,devcmd){
-	let cmdindex = pdbuffer.pdjobj.subcmd[devcmd]
+	let cmdindex = pdbuffer.pdjobj.subcmd[devcmd];
+	let run_stu = "000000";
+	
+	
 	//console.log(">>auto_Client ="+JSON.stringify(devlist)+"for "+devcmd+"="+cmdindex+"@time= "+Date());
 	for(kk in devlist){
 		//console.log("1>>auto_Client ="+JSON.stringify(devlist)+"for "+devcmd+" = "+cmdindex+" = "+kk+" time="+Date());
