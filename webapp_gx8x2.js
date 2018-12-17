@@ -166,9 +166,9 @@ var uploadregsensorbuff = [
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"710000","Type":"WATERLEVEL1","typecmd":"C79","typereg":"71"},
 		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"720000","Type":"WATERLEVEL2","typecmd":"C79","typereg":"72"},
-		{"POS":"E002","CMD":"WATERLEVEL","STU":"740000","Type":"WATERLEVEL3","typecmd":"C79","typereg":"74"},
-		{"POS":"E002","CMD":"WATERLEVEL","STU":"750000","Type":"WATERLEVEL4","typecmd":"C79","typereg":"75"},
-		{"POS":"E002","CMD":"WATERLEVEL","STU":"730000","Type":"WATERLEVEL5","typecmd":"C79","typereg":"73"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"740000","Type":"WATERLEVEL3","typecmd":"C79","typereg":"73"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"750000","Type":"WATERLEVEL4","typecmd":"C79","typereg":"74"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"730000","Type":"WATERLEVEL5","typecmd":"C79","typereg":"75"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"760000","Type":"WATERLEVEL6","typecmd":"C79","typereg":"76"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"770000","Type":"WATERLEVEL7","typecmd":"C79","typereg":"77"}
 	],
@@ -1040,7 +1040,7 @@ app.get('/PUMP', function (req, res) {
 		//scmd = rs485v040.s72cmd
 		let cmdindex=0
 		if(!(cmd in pdbuffer.pdjobj.subcmd))return;
-		let funcode  = cmdcode. .PUMP[0];
+		let funcode  = cmdcode.PUMP[0];
 		if(!(funcode in pdbuffer.pdjobj.PDDATA.Devtab[pos]))return;
 		
 		let cregadd = cstu.substr(0,2)//[0][1] 1 byte  "9C12345678"[0][1] [2][3][4][5] [6][7][8][9]

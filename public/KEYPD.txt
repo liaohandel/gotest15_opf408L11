@@ -127,9 +127,9 @@
 			{"CMD":"PUMP","POS":"E003","Action":"ON","STU":"420000","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E003","Action":"ON","STU":"440000","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E003","Action":"ON","STU":"460000","GROUP":"00" },
-			{"CMD":"PUMP","POS":"E003","Action":"ON","STU":"480000","GROUP":"00" },
-			{"CMD":"PUMP","POS":"E003","Action":"ON","STU":"4A0000","GROUP":"00" },
-			{"CMD":"PUMP","POS":"E003","Action":"ON","STU":"4C0000","GROUP":"00" }	
+			{"CMD":"PUMP","POS":"E003","Action":"OFF","STU":"480000","GROUP":"00" },
+			{"CMD":"PUMP","POS":"E003","Action":"OFF","STU":"4A0000","GROUP":"00" },
+			{"CMD":"PUMP","POS":"E003","Action":"OFF","STU":"4C0000","GROUP":"00" }	
 			],
           "OFF": [
 			{"CMD":"REGCMD/AUTOSETUP","POS":"CYCLEFAN","Action":"AUTO","STU":"00","GROUP":"00" },
@@ -138,9 +138,9 @@
 			{"CMD":"PUMP","POS":"E003","Action":"OFF","STU":"420000","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E003","Action":"OFF","STU":"440000","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E003","Action":"OFF","STU":"460000","GROUP":"00" },
-			{"CMD":"PUMP","POS":"E003","Action":"OFF","STU":"480000","GROUP":"00" },
-			{"CMD":"PUMP","POS":"E003","Action":"OFF","STU":"4A0000","GROUP":"00" },
-			{"CMD":"PUMP","POS":"E003","Action":"OFF","STU":"4C0000","GROUP":"00" }
+			{"CMD":"PUMP","POS":"E003","Action":"ON","STU":"480000","GROUP":"00" },
+			{"CMD":"PUMP","POS":"E003","Action":"ON","STU":"4A0000","GROUP":"00" },
+			{"CMD":"PUMP","POS":"E003","Action":"ON","STU":"4C0000","GROUP":"00" }
 			]
         }
       },	  
