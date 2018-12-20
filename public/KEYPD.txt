@@ -533,40 +533,24 @@
         },
         "EVENT": {
           "RFAN01": [
-			{"CMD":"AIRFAN","POS":"B001","Action":"SET","STU":"000001","GROUP":"00" },
-			{"CMD":"AIRFAN","POS":"B002","Action":"SET","STU":"000000","GROUP":"00" },
-			{"CMD":"AIRFAN","POS":"B003","Action":"SET","STU":"000000","GROUP":"00" },
-			{"CMD":"AIRFAN","POS":"B004","Action":"SET","STU":"000000","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"580000","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"570000","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"560000","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"550000","GROUP":"00" }
 		  ],
           "RFAN02": [
-			{"CMD":"AIRFAN","POS":"B001","Action":"SET","STU":"000001","GROUP":"00" },
-			{"CMD":"AIRFAN","POS":"B002","Action":"SET","STU":"000001","GROUP":"00" },
-			{"CMD":"AIRFAN","POS":"B003","Action":"SET","STU":"000000","GROUP":"00" },
-			{"CMD":"AIRFAN","POS":"B004","Action":"SET","STU":"000000","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"580000","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"570000","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"560000","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"550000","GROUP":"00" }
 		  ],
           "RFAN04": [
-			{"CMD":"AIRFAN","POS":"B001","Action":"SET","STU":"000001","GROUP":"00" },
-			{"CMD":"AIRFAN","POS":"B002","Action":"SET","STU":"000001","GROUP":"00" },
-			{"CMD":"AIRFAN","POS":"B003","Action":"SET","STU":"000001","GROUP":"00" },
-			{"CMD":"AIRFAN","POS":"B004","Action":"SET","STU":"000000","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"580000","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"570000","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"560000","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"550000","GROUP":"00" }
 		  ],
           "RFAN06": [
-			{"CMD":"AIRFAN","POS":"B001","Action":"SET","STU":"000001","GROUP":"00" },
-			{"CMD":"AIRFAN","POS":"B002","Action":"SET","STU":"000001","GROUP":"00" },
-			{"CMD":"AIRFAN","POS":"B003","Action":"SET","STU":"000001","GROUP":"00" },
-			{"CMD":"AIRFAN","POS":"B004","Action":"SET","STU":"000001","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"580000","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"570000","GROUP":"00" },
 			{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"560000","GROUP":"00" },
@@ -652,7 +636,10 @@
 				{"CMD":"PUMP","POS":"B002","Action":"ON","STU":"000000","GROUP":"00" },
 				{"CMD":"PUMP","POS":"B003","Action":"ON","STU":"000000","GROUP":"00" }
 			],
-			"MBLEDAUTO": [],
+			"MBLEDAUTO": [
+				{"CMD":"PUMP","POS":"B001","Action":"ON","STU":"020064","GROUP":"00" },
+				{"CMD":"PUMP","POS":"B002","Action":"ON","STU":"020064","GROUP":"00" },
+				{"CMD":"PUMP","POS":"B003","Action":"ON","STU":"020064","GROUP":"00" }],
 			"MBLEDUP": [
 				{"CMD":"PUMP","POS":"B021","Action":"ON","STU":"020064","GROUP":"00" },
 				{"CMD":"PUMP","POS":"B022","Action":"ON","STU":"020064","GROUP":"00" },
