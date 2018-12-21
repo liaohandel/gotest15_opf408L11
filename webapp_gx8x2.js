@@ -1,4 +1,4 @@
-console.log("[linkgateway ] start gotest15_opf408L10 webapp_gx8x2 2011009x1 ...");
+console.log("[linkgateway ] start gotest15_opf408L10 webapp_gx8x2 20181208x1 ...");
 
 var EventEmitter = require('events').EventEmitter; 
 var event = new EventEmitter(); 
@@ -114,9 +114,9 @@ var regsensorbuff = [
 	[
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"710000","Type":"WATERLEVEL1","typecmd":"C79","typereg":"71"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"720000","Type":"WATERLEVEL2","typecmd":"C79","typereg":"72"},
-		{"POS":"E002","CMD":"WATERLEVEL","STU":"740000","Type":"WATERLEVEL3","typecmd":"C79","typereg":"74"},
-		{"POS":"E002","CMD":"WATERLEVEL","STU":"750000","Type":"WATERLEVEL4","typecmd":"C79","typereg":"75"},
-		{"POS":"E002","CMD":"WATERLEVEL","STU":"730000","Type":"WATERLEVEL5","typecmd":"C79","typereg":"73"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"730000","Type":"WATERLEVEL3","typecmd":"C79","typereg":"73"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"740000","Type":"WATERLEVEL4","typecmd":"C79","typereg":"74"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"750000","Type":"WATERLEVEL5","typecmd":"C79","typereg":"75"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"760000","Type":"WATERLEVEL6","typecmd":"C79","typereg":"76"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"770000","Type":"WATERLEVEL7","typecmd":"C79","typereg":"77"}
 	],
@@ -166,9 +166,9 @@ var uploadregsensorbuff = [
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"710000","Type":"WATERLEVEL1","typecmd":"C79","typereg":"71"},
 		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"720000","Type":"WATERLEVEL2","typecmd":"C79","typereg":"72"},
-		{"POS":"E002","CMD":"WATERLEVEL","STU":"740000","Type":"WATERLEVEL3","typecmd":"C79","typereg":"74"},
-		{"POS":"E002","CMD":"WATERLEVEL","STU":"750000","Type":"WATERLEVEL4","typecmd":"C79","typereg":"75"},
-		{"POS":"E002","CMD":"WATERLEVEL","STU":"730000","Type":"WATERLEVEL5","typecmd":"C79","typereg":"73"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"730000","Type":"WATERLEVEL3","typecmd":"C79","typereg":"73"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"740000","Type":"WATERLEVEL4","typecmd":"C79","typereg":"74"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"750000","Type":"WATERLEVEL5","typecmd":"C79","typereg":"75"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"760000","Type":"WATERLEVEL6","typecmd":"C79","typereg":"76"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"770000","Type":"WATERLEVEL7","typecmd":"C79","typereg":"77"}
 	],
@@ -614,15 +614,28 @@ app.get('/PDINFO', function (req, res) {
 			switch(cmd){
 				case "ON":
 					//update to File
-					pdbuffer.sysupdate(function(){
-						if(error){ //如果有錯誤，把訊息顯示並離開程式
-							console.log('PDDATA.txt update ERR ! ');							
-							jobj = { "success" : "false" };  
-						}else{
-							console.log('PDDATA.txt update OK ! ');
-							jobj = {  "success" : "true"  }; 							
-						}
-					});
+					// pdbuffer.sysupdate(function(){
+						// if(error){ //如果有錯誤，把訊息顯示並離開程式
+							// console.log('PDDATA.txt update ERR ! ');							
+							// jobj = { "success" : "false" };  
+						// }else{
+							// console.log('PDDATA.txt update OK ! ');
+							// jobj = {  "success" : "true"  }; 							
+						// }
+					// });
+					
+					//update to RedisDB
+					for(let key in pdbuffer.pdjobj.PDDATA.Devtab){
+						pdbuffer.update_redis('pdjobj.PDDATA.Devtab.' + key,function(){
+							if(error){ //如果有錯誤，把訊息顯示並離開程式
+								console.log('PDDATA PDDATA Devtab ' + key + ' update ERR ! ');							
+								jobj = { "success" : "false" };  
+							}else{
+								console.log('PDDATA PDDATA Devtab ' + key + ' update OK ! ');
+								jobj = {  "success" : "true"  }; 							
+							}
+						});
+					}
 					break
 				case "LOAD":
 					if(poslength == 2){						
@@ -657,15 +670,26 @@ app.get('/PDINFO', function (req, res) {
 			switch(cmd){
 				case "ON":
 					//update to File
-					pdbuffer.sysupdate(function(){
+					// pdbuffer.sysupdate(function(){
+						// if(error){ //如果有錯誤，把訊息顯示並離開程式
+							// console.log('PDDATA.txt update ERR ! ');							
+							// jobj = { "success" : "false" };  
+						// }else{
+							// console.log('PDDATA.txt update OK ! ');
+							// jobj = {  "success" : "true"  }; 							
+						// }
+					// });
+					
+					pdbuffer.update_redis('pdjobj.PDDATA',function(){
 						if(error){ //如果有錯誤，把訊息顯示並離開程式
-							console.log('PDDATA.txt update ERR ! ');							
+							console.log('PDDATA PDDATA update ERR ! ');							
 							jobj = { "success" : "false" };  
 						}else{
-							console.log('PDDATA.txt update OK ! ');
+							console.log('PDDATA PDDATA update OK ! ');
 							jobj = {  "success" : "true"  }; 							
 						}
 					});
+					
 					break
 				case "LOAD":
 					cstu = pdbuffer.pdjobj.PDDATA[group];
@@ -696,12 +720,21 @@ app.get('/PDINFO', function (req, res) {
 		switch(cmd){
 			case "ON":
 				//update to File 
-				pdbuffer.sysupdate(function(){
+				// pdbuffer.sysupdate(function(){
+					// if(error){ //如果有錯誤，把訊息顯示並離開程式
+						// console.log('PDDATA.txt update ERR ! ');							
+						// jobj = { "success" : "false" };  
+					// }else{
+						// console.log('PDDATA.txt update OK ! ');
+						// jobj = {  "success" : "true"  }; 							
+					// }
+				// });				 
+				pdbuffer.update_redis('pdjobj.addposmap',function(){
 					if(error){ //如果有錯誤，把訊息顯示並離開程式
-						console.log('PDDATA.txt update ERR ! ');							
+						console.log('PDDATA addposmap update ERR ! ');							
 						jobj = { "success" : "false" };  
 					}else{
-						console.log('PDDATA.txt update OK ! ');
+						console.log('PDDATA addposmap update OK ! ');
 						jobj = {  "success" : "true"  }; 							
 					}
 				});
@@ -774,12 +807,13 @@ function setnet_local_iptime(){
 			ttcode = '"'+data.continent_name+"/"+data.city+'"'
 			console.log("time areg ="+ttcode);
 			pdbuffer.jautocmd.DEVICESET.SETTIMEPAM.LOCALCITY = ttcode;
-			//let setiptime = spawn('sudo timedatectl',['set-timezone',ttcode]);
-			
-			pdbuffer.jautocmd_update(()=>{
-				console.log("JAUTO Save ok !");									
+			//let setiptime = spawn('sudo timedatectl',['set-timezone',ttcode]);			
+			// pdbuffer.jautocmd_update(()=>{
+				// console.log("JAUTO Save ok !");									
+			// });
+			pdbuffer.update_redis('jautocmd.DEVICESET',()=>{
+				console.log("JAUTO DEVICESET Save ok !");									
 			});
-			
 			//setiptime = exec('sudo timedatectl set-timezone '+ttcode);
 			set_city_time(ttcode);
 			
@@ -824,8 +858,11 @@ app.get('/SETTIME', function (req, res) {
 			res.json(jobj);
 			pdbuffer.jautocmd.DEVICESET.SETTIMEPAM.LOCALCITY = cstu;
 			set_city_time(cstu);
-			pdbuffer.jautocmd_update(()=>{
-				console.log("JAUTO Save ok !");									
+			// pdbuffer.jautocmd_update(()=>{
+				// console.log("JAUTO Save ok !");									
+			// });			
+			pdbuffer.update_redis('jautocmd.DEVICESET',()=>{
+				console.log("JAUTO DEVICESET Save ok !");									
 			});
 			break	
 		default:
@@ -867,9 +904,9 @@ app.get('/LED', function (req, res) {
 		if(!(funcode in pdbuffer.pdjobj.PDDATA.Devtab[pos]))return;
 		//console.log("5>>"+group)
 		
-		let cregadd = cstu.substr(0,2)//[0][1] 2 byte
+		let cregadd = cstu.substr(0,2)//[0][1] 1 byte
 		
-		let	nstu = Number('0x'+cstu.substr(2,4))//[2][3][4][5] 4 byte
+		let	nstu = Number('0x'+cstu.substr(2,4))//[2][3][4][5] 2 byte
 		let ttbuf = ""
 		if(group==0){
 			//cmdindex = pdbuffer.pdjobj.subcmd[cmd];
@@ -932,13 +969,16 @@ app.get('/LED', function (req, res) {
 					ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];
 					break	
 				case "SET"://%100= 0x00,%80=0x3B,%50=0x44,%30=0x4A
-					if(pos == "A001")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0]=cstu;//0x60 by B write led level
-					if(pos == "A002")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1]=cstu;//0x61 by B red   led level
-					if(pos == "A021")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2]=cstu;//0x30 by A write led level
-					if(pos == "A022")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3]=cstu;//0x31 by A red   led level
+					if(pos == "A038")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0]=cstu;//0x60 by B write led level
+					if(pos == "A039")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1]=cstu;//0x61 by B red   led level
+					if(pos == "A030")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2]=cstu;//0x30 by A write led level
+					if(pos == "A031")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3]=cstu;//0x31 by A red   led level
 					//pdbuffer.jautocmd_update(()=>{
 					//	console.log("JAUTO Save ok !");									
-					//});//update buffer to Files
+					//});//update buffer to Files							
+					pdbuffer.update_redis('jautocmd.DEVICESET',()=>{
+						console.log("JAUTO DEVICESET Save ok !");									
+					});
 					return 	
 					break	
 				default:
@@ -1191,7 +1231,10 @@ app.get('/AIRFAN', function (req, res) {
 					}
 					//pdbuffer.jautocmd_update(()=>{
 					//	console.log("JAUTO Save ok !");									
-					//});//update buffer to Files
+					//});//update buffer to Files							
+					pdbuffer.update_redis('jautocmd.DEVICESET',()=>{
+						console.log("JAUTO DEVICESET Save ok !");									
+					});
 					return 
 					break	
 				default:
@@ -1879,7 +1922,8 @@ app.get('/AUTO', function (req, res) {
 app.listen(setport, function () {    
 	let chkstr = "";
 	
-	pdbuffer.sysload(function(){
+	//pdbuffer.sysload(function(){
+	pdbuffer.allload(function(){
 		ddsnurl = pdbuffer.pdjobj.PDDATA.dsnurl;
 		vdsnurl = pdbuffer.pdjobj.PDDATA.videodsnurl;
 		devloadurl =  pdbuffer.pdjobj.PDDATA.devloadurl;		

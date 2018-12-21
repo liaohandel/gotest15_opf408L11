@@ -401,43 +401,43 @@ function devloadtobuff(sub02cmd){
 			switch(sdevreg){
 				case "71":
 					if(chkval <= 30)return;
-					chklevel = Math.round((chkval-2340)/58);//1 ..21
+					chklevel = Math.round((chkval-3500)/25);//1 ..21
 					if(chklevel <= 0)chklevel=1;
 					//chklevel = chklevel	+1;//1 ..21
 					break	
 				case "72":
 					if(chkval <= 30)return;
-					chklevel = Math.round((chkval-2580)/50);//1 ..21
+					chklevel = Math.round((chkval-3500)/25);//1 ..21
 					if(chklevel <= 0)chklevel=1;
 					//chklevel = chklevel	+1;//1 ..21
 					break	
 				case "73":
 					if(chkval <= 30)return;
-					chklevel = Math.round((chkval-2020)/60);//1 ..21
+					chklevel = Math.round((chkval-3500)/25);//1 ..21
 					if(chklevel <= 0)chklevel=1;
 					//chklevel = chklevel	+1;//1 ..21
 					break	
 				case "74":
 					if(chkval <= 30)return;
-					chklevel = Math.round((chkval-2400)/50);//1 ..21
+					chklevel = Math.round((chkval-3500)/25);//1 ..21
 					if(chklevel <= 0)chklevel=1;
 					//chklevel = chklevel	+1;//1 ..21
 					break	
 				case "75":
 					if(chkval <= 30)return;
-					chklevel = Math.round((chkval-2400)/50);//1 ..21
+					chklevel = Math.round((chkval-3500)/25);//1 ..21
 					if(chklevel <= 0)chklevel=1;
 					//chklevel = chklevel	+1;//1 ..21
 					break	
 				case "76":	
 					if(chkval <= 30)return;			
-					chklevel = Math.round((chkval-2300)/70);//1 ..21
+					chklevel = Math.round((chkval-3500)/25);//1 ..21
 					if(chklevel <= 0)chklevel=1;
 					//chklevel = chklevel	+1;//1 ..21
 					break	
 				case "77":
 					if(chkval <= 30)return;
-					chklevel = Math.round((chkval-2300)/70);
+					chklevel = Math.round((chkval-3500)/25);
 					if(chklevel <= 0)chklevel=1;
 					//chklevel = chklevel	+1;//1 ..21
 					break	
@@ -1133,20 +1133,20 @@ function devalarmbuff(alarmcmd){//fcc10681019f010381
 // });
 function allload(callback){
 	//redis的buffer載入
-redisfunc.init_redis(function () {
-	setuuid = redisfunc.setuuid;
-	exports.setuuid = setuuid;
+	redisfunc.init_redis(function () {
+		setuuid = redisfunc.setuuid;
+		exports.setuuid = setuuid;
 
-	xpdjobj = redisfunc.pdjobj;
-	exports.pdjobj = xpdjobj;
+		xpdjobj = redisfunc.pdjobj;
+		exports.pdjobj = xpdjobj;
 
-	jautocmd = redisfunc.jautocmd;
-	exports.jautocmd = jautocmd;
+		jautocmd = redisfunc.jautocmd;
+		exports.jautocmd = jautocmd;
 
-	jkeypd = redisfunc.jkeypd;
-	exports.jkeypd = jkeypd;
-	callback();
-});
+		jkeypd = redisfunc.jkeypd;
+		exports.jkeypd = jkeypd;
+		callback();
+	});
 }
 //=== tree data
 //exports.pdjobj = xpdjobj; //#####
@@ -1164,7 +1164,6 @@ exports.eventcall = eventcall
 
 exports.totxbuff = totxbuff
 exports.ch1com = ch1com
-
 
 //PDDATA.txt		pdjobj
 exports.sysload = sysload

@@ -7,10 +7,10 @@
 			"SENSOR_CONTROL":0,
 			"TIMER": {
 				"EPOS": [
-					{"POS":"A001","CMD":"LED","STU":"211388","GROUP":"00"},
-					{"POS":"A002","CMD":"LED","STU":"221388","GROUP":"00"},
-					{"POS":"A021","CMD":"LED","STU":"211388","GROUP":"00"},
-					{"POS":"A022","CMD":"LED","STU":"221388","GROUP":"00"}
+					{"POS":"A030","CMD":"LED","STU":"220000","GROUP":"00"},
+					{"POS":"A031","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A038","CMD":"LED","STU":"220000","GROUP":"00"},
+					{"POS":"A039","CMD":"LED","STU":"210000","GROUP":"00"}
 				],
 				"PWM": { "01": 0, "02": 0, "03": 0,  "04": 0 },
 				"ST": "0001",
@@ -77,7 +77,8 @@
 			"SENSOR_CONTROL":0, 
 			"TIMER": {
 				"EPOS": [
-					{"POS":"E002","CMD":"PUMP","STU":"9C00E10384","GROUP":"00"}
+					{"POS":"E002","CMD":"PUMP","STU":"4D0000","GROUP":"00"},
+					{"POS":"E002","CMD":"PUMP","STU":"4F0000","GROUP":"00"}
 				],
 				"PWM": { "01": 0, "02": 0, "03": 0,  "04": 0 },
 				"ST": "0001",
@@ -198,10 +199,10 @@
 			"SENSOR_CONTROL":2,
 			"SCHEDULE": {
 				"EPOS": [
-					{"POS":"A001","CMD":"LED","STU":"210000","GROUP":"00"},
-					{"POS":"A002","CMD":"LED","STU":"220000","GROUP":"00"},
-					{"POS":"A021","CMD":"LED","STU":"210000","GROUP":"00"},
-					{"POS":"A022","CMD":"LED","STU":"220000","GROUP":"00"}
+					{"POS":"A031","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A030","CMD":"LED","STU":"220000","GROUP":"00"},
+					{"POS":"A039","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A038","CMD":"LED","STU":"220000","GROUP":"00"}
 				],
 				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
 				"WEEK": "01111111",
@@ -217,10 +218,10 @@
 			"SENSOR_CONTROL":2,
 			"SCHEDULE": {
 				"EPOS": [
-					{"POS":"A001","CMD":"LED","STU":"210000","GROUP":"00"},
-					{"POS":"A002","CMD":"LED","STU":"220000","GROUP":"00"},
-					{"POS":"A021","CMD":"LED","STU":"210000","GROUP":"00"},
-					{"POS":"A022","CMD":"LED","STU":"220000","GROUP":"00"}
+					{"POS":"A031","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A030","CMD":"LED","STU":"220000","GROUP":"00"},
+					{"POS":"A039","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A038","CMD":"LED","STU":"220000","GROUP":"00"}
 				],
 				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
 				"WEEK": "01111111",
@@ -231,7 +232,7 @@
 			}
 		},
 		"LISTREFFAN": {
-			"MODE":4,
+			"MODE":0,
 			"STATU":0, 
 			"SENSOR_CONTROL":2,
 			"LISTLOOP": {
@@ -858,10 +859,10 @@
 			"SENSOR_CONTROL":0,
 			"TIMER": {
 				"EPOS": [
-					{"POS":"A001","CMD":"LED","STU":"210000","GROUP":"00"},
-					{"POS":"A002","CMD":"LED","STU":"220000","GROUP":"00"},
-					{"POS":"A021","CMD":"LED","STU":"210000","GROUP":"00"},
-					{"POS":"A022","CMD":"LED","STU":"220000","GROUP":"00"}
+					{"POS":"A030","CMD":"LED","STU":"220000","GROUP":"00"},
+					{"POS":"A031","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A038","CMD":"LED","STU":"220000","GROUP":"00"},
+					{"POS":"A039","CMD":"LED","STU":"210000","GROUP":"00"}
 				],
 				"PWM": { "01": 0, "02": 0, "03": 0,  "04": 0 },
 				"ST": "0145",
@@ -1049,10 +1050,10 @@
 			"SENSOR_CONTROL":2,
 			"SCHEDULE": {
 				"EPOS": [
-					{"POS":"A001","CMD":"LED","STU":"210000","GROUP":"00"},
-					{"POS":"A002","CMD":"LED","STU":"220000","GROUP":"00"},
-					{"POS":"A021","CMD":"LED","STU":"210000","GROUP":"00"},
-					{"POS":"A022","CMD":"LED","STU":"220000","GROUP":"00"}
+					{"POS":"A031","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A030","CMD":"LED","STU":"220000","GROUP":"00"},
+					{"POS":"A039","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A038","CMD":"LED","STU":"220000","GROUP":"00"}
 				],
 				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
 				"WEEK": "01111111",
@@ -1068,10 +1069,10 @@
 			"SENSOR_CONTROL":2,
 			"SCHEDULE": {
 				"EPOS": [
-					{"POS":"A001","CMD":"LED","STU":"210000","GROUP":"00"},
-					{"POS":"A002","CMD":"LED","STU":"220000","GROUP":"00"},
-					{"POS":"A021","CMD":"LED","STU":"210000","GROUP":"00"},
-					{"POS":"A022","CMD":"LED","STU":"220000","GROUP":"00"}
+					{"POS":"A031","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A030","CMD":"LED","STU":"220000","GROUP":"00"},
+					{"POS":"A039","CMD":"LED","STU":"210000","GROUP":"00"},
+					{"POS":"A038","CMD":"LED","STU":"220000","GROUP":"00"}
 				],
 				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
 				"WEEK": "01111111",
@@ -1091,7 +1092,7 @@
 					{"POS":"E002","CMD":"PUMP","STU":"00","GROUP":"00","LOOP":"03000800"}
 				],
 				"OUTSENSORPOS": [
-					{"POS":"A001","CMD":"RH","STU":"00","GROUP":"00","LOOP":"03000800"}
+					{"POS":"A030","CMD":"RH","STU":"00","GROUP":"00","LOOP":"03000800"}
 				],
 				"LISTREFFAN!LOOP": "000000000000"
 			}
@@ -1442,7 +1443,7 @@
 					"LEDM5AUTO":{"POS":"KEYPAD0","CMD":"REGCMD/KEYSETUP","STU":"AUTO","GROUP":"K003"}		
 				},
 				"SENSORPOS":{
-					"LEDSTU":{"POS":"A001","CMD":"LED","STU":"200000","GROUP":"00","LEDSTU":0,"count":0},
+					"LEDSTU":{"POS":"A030","CMD":"LED","STU":"200000","GROUP":"00","LEDSTU":0,"count":0},
 					"INDOORTM1":{"POS":"H001","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00","Value":0,"count":0},
 					"INDOORTM2":{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00","Value":0,"count":0},
 					"INDOORTM3":{"POS":"H003","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00","Value":0,"count":0},
@@ -1568,6 +1569,14 @@
 			"3A":["A02B","LED","3044","0258","1fff","02C0"],
 			"3B":["A02C","LED","3045","0258","1fff","02C0"],
 			"3C":["A02D","LED","3046","0258","1fff","02C0"],
+			
+			"50":["A030","LED","3021","0258","1fff","02C0"],
+			"51":["A031","LED","3022","0258","1fff","02C0"],
+			"52":["A032","LED","3023","0258","1fff","02C0"],
+			
+			"58":["A038","LED","3029","0258","1fff","02C0"],
+			"59":["A039","LED","3030","0258","1fff","02C0"],
+			"5A":["A03A","LED","3031","0258","1fff","02C0"],
 			
 			"41":["G001","UV","3047","0258","1fff","02C0"],
 			"42":["G002","UV","3048","0258","1fff","02C0"],
