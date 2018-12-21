@@ -236,19 +236,21 @@ event.on('load_redis_event', function (callback) {
 				console.log('Load redis to buffer.')
 				for (key in keytab) {
 					let keyelement = keytab[key];
-					let keydata = JSON.parse(obj[key]);
-					switch (keyelement.file) {
-						case filefirstname:
-							setobjdata(xpdjobj, keyelement.path, keydata);
-							break;
-						case filefirstname_jautocmd:
-							setobjdata(jautocmd, keyelement.path, keydata);
-							break;
-						case filefirstname_keypd:
-							setobjdata(jkeypd, keyelement.path, keydata);
-							break;
-						default:
-							break;
+					if (key in obj) {
+						let keydata = JSON.parse(obj[key]);
+						switch (keyelement.file) {
+							case filefirstname:
+								setobjdata(xpdjobj, keyelement.path, keydata);
+								break;
+							case filefirstname_jautocmd:
+								setobjdata(jautocmd, keyelement.path, keydata);
+								break;
+							case filefirstname_keypd:
+								setobjdata(jkeypd, keyelement.path, keydata);
+								break;
+							default:
+								break;
+						}
 					}
 				}
 			}
