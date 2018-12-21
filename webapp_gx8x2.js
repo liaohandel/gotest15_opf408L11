@@ -614,15 +614,28 @@ app.get('/PDINFO', function (req, res) {
 			switch(cmd){
 				case "ON":
 					//update to File
-					pdbuffer.sysupdate(function(){
-						if(error){ //如果有錯誤，把訊息顯示並離開程式
-							console.log('PDDATA.txt update ERR ! ');							
-							jobj = { "success" : "false" };  
-						}else{
-							console.log('PDDATA.txt update OK ! ');
-							jobj = {  "success" : "true"  }; 							
-						}
-					});
+					// pdbuffer.sysupdate(function(){
+						// if(error){ //如果有錯誤，把訊息顯示並離開程式
+							// console.log('PDDATA.txt update ERR ! ');							
+							// jobj = { "success" : "false" };  
+						// }else{
+							// console.log('PDDATA.txt update OK ! ');
+							// jobj = {  "success" : "true"  }; 							
+						// }
+					// });
+					
+					//update to RedisDB
+					for(let key in pdbuffer.pdjobj.PDDATA.Devtab){
+						pdbuffer.update_redis('pdjobj.PDDATA.Devtab.' + key,function(){
+							if(error){ //如果有錯誤，把訊息顯示並離開程式
+								console.log('PDDATA PDDATA Devtab ' + key + ' update ERR ! ');							
+								jobj = { "success" : "false" };  
+							}else{
+								console.log('PDDATA PDDATA Devtab ' + key + ' update OK ! ');
+								jobj = {  "success" : "true"  }; 							
+							}
+						});
+					}
 					break
 				case "LOAD":
 					if(poslength == 2){						
@@ -657,15 +670,26 @@ app.get('/PDINFO', function (req, res) {
 			switch(cmd){
 				case "ON":
 					//update to File
-					pdbuffer.sysupdate(function(){
+					// pdbuffer.sysupdate(function(){
+						// if(error){ //如果有錯誤，把訊息顯示並離開程式
+							// console.log('PDDATA.txt update ERR ! ');							
+							// jobj = { "success" : "false" };  
+						// }else{
+							// console.log('PDDATA.txt update OK ! ');
+							// jobj = {  "success" : "true"  }; 							
+						// }
+					// });
+					
+					pdbuffer.update_redis('pdjobj.PDDATA',function(){
 						if(error){ //如果有錯誤，把訊息顯示並離開程式
-							console.log('PDDATA.txt update ERR ! ');							
+							console.log('PDDATA PDDATA update ERR ! ');							
 							jobj = { "success" : "false" };  
 						}else{
-							console.log('PDDATA.txt update OK ! ');
+							console.log('PDDATA PDDATA update OK ! ');
 							jobj = {  "success" : "true"  }; 							
 						}
 					});
+					
 					break
 				case "LOAD":
 					cstu = pdbuffer.pdjobj.PDDATA[group];
@@ -696,12 +720,21 @@ app.get('/PDINFO', function (req, res) {
 		switch(cmd){
 			case "ON":
 				//update to File 
-				pdbuffer.sysupdate(function(){
+				// pdbuffer.sysupdate(function(){
+					// if(error){ //如果有錯誤，把訊息顯示並離開程式
+						// console.log('PDDATA.txt update ERR ! ');							
+						// jobj = { "success" : "false" };  
+					// }else{
+						// console.log('PDDATA.txt update OK ! ');
+						// jobj = {  "success" : "true"  }; 							
+					// }
+				// });				 
+				pdbuffer.update_redis('pdjobj.addposmap',function(){
 					if(error){ //如果有錯誤，把訊息顯示並離開程式
-						console.log('PDDATA.txt update ERR ! ');							
+						console.log('PDDATA addposmap update ERR ! ');							
 						jobj = { "success" : "false" };  
 					}else{
-						console.log('PDDATA.txt update OK ! ');
+						console.log('PDDATA addposmap update OK ! ');
 						jobj = {  "success" : "true"  }; 							
 					}
 				});
@@ -774,12 +807,13 @@ function setnet_local_iptime(){
 			ttcode = '"'+data.continent_name+"/"+data.city+'"'
 			console.log("time areg ="+ttcode);
 			pdbuffer.jautocmd.DEVICESET.SETTIMEPAM.LOCALCITY = ttcode;
-			//let setiptime = spawn('sudo timedatectl',['set-timezone',ttcode]);
-			
-			pdbuffer.jautocmd_update(()=>{
-				console.log("JAUTO Save ok !");									
+			//let setiptime = spawn('sudo timedatectl',['set-timezone',ttcode]);			
+			// pdbuffer.jautocmd_update(()=>{
+				// console.log("JAUTO Save ok !");									
+			// });
+			pdbuffer.update_redis('jautocmd.DEVICESET',()=>{
+				console.log("JAUTO DEVICESET Save ok !");									
 			});
-			
 			//setiptime = exec('sudo timedatectl set-timezone '+ttcode);
 			set_city_time(ttcode);
 			
@@ -824,8 +858,11 @@ app.get('/SETTIME', function (req, res) {
 			res.json(jobj);
 			pdbuffer.jautocmd.DEVICESET.SETTIMEPAM.LOCALCITY = cstu;
 			set_city_time(cstu);
-			pdbuffer.jautocmd_update(()=>{
-				console.log("JAUTO Save ok !");									
+			// pdbuffer.jautocmd_update(()=>{
+				// console.log("JAUTO Save ok !");									
+			// });			
+			pdbuffer.update_redis('jautocmd.DEVICESET',()=>{
+				console.log("JAUTO DEVICESET Save ok !");									
 			});
 			break	
 		default:
@@ -938,7 +975,10 @@ app.get('/LED', function (req, res) {
 					if(pos == "A031")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3]=cstu;//0x31 by A red   led level
 					//pdbuffer.jautocmd_update(()=>{
 					//	console.log("JAUTO Save ok !");									
-					//});//update buffer to Files
+					//});//update buffer to Files							
+					pdbuffer.update_redis('jautocmd.DEVICESET',()=>{
+						console.log("JAUTO DEVICESET Save ok !");									
+					});
 					return 	
 					break	
 				default:
@@ -1191,7 +1231,10 @@ app.get('/AIRFAN', function (req, res) {
 					}
 					//pdbuffer.jautocmd_update(()=>{
 					//	console.log("JAUTO Save ok !");									
-					//});//update buffer to Files
+					//});//update buffer to Files							
+					pdbuffer.update_redis('jautocmd.DEVICESET',()=>{
+						console.log("JAUTO DEVICESET Save ok !");									
+					});
 					return 
 					break	
 				default:
