@@ -26,11 +26,9 @@ var cmdcode = require("./handelrs485x2");
 function jobjcopy(jobj){
 	return JSON.parse(JSON.stringify(jobj));	
 }
-
 function autoeventcall(callmask){
 	event.emit(callmask);
 }
-
 event.on('sensorcheck_event', function(){ 
 	console.log("sensor check =>"+pdbuffer.jautocmd.AUTOSN);
 	if(!("GROWLED" in sch_autojob))reload_autojob();

@@ -1133,20 +1133,20 @@ function devalarmbuff(alarmcmd){//fcc10681019f010381
 // });
 function allload(callback){
 	//redis的buffer載入
-redisfunc.init_redis(function () {
-	setuuid = redisfunc.setuuid;
-	exports.setuuid = setuuid;
+	redisfunc.init_redis(function () {
+		setuuid = redisfunc.setuuid;
+		exports.setuuid = setuuid;
 
-	xpdjobj = redisfunc.pdjobj;
-	exports.pdjobj = xpdjobj;
+		xpdjobj = redisfunc.pdjobj;
+		exports.pdjobj = xpdjobj;
 
-	jautocmd = redisfunc.jautocmd;
-	exports.jautocmd = jautocmd;
+		jautocmd = redisfunc.jautocmd;
+		exports.jautocmd = jautocmd;
 
-	jkeypd = redisfunc.jkeypd;
-	exports.jkeypd = jkeypd;
-	callback();
-});
+		jkeypd = redisfunc.jkeypd;
+		exports.jkeypd = jkeypd;
+		callback();
+	});
 }
 //=== tree data
 //exports.pdjobj = xpdjobj; //#####
@@ -1164,7 +1164,6 @@ exports.eventcall = eventcall
 
 exports.totxbuff = totxbuff
 exports.ch1com = ch1com
-
 
 //PDDATA.txt		pdjobj
 exports.sysload = sysload

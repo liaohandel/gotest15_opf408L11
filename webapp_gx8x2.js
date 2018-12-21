@@ -1922,7 +1922,8 @@ app.get('/AUTO', function (req, res) {
 app.listen(setport, function () {    
 	let chkstr = "";
 	
-	pdbuffer.sysload(function(){
+	//pdbuffer.sysload(function(){
+	pdbuffer.allload(function(){
 		ddsnurl = pdbuffer.pdjobj.PDDATA.dsnurl;
 		vdsnurl = pdbuffer.pdjobj.PDDATA.videodsnurl;
 		devloadurl =  pdbuffer.pdjobj.PDDATA.devloadurl;		
