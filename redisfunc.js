@@ -296,11 +296,12 @@ function load_redis(objpath, callback) {
 					}
 					let key = keyarr.shift();
 					let keyelement = keytab[key];
-					client.hget(setuuid, key, function (err, keydata) {
+					client.hget(setuuid, key, function (err, res) {
 						if (err) {
 							console.log('Load error key=' + key);
 							return;
 						}
+						let keydata = JSON.parse(res);
 						setobjdata(xpdjobj, keyelement.path, keydata);
 						nextget();
 					});
@@ -324,11 +325,12 @@ function load_redis(objpath, callback) {
 					}
 					let key = keyarr.shift();
 					let keyelement = keytab[key];
-					client.hget(setuuid, key, function (err, keydata) {
+					client.hget(setuuid, key, function (err, res) {
 						if (err) {
 							console.log('Load error key=' + key);
 							return;
 						}
+						let keydata = JSON.parse(res);
 						setobjdata(jautocmd, keyelement.path, keydata);
 						nextget();
 					});
@@ -352,11 +354,12 @@ function load_redis(objpath, callback) {
 					}
 					let key = keyarr.shift();
 					let keyelement = keytab[key];
-					client.hget(setuuid, key, function (err, keydata) {
+					client.hget(setuuid, key, function (err, res) {
 						if (err) {
 							console.log('Load error key=' + key);
 							return;
 						}
+						let keydata = JSON.parse(res);
 						setobjdata(jkeypd, keyelement.path, keydata);
 						nextget();
 					});
@@ -396,6 +399,54 @@ function load_redis(objpath, callback) {
 				}
 				runcallback(callback);
 			});
+			return;
+		} else {
+			let keyarr = [];
+			for (let key in keytab) {
+				let keyelement = keytab[key];
+				if (keyelement.file == objpatharr[0]) {
+					let keyelementpathlen = keyelement.path.length;
+					let i;
+					for (i = 1; i < len && i - 1 < keyelementpathlen; i++) {
+						if (objpatharr[i] != keyelement.path[i - 1])
+							break;
+					}
+					if (i == len) {
+						keyarr.push(key);
+					}
+				}
+			}
+			let nextget = function () {
+				if (keyarr.length == 0) {
+					runcallback(callback);
+					return;
+				}
+				let key = keyarr.shift();
+				let keyelement = keytab[key];
+				client.hget(setuuid, key, function (err, res) {
+					if (err) {
+						console.log('Load error key=' + key);
+						return;
+					}
+					let keydata = JSON.parse(res);
+					switch (keyelement.file) {
+						case filefirstname:
+							setobjdata(xpdjobj, keyelement.path, keydata);
+							break;
+						case filefirstname_jautocmd:
+							setobjdata(jautocmd, keyelement.path, keydata);
+							break;
+						case filefirstname_keypd:
+							setobjdata(jkeypd, keyelement.path, keydata);
+							break;
+						default:
+							break;
+					}
+					nextget();
+				});
+			};
+			nextget();
+
 			return;
 		}
 	}
@@ -528,6 +579,51 @@ function update_redis(objpath, callback) {
 				}
 				console.log("Update redis success. Key=" + key + " Path=" + objpath);
 			});
+			return;
+		} else {
+			for (let key in keytab) {
+				let keyelement = keytab[key];
+				if (keyelement.file == objpatharr[0]) {
+					let keyelementpathlen = keyelement.path.length;
+					let i;
+					for (i = 1; i < len && i - 1 < keyelementpathlen; i++) {
+						if (objpatharr[i] != keyelement.path[i - 1])
+							break;
+					}
+					if (i == len) {
+						let keydata;
+						switch (keyelement.file) {
+							case filefirstname:
+								keydata = getobjdata(xpdjobj, keyelement.path);
+								break;
+							case filefirstname_jautocmd:
+								keydata = getobjdata(jautocmd, keyelement.path);
+								break;
+							case filefirstname_keypd:
+								keydata = getobjdata(jkeypd, keyelement.path);
+								break;
+							default:
+								break;
+						}
+						if (keydata == undefined) {
+							break;
+						}
+						keydata = jobjcopy(keydata);
+						let len = keyelement.sub.length;
+						for (let i = 0; i < len; i++) {
+							delete keydata[keyelement.sub[i]];
+						}
+						//統一加上JSON.stringify，減少判斷上的麻煩。
+						client.hset(setuuid, key, JSON.stringify(keydata), function (err) {
+							if (err) {
+								console.log("Update redis error. Key=" + key + " Path=" + objpath);
+								return;
+							}
+							console.log("Update redis success. Key=" + key + " Path=" + objpath);
+						});
+					}
+				}
+			}
 			return;
 		}
 	}
