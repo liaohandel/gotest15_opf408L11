@@ -59,6 +59,9 @@ var setdevouturl = devloadurl+"?UUID="+setuuid+"&result="+"{}"
 //=== POS RS422 command lib
 var cmdcode = require("./handelrs485x2.js");
 
+//載入redis自製模板
+var redisfunc = require("./redisfunc.js");
+
 //=== PDDATA.txt to pdjobj
 var filename = "PDDATA.txt"
 var filepath = path.join(__dirname, ("/public/" + filename));
@@ -263,7 +266,7 @@ function jautocmd_load(callback){
 
 function jautocmd_update(callback){	
 	let jautocmddata = JSON.stringify(jautocmd);
-	//console.log('JAUTOCMD.txt update run x1! ');	
+	console.log('JAUTOCMD.txt update run x1! ');	
 	
 	// fs.writeFile(filepath_jautocmd,jautocmddata,function(error){
 		// if(error){ //如果有錯誤，把訊息顯示並離開程式
@@ -1121,14 +1124,30 @@ function devalarmbuff(alarmcmd){//fcc10681019f010381
         // console.log("jtreedata ver = ", jtreedata.treever);			
 // });
 
-jautocmd_load(function(){
-		console.log("jautocmd ver =",jautocmd.AUTOSN);		
-});
+// jautocmd_load(function(){
+// 		console.log("jautocmd ver =",jautocmd.AUTOSN);		
+// });
 
-jkeypd_load(function(){
-		console.log("KETPD ver=",jkeypd.KEYVER);		
-});
+// jkeypd_load(function(){
+// 		console.log("KETPD ver=",jkeypd.KEYVER);		
+// });
+function allload(callback){
+	//redis的buffer載入
+redisfunc.init_redis(function () {
+	setuuid = redisfunc.setuuid;
+	exports.setuuid = setuuid;
 
+	xpdjobj = redisfunc.pdjobj;
+	exports.pdjobj = xpdjobj;
+
+	jautocmd = redisfunc.jautocmd;
+	exports.jautocmd = jautocmd;
+
+	jkeypd = redisfunc.jkeypd;
+	exports.jkeypd = jkeypd;
+	callback();
+});
+}
 //=== tree data
 //exports.pdjobj = xpdjobj; //#####
 //exports.jtreescan = jtreescan
@@ -1168,25 +1187,12 @@ exports.jkeypd_load = jkeypd_load
 exports.jkeypd_update = jkeypd_update
 exports.keypadpushbuffer = keypadpushbuffer
 
+//redisfunc.js
+exports.init_redis = redisfunc.init_redis;
+exports.load_redis = redisfunc.load_redis;
+exports.update_redis = redisfunc.update_redis;
 
+exports.clear_redis = redisfunc.clear_redis;
+exports.show_all_keys_redis = redisfunc.show_all_keys_redis;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+exports.allload = allload;
