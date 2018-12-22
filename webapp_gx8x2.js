@@ -1,7 +1,7 @@
 console.log("[linkgateway ] start gotest15_opf408L10 webapp_gx8x2 20181208x1 ...");
-var reload = require('require-reload')(require);
+var reload = require('require-reload')(require);//### william_tu add in autolink funciton
 var reloadcount = 0;
-var reloadtime;
+var reloadtime = Date.now();
 
 var EventEmitter = require('events').EventEmitter; 
 var event = new EventEmitter(); 
@@ -2002,7 +2002,7 @@ app.listen(setport, function () {
 			//ngrok.kill(); // kill all link
 			
 			ngrok.connect(setport,function (err, url) {
-				reloadtime = Date.now(); //記住ngrok網址配置時間
+				reloadtime = Date.now(); //記住ngrok網址配置時間 ###
 				if(err)console.log("link ngrok err=>"+ err);
 				
 				if(url === undefined ){
@@ -2045,8 +2045,9 @@ app.listen(setport, function () {
 							// if(sbcount>=sbcountmax)sbcount=0;	
 							// opf403_regdev_loadscan(regsensorbuff[sbcount]);//opf402 use reg level load scan 
 							// opf403_regstulinkweb(uploadregsensorbuff[sbcount]);				
-							// opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);							
-							if(Date.now() - reloadtime >= 14400000) reload105ddsn();//四小時自動重配ngrok網址	
+							// opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);
+							if(Date.now() - reloadtime >= 14400000) reload105ddsn();//四小時自動重配ngrok網址 ###								
+							
 						} else {							                       
 							console.log("linkchk fail ...",linkchkcount) 
 							linkchkcount++;
@@ -2145,8 +2146,9 @@ function reload85ddsn(){
 function reload105ddsn(){	
     console.log('recall link ngrok ...');
 	ngrok.disconnect(); // stops all
-	ngrok.kill(); // kill all link
-	reloadtime = Date.now();
+	ngrok.kill(); // kill all link ###
+	
+	reloadtime = Date.now();//###
 	reloadcount++;
 	if(reloadcount < 1100) { //如果非異常狀況之下約每半年才會restart webapp_gx6.js
 		ngrok = reload('ngrok');
@@ -2169,6 +2171,21 @@ function reload105ddsn(){
 			console.log("restart link  webapp ... ")
 		});
 	}
+	
+	// ngrok.connect('192.168.5.105:3000',function (err, url) {
+		// if(url === undefined ){ //### this chek use the ngrok is fail  unlink .... 20180909 
+			// url="http://0000";
+		// }
+		
+		// seturl = url
+        // chkurl = seturl+"/connectcheck"
+		// console.log("link container opf408L10 or opf403,opdf406 =>"+seturl);
+		
+        // setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
+		// client.get(setddsnurl,cargs, function (data, response) {
+			// console.log("get ok...") 				
+		// }).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+	// });
 }
 
 function reload104ddsn(){	
