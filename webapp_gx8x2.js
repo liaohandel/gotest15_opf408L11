@@ -189,8 +189,6 @@ var uploadregsensorbuff = [
 	]
 ]
 
-
-
 //var sbcountmax =13;
 var sbcountmax = regsensorbuff.length;
 
@@ -972,10 +970,10 @@ app.get('/LED', function (req, res) {
 					ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];
 					break	
 				case "SET"://%100= 0x00,%80=0x3B,%50=0x44,%30=0x4A
-					if(pos == "A038")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0]=cstu;//0x60 by B write led level
-					if(pos == "A039")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1]=cstu;//0x61 by B red   led level
-					if(pos == "A030")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2]=cstu;//0x30 by A write led level
-					if(pos == "A031")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3]=cstu;//0x31 by A red   led level
+					if(pos == "A038")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2]=cstu;//0x60 by B write led level
+					if(pos == "A039")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3]=cstu;//0x61 by B red   led level
+					if(pos == "A030")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0]=cstu;//0x30 by A write led level
+					if(pos == "A031")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1]=cstu;//0x31 by A red   led level
 					//pdbuffer.jautocmd_update(()=>{
 					//	console.log("JAUTO Save ok !");									
 					//});//update buffer to Files							
@@ -1220,17 +1218,17 @@ app.get('/AIRFAN', function (req, res) {
 				case "LOAD":
 					ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];
 					break	
-				case "SET":			
+				case "SET":		
 					if(nstu == 0 ){
-						if(pos == "B001")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[0]="OFF";//ON ,OFF
-						if(pos == "B002")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[1]="OFF";
-						if(pos == "B003")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[2]="OFF";
-						if(pos == "B004")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[3]="OFF";
+						if(pos == "S001")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[0]="OFF";//ON ,OFF
+						if(pos == "S002")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[1]="OFF";
+						if(pos == "S003")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[2]="OFF";
+						if(pos == "S004")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[3]="OFF";
 					}else{
-						if(pos == "B001")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[0]="ON";//ON ,OFF
-						if(pos == "B002")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[1]="ON";
-						if(pos == "B003")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[2]="ON";
-						if(pos == "B004")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[3]="ON";
+						if(pos == "S001")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[0]="ON";//ON ,OFF
+						if(pos == "S002")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[1]="ON";
+						if(pos == "S003")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[2]="ON";
+						if(pos == "S004")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[3]="ON";
 					}
 					//pdbuffer.jautocmd_update(()=>{
 					//	console.log("JAUTO Save ok !");									
