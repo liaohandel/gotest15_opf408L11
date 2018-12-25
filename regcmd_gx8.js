@@ -775,6 +775,7 @@ router.get('/TMDEVICECAL',function(req,res,next){
 				if(pos == "0000")jobj = jobjcopy(pdbuffer.jautocmd.DEVICESET.CHKLOADTM);//LOAD TM
 				if(pos == "0001")jobj = jobjcopy(pdbuffer.jautocmd.DEVICESET.CHKLOADRH);//LOAD RH
 				if(pos == "0002")jobj = jobjcopy(pdbuffer.jautocmd.DEVICESET.CHKLOADCO2);//LOAD CO2
+				if(pos == "9000")jobj = jobjcopy(pdbuffer.jautocmd.DEVICESET);//all DEVICESET
 				
 				console.log(JSON.stringify(jobj));
 				res.json(jobj);	

@@ -35,7 +35,7 @@ event.on('sensorcheck_event', function(){
 	for(ii in sch_autojob){
 		mpos=ii;
 		if(!(mpos in sch_autoloadmark))sch_autoloadmark[mpos]=0;	
-		//console.log(">>["+mpos+"]auto statu="+sch_autojob[mpos].STATU+" loadmark="+sch_autoloadmark[mpos]);
+		console.log(">>["+mpos+"]auto statu="+sch_autojob[mpos].STATU+" loadmark="+sch_autoloadmark[mpos]);
 		if(sch_autojob[mpos].STATU==1){//auto is run enable to event process
 			if(sch_autojob[mpos].MODE == 1){ //TIMER
 				if(!(mpos in sch_autoloadmark))sch_autoloadmark[mpos]=0;	
