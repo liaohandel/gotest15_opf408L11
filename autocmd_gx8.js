@@ -1845,6 +1845,8 @@ function GOBOX2LOOP(ljob){
 	let chkloadval = 0;
 	let oloadval = 0;
 	console.log(">>waterloop ="+ljob.SENSOR_CONTROL);
+	console.log(">>waterlev6 = "+ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.Value +">waterlev7 = "+ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value );
+	console.log(">>waterlev6cnt = "+ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.count +">waterlev7cnt = "+ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count );
 	ljob.SENSOR_CONTROL = Number(ljob.SENSOR_CONTROL);
 	
 	switch(ljob.SENSOR_CONTROL){
