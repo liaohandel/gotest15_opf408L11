@@ -132,7 +132,7 @@ function scan_schedule_chkloop(chklist){
 }
 
 function device_auto_client(devlist,devcmd){
-	let cmdindex = pdbuffer.pdjobj.subcmd[devcmd]
+	let cmdindex = pdbuffer.pdjobj.subcmd[devcmd];
 	//console.log(">>auto_Client ="+JSON.stringify(devlist)+"for "+devcmd+"="+cmdindex+"@time= "+Date());
 	for(kk in devlist){
 		//console.log("1>>auto_Client ="+JSON.stringify(devlist)+"for "+devcmd+" = "+cmdindex+" = "+kk+" time="+Date());
@@ -142,6 +142,7 @@ function device_auto_client(devlist,devcmd){
 		//dstu = devlist[kk].STU.substr(0,2);
 		dstu = devlist[kk].STU.substr(0,2);
 		dgroup = devlist[kk].GROUP;
+		let run_stu="200000";
 		
 		//console.log("2>>auto_Client pos="+dpos+" cmd="+dtype+" add= "+dregadd+" time="+Date());
 		if(Number("0x0"+dregadd)<0x20)continue;
@@ -151,7 +152,7 @@ function device_auto_client(devlist,devcmd){
 		if(cmdindex != chkss){	//check the active command is working to device now?
 			//client command 			
 			//console.log("3>>auto_Client ="+JSON.stringify(devlist)+"for "+devcmd+" = "+cmdindex+" = "+kk+" time="+Date());
-			if(dpos=="E002" && dstu=="58"){
+			if(dpos=="E002" && dstu=="58"){//check REFFAN AUTO Device by LEVEL setup
 				//console.log(">>reffanloop json="+JSON.stringify(pdbuffer.jautocmd.DEVICESET.REFFAN));
 				if(devcmd == "ON"){
 					run1_active=pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[0];
@@ -189,7 +190,7 @@ function device_auto_client(devlist,devcmd){
 					console.log("keypad client active  ok ...");
 				}).on("error", function(err) {console.log("err for client");});
 			
-			}else if(dpos.substr(0,2)=="A0" && dtype=="LED"){				
+			}else if(dpos.substr(0,2)=="A0" && dtype=="LED"){//Check LED AUTO drive level setup			
 				//console.log(">>ledrunloop json="+devcmd+"="+JSON.stringify(pdbuffer.jautocmd.DEVICESET.GROWLED));
 				if(dpos == "A038")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0]; //B LED write
 				if(dpos == "A039")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1]; //B LED red
@@ -1451,7 +1452,7 @@ function active_keypadjob(kpos,kcode,kactive){
 	let run_stu = ""
 	let run_group = ""
 	
-	if(kpos == "KEYPAD0" && kcode =="K003" ){//mask the LED on/OFF control status by autotmloop check ###
+	if(kpos == "KEYPAD0" && kcode =="K003" ){//mask the LED on/OFF control status by autotmloop check ### 溫控LED ONOFF mask
 		if(kactive == "AUTO")pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 1;//### auto
 		if(kactive == "ON")pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 1;//### auto
 		if(kactive == "HI")pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 1;//### auto
@@ -1512,10 +1513,10 @@ function active_keypadjob(kpos,kcode,kactive){
 		}
 		
 		if(run_cmd == "LED" && run_active =="ON" ){// setup the LED lev set
-			if(run_pos == "A038")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0];//0x60 by B write led level
-			if(run_pos == "A039")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1];//0x61 by B red   led level
-			if(run_pos == "A030")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2];//0x30 by A write led level
-			if(run_pos == "A031")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3];//0x31 by A red   led level
+			if(run_pos == "A038")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2];//0x60 by B write led level
+			if(run_pos == "A039")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3];//0x61 by B red   led level
+			if(run_pos == "A030")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0];//0x30 by A write led level
+			if(run_pos == "A031")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1];//0x31 by A red   led level
 		}
 		
 		//console.log(">>["+cc+"]"+run_cmd)
@@ -1844,6 +1845,8 @@ function GOBOX2LOOP(ljob){
 	let chkloadval = 0;
 	let oloadval = 0;
 	console.log(">>waterloop ="+ljob.SENSOR_CONTROL);
+	console.log(">>waterlev6 = "+ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.Value +">waterlev7 = "+ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value );
+	console.log(">>waterlev6cnt = "+ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.count +">waterlev7cnt = "+ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count );
 	ljob.SENSOR_CONTROL = Number(ljob.SENSOR_CONTROL);
 	
 	switch(ljob.SENSOR_CONTROL){
@@ -3467,6 +3470,7 @@ function tmdemoloop(ljob){
 //============ auto status run by 30sec ===========================
 event.on('sec30status_event', function(){ 
 	for(jj in pdbuffer.jautocmd.WATERLOOP){	
+		console.log("flow_auto["+jj+"] ="+pdbuffer.jautocmd.WATERLOOP[jj].STATU);
 		switch(jj){
 			case "BOX2LOOP":
 				if(pdbuffer.jautocmd.WATERLOOP.BOX2LOOP.STATU == 1)GOBOX2LOOP(pdbuffer.jautocmd.WATERLOOP.BOX2LOOP);
