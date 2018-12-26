@@ -113,7 +113,7 @@ function scanstart_comm(timearr,stval){
     }
 }
 
-function scan_schedule_chkloop(chklist){
+function scan_schedule_chkloop(chklist){//check the Time under the time schedule list Rang  return 1 if not return 0
 	let chktimehh = new Date().getHours();//var sttime = new Date(Date.now() + 5000)getMonth(), getFullYear(), getDate(), getDat(), getHours(), getMinutes(), 
 	let chktimemm = new Date().getMinutes();//"chkloop":[{"stt":"0001","endt":"0900"}],
 	let chkmmvalue = chktimehh*60 + chktimemm;
@@ -3467,6 +3467,35 @@ function tmdemoloop(ljob){
 
 }
 
+
+//=== autoledmoto_updown_loop ===
+function autoledmoto_loop(ljob){
+	let outksspos = "";
+	let typecmd = "";
+	let typedevreg = "";
+	let chkloadval = 0;
+	let oloadval = 0;
+	let chkflag =0;
+	
+	console.log(">>autoledmoto_loop ="+ljob.SENSOR_CONTROL);
+	ljob.SENSOR_CONTROL = Number(ljob.SENSOR_CONTROL);
+	
+	switch(ljob.SENSOR_CONTROL){
+		case 0: //
+			ljob.SENSOR_CONTROL=1; 
+			break;
+		case 1: //
+			ljob.SENSOR_CONTROL=2;
+			break;
+		case 2: // 
+			ljob.SENSOR_CONTROL=0;
+			break;
+		default:	
+			ljob.SENSOR_CONTROL=0;
+			break;
+	}
+}
+
 //============ auto status run by 30sec ===========================
 event.on('sec30status_event', function(){ 
 	for(jj in pdbuffer.jautocmd.WATERLOOP){	
@@ -3498,6 +3527,8 @@ event.on('sec30status_event', function(){
 		}	
 	}
 });
+
+
 
 exports.autoeventcall = autoeventcall
 

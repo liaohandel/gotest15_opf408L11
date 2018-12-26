@@ -1521,7 +1521,37 @@
 					"NEXTGO":0					
 				}
 			}
-		}
+		},
+		"autoledmoto_loop":{
+			"MODE":5, 
+			"STATU":1,
+			"SENSOR_CONTROL":0,
+			"CHKLOOP": {
+				"DEVPOS":{
+					"M1":{"POS":"E002","CMD":"PUMP","STU":"480000","GROUP":"00"},
+					"M2":{"POS":"E002","CMD":"PUMP","STU":"410000","GROUP":"00"},
+					"M3":{"POS":"E002","CMD":"PUMP","STU":"490000","GROUP":"00"},
+					"M4":{"POS":"E002","CMD":"PUMP","STU":"430000","GROUP":"00"},
+					"M5":{"POS":"E002","CMD":"PUMP","STU":"4C0000","GROUP":"00"},
+					"MDOSEA":{"POS":"E002","CMD":"PUMP","STU":"440000","GROUP":"00"},
+					"MDOSEB":{"POS":"E002","CMD":"PUMP","STU":"450000","GROUP":"00"},
+					"MDOSEC":{"POS":"E002","CMD":"PUMP","STU":"460000","GROUP":"00"},
+					"MDOSED":{"POS":"E002","CMD":"PUMP","STU":"610000","GROUP":"00"}					
+				},
+				"SENSORPOS":{
+					"AUTOLEDMOTOA":{"POS":"H001","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00","Value":0,"count":0},
+					"AUTOLEDMOTOB":{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00","Value":0,"count":0}
+				},
+				"CHKVALUE":{
+					"WAIT1":0,
+					"DELAY1":0,
+					"DELAY2":0
+				},
+				"chktime":[
+					{"stt":"0001","endt":"0005"}
+				]
+			}
+		}		
 	},
 
 	"PWMOFFBACKUP":{
