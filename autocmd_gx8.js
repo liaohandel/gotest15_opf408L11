@@ -113,7 +113,7 @@ function scanstart_comm(timearr,stval){
     }
 }
 
-function scan_schedule_chkloop(chklist){
+function scan_schedule_chkloop(chklist){//check the Time under the time schedule list Rang  return 1 if not return 0
 	let chktimehh = new Date().getHours();//var sttime = new Date(Date.now() + 5000)getMonth(), getFullYear(), getDate(), getDat(), getHours(), getMinutes(), 
 	let chktimemm = new Date().getMinutes();//"chkloop":[{"stt":"0001","endt":"0900"}],
 	let chkmmvalue = chktimehh*60 + chktimemm;
@@ -133,7 +133,7 @@ function scan_schedule_chkloop(chklist){
 
 function device_auto_client(devlist,devcmd){
 	let cmdindex = pdbuffer.pdjobj.subcmd[devcmd];
-	//console.log(">>auto_Client ="+JSON.stringify(devlist)+"for "+devcmd+"="+cmdindex+"@time= "+Date());
+	console.log(">>auto_Client ="+JSON.stringify(devlist)+"for "+devcmd+"="+cmdindex+"@time= "+Date());
 	for(kk in devlist){
 		//console.log("1>>auto_Client ="+JSON.stringify(devlist)+"for "+devcmd+" = "+cmdindex+" = "+kk+" time="+Date());
 		dpos = devlist[kk].POS;
@@ -144,14 +144,15 @@ function device_auto_client(devlist,devcmd){
 		dgroup = devlist[kk].GROUP;
 		let run_stu="200000";
 		
-		//console.log("2>>auto_Client pos="+dpos+" cmd="+dtype+" add= "+dregadd+" time="+Date());
+		console.log("2>>auto_Client pos="+dpos+" cmd="+dtype+" add= "+dregadd+" time="+Date());
 		if(Number("0x0"+dregadd)<0x20)continue;
+		
 		chkss = device_chek_stu(dpos,dtype,dregadd);
-		//console.log("4>>auto_Client pos="+dpos+" cmd="+dtype+" add= "+dregadd+" time="+Date());
+		console.log("4>>auto_Client pos="+dpos+" cmd="+dtype+" add= "+dregadd+" time="+Date());
 		console.log(">>check =>"+cmdindex+" for "+chkss);
 		if(cmdindex != chkss){	//check the active command is working to device now?
 			//client command 			
-			//console.log("3>>auto_Client ="+JSON.stringify(devlist)+"for "+devcmd+" = "+cmdindex+" = "+kk+" time="+Date());
+			console.log("3>>auto_Client ="+JSON.stringify(devlist)+"for "+devcmd+" = "+cmdindex+" = "+kk+" time="+Date());
 			if(dpos=="E002" && dstu=="58"){//check REFFAN AUTO Device by LEVEL setup
 				//console.log(">>reffanloop json="+JSON.stringify(pdbuffer.jautocmd.DEVICESET.REFFAN));
 				if(devcmd == "ON"){
@@ -191,7 +192,7 @@ function device_auto_client(devlist,devcmd){
 				}).on("error", function(err) {console.log("err for client");});
 			
 			}else if(dpos.substr(0,2)=="A0" && dtype=="LED"){//Check LED AUTO drive level setup			
-				//console.log(">>ledrunloop json="+devcmd+"="+JSON.stringify(pdbuffer.jautocmd.DEVICESET.GROWLED));
+				console.log(">>ledrunloop json="+devcmd+"="+JSON.stringify(pdbuffer.jautocmd.DEVICESET.GROWLED));
 				if(dpos == "A038")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0]; //B LED write
 				if(dpos == "A039")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1]; //B LED red
 				if(dpos == "A030")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2]; //A LED write
@@ -3634,6 +3635,101 @@ function tmdemoloop(ljob){
 
 }
 
+
+//=== autoledmoto_updown_loop ===
+function autoledmotoloop(ljob){
+	let outksspos = "";
+	let typecmd = "";
+	let typedevreg = "";
+	let chkloadval = 0;
+	let oloadval = 0;
+	let chkflag =0;
+	let chkautoname ="0000";
+	let devlist =[];
+	let motobase = 0;
+	let motooffset = 0;
+	let sss="000000";
+	
+	console.log(">>autoledmotoloop ="+ljob.SENSOR_CONTROL);
+	ljob.SENSOR_CONTROL = Number(ljob.SENSOR_CONTROL);
+	
+	switch(ljob.SENSOR_CONTROL){
+		case 0: //check schedule is mach 			
+			chkflag = scan_schedule_chkloop(ljob.CHKLOOP.chktime);
+			if(chkflag == 1){
+				ljob.CHKLOOP.CHKVALUE.DELAY1 = ljob.CHKLOOP.CHKVALUE.MOTOAUTOLIST.length - 1 ;
+				console.log(">>autoledmotoloop DELAY1="+ljob.CHKLOOP.CHKVALUE.DELAY1);
+				ljob.SENSOR_CONTROL=1;					
+			}else{
+				ljob.CHKLOOP.CHKVALUE.DELAY1 = 0;
+				ljob.SENSOR_CONTROL=11; 
+			}
+			break;
+		case 1: // auto chk all List MOTOAUTOLIST 
+			chkautoname = ljob.CHKLOOP.CHKVALUE.MOTOAUTOLIST[ljob.CHKLOOP.CHKVALUE.DELAY1];
+			console.log(">>autoledmotoloop = [%s ] = %s ",ljob.CHKLOOP.CHKVALUE.DELAY1,chkautoname);
+			//console.log(">>autoledmotoloop =");
+			if(ljob.CHKLOOP.CHKVALUE.DELAY1>0){
+				ljob.CHKLOOP.CHKVALUE.DELAY1 --;
+				ljob.SENSOR_CONTROL=1;
+				
+				if(pdbuffer.jautocmd.DEVLIST[chkautoname].STATU == 1){
+					for(dd in pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.EPOS){
+						motobase = pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.MOTOPAM[dd].BASE - pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.MOTOPAM[dd].OFFSET;
+						if(motobase<0)motobase=0;
+						pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.MOTOPAM[dd].BASE = motobase;
+						pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.EPOS[dd].STU=("000000"+motobase.toString(16)).substr(-6,6);
+						console.log(">>autoledmotoloop %s STU= %s",chkautoname,pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.EPOS[dd].STU);
+					}
+					pdbuffer.update_redis('jautocmd.DEVLIST.'+chkautoname,()=>{console.log("JAUTO Save ok !");});//update buffer to Files
+					devlist = jobjcopy(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.EPOS);
+					
+					for(ee in devlist)water_client_trige(devlist[ee],"ON");  
+					console.log(">>autoledmotoloop ="+JSON.stringify(devlist));
+					
+					for(ff in pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM)water_client_trige(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM[ff],"AUTO");
+					console.log(">>autoledmotoloop ="+JSON.stringify(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM));
+				}				
+			}else{
+				ljob.CHKLOOP.CHKVALUE.DELAY1 = 0;
+				ljob.SENSOR_CONTROL=10;
+				
+				if(pdbuffer.jautocmd.DEVLIST[chkautoname].STATU == 1){
+					for(dd in pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.EPOS){
+						motobase = pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.MOTOPAM[dd].BASE - pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.MOTOPAM[dd].OFFSET;
+						pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.MOTOPAM[dd].BASE = motobase;
+						pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.EPOS[dd].STU=("000000"+motobase.toString(16)).substr(-6,6);
+					}
+					pdbuffer.update_redis('jautocmd.DEVLIST.'+chkautoname,()=>{console.log("JAUTO Save ok !");});//update buffer to Files
+					devlist = jobjcopy(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.EPOS);
+					
+					for(ee in devlist)water_client_trige(devlist[ee],"ON");  					
+					for(ff in pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM)water_client_trige(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM[ff],"AUTO");
+				}
+			}
+			break;
+		case 10: //delay 10min for when after auto working
+			ljob.CHKLOOP.CHKVALUE.WAIT1=20;
+			ljob.SENSOR_CONTROL=12;
+			break;
+		case 11: //delay 2 min everytime check time schedule 
+			ljob.CHKLOOP.CHKVALUE.WAIT1=2;
+			ljob.SENSOR_CONTROL=12;
+			break;
+		case 12: //
+			if(ljob.CHKLOOP.CHKVALUE.WAIT1 > 0){
+				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
+				ljob.SENSOR_CONTROL=12;				
+			}else{				
+				ljob.SENSOR_CONTROL=0;
+			}
+			break;
+		default:	
+			ljob.SENSOR_CONTROL=0;
+			break;
+	}
+}
+
 //============ auto status run by 30sec ===========================
 event.on('sec30status_event', function(){ 
 	for(jj in pdbuffer.jautocmd.WATERLOOP){	
@@ -3655,9 +3751,12 @@ event.on('sec30status_event', function(){
 				if(pdbuffer.jautocmd.WATERLOOP.autotmloop.STATU == 1)autotmloop(pdbuffer.jautocmd.WATERLOOP.autotmloop);
 				
 				break;
-				
 			case "tmdemoloop":
 				if(pdbuffer.jautocmd.WATERLOOP.tmdemoloop.STATU == 1)tmdemoloop(pdbuffer.jautocmd.WATERLOOP.tmdemoloop);
+				
+				break;
+			case "autoledmotoloop":
+				if(pdbuffer.jautocmd.WATERLOOP.autoledmotoloop.STATU == 1)autoledmotoloop(pdbuffer.jautocmd.WATERLOOP.autoledmotoloop);
 				
 				break;
 			default:
@@ -3665,6 +3764,8 @@ event.on('sec30status_event', function(){
 		}	
 	}
 });
+
+
 
 exports.autoeventcall = autoeventcall
 
