@@ -1,4 +1,4 @@
-console.log("[linkgateway ] start gotest15_opf408L10 webapp_gx8x2 20181208x1 ...");
+console.log("[linkgateway ] start gotest15_opf408L8 webapp_gx8x2 20181230x1 ...");
 var reload = require('require-reload')(require);//### william_tu add in autolink funciton
 var reloadcount = 0;
 var reloadtime = Date.now();
@@ -25,7 +25,6 @@ var cargs = {
     }
 };
 
- 
 var path = require('path');
 var fs = require('fs');
 var os = require('os');
@@ -1943,7 +1942,6 @@ app.listen(setport, function () {
 		//### fa auto callback message event ###
 		setInterval(function(){			
 			//console.log("0xfc command check 0..."+global.arxokflag)
-			//console.log("0xfc command check 0..."+global.arxokflag)
 			if(global.arxokflag == true){
 				global.arxokflag=false;
 				console.log("0xfc command check 1..."+global.arxokflag)
@@ -2016,7 +2014,6 @@ app.listen(setport, function () {
 					//console.log(data.toString());
 					//raw response 
 					//console.log(response.query);
-
 					
 				}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 				
@@ -2038,7 +2035,6 @@ app.listen(setport, function () {
 							
 							//container_stulinkweb(sensorbuff[sbcount]);//#### link load sensor data 
 							//for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
-											
 							// sbcount++;
 							// if(sbcount>=sbcountmax)sbcount=0;	
 							// opf403_regdev_loadscan(regsensorbuff[sbcount]);//opf402 use reg level load scan 
@@ -2075,16 +2071,12 @@ app.listen(setport, function () {
 		}else if(pdbuffer.pdjobj.PDDATA.linkoffmode == 1){//off link mode
 			console.log(">>OFF Link Mode !");
 			// setInterval(function(){				
-				// console.log(">>LOCAL OFF Link Mode !");
-				
+				// console.log(">>LOCAL OFF Link Mode !");				
 				// //device_stulinkweb(sensorbuff[sbcount]);
-				// //for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
-				
+				// //for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);				
 				// sbcount++;
 				// if(sbcount>=sbcountmax)sbcount=0;	
-				// opf403_regdev_loadscan(regsensorbuff[sbcount]);			
-				
-				
+				// opf403_regdev_loadscan(regsensorbuff[sbcount]);
 				// //for(pp in sensorbuff[sbcount])devloadscan(sensorbuff[sbcount][pp]);	//load pos data to buffer 5min					
 			// }, 3 * 60 * 1000);
 			
@@ -2095,12 +2087,10 @@ app.listen(setport, function () {
 				// //#### link load sensor data 
 				// //container_stulinkweb(sensorbuff[sbcount]);//#### link load sensor data 
 				// //for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
-				
 				// sbcount++;
 				// if(sbcount>=sbcountmax)sbcount=0;	
 				// opf403_regdev_loadscan(uploadregsensorbuff[sbcount]);					
 				// opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);	
-				
 				// //### sensor data buffer upload to web server 	
 				// //for(pp in sensorbuff[sbcount])devloadscan(sensorbuff[sbcount][pp]);	//load pos data to buffer 5min	
 			// }, 3 * 60 * 1000);			
@@ -2174,11 +2164,9 @@ function reload105ddsn(){
 		// if(url === undefined ){ //### this chek use the ngrok is fail  unlink .... 20180909 
 			// url="http://0000";
 		// }
-		
 		// seturl = url
         // chkurl = seturl+"/connectcheck"
 		// console.log("link container opf408L10 or opf403,opdf406 =>"+seturl);
-		
         // setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
 		// client.get(setddsnurl,cargs, function (data, response) {
 			// console.log("get ok...") 				
