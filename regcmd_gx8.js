@@ -69,6 +69,7 @@ function keylistapicall(kapilist){
 			chkcmd = kapilist[kk].CMD;
 			//keypadlisturl = "http://127.0.0.1:3000/"+kapilist[kk].CMD+"?UUID="+pdbuffer.setuuid+"&Action="+kapilist[kk].Action+"&POS="+kapilist[kk].POS+"&STU="+kapilist[kk].STU+"&GROUP="+kapilist[kk].GROUP
 			keypadlisturl = "http://127.0.0.1:3000/"+chkcmd+"?UUID="+pdbuffer.setuuid+"&Action="+kapilist[kk].Action+"&POS="+kapilist[kk].POS+"&STU="+kapilist[kk].STU+"&GROUP="+kapilist[kk].GROUP
+			console.log(keypadlisturl);
 			client.get(keypadlisturl, function (data, response) {
 				console.log("get ok...");
 			}).on("error", function(err) {console.log("err for client");});
