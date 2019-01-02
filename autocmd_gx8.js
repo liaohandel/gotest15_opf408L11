@@ -2463,6 +2463,7 @@ function autotmloop(ljob){
 					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2101")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2101";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
+			
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
