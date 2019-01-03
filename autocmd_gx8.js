@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const vermess = "[opf408L8 ] start autocmd_gx8 20181208x1 ..."
 console.log(vermess);
 
