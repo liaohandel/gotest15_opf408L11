@@ -2469,7 +2469,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
 					drvledlev4on(ljob);
-					
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 2:
 					console.log(">>autotmloop led=ON in15_out1520  wkmode=1");
@@ -2482,7 +2483,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
 					drvledlev4on(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 3:
 					console.log(">>autotmloop led=ON in15_out2028 wkmode=1");
@@ -2502,7 +2504,8 @@ function autotmloop(ljob){
 					drvledlev4on(ljob);
 					
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1x10minM3,"ON");
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 4:
 					console.log(">>autotmloop led=ON in15_out2835 wkmode=1");
@@ -2520,7 +2523,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
 					drvledlev4on(ljob);
-					
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 5:
 					console.log(">>autotmloop led=ON in15_out35 wkmode=1");
@@ -2538,6 +2542,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
 					drvledlev4on(ljob);
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				default:	
 					ljob.SENSOR_CONTROL=0;
@@ -2559,7 +2565,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
 					drvledlev4on(ljob);
-			
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 2:
 					console.log(">>autotmloop led=ON in1520_out1520  wkmode=2");
@@ -2573,7 +2580,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
 					drvledlev4on(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 3:
 					console.log(">>autotmloop led=ON  in1520_out2028  wkmode=2");
@@ -2590,7 +2598,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
 					drvledlev4on(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 4:
 					console.log(">>autotmloop led=ON  in1520_out2835  wkmode=2");
@@ -2607,7 +2616,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
 					drvledlev4on(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 5:
 					console.log(">>autotmloop led=ON  in1520_out35  wkmode=2");
@@ -2624,7 +2634,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
 					drvledlev4on(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				default:	
 					ljob.SENSOR_CONTROL=0;
@@ -2646,8 +2657,9 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
-			 devledlevauto(ljob);
-					
+					devledlevauto(ljob);
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 2:
 					console.log(">>autotmloop led=ON  in2028_out1520  wkmode=3");
@@ -2661,8 +2673,9 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
-			 devledlevauto(ljob);
-				
+					devledlevauto(ljob);
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 3:
 					console.log(">>autotmloop led=ON  in2028_out2028  wkmode=3");
@@ -2675,8 +2688,9 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
-			 devledlevauto(ljob);
-				
+					devledlevauto(ljob);
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 4:
 					console.log(">>autotmloop led=ON  in2028_out2835 wkmode=3");
@@ -2689,8 +2703,9 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
-			 devledlevauto(ljob);
-				
+					devledlevauto(ljob);
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 5:
 					console.log(">>autotmloop led=ON  in2028_out35 wkmode=3");
@@ -2703,8 +2718,9 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
-			 devledlevauto(ljob);
-				
+					devledlevauto(ljob);
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				default:	
 					ljob.SENSOR_CONTROL=0;
@@ -2725,7 +2741,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
 
 			devledlevoff(ljob);
-			
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 2:
 					console.log(">>autotmloop  led=ON  in2835_out1520 wkmode=4");
@@ -2738,7 +2755,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
 
 			devledlevoff(ljob);
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 3:
 					console.log(">>autotmloop led=ON   in2835_out2028 wkmode=4");
@@ -2751,7 +2769,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
 
 			devledlevoff(ljob);
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 4:
 					console.log(">>autotmloop led=ON   in2835_out2835 wkmode=4");
@@ -2769,7 +2788,8 @@ function autotmloop(ljob){
 
 			devledlevoff(ljob);
 					//devledlev1on30min(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 5:
 					console.log(">>autotmloop led=ON   in2835_out35 wkmode=4");
@@ -2785,7 +2805,8 @@ function autotmloop(ljob){
 
 					devledlevoff(ljob);
 					devledlev1on30min(ljob);
-					
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				default:	
 					ljob.SENSOR_CONTROL=0;
@@ -2807,7 +2828,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
 
 					devledlevoff(ljob);
-					
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 2:
 					console.log(">>autotmloop led=ON   in35_out1520 wkmode=5");
@@ -2821,7 +2843,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
 
 					devledlevoff(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 3:
 					console.log(">>autotmloop led=ON   in35_out2028 wkmode=5");
@@ -2836,7 +2859,8 @@ function autotmloop(ljob){
 
 					devledlevoff(ljob);			
 					devledlev1on30min(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 4:
 					console.log(">>autotmloop led=ON   in135_out2835 wkmode=5");
@@ -2850,7 +2874,8 @@ function autotmloop(ljob){
 
 					devledlevoff(ljob);	
 					devledlev1on30min(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 5:
 					console.log(">>autotmloop led=ON   in35_out35 wkmode=5");
@@ -2864,7 +2889,8 @@ function autotmloop(ljob){
 
 					devledlevoff(ljob);			
 					devledlev1on30min(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				default:	
 					ljob.SENSOR_CONTROL=0;
@@ -2888,7 +2914,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
 					//devledlevauto(ljob);
-					
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 2:
 					console.log(">>autotmloop led=OFF   in15_out1520 wkmode=1");
@@ -2902,7 +2929,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
 					//devledlevauto(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 3:
 					console.log(">>autotmloop led=OFF   in15_out2028 wkmode=1");
@@ -2918,7 +2946,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
 					//devledlevauto(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 4:
 					console.log(">>autotmloop led=OFF   in15_out2835 wkmode=1");
@@ -2933,7 +2962,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
 					//devledlevauto(ljob);
-			
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 5:
 					console.log(">>autotmloop led=OFF   in15_out35 wkmode=1");
@@ -2948,6 +2978,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
 					//devledlevauto(ljob);		
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				default:	
 					ljob.SENSOR_CONTROL=0;
@@ -2969,7 +3001,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
 					//devledlevauto(ljob);
-			
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 2:
 					console.log(">>autotmloop led=OFF   in1520_out1520 wkmode=2");
@@ -2982,6 +3015,7 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 3:
 					console.log(">>autotmloop led=OFF   in1520_out2028 wkmode=2");
@@ -2995,6 +3029,7 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 4:
 					console.log(">>autotmloop led=OFF   in1520_out2835 wkmode=2");
@@ -3008,6 +3043,7 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 5:
 					console.log(">>autotmloop  led=OFF  in1520_out35 wkmode=2");
@@ -3021,6 +3057,7 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				default:	
 					ljob.SENSOR_CONTROL=0;
@@ -3042,6 +3079,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
+
 					break;
 				case 2:
 					console.log(">>autotmloop  led=OFF  in2028_out1520 wkmode=3");
@@ -3054,6 +3093,8 @@ function autotmloop(ljob){
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 
 					break;
 				case 3:
@@ -3069,6 +3110,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
+
 					break;
 				case 4:
 					console.log(">>autotmloop led=OFF   in2028_out2835 wkmode=3");
@@ -3082,6 +3125,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
+
 					break;
 				case 5:
 					console.log(">>autotmloop  led=OFF  in2028_out35 wkmode=3");
@@ -3092,6 +3137,8 @@ function autotmloop(ljob){
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 
 					break;
 				default:	
@@ -3113,6 +3160,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
 
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
+
 					break;
 				case 2:
 					console.log(">>autotmloop led=OFF   in2835_out1520 wkmode=4");
@@ -3124,6 +3173,8 @@ function autotmloop(ljob){
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 
 					break;
 				case 3:
@@ -3139,6 +3190,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
 
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
+
 					break;
 				case 4:
 					console.log(">>autotmloop led=OFF   in2835_out2835 wkmode=4");
@@ -3152,6 +3205,8 @@ function autotmloop(ljob){
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 
 					break;
 				case 5:
@@ -3167,6 +3222,8 @@ function autotmloop(ljob){
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 
 					break;
 				default:	
@@ -3188,6 +3245,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
 
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
+
 					break;
 				case 2:
 					console.log(">>autotmloop led=OFF   in35_out1520 wkmode=5");
@@ -3199,6 +3258,8 @@ function autotmloop(ljob){
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 
 					break;
 				case 3:
@@ -3215,6 +3276,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
 
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
+
 					break;
 				case 4:
 					console.log(">>autotmloop led=OFF   in35_out2835 wkmode=5");
@@ -3229,6 +3292,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
 
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
+
 					break;
 				case 5:
 					console.log(">>autotmloop led=OFF   in35_out35 wkmode=5");
@@ -3239,6 +3304,8 @@ function autotmloop(ljob){
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 
 					break;
 				default:	
