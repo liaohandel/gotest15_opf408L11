@@ -1893,7 +1893,8 @@ function GOBOX2LOOP(ljob){
 					ljob.SENSOR_CONTROL = 0;
 				}else{
 					ljob.CHKLOOP.CHKVALUE.DELAY1 = 0;
-					ljob.SENSOR_CONTROL = 2;
+					//ljob.SENSOR_CONTROL = 2;
+					ljob.SENSOR_CONTROL = 4;//direct jump to s004 for m1  start pump pass s2,s3
 				}
 			}
 			break;
@@ -1916,30 +1917,18 @@ function GOBOX2LOOP(ljob){
 			}
 			break;
 		case 4:			
-			water_client_trige(ljob.CHKLOOP.DEVPOS.M2,"ON");//start pump box2 to box2
-			//water_client_trige(ljob.CHKLOOP.DEVPOS.M4,"ON");//start pump box2 to ec/ph box
-			console.log(">>waterloop ecph M2 ON ,box2 m4 ON");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.M1,"ON");//start pump box2 to box2
+			console.log(">>waterloop and DevCood M1 pump ON ,box2 m1 ON");
 			ljob.CHKLOOP.CHKVALUE.WAIT1 = 2*3;//3 min
 			ljob.SENSOR_CONTROL = 5;
 			break;
 		case 5:
 			if(ljob.CHKLOOP.CHKVALUE.WAIT1 > 0){
-				// if(ljob.CHKLOOP.CHKVALUE.WAIT1==3){
-					// water_client_trige(ljob.CHKLOOP.DEVPOS.M4,"OFF");//stop EC/PH pump
-					// console.log(">>waterloop M4 OFF");
-				// }
-				// waterlev_load_client(ljob.CHKLOOP.SENSORPOS.ECDATA,"LOAD");
-				// waterlev_load_client(ljob.CHKLOOP.SENSORPOS.PHDATA,"LOAD");
-				
-				// console.log(">>waterloop EC LOAD ="+pdbuffer.pdjobj.PDDATA.Devtab.E002.C7A["chtab"]["94"].stu);
-				// console.log(">>waterloop PH LOAD ="+pdbuffer.pdjobj.PDDATA.Devtab.E002.C7B["chtab"]["93"].stu);
 				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
 				ljob.SENSOR_CONTROL = 5;
 			}else {
-				water_client_trige(ljob.CHKLOOP.DEVPOS.M2,"OFF");
-				//water_client_trige(ljob.CHKLOOP.DEVPOS.M4,"OFF");
-				
-				console.log(">>waterloop M2 OFF , M4 M5 OFF");
+				water_client_trige(ljob.CHKLOOP.DEVPOS.M1,"OFF");				
+				console.log(">>waterloop M1 OFF ");
 				ljob.SENSOR_CONTROL = 0;
 			}
 			break;
@@ -1948,7 +1937,9 @@ function GOBOX2LOOP(ljob){
 			if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.Value <= 10){//chekc box1 is full 
 				ljob.SENSOR_CONTROL = 0; 
 			}else{
-				ljob.SENSOR_CONTROL = 7;// ### add new water 
+				//ljob.SENSOR_CONTROL = 7;// ### add new water 
+				ljob.SENSOR_CONTROL = 9;// ### add new water pass s7,s8 m2 pump start 
+				water_client_trige(ljob.CHKLOOP.DEVPOS.M2,"ON");//start pump box1 to box2
 			}
 			break;
 		case 7:
@@ -1969,6 +1960,7 @@ function GOBOX2LOOP(ljob){
 			}
 			break;
 		case 9:
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.M2,"ON");//start pump box1 to box2
 			waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6,"LOAD");
 			waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7,"LOAD");
 			

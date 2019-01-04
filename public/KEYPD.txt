@@ -182,13 +182,13 @@
 			],
           "ON": [
 			{"CMD":"REGCMD/AUTOSETUP","POS":"UV","Action":"AUTO","STU":"00","GROUP":"00" },
-			{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"660000","GROUP":"00" },
-			{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"670000","GROUP":"00" }
+			{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"670000","GROUP":"00" },
+			{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"660000","GROUP":"00" }
 			],
           "OFF": [
 			{"CMD":"REGCMD/AUTOSETUP","POS":"UV","Action":"AUTO","STU":"00","GROUP":"00" },
-			{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"6600000","GROUP":"00" },
-			{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"670000","GROUP":"00" }]
+			{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"6700000","GROUP":"00" },
+			{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"660000","GROUP":"00" }]
         }
       },	  
       "K007": {
@@ -1299,12 +1299,12 @@
         },
         "EVENT": {
           "OFF": [
-				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"660000","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"6700000","GROUP":"00" }
+				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"670000","GROUP":"00" },
+				{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"6600000","GROUP":"00" }
 			],
           "ON": [
-				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"660000","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"6700000","GROUP":"00" }
+				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"670000","GROUP":"00" },
+				{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"6600000","GROUP":"00" }
 			]
         }
       },
