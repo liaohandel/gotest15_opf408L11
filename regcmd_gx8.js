@@ -407,10 +407,10 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 						// pdbuffer.jautocmd_update(()=>{
 								// console.log("DOSE A,B,C,D JAUTO Save ok !");
 						// });//update buffer to Files						
-						pdbuffer.update_redis('jautocmd.DEVLIST.DOSEA',()=>{console.log("JAUTO DEVLIST redisDB Save ok !"+sspos);});//update buffer to Files	
-						pdbuffer.update_redis('jautocmd.DEVLIST.DOSEB',()=>{console.log("JAUTO DEVLIST redisDB Save ok !"+sspos);});//update buffer to Files		
-						pdbuffer.update_redis('jautocmd.DEVLIST.DOSEC',()=>{console.log("JAUTO DEVLIST redisDB Save ok !"+sspos);});//update buffer to Files		
-						pdbuffer.update_redis('jautocmd.DEVLIST.DOSED',()=>{console.log("JAUTO DEVLIST redisDB Save ok !"+sspos);});//update buffer to Files		
+						pdbuffer.update_redis('jautocmd.DEVLIST.DOSEA',()=>{console.log("JAUTO DEVLIST redisDB Save ok !"+pos);});//update buffer to Files	
+						pdbuffer.update_redis('jautocmd.DEVLIST.DOSEB',()=>{console.log("JAUTO DEVLIST redisDB Save ok !"+pos);});//update buffer to Files		
+						pdbuffer.update_redis('jautocmd.DEVLIST.DOSEC',()=>{console.log("JAUTO DEVLIST redisDB Save ok !"+pos);});//update buffer to Files		
+						pdbuffer.update_redis('jautocmd.DEVLIST.DOSED',()=>{console.log("JAUTO DEVLIST redisDB Save ok !"+pos);});//update buffer to Files		
 						
 					}).on("error", function(err) {console.log("err for client");});				
 					
