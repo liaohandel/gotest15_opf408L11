@@ -108,6 +108,7 @@
 				"OFF": "0800"
 			}
 		},
+		
 		"CYCLEFAN": {
 			"MODE":1, 
 			"STATU":0,
@@ -287,6 +288,7 @@
 				"DOSE!LOOP": "00000000"
 			}
 		},
+		
 		"LEDHI": {
 			"MODE":2,
 			"STATU":0, 
@@ -408,6 +410,7 @@
 				]
 			}
 		},
+		
 		"LEDLOW": {
 			"MODE":2,
 			"STATU":0, 
@@ -529,6 +532,7 @@
 				]
 			}
 		},
+		
 		"LISTREFFAN": {
 			"MODE":0,
 			"STATU":0, 
