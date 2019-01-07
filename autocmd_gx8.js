@@ -3696,6 +3696,7 @@ function tmdemoloop(ljob){
 
 
 //=== autoledmoto_updown_loop ===
+const ledmotokey = ["K042","K043","K044","K045","K046","K047"];
 function autoledmotoloop(ljob){
 	let outksspos = "";
 	let typecmd = "";
@@ -3708,6 +3709,7 @@ function autoledmotoloop(ljob){
 	let motobase = 0;
 	let motooffset = 0;
 	let sss="000000";
+	let updatesn = 0;
 	
 	console.log(">>autoledmotoloop ="+ljob.SENSOR_CONTROL);
 	ljob.SENSOR_CONTROL = Number(ljob.SENSOR_CONTROL);
@@ -3726,6 +3728,8 @@ function autoledmotoloop(ljob){
 			break;
 		case 1: // auto chk all List MOTOAUTOLIST 
 			chkautoname = ljob.CHKLOOP.CHKVALUE.MOTOAUTOLIST[ljob.CHKLOOP.CHKVALUE.DELAY1];
+			sss="0000";
+			if(ljob.CHKLOOP.CHKVALUE.DELAY1<=5)sss = ledmotokey[ljob.CHKLOOP.CHKVALUE.DELAY1];
 			console.log(">>autoledmotoloop = [%s ] = %s ",ljob.CHKLOOP.CHKVALUE.DELAY1,chkautoname);
 			//console.log(">>autoledmotoloop =");
 			if(ljob.CHKLOOP.CHKVALUE.DELAY1>0){
@@ -3746,6 +3750,26 @@ function autoledmotoloop(ljob){
 					for(ee in devlist)water_client_trige(devlist[ee],"ON");  
 					console.log(">>autoledmotoloop ="+JSON.stringify(devlist));
 					
+					// Index = sss , value = motobase 
+					
+					console.log(">>autoledmotoloop move="+sss+">"+motobase);					
+					//update the ledmoto base value to server DB
+					updatekeysstuatusurl= pdbuffer.pdjobj.PDDATA.v2keypadstatusupdateurl+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
+					console.log("sudo active update to webui =>"+updatekeysstuatusurl);
+					client.get(updatekeysstuatusurl,cargs, function (data, response) {
+						console.log("keypad active update to webui   ok ...");
+					//}).on("error", function(err) {console.log("err for client");});
+					}).on("error", function(err) {console.log("err for clientx1");}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
+					//autopushkeypad(kpos,kcode,kactive);
+					
+					//update the ledmoto base value to IPC DB
+					updatekeysstuatusurl220 = "http://192.168.5.220/API/v2/KeypadUpdate.php"+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
+					console.log("sudo active update to webui =>"+updatekeysstuatusurl220);
+					client.get(updatekeysstuatusurl220,cargs, function (data, response) {
+						console.log("keypad active update to webui   ok ...");
+					}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+					
+					
 					for(ff in pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM)water_client_trige(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM[ff],"AUTO");
 					console.log(">>autoledmotoloop ="+JSON.stringify(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM));
 				}				
@@ -3762,7 +3786,25 @@ function autoledmotoloop(ljob){
 					pdbuffer.update_redis('jautocmd.DEVLIST.'+chkautoname,()=>{console.log("JAUTO Save ok !");});//update buffer to Files
 					devlist = jobjcopy(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.EPOS);
 					
-					for(ee in devlist)water_client_trige(devlist[ee],"ON");  					
+					for(ee in devlist)water_client_trige(devlist[ee],"ON");  			
+					
+					console.log(">>autoledmotoloop move="+sss+">"+motobase);					
+					//update the ledmoto base value to server DB
+					updatekeysstuatusurl= pdbuffer.pdjobj.PDDATA.v2keypadstatusupdateurl+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
+					console.log("sudo active update to webui =>"+updatekeysstuatusurl);
+					client.get(updatekeysstuatusurl,cargs, function (data, response) {
+						console.log("keypad active update to webui   ok ...");
+					//}).on("error", function(err) {console.log("err for client");});
+					}).on("error", function(err) {console.log("err for clientx1");}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
+					//autopushkeypad(kpos,kcode,kactive);
+					
+					//update the ledmoto base value to IPC DB
+					updatekeysstuatusurl220 = "http://192.168.5.220/API/v2/KeypadUpdate.php"+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
+					console.log("sudo active update to webui =>"+updatekeysstuatusurl220);
+					client.get(updatekeysstuatusurl220,cargs, function (data, response) {
+						console.log("keypad active update to webui   ok ...");
+					}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+					
 					for(ff in pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM)water_client_trige(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM[ff],"AUTO");
 				}
 			}

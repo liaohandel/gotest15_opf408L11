@@ -250,20 +250,20 @@ var sensorcmdtab={
 
 // ==== opf403 container tree type REG channel device stu load and upload =====
 
-function  opf403_regdev_apiloadscan(regpos){//poslist ,api call LOAD save to buffer load sensor value save to buffer  
-	//console.log("### sensor device by pos api load to PDDATA buffer ..."+JSON.stringify(regpos));
+// function  opf403_regdev_apiloadscan(regpos){//poslist ,api call LOAD save to buffer load sensor value save to buffer  
+	// //console.log("### sensor device by pos api load to PDDATA buffer ..."+JSON.stringify(regpos));
 	
-	if(regpos.length > 0){
-		for(rr in regpos){
-			if(!(regpos[rr].POS in pdbuffer.pdjobj.PDDATA.Devtab))continue;
-			devloadurl = "http://127.0.0.1:3000/"+regpos[rr].CMD+"?UUID="+pdbuffer.setuuid+"&Action=LOAD"+"&POS="+regpos[rr].POS+"&STU="+regpos[rr].STU+"&GROUP=0000"
-			//console.log("loadscan api ="+devloadurl);
-			client.get(devloadurl, function (data, response) {
-				console.log("apiurl: load ok...");
-			}).on("error", function(err) {console.log("err for client");});
-		}
-	}
-}
+	// if(regpos.length > 0){
+		// for(rr in regpos){
+			// if(!(regpos[rr].POS in pdbuffer.pdjobj.PDDATA.Devtab))continue;
+			// devloadurl = "http://127.0.0.1:3000/"+regpos[rr].CMD+"?UUID="+pdbuffer.setuuid+"&Action=LOAD"+"&POS="+regpos[rr].POS+"&STU="+regpos[rr].STU+"&GROUP=0000"
+			// //console.log("loadscan api ="+devloadurl);
+			// client.get(devloadurl, function (data, response) {
+				// console.log("apiurl: load ok...");
+			// }).on("error", function(err) {console.log("err for client");});
+		// }
+	// }
+// }
 
 function  opf403_regdev_loadscan(regpos){ //poslist ,direct buffer LOAD save to buffer load sensor value save to buffer  
 	//console.log("### sensor device by ipadd load to PDDATA buffer ..."+JSON.stringify(regpos));		

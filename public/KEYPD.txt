@@ -628,7 +628,15 @@
 			  "stmask": ["AUTO","ON","OFF"]
 			},
 			"EVENT": {
-				"AUTO": [],
+				"AUTO": [
+					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNA1","Action":"AUTO","STU":"01","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNA2","Action":"AUTO","STU":"01","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNA3","Action":"AUTO","STU":"01","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNB1","Action":"AUTO","STU":"01","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNB2","Action":"AUTO","STU":"01","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNB3","Action":"AUTO","STU":"01","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"autoledmotoloop","Action":"AUTO","STU":"03","GROUP":"00" }
+				],
 				"ON": [
 					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNA1","Action":"AUTO","STU":"01","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNA2","Action":"AUTO","STU":"01","GROUP":"00" },
@@ -649,6 +657,7 @@
 				]
 			}
 		},
+		
 		"K031": {
 			"STATUS": {
 			  "stcnt": 11,
