@@ -35,7 +35,7 @@ event.on('sensorcheck_event', function(){
 	for(ii in sch_autojob){
 		mpos=ii;
 		if(!(mpos in sch_autoloadmark))sch_autoloadmark[mpos]=0;	
-		// console.log(">>["+mpos+"]auto statu="+sch_autojob[mpos].STATU+" loadmark="+sch_autoloadmark[mpos]);
+		//console.log(">>["+mpos+"]auto statu="+sch_autojob[mpos].STATU+" loadmark="+sch_autoloadmark[mpos]);
 		if(sch_autojob[mpos].STATU==1){//auto is run enable to event process
 			if(sch_autojob[mpos].MODE == 1){ //TIMER
 				if(!(mpos in sch_autoloadmark))sch_autoloadmark[mpos]=0;	
@@ -57,7 +57,7 @@ event.on('sensorcheck_event', function(){
 					sch_autoloadmark[mpos]=1;//auto load to times schedule mark flag 0:no 1:load 
 					setrunobj(mpos)		
 					console.log(">>4["+mpos+"]auto runloop active ="+sch_autoloadmark[mpos]);	
-				}								
+				}							
 			}
 		}else if(sch_autojob[mpos].STATU == 0){//auto is disable 
 			//console.log(">>5["+mpos+"]auto sch active ="+sch_autoloadmark[mpos]);
@@ -1294,88 +1294,8 @@ function load_autojob(akey,jautodata){
 				console.log(">>limlow="+sch_autojob[akey].limlow+">>limhigh="+sch_autojob[akey].limhigh);
 			}
 		}		
-	}else if(jautodata.MODE == 4){//LED MOTOUPDOWN
-		if(!("SCHEDULE" in jautodata))return;
-		if(!(akey in sch_autojob))sch_autojob[akey]={}	
-		sch_autojob[akey]= jobjcopy(jobitem);
-		
-		sch_autojob[akey].MODE = 2 //jautodata.MODE;
-		sch_autojob[akey].STATU = jautodata.STATU;			
-		sch_autojob[akey].SENSOR_CONTROL = jautodata.SENSOR_CONTROL;	
-		
-		sch_autojob[akey].gotime = "0001";		
-		sch_autojob[akey].goweek = [1,1,1,1,1,1,1];//Number('0x'+cstu) define every day	mode 4	
-		
-		sch_autojob[akey].devpos = jobjcopy(jautodata.SCHEDULE.EPOS);
-				
-		//=== setup the schedule to time loop ====
-		let simst_time = 0;
-		let simend_time = 23*60+59;//by min count
-		let xston = 0;
-		let xstoff = 0;
-		let simoutitem = {"ont":0,"offt":0};	
-		let chksimitem = {"stt":"0001","endt":"0900"};
-		
-		sch_autojob[akey].loop = [];
-		sch_autojob[akey].chkloop = [];		
-		for(ii in jautodata.SCHEDULE.ONLOOP){
-			jsttt = jautodata.SCHEDULE.ONLOOP[ii];
-			console.log("["+ii+"]>>"+jsttt);
-			
-			chksimitem.stt = jsttt.substr(0,4);
-			chksimitem.endt  = jsttt.substr(4,4);
-			sch_autojob[akey].chkloop.push(jobjcopy(chksimitem));//###
-			
-			xston = Number(jsttt.substr(0,2))*60+ Number(jsttt.substr(2,2));
-			xstoff = Number(jsttt.substr(4,2))*60+ Number(jsttt.substr(6,2));
-			if(ii == 0 ){
-				simoutitem.ont  = 0;
-				simoutitem.offt = xston - simst_time;
-				sch_autojob[akey].loop.push(jobjcopy(simoutitem));//###
-				if(xstoff > xston ){
-					simoutitem.ont  =  xstoff - xston ;
-				}else{            
-					simoutitem.ont  =  0;
-				}
-				simoutitem.offt = xstoff;
-			}else if(ii == jautodata.SCHEDULE.ONLOOP.length-1){        
-				if( xston > simoutitem.offt ){
-					simoutitem.offt  =  xston - simoutitem.offt ;
-				}else{            
-					simoutitem.offt  = 1;
-				}        
-				sch_autojob[akey].loop.push(jobjcopy(simoutitem));//###
-				
-				if(xstoff > xston ){
-					simoutitem.ont  =  xstoff - xston ;
-				}else{            
-					simoutitem.ont  =  0;
-				}
-				simoutitem.offt = simend_time - xstoff;
-				sch_autojob[akey].loop.push(jobjcopy(simoutitem));//###
-			}else{				
-				if( xston > simoutitem.offt ){
-					simoutitem.offt  =  xston - simoutitem.offt ;
-				}else{            
-					simoutitem.offt  = 1;
-				}        
-				sch_autojob[akey].loop.push(jobjcopy(simoutitem));//###		
-				
-				if(xstoff > xston ){
-					simoutitem.ont  =  xstoff - xston ;
-
-				}else{            
-					simoutitem.ont  =  0;
-				}
-				simoutitem.offt = xstoff;
-			}			
-		}
-		
-		sch_autojob[akey].loopcnt = 0
-		sch_autoloadmark[akey]=0;//auto load to times schedule mark flag 0:no 1:load 
-		console.log(">>load ["+akey+"]="+JSON.stringify(sch_autojob[akey]));	
-	
 	}
+	
 }
 
 function reload_autojob(){
@@ -3851,7 +3771,6 @@ function autopumpmotoloop(ljob){
 	
 	switch(ljob.SENSOR_CONTROL){
 		case 0: // auto chk all List MOTOAUTOLIST 
-		
 			water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"OFF");
 			if(pdbuffer.jautocmd.DEVLIST.PUMPA.STATU == 1){
@@ -3913,7 +3832,7 @@ function autopumpmotoloop(ljob){
 				}
 			}
 			
-			ljob.CHKLOOP.CHKVALUE.WAIT1=3;
+			ljob.CHKLOOP.CHKVALUE.WAIT1=1;
 			ljob.SENSOR_CONTROL=2;
 			break;
 		case 2: //delay 10min for when after auto working
