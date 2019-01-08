@@ -2056,7 +2056,11 @@ function GOECDOSELOOP(ljob){
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count >= 3)ljob.SENSOR_CONTROL = 1;
 			}else{
 				ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value = oloadval;//### lev scan load over 3 time is ready
-				ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count = 0;				
+				if(oloadval >=13){
+					ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count = 1;				
+				}else{	
+					ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count = 0;
+				}
 			}			
 			break;
 		case 1://check reg 0x77 > low lev 
@@ -3831,6 +3835,136 @@ function autoledmotoloop(ljob){
 	}
 }
 
+//=== autopumpmotoloop by s1,s2 select  ===
+function autopumpmotoloop(ljob){
+	let outksspos = "";
+	let typecmd = "";
+	let typedevreg = "";
+	let chkloadval = 0;
+	let oloadval = 0;
+	let chkflag =0;
+	let chkautoname ="0000";
+	let devlist =[];
+	
+	console.log(">>autopumpmotoloop ="+ljob.SENSOR_CONTROL);
+	ljob.SENSOR_CONTROL = Number(ljob.SENSOR_CONTROL);
+	
+	switch(ljob.SENSOR_CONTROL){
+		case 0: // auto chk all List MOTOAUTOLIST 
+		
+			water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"OFF");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"OFF");
+			if(pdbuffer.jautocmd.DEVLIST.PUMPA.STATU == 1){
+				if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.A1 == 1){
+					//A1 set S1
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM41,"ON");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM42,"OFF");
+				}else if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.A1 == 2){
+					//A1 set S2
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM41,"OFF");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM42,"ON");
+				}
+				if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.A2 == 1){
+					//A1 set S1
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM43,"ON");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM44,"OFF");
+				}else if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.A2 == 2){
+					//A1 set S2
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM43,"OFF");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM44,"ON");
+				}
+				if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.A3 == 1){
+					//A1 set S1
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM45,"ON");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM46,"OFF");
+				}else if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.A3 == 2){
+					//A1 set S2
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM45,"OFF");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM46,"ON");
+				}
+			}	
+			if(pdbuffer.jautocmd.DEVLIST.PUMPB.STATU == 1){
+				if(pdbuffer.jautocmd.DEVLIST.PUMPB.SCHEDULE.MOTOPAM.B1 == 1){
+					//A1 set S1
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM47,"ON");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM48,"OFF");
+				}else if(pdbuffer.jautocmd.DEVLIST.PUMPB.SCHEDULE.MOTOPAM.B1 == 2){
+					//A1 set S2
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM47,"OFF");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM48,"ON");
+				}
+				if(pdbuffer.jautocmd.DEVLIST.PUMPB.SCHEDULE.MOTOPAM.B2 == 1){
+					//A1 set S1
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM49,"ON");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM4A,"OFF");
+				}else if(pdbuffer.jautocmd.DEVLIST.PUMPB.SCHEDULE.MOTOPAM.B2 == 2){
+					//A1 set S2
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM49,"OFF");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM4A,"ON");
+				}
+				if(pdbuffer.jautocmd.DEVLIST.PUMPB.SCHEDULE.MOTOPAM.B3 == 1){
+					//A1 set S1
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM4B,"ON");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM4C,"OFF");
+				}else if(pdbuffer.jautocmd.DEVLIST.PUMPB.SCHEDULE.MOTOPAM.B3 == 2){
+					//A1 set S2
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM4B,"OFF");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM4C,"ON");
+				}
+			}
+			
+			ljob.CHKLOOP.CHKVALUE.WAIT1=3;
+			ljob.SENSOR_CONTROL=2;
+			break;
+		case 2: //delay 10min for when after auto working
+			if(ljob.CHKLOOP.CHKVALUE.WAIT1 > 0){
+				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
+				ljob.SENSOR_CONTROL=2;				
+			}else{				
+				ljob.SENSOR_CONTROL=3;
+			}
+			break;
+		case 3: //delay 10min for when after auto working
+			if(pdbuffer.jautocmd.DEVLIST.PUMPA.STATU == 1){
+				if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.PUMPMOTO == "A"){
+					//A set water pump A
+					water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"ON");
+				}else if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.PUMPMOTO == "B"){
+					//A set water pump B
+					water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"ON");
+				}
+			}	
+			if(pdbuffer.jautocmd.DEVLIST.PUMPB.STATU == 1){
+				if(pdbuffer.jautocmd.DEVLIST.PUMPB.SCHEDULE.MOTOPAM.PUMPMOTO == "A"){
+					//B set water pump A
+					water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"ON");
+				}else if(pdbuffer.jautocmd.DEVLIST.PUMPB.SCHEDULE.MOTOPAM.PUMPMOTO == "B"){
+					//B set water pump B
+					water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"ON");
+				}
+			}
+			
+			ljob.SENSOR_CONTROL=10;
+			break;	
+		case 10: //delay 10min for when after auto working
+			ljob.CHKLOOP.CHKVALUE.WAIT1=360;
+			ljob.SENSOR_CONTROL=12;
+			break;
+		case 12: //
+			if(ljob.CHKLOOP.CHKVALUE.WAIT1 > 0){
+				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
+				ljob.SENSOR_CONTROL=12;				
+			}else{				
+				ljob.SENSOR_CONTROL=0;
+			}
+			break;
+		default:	
+			ljob.SENSOR_CONTROL=0;
+			break;
+	}
+}
+
+
 //============ auto status run by 30sec ===========================
 event.on('sec30status_event', function(){ 
 	for(jj in pdbuffer.jautocmd.WATERLOOP){	
@@ -3858,6 +3992,10 @@ event.on('sec30status_event', function(){
 				break;
 			case "autoledmotoloop":
 				if(pdbuffer.jautocmd.WATERLOOP.autoledmotoloop.STATU == 1)autoledmotoloop(pdbuffer.jautocmd.WATERLOOP.autoledmotoloop);
+				
+				break;
+			case "autopumpmotoloop":
+				if(pdbuffer.jautocmd.WATERLOOP.autopumpmotoloop.STATU == 1)autopumpmotoloop(pdbuffer.jautocmd.WATERLOOP.autopumpmotoloop);
 				
 				break;
 			default:

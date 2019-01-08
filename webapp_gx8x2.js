@@ -334,7 +334,7 @@ function opf403_regstulinkweb(regdevarr){
 				if(outregval<=0)outregval=1;
 			}
 			regsensor_url = pdbuffer.pdjobj.PDDATA.v2sensorstatusurl+"?ID="+pdbuffer.setuuid+"&POS="+regdevarr[rr].POS+"&Type="+typemask+"&value="+outregval
-			//console.log(">>web "+regsensor_url);
+			console.log(">>web "+regsensor_url);
 			client.get(regsensor_url,cargs, function (data, response) {
 				console.log("sensor uplaod url: load ok...");
 			}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {console.log("timeout for client");req.abort();});
@@ -1128,7 +1128,8 @@ app.get('/PUMP', function (req, res) {
 					ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];	
 					pdbuffer.pdjobj.PDDATA.Devtab[pos][funcode]["chtab"][cregadd].sub=cmdindex;		
 					pdbuffer.pdjobj.PDDATA.Devtab[pos][funcode]["chtab"][cregadd].stu=nstu;	
-					console.log("PUMP >>2>"+cmd);		
+					console.log("PUMP >>2>"+cmd);	
+					
 					break
 				case "LOAD":
 					ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];
@@ -1153,6 +1154,7 @@ app.get('/PUMP', function (req, res) {
 			ttbuf[8]= group>>8;
 			ttbuf[9]= group&0x00ff;
 			console.log("PUMP >>3>"+cmd);
+			
 		}else{
 		   //group is err
 			return;
@@ -1990,7 +1992,7 @@ app.listen(setport, function () {
 			opf403_regstulinkweb(uploadregsensorbuff[sbcount]);			
 			opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);
 			
-		},1 * 30 * 1000);
+		},1 * 60 * 1000);
 		
 		
 		if(pdbuffer.pdjobj.PDDATA.linkoffmode == 0){//ext web mode
