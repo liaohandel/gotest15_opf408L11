@@ -3833,7 +3833,7 @@ function autopumpmotoloop(ljob){
 			}
 			
 			ljob.CHKLOOP.CHKVALUE.WAIT1=1;
-			ljob.SENSOR_CONTROL=2;
+			ljob.SENSOR_CONTROL=3;
 			break;
 		case 2: //delay 10min for when after auto working
 			if(ljob.CHKLOOP.CHKVALUE.WAIT1 > 0){
