@@ -135,8 +135,8 @@ var regsensorbuff = [
 	[
 		{"POS":"H001","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
 		{"POS":"H004","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
-		{"POS":"H002","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
-		{"POS":"H003","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
+		{"POS":"H010","CMD":"TEMPERATURE","STU":"A10000","Type":"WaterTemp","typecmd":"C77","typereg":"A1"},
+		{"POS":"H011","CMD":"TEMPERATURE","STU":"A10000","Type":"WaterTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H004","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
 		{"POS":"H005","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
 		{"POS":"H006","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
@@ -148,8 +148,8 @@ var uploadregsensorbuff = [
 	[
 		{"POS":"H001","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
 		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
-		{"POS":"H002","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
-		{"POS":"H003","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
+		{"POS":"H010","CMD":"TEMPERATURE","STU":"A10000","Type":"WaterTemp","typecmd":"C77","typereg":"A1"},
+		{"POS":"H011","CMD":"TEMPERATURE","STU":"A10000","Type":"WaterTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H004","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
 		{"POS":"H005","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
 		{"POS":"H006","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},

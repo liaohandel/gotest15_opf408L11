@@ -128,7 +128,10 @@
 			"STATU":0,
 			"SENSOR_CONTROL":0,
 			"TIMER": {
-				"EPOS": [{"POS":"E002","CMD":"PUMP","STU":"620000","GROUP":"00"}],
+				"EPOS": [
+					{"POS":"E002","CMD":"PUMP","STU":"620000","GROUP":"00"},
+					{"POS":"E002","CMD":"PUMP","STU":"420000","GROUP":"00"},
+				],
 				"PWM": { "01": 0, "02": 0, "03": 0,  "04": 0 },
 				"ST": "0001",
 				"ON": "0001",
@@ -233,17 +236,49 @@
 				"RH!LOOP": "05000750"
 			}
 		},
+		
 		"WATERTM": {
 			"MODE":0, 
 			"STATU":0, 
 			"SENSOR_CONTROL":0,
 			"RUNLOOP":{
-				"EPOS": [{"POS":"E002","CMD":"PUMP","STU":"660000","GROUP":"00"}],
-				"SENSORPOS": [{"POS":"H001","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
-				"OUTSENSORPOS": [{"POS":"E002","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
+				"EPOS": [
+					{"POS":"E002","CMD":"PUMP","STU":"640000","GROUP":"00"},
+					{"POS":"E002","CMD":"PUMP","STU":"480000","GROUP":"00"}
+				],
+				"SENSORPOS": [{"POS":"H011","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
+				"OUTSENSORPOS": [{"POS":"H011","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
 				"TEMPERATURE!LOOP": "05000750"
 			}
 		},
+		"WATERTMH010": {
+			"MODE":3, 
+			"STATU":1, 
+			"SENSOR_CONTROL":0,
+			"RUNLOOP":{
+				"EPOS": [
+					{"POS":"E002","CMD":"PUMP","STU":"650000","GROUP":"00"}
+				],
+				"SENSORPOS": [{"POS":"H010","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
+				"OUTSENSORPOS": [{"POS":"H010","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
+				"TEMPERATURE!LOOP": "00C80190"
+			}
+		},
+		"WATERTMH011": {
+			"MODE":3, 
+			"STATU":1, 
+			"SENSOR_CONTROL":0,
+			"RUNLOOP":{
+				"EPOS": [
+					{"POS":"E002","CMD":"PUMP","STU":"640000","GROUP":"00"},
+					{"POS":"E002","CMD":"PUMP","STU":"480000","GROUP":"00"}
+				],
+				"SENSORPOS": [{"POS":"H011","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
+				"OUTSENSORPOS": [{"POS":"H011","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
+				"TEMPERATURE!LOOP": "002800C8"
+			}
+		},
+		
 		"CO2": {
 			"MODE":3, 
 			"STATU":0,
@@ -1416,7 +1451,10 @@
 			"STATU":0,
 			"SENSOR_CONTROL":0,
 			"TIMER": {
-				"EPOS": [{"POS":"E002","CMD":"PUMP","STU":"620000","GROUP":"00"}],
+				"EPOS": [
+					{"POS":"E002","CMD":"PUMP","STU":"620000","GROUP":"00"},
+					{"POS":"E002","CMD":"PUMP","STU":"420000","GROUP":"00"}
+				],
 				"PWM": { "01": 0, "02": 0, "03": 0,  "04": 0 },
 				"ST": "0001",
 				"ON": "0001",
