@@ -15,10 +15,12 @@ var cargs = {
     }
 };
 
+
 var pdbuffer  = require('./pdbuffer_v02.js');
 var autocmd = require('./autocmd_gx8.js');
 var cmdcode = require("./handelrs485x2");
 
+const offautojsonloadurl = "http://192.168.5.220/API/v2/AUTOJSON.php";//http://192.168.5.220/API/v2/AUTOJSON.php?SID=1
 
 //=== syspub function ===
 function jobjcopy(jobj){
@@ -341,10 +343,17 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 					pdbuffer.update_redis('jautocmd.DEVLIST',()=>{console.log("JAUTO DEVLIST redisDB Save ok !");});//update buffer to Files		
 					return;
 				}
-				
+				//$url = $DeviceIP.'/REGCMD/AUTOSETUP?UUID='.$DeviceUUID.'&POS=PUMPA&Action=SET&STU='.$ScheduleListID.'&GROUP=0000'; server api command demo 
 				//autojsonloadurl = "http://tscloud.opcom.com/Cloud/API/v2/AUTOJSON?SID="+cstu;
-				autojsonloadurl =  pdbuffer.pdjobj.PDDATA.v2autojsonloadurl+"?SID="+cstu;
-				console.log("get ok...["+pos+"] link>>"+autojsonloadurl);
+				//offautojsonloadurl
+				if(group == 1){					
+					autojsonloadurl =  offautojsonloadurl+"?SID="+cstu;//GROUP = 0001 is IPC
+					console.log("get auto IPC ok...["+pos+"] link>>"+autojsonloadurl);
+				}else{//GROUP = 0000 or no define is web 
+					autojsonloadurl =  pdbuffer.pdjobj.PDDATA.v2autojsonloadurl+"?SID="+cstu;
+					console.log("get auto webserver ok...["+pos+"] link>>"+autojsonloadurl);
+					
+				}
 				if(pos == "DOSE"){					
 					client.get(autojsonloadurl, function (data, response) {	
 						console.log("get auto json ok...["+pos+"]>>"+JSON.stringify(data));

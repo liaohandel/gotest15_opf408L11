@@ -130,7 +130,7 @@
 			"TIMER": {
 				"EPOS": [
 					{"POS":"E002","CMD":"PUMP","STU":"620000","GROUP":"00"},
-					{"POS":"E002","CMD":"PUMP","STU":"420000","GROUP":"00"},
+					{"POS":"E002","CMD":"PUMP","STU":"420000","GROUP":"00"}
 				],
 				"PWM": { "01": 0, "02": 0, "03": 0,  "04": 0 },
 				"ST": "0001",
@@ -251,6 +251,7 @@
 				"TEMPERATURE!LOOP": "05000750"
 			}
 		},
+		
 		"WATERTMH010": {
 			"MODE":3, 
 			"STATU":1, 
@@ -266,7 +267,7 @@
 		},
 		"WATERTMH011": {
 			"MODE":3, 
-			"STATU":1, 
+			"STATU":0, 
 			"SENSOR_CONTROL":0,
 			"RUNLOOP":{
 				"EPOS": [
