@@ -10,7 +10,7 @@ var Client = require('node-rest-client').Client;
 var client = new Client();
 var cargs = {
     requestConfig: {
-        timeout: 750, //500,
+        timeout: 1000, //500,
         noDelay: true,
         keepAlive: true
     },
