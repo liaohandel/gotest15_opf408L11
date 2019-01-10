@@ -200,8 +200,8 @@
 			"SENSOR_CONTROL":0, 
 			"RUNLOOP":{
 				"EPOS": [
-				{"POS":"E002","CMD":"PUMP","STU":"680000","GROUP":"00"},
-				{"POS":"C00A","CMD":"AIRFAN","STU":"310114","GROUP":"00"}
+					{"POS":"E002","CMD":"PUMP","STU":"680000","GROUP":"00"},
+					{"POS":"C00A","CMD":"AIRFAN","STU":"310114","GROUP":"00"}
 				],
 				"SENSORPOS": [
 					{"POS":"H001","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"},
@@ -2520,8 +2520,6 @@
 			
 		}
 	}	
-	
-	
 	
 }
 
