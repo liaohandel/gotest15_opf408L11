@@ -730,10 +730,12 @@
 			"SENSOR_CONTROL":0,
 			"SCHEDULE": {
 				"EPOS": [
-					{"POS":"B001","CMD":"PUMP","STU":"000000","GROUP":"00"}
+					{"POS":"B001","CMD":"PUMP","STU":"000000","GROUP":"00"},
+					{"POS":"B002","CMD":"PUMP","STU":"000000","GROUP":"00"},
+					{"POS":"B003","CMD":"PUMP","STU":"000000","GROUP":"00"}
 				],
 				"MOTOPAM":[
-					{"MOD":0,"BASE":80,"OFFSET":5}
+					{"MOD":0,"BASE":50,"OFFSET":1}
 				],
 				"LEDPAM":[
 					{"POS":"KEYPAD0","CMD":"REGCMD/KEYSETUP","STU":"ON25","GROUP":"K021"},
@@ -796,14 +798,16 @@
 			"SENSOR_CONTROL":0,
 			"SCHEDULE": {
 				"EPOS": [
-					{"POS":"B021","CMD":"PUMP","STU":"000000","GROUP":"00"}
+					{"POS":"B021","CMD":"PUMP","STU":"000000","GROUP":"00"},
+					{"POS":"B022","CMD":"PUMP","STU":"000000","GROUP":"00"},
+					{"POS":"B023","CMD":"PUMP","STU":"000000","GROUP":"00"}
 				],
 				"MOTOPAM":[
 					{"MOD":0,"BASE":80,"OFFSET":5}
 				],
 				"LEDPAM":[
-					{"POS":"KEYPAD0","CMD":"REGCMD/KEYSETUP","STU":"ON25","GROUP":"K021"},
-					{"POS":"KEYPAD0","CMD":"REGCMD/KEYSETUP","STU":"RON50","GROUP":"K024"}
+					{"POS":"KEYPAD0","CMD":"REGCMD/KEYSETUP","STU":"ON25","GROUP":"K025"},
+					{"POS":"KEYPAD0","CMD":"REGCMD/KEYSETUP","STU":"RON50","GROUP":"K026"}
 				],
 				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
 				"WEEK": "01111111",
@@ -821,11 +825,11 @@
 					{"POS":"B022","CMD":"PUMP","STU":"000000","GROUP":"00"}
 				],
 				"MOTOPAM":[
-					{"MOD":0,"BASE":80,"OFFSET":5}
+					{"MOD":0,"BASE":50,"OFFSET":1}
 				],
 				"LEDPAM":[
-					{"POS":"KEYPAD0","CMD":"REGCMD/KEYSETUP","STU":"ON25","GROUP":"K021"},
-					{"POS":"KEYPAD0","CMD":"REGCMD/KEYSETUP","STU":"RON50","GROUP":"K024"}
+					{"POS":"KEYPAD0","CMD":"REGCMD/KEYSETUP","STU":"ON25","GROUP":"K025"},
+					{"POS":"KEYPAD0","CMD":"REGCMD/KEYSETUP","STU":"RON50","GROUP":"K026"}
 				],
 				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
 				"WEEK": "01111111",
@@ -846,8 +850,8 @@
 					{"MOD":0,"BASE":80,"OFFSET":5}
 				],
 				"LEDPAM":[
-					{"POS":"KEYPAD0","CMD":"REGCMD/KEYSETUP","STU":"ON25","GROUP":"K021"},
-					{"POS":"KEYPAD0","CMD":"REGCMD/KEYSETUP","STU":"RON50","GROUP":"K024"}
+					{"POS":"KEYPAD0","CMD":"REGCMD/KEYSETUP","STU":"ON25","GROUP":"K025"},
+					{"POS":"KEYPAD0","CMD":"REGCMD/KEYSETUP","STU":"RON50","GROUP":"K026"}
 				],
 				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
 				"WEEK": "01111111",
