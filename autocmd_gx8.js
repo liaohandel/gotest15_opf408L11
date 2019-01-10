@@ -752,13 +752,13 @@ function f3run(akey,cmd){
 			}
 		
             break;
-        case "WATERTMH011":	
+        case "WATERTM":	
             if(cmd == "load"){
 				console.log("["+akey+"] sensorpos="+JSON.stringify(sch_autojob[akey].sensorpos));
 				console.log("["+akey+"] outsensorpos="+JSON.stringify(sch_autojob[akey].outsensorpos));
 				device_load_client(sch_autojob[akey].sensorpos,"LOAD");
 				device_load_client(sch_autojob[akey].outsensorpos,"LOAD");
-				sch_autojob.WATERTMH011.stid = new setTimeout(function(){f3run("WATERTMH011","check")},sch_autojob[akey].loop[0].checkt*60*1000); 
+				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"check")},sch_autojob[akey].loop[0].checkt*60*1000); 
 			}
             if(cmd == "check"){
 				let chkval = jobjcopy( loadstudata(akey));//clear checek value buffer
@@ -768,17 +768,17 @@ function f3run(akey,cmd){
 				//=== RUNLOOP check Login  =======
 				if( chkval.vmax > 0){
 					if(chkval.vmax >= sch_autojob[akey].chkhigh){
-						sch_autojob.WATERTMH011.stid = new setTimeout(function(){f3run("WATERTMH011","on")},sch_autojob[akey].loop[0].ont*60*1000); 
+						sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"on")},sch_autojob[akey].loop[0].ont*60*1000); 
 						console.log(">> goto Cood on")
 					}else if(chkval.vmax <= sch_autojob[akey].chklow){
-						sch_autojob.WATERTMH011.stid = new setTimeout(function(){f3run("WATERTMH011","off")},sch_autojob[akey].loop[0].ont*60*1000);	
+						sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"off")},sch_autojob[akey].loop[0].ont*60*1000);	
 						console.log(">> goto Cood on")						
 					}else{
-						sch_autojob.WATERTMH011.stid = new setTimeout(function(){f3run("WATERTMH011","off")},sch_autojob[akey].loop[0].offt*60*1000);
+						sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"off")},sch_autojob[akey].loop[0].offt*60*1000);
 						console.log(">> goto Cood off")							
 					}
 				}else{
-					sch_autojob.WATERTMH011.stid = new setTimeout(function(){f3run("WATERTMH011","load")},sch_autojob[akey].loop[0].loadt*60*1000); 
+					sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"load")},sch_autojob[akey].loop[0].loadt*60*1000); 
 					console.log(">> goto H011 load")							
 				}
 				
@@ -786,13 +786,13 @@ function f3run(akey,cmd){
             if(cmd == "off"){
 				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
 				device_auto_client(sch_autojob[akey].devpos,"OFF")
-				sch_autojob.WATERTMH011.stid = new setTimeout(function(){f3run("WATERTMH011","load")},sch_autojob[akey].loop[0].loadt*60*1000); 
+				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"load")},sch_autojob[akey].loop[0].loadt*60*1000); 
 				console.log(">> goto H011 load")							
 			}
             if(cmd == "on"){
 				console.log("["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos)); 
 				device_auto_client(sch_autojob[akey].devpos,"ON")
-				sch_autojob.WATERTMH011.stid = new setTimeout(function(){f3run("WATERTMH011","load")},sch_autojob[akey].loop[0].loadt*60*1000); 
+				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"load")},sch_autojob[akey].loop[0].loadt*60*1000); 
 				console.log(">> goto H011 load")							
 			}	
 		
