@@ -200,8 +200,8 @@
 			"SENSOR_CONTROL":0, 
 			"RUNLOOP":{
 				"EPOS": [
-				{"POS":"E002","CMD":"PUMP","STU":"680000","GROUP":"00"},
-				{"POS":"C00A","CMD":"AIRFAN","STU":"310114","GROUP":"00"}
+					{"POS":"E002","CMD":"PUMP","STU":"680000","GROUP":"00"},
+					{"POS":"C00A","CMD":"AIRFAN","STU":"310114","GROUP":"00"}
 				],
 				"SENSORPOS": [
 					{"POS":"H001","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"},
@@ -262,7 +262,7 @@
 				],
 				"SENSORPOS": [{"POS":"H010","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
 				"OUTSENSORPOS": [{"POS":"H010","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
-				"TEMPERATURE!LOOP": "00C80190"
+				"TEMPERATURE!LOOP": "02000450"
 			}
 		},
 		"WATERTMH011": {
@@ -276,7 +276,7 @@
 				],
 				"SENSORPOS": [{"POS":"H011","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
 				"OUTSENSORPOS": [{"POS":"H011","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
-				"TEMPERATURE!LOOP": "002800C8"
+				"TEMPERATURE!LOOP": "00400200"
 			}
 		},
 		
@@ -2520,8 +2520,6 @@
 			
 		}
 	}	
-	
-	
 	
 }
 

@@ -345,10 +345,10 @@
 			},
 			"EVENT": {
 			"AUTO": [
-					{"CMD":"REGCMD/AUTOSETUP","POS":"WATERTMH011","Action":"AUTO","STU":"03","GROUP":"00" }
+					{"CMD":"REGCMD/AUTOSETUP","POS":"WATERTMH011","Action":"AUTO","STU":"01","GROUP":"00" }
 			],
 			  "OFF": [
-					{"CMD":"REGCMD/AUTOSETUP","POS":"WATERTMH011","Action":"AUTO","STU":"02","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"WATERTMH011","Action":"AUTO","STU":"00","GROUP":"00" },
 					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"640000","GROUP":"00" },
 					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"480000","GROUP":"00" }
 			]
