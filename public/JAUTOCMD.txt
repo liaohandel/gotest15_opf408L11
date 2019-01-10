@@ -238,7 +238,7 @@
 		},
 		
 		"WATERTM": {
-			"MODE":0, 
+			"MODE":3, 
 			"STATU":0, 
 			"SENSOR_CONTROL":0,
 			"RUNLOOP":{
@@ -248,7 +248,7 @@
 				],
 				"SENSORPOS": [{"POS":"H011","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
 				"OUTSENSORPOS": [{"POS":"H011","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
-				"TEMPERATURE!LOOP": "05000750"
+				"TEMPERATURE!LOOP": "00400200"
 			}
 		},
 		
@@ -2520,6 +2520,7 @@
 			
 		}
 	}	
+	
 	
 }
 
