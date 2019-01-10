@@ -10,12 +10,12 @@ var Client = require('node-rest-client').Client;
 var client = new Client();
 var cargs = {
     requestConfig: {
-        timeout: 10, //500,
+        timeout: 500, //500,
         noDelay: true,
         keepAlive: true
     },
     responseConfig: {
-        timeout: 10 //1000 //response timeout 
+        timeout: 1000 //1000 //response timeout 
     }
 };
 
@@ -3676,22 +3676,22 @@ function autoledmotoloop(ljob){
 					
 					// Index = sss , value = motobase 
 					
-					console.log(">>autoledmotoloop move="+sss+">"+motobase);					
-					//update the ledmoto base value to server DB
-					updatekeysstuatusurl= pdbuffer.pdjobj.PDDATA.v2keypadstatusupdateurl+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
-					console.log("sudo active update to webui =>"+updatekeysstuatusurl);
-					client.get(updatekeysstuatusurl,cargs, function (data, response) {
-						console.log("keypad active update to webui   ok ...");
-					//}).on("error", function(err) {console.log("err for client");});
-					}).on("error", function(err) {console.log("err for clientx1");}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
-					//autopushkeypad(kpos,kcode,kactive);
+					// console.log(">>autoledmotoloop move="+sss+">"+motobase);					
+					// //update the ledmoto base value to server DB
+					// updatekeysstuatusurl= pdbuffer.pdjobj.PDDATA.v2keypadstatusupdateurl+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
+					// console.log("sudo active update to webui =>"+updatekeysstuatusurl);
+					// client.get(updatekeysstuatusurl,cargs, function (data, response) {
+						// console.log("keypad active update to webui   ok ...");
+					// //}).on("error", function(err) {console.log("err for client");});
+					// }).on("error", function(err) {console.log("err for clientx1");}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
+					// //autopushkeypad(kpos,kcode,kactive);
 					
-					//update the ledmoto base value to IPC DB
-					updatekeysstuatusurl220 = "http://192.168.5.220/API/v2/KeypadUpdate.php"+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
-					console.log("sudo active update to webui =>"+updatekeysstuatusurl220);
-					client.get(updatekeysstuatusurl220,cargs, function (data, response) {
-						console.log("keypad active update to webui   ok ...");
-					}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+					// //update the ledmoto base value to IPC DB
+					// updatekeysstuatusurl220 = "http://192.168.5.220/API/v2/KeypadUpdate.php"+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
+					// console.log("sudo active update to webui =>"+updatekeysstuatusurl220);
+					// client.get(updatekeysstuatusurl220,cargs, function (data, response) {
+						// console.log("keypad active update to webui   ok ...");
+					// }).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 					
 					
 					for(ff in pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM)water_client_trige(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM[ff],"AUTO");
@@ -3712,22 +3712,22 @@ function autoledmotoloop(ljob){
 					
 					for(ee in devlist)water_client_trige(devlist[ee],"ON");  			
 					
-					console.log(">>autoledmotoloop move="+sss+">"+motobase);					
-					//update the ledmoto base value to server DB
-					updatekeysstuatusurl= pdbuffer.pdjobj.PDDATA.v2keypadstatusupdateurl+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
-					console.log("sudo active update to webui =>"+updatekeysstuatusurl);
-					client.get(updatekeysstuatusurl,cargs, function (data, response) {
-						console.log("keypad active update to webui   ok ...");
-					//}).on("error", function(err) {console.log("err for client");});
-					}).on("error", function(err) {console.log("err for clientx1");}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
-					//autopushkeypad(kpos,kcode,kactive);
+					// console.log(">>autoledmotoloop move="+sss+">"+motobase);					
+					// //update the ledmoto base value to server DB
+					// updatekeysstuatusurl= pdbuffer.pdjobj.PDDATA.v2keypadstatusupdateurl+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
+					// console.log("sudo active update to webui =>"+updatekeysstuatusurl);
+					// client.get(updatekeysstuatusurl,cargs, function (data, response) {
+						// console.log("keypad active update to webui   ok ...");
+					// //}).on("error", function(err) {console.log("err for client");});
+					// }).on("error", function(err) {console.log("err for clientx1");}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
+					// //autopushkeypad(kpos,kcode,kactive);
 					
-					//update the ledmoto base value to IPC DB
-					updatekeysstuatusurl220 = "http://192.168.5.220/API/v2/KeypadUpdate.php"+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
-					console.log("sudo active update to webui =>"+updatekeysstuatusurl220);
-					client.get(updatekeysstuatusurl220,cargs, function (data, response) {
-						console.log("keypad active update to webui   ok ...");
-					}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+					// //update the ledmoto base value to IPC DB
+					// updatekeysstuatusurl220 = "http://192.168.5.220/API/v2/KeypadUpdate.php"+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
+					// console.log("sudo active update to webui =>"+updatekeysstuatusurl220);
+					// client.get(updatekeysstuatusurl220,cargs, function (data, response) {
+						// console.log("keypad active update to webui   ok ...");
+					// }).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 					
 					for(ff in pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM)water_client_trige(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM[ff],"AUTO");
 				}
@@ -3765,6 +3765,8 @@ function autopumpmotoloop(ljob){
 	let chkflag =0;
 	let chkautoname ="0000";
 	let devlist =[];
+	let amotochk=0;
+	let bmotochk=0;
 	
 	console.log(">>autopumpmotoloop ="+ljob.SENSOR_CONTROL);
 	ljob.SENSOR_CONTROL = Number(ljob.SENSOR_CONTROL);
@@ -3773,6 +3775,9 @@ function autopumpmotoloop(ljob){
 		case 0: // auto chk all List MOTOAUTOLIST 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"OFF");
+			ljob.SENSOR_CONTROL=1;//pass delay
+			break;
+		case 1: // auto chk all List MOTOAUTOLIST 
 			if(pdbuffer.jautocmd.DEVLIST.PUMPA.STATU == 1){
 				if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.A1 == 1){
 					//A1 set S1
@@ -3844,29 +3849,39 @@ function autopumpmotoloop(ljob){
 			}
 			break;
 		case 3: //delay 10min for when after auto working
+			amotochk=0;
+			bmotochk=0;
 			if(pdbuffer.jautocmd.DEVLIST.PUMPA.STATU == 1){
 				if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.PUMPMOTO == "A"){
 					//A set water pump A
-					water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"ON");
+					//water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"ON");
+					amotochk=1;
 				}else if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.PUMPMOTO == "B"){
 					//A set water pump B
-					water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"ON");
+					//water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"ON");
+					bmotochk=1;
 				}
 			}	
 			if(pdbuffer.jautocmd.DEVLIST.PUMPB.STATU == 1){
 				if(pdbuffer.jautocmd.DEVLIST.PUMPB.SCHEDULE.MOTOPAM.PUMPMOTO == "A"){
 					//B set water pump A
-					water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"ON");
+					//water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"ON");
+					amotochk=1;
 				}else if(pdbuffer.jautocmd.DEVLIST.PUMPB.SCHEDULE.MOTOPAM.PUMPMOTO == "B"){
 					//B set water pump B
-					water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"ON");
+					//water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"ON");
+					bmotochk=1;
 				}
 			}
 			
+			if(amotochk==1)water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"ON");
+			if(amotochk==0)water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"OFF");
+			if(bmotochk==1)water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"ON");
+			if(bmotochk==0)water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"OFF");
 			ljob.SENSOR_CONTROL=10;
 			break;	
 		case 10: //delay 10min for when after auto working
-			ljob.CHKLOOP.CHKVALUE.WAIT1=360;
+			ljob.CHKLOOP.CHKVALUE.WAIT1=120;
 			ljob.SENSOR_CONTROL=12;
 			break;
 		case 12: //
@@ -3874,7 +3889,7 @@ function autopumpmotoloop(ljob){
 				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
 				ljob.SENSOR_CONTROL=12;				
 			}else{				
-				ljob.SENSOR_CONTROL=0;
+				ljob.SENSOR_CONTROL=1;
 			}
 			break;
 		default:	

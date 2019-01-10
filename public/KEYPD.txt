@@ -156,7 +156,7 @@
 			"STATUS": {
 			  "stcnt": 2,
 			  "stpt": 0,
-			  "stmask": ["AUTO","ON","OFF","PUMPAON","PUMPBON"]
+			  "stmask": ["AUTO","ON","OFF"]
 			},
 			"EVENT": {
 				"AUTO": [
@@ -176,9 +176,7 @@
 					{"CMD":"REGCMD/AUTOSETUP","POS":"autopumpmotoloop","Action":"AUTO","STU":"02","GROUP":"00" },
 					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"9C0064D2F0","GROUP":"00" },
 					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"510000","GROUP":"00" }
-					],
-				"PUMPAON": [{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"9C0064D2F0","GROUP":"00" }],
-				"PUMPBON": [{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"510000","GROUP":"00" }]
+					]
 			}
 		  },	  
 		"K008": {
@@ -194,7 +192,9 @@
 				],
 			  "OFF": [
 				{"CMD":"REGCMD/AUTOSETUP","POS":"BOX2LOOP","Action":"AUTO","STU":"02","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"ECDOSELOOP","Action":"AUTO","STU":"02","GROUP":"00" }
+				{"CMD":"REGCMD/AUTOSETUP","POS":"ECDOSELOOP","Action":"AUTO","STU":"02","GROUP":"00" },
+				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"410000","GROUP":"00" },
+				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"430000","GROUP":"00" }
 				]
 			}
 		  },	  
@@ -638,30 +638,12 @@
 			},
 			"EVENT": {
 				"AUTO": [
-					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNA1","Action":"AUTO","STU":"01","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNA2","Action":"AUTO","STU":"01","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNA3","Action":"AUTO","STU":"01","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNB1","Action":"AUTO","STU":"01","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNB2","Action":"AUTO","STU":"01","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNB3","Action":"AUTO","STU":"01","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"autoledmotoloop","Action":"AUTO","STU":"03","GROUP":"00" }
 				],
 				"ON": [
-					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNA1","Action":"AUTO","STU":"01","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNA2","Action":"AUTO","STU":"01","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNA3","Action":"AUTO","STU":"01","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNB1","Action":"AUTO","STU":"01","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNB2","Action":"AUTO","STU":"01","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNB3","Action":"AUTO","STU":"01","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"autoledmotoloop","Action":"AUTO","STU":"03","GROUP":"00" }
 				],
 				"OFF": [
-					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNA1","Action":"AUTO","STU":"00","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNA2","Action":"AUTO","STU":"00","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNA3","Action":"AUTO","STU":"00","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNB1","Action":"AUTO","STU":"00","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNB2","Action":"AUTO","STU":"00","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"MOTOUPDOWNB3","Action":"AUTO","STU":"00","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"autoledmotoloop","Action":"AUTO","STU":"02","GROUP":"00" }
 				]
 			}
