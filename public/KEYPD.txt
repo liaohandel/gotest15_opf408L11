@@ -345,10 +345,10 @@
 			},
 			"EVENT": {
 			"AUTO": [
-					{"CMD":"REGCMD/AUTOSETUP","POS":"WATERTMH011","Action":"AUTO","STU":"03","GROUP":"00" }
+					{"CMD":"REGCMD/AUTOSETUP","POS":"WATERTMH011","Action":"AUTO","STU":"01","GROUP":"00" }
 			],
 			  "OFF": [
-					{"CMD":"REGCMD/AUTOSETUP","POS":"WATERTMH011","Action":"AUTO","STU":"02","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"WATERTMH011","Action":"AUTO","STU":"00","GROUP":"00" },
 					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"640000","GROUP":"00" },
 					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"480000","GROUP":"00" }
 			]
@@ -742,66 +742,36 @@
         "EVENT": {
           "AUTO": [
 				{"CMD":"REGCMD/AUTOSETUP","POS":"GROWLEDA1","Action":"AUTO","STU":"01","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"GROWLEDA2","Action":"AUTO","STU":"01","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"GROWLEDA3","Action":"AUTO","STU":"01","GROUP":"00" },
 				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDHIA1","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDHIA2","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDHIA3","Action":"AUTO","STU":"00","GROUP":"00" },
 				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDLOWA1","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDLOWA2","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDLOWA3","Action":"AUTO","STU":"00","GROUP":"00" },
 				{"CMD":"LED","POS":"A030","Action":"ON","STU":"220000","GROUP":"00" },
 				{"CMD":"LED","POS":"A031","Action":"ON","STU":"210000","GROUP":"00" }
 			],
           "ON": [
 				{"CMD":"REGCMD/AUTOSETUP","POS":"GROWLEDA1","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"GROWLEDA2","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"GROWLEDA3","Action":"AUTO","STU":"00","GROUP":"00" },
 				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDHIA1","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDHIA2","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDHIA3","Action":"AUTO","STU":"00","GROUP":"00" },
 				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDLOWA1","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDLOWA2","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDLOWA3","Action":"AUTO","STU":"00","GROUP":"00" },
 				{"CMD":"LED","POS":"A030","Action":"ON","STU":"220000","GROUP":"00" },
 				{"CMD":"LED","POS":"A031","Action":"ON","STU":"210000","GROUP":"00" }
 			],
           "HI": [
 				{"CMD":"REGCMD/AUTOSETUP","POS":"GROWLEDA1","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"GROWLEDA2","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"GROWLEDA3","Action":"AUTO","STU":"00","GROUP":"00" },
 				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDHIA1","Action":"AUTO","STU":"01","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDHIA2","Action":"AUTO","STU":"01","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDHIA3","Action":"AUTO","STU":"01","GROUP":"00" },
 				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDLOWA1","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDLOWA2","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDLOWA3","Action":"AUTO","STU":"00","GROUP":"00" },
 				{"CMD":"LED","POS":"A030","Action":"ON","STU":"220000","GROUP":"00" },
 				{"CMD":"LED","POS":"A031","Action":"ON","STU":"210000","GROUP":"00" }
 			],
           "LOW": [
 				{"CMD":"REGCMD/AUTOSETUP","POS":"GROWLEDA1","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"GROWLEDA2","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"GROWLEDA3","Action":"AUTO","STU":"00","GROUP":"00" },
 				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDHIA1","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDHIA2","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDHIA3","Action":"AUTO","STU":"00","GROUP":"00" },
 				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDLOWA1","Action":"AUTO","STU":"01","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDLOWA2","Action":"AUTO","STU":"01","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDLOWA3","Action":"AUTO","STU":"01","GROUP":"00" },
 				{"CMD":"LED","POS":"A030","Action":"ON","STU":"220000","GROUP":"00" },
 				{"CMD":"LED","POS":"A031","Action":"ON","STU":"210000","GROUP":"00" }
 			],
           "OFF": [
 				{"CMD":"REGCMD/AUTOSETUP","POS":"GROWLEDA1","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"GROWLEDA2","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"GROWLEDA3","Action":"AUTO","STU":"00","GROUP":"00" },
 				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDHIA1","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDHIA2","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDHIA3","Action":"AUTO","STU":"00","GROUP":"00" },
 				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDLOWA1","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDLOWA2","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"LEDLOWA3","Action":"AUTO","STU":"00","GROUP":"00" },
 				{"CMD":"LED","POS":"A030","Action":"OFF","STU":"220064","GROUP":"00" },
 				{"CMD":"LED","POS":"A031","Action":"OFF","STU":"210064","GROUP":"00" }
 			]
