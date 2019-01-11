@@ -762,7 +762,134 @@
 						}
 				}
 			},		
-							
+					
+		
+			"S001": {"STATU":{"devadd":0,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"01":{"sub": 0,"stu": 0,"Data": 0},
+							"02":{"sub": 0,"stu": 0,"Data": 0},
+							"41":{"sub": 0,"stu": 0,"Data": 0},
+							"42":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C73": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"31":{"sub": 0,"stu": 0,"Data": 0},
+							"32":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": {"sub": 0,"stu": 0,"Data": 0,
+						"chtab":{
+							"1F":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				}
+			},
+			"S002": {"STATU":{"devadd":0,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"01":{"sub": 0,"stu": 0,"Data": 0},
+							"02":{"sub": 0,"stu": 0,"Data": 0},
+							"41":{"sub": 0,"stu": 0,"Data": 0},
+							"42":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C73": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"31":{"sub": 0,"stu": 0,"Data": 0},
+							"32":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": {"sub": 0,"stu": 0,"Data": 0,
+						"chtab":{
+							"1F":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				}
+			},		
+			"S003": {"STATU":{"devadd":0,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"01":{"sub": 0,"stu": 0,"Data": 0},
+							"02":{"sub": 0,"stu": 0,"Data": 0},
+							"41":{"sub": 0,"stu": 0,"Data": 0},
+							"42":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C73": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"31":{"sub": 0,"stu": 0,"Data": 0},
+							"32":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": {"sub": 0,"stu": 0,"Data": 0,
+						"chtab":{
+							"1F":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				}
+			},		
+			"S004": {"STATU":{"devadd":0,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"01":{"sub": 0,"stu": 0,"Data": 0},
+							"02":{"sub": 0,"stu": 0,"Data": 0},
+							"41":{"sub": 0,"stu": 0,"Data": 0},
+							"42":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C73": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"31":{"sub": 0,"stu": 0,"Data": 0},
+							"32":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": {"sub": 0,"stu": 0,"Data": 0,
+						"chtab":{
+							"1F":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				}
+			},		
+			
+					
 			"G010": {"STATU":{"devadd":128,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"89", "FWVER":"0000", "HWVER":"0000"},
 				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
 						"chtab":{
@@ -953,6 +1080,67 @@
 				}
 			},	
 			"H006": {"STATU":{"devadd":22,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"85", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C77": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"A1":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C76": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"91":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C78": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"92":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": {"sub": 0,"stu": 0,"Data": 0,
+						"chtab":{
+							"1F":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				}
+			},		
+			
+			"H010": {"STATU":{"devadd":23,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"85", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C77": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"A1":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C76": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"91":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C78": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"92":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": {"sub": 0,"stu": 0,"Data": 0,
+						"chtab":{
+							"1F":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				}
+			},		
+			"H011": {"STATU":{"devadd":24,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"85", "FWVER":"0000", "HWVER":"0000"},
 				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
 						"chtab":{
 							"E0":{"sub": 0,"stu": 0,"Data": 0},
@@ -1177,6 +1365,11 @@
         "74":"B022",
         "75":"B023",
 			
+        "00":"S001",
+        "00":"S002",
+        "00":"S003",
+        "00":"S004",
+		
         "80":"G010",
 		
         "11":"H001",
@@ -1185,6 +1378,9 @@
         "14":"H004",
         "15":"H005",
         "16":"H006",
+		
+        "17":"H010",
+        "18":"H011",
 		
         "B7":"J001",
 
