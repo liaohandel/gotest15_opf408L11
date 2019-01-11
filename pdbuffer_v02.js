@@ -274,7 +274,7 @@ function jautocmd_update(callback){
 		// }		
 		// console.log('JAUTOCMD.txt update ok x2! ');		
 		// callback();
-	// });
+	// });//### for 同步強制寫入 不受系統延遲 
 	fs.writeFileSync(filepath_jautocmd,jautocmddata);
 	
 	console.log('JAUTOCMD.txt update ok x3! ');		
