@@ -1,4 +1,7 @@
-console.log("[linkgateway ] start opf403 webapp_gx8x2 2011009x1 ...");
+console.log("[linkgateway ] start gotest15_opf408L8 webapp_gx8x2 20181230x1 ...");
+var reload = require('require-reload')(require);//### william_tu add in autolink funciton
+var reloadcount = 0;
+var reloadtime = Date.now();
 
 var EventEmitter = require('events').EventEmitter; 
 var event = new EventEmitter(); 
@@ -22,7 +25,6 @@ var cargs = {
     }
 };
 
- 
 var path = require('path');
 var fs = require('fs');
 var os = require('os');
@@ -33,8 +35,8 @@ var spawn = require('child_process').spawn;
 
 //var start_cmdStr = 'sudo pm2 start /home/pi/opcom_prj/gotest6_opf402/ipcamssh8022set';
 //var stop_cmdStr = 'sudo pm2 delete /home/pi/opcom_prj/gotest6_opf402/ipcamssh8022set';
-var start_cmdStr = "sudo sh /home/pi/opcom_prj/gotest5_opf403/getsshx5.sh";
-var stop_cmdStr = "sudo sh /home/pi/opcom_prj/gotest5_opf403/stopsshx5.sh";
+var start_cmdStr = "sudo sh /home/pi/opcom_prj/gotest15_opf408L10/getsshx5.sh";
+var stop_cmdStr = "sudo sh /home/pi/opcom_prj/gotest15_opf408L10/stopsshx5.sh";
 
 var pdbuffer  = require('./pdbuffer_v02.js');
 var autocmd = require('./autocmd_gx8.js');
@@ -114,9 +116,9 @@ var regsensorbuff = [
 	[
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"710000","Type":"WATERLEVEL1","typecmd":"C79","typereg":"71"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"720000","Type":"WATERLEVEL2","typecmd":"C79","typereg":"72"},
-		{"POS":"E002","CMD":"WATERLEVEL","STU":"740000","Type":"WATERLEVEL3","typecmd":"C79","typereg":"74"},
-		{"POS":"E002","CMD":"WATERLEVEL","STU":"750000","Type":"WATERLEVEL4","typecmd":"C79","typereg":"75"},
-		{"POS":"E002","CMD":"WATERLEVEL","STU":"730000","Type":"WATERLEVEL5","typecmd":"C79","typereg":"73"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"730000","Type":"WATERLEVEL3","typecmd":"C79","typereg":"73"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"740000","Type":"WATERLEVEL4","typecmd":"C79","typereg":"74"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"750000","Type":"WATERLEVEL5","typecmd":"C79","typereg":"75"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"760000","Type":"WATERLEVEL6","typecmd":"C79","typereg":"76"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"770000","Type":"WATERLEVEL7","typecmd":"C79","typereg":"77"}
 	],
@@ -133,8 +135,8 @@ var regsensorbuff = [
 	[
 		{"POS":"H001","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
 		{"POS":"H004","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
-		{"POS":"H002","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
-		{"POS":"H003","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
+		{"POS":"H010","CMD":"TEMPERATURE","STU":"A10000","Type":"WaterTemp","typecmd":"C77","typereg":"A1"},
+		{"POS":"H011","CMD":"TEMPERATURE","STU":"A10000","Type":"WaterTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H004","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
 		{"POS":"H005","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
 		{"POS":"H006","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
@@ -146,8 +148,8 @@ var uploadregsensorbuff = [
 	[
 		{"POS":"H001","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
 		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
-		{"POS":"H002","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
-		{"POS":"H003","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
+		{"POS":"H010","CMD":"TEMPERATURE","STU":"A10000","Type":"WaterTemp","typecmd":"C77","typereg":"A1"},
+		{"POS":"H011","CMD":"TEMPERATURE","STU":"A10000","Type":"WaterTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H004","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
 		{"POS":"H005","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
 		{"POS":"H006","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
@@ -166,9 +168,9 @@ var uploadregsensorbuff = [
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"710000","Type":"WATERLEVEL1","typecmd":"C79","typereg":"71"},
 		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"720000","Type":"WATERLEVEL2","typecmd":"C79","typereg":"72"},
-		{"POS":"E002","CMD":"WATERLEVEL","STU":"740000","Type":"WATERLEVEL3","typecmd":"C79","typereg":"74"},
-		{"POS":"E002","CMD":"WATERLEVEL","STU":"750000","Type":"WATERLEVEL4","typecmd":"C79","typereg":"75"},
-		{"POS":"E002","CMD":"WATERLEVEL","STU":"730000","Type":"WATERLEVEL5","typecmd":"C79","typereg":"73"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"730000","Type":"WATERLEVEL3","typecmd":"C79","typereg":"73"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"740000","Type":"WATERLEVEL4","typecmd":"C79","typereg":"74"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"750000","Type":"WATERLEVEL5","typecmd":"C79","typereg":"75"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"760000","Type":"WATERLEVEL6","typecmd":"C79","typereg":"76"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"770000","Type":"WATERLEVEL7","typecmd":"C79","typereg":"77"}
 	],
@@ -185,8 +187,6 @@ var uploadregsensorbuff = [
 		{"POS":"E002","CMD":"ELECTRONS","STU":"940000","Type":"ELECTRONS","typecmd":"C7A","typereg":"94"}
 	]
 ]
-
-
 
 //var sbcountmax =13;
 var sbcountmax = regsensorbuff.length;
@@ -250,20 +250,20 @@ var sensorcmdtab={
 
 // ==== opf403 container tree type REG channel device stu load and upload =====
 
-function  opf403_regdev_apiloadscan(regpos){//poslist ,api call LOAD save to buffer load sensor value save to buffer  
-	//console.log("### sensor device by pos api load to PDDATA buffer ..."+JSON.stringify(regpos));
+// function  opf403_regdev_apiloadscan(regpos){//poslist ,api call LOAD save to buffer load sensor value save to buffer  
+	// //console.log("### sensor device by pos api load to PDDATA buffer ..."+JSON.stringify(regpos));
 	
-	if(regpos.length > 0){
-		for(rr in regpos){
-			if(!(regpos[rr].POS in pdbuffer.pdjobj.PDDATA.Devtab))continue;
-			devloadurl = "http://127.0.0.1:3000/"+regpos[rr].CMD+"?UUID="+pdbuffer.setuuid+"&Action=LOAD"+"&POS="+regpos[rr].POS+"&STU="+regpos[rr].STU+"&GROUP=0000"
-			//console.log("loadscan api ="+devloadurl);
-			client.get(devloadurl, function (data, response) {
-				console.log("apiurl: load ok...");
-			}).on("error", function(err) {console.log("err for client");});
-		}
-	}
-}
+	// if(regpos.length > 0){
+		// for(rr in regpos){
+			// if(!(regpos[rr].POS in pdbuffer.pdjobj.PDDATA.Devtab))continue;
+			// devloadurl = "http://127.0.0.1:3000/"+regpos[rr].CMD+"?UUID="+pdbuffer.setuuid+"&Action=LOAD"+"&POS="+regpos[rr].POS+"&STU="+regpos[rr].STU+"&GROUP=0000"
+			// //console.log("loadscan api ="+devloadurl);
+			// client.get(devloadurl, function (data, response) {
+				// console.log("apiurl: load ok...");
+			// }).on("error", function(err) {console.log("err for client");});
+		// }
+	// }
+// }
 
 function  opf403_regdev_loadscan(regpos){ //poslist ,direct buffer LOAD save to buffer load sensor value save to buffer  
 	//console.log("### sensor device by ipadd load to PDDATA buffer ..."+JSON.stringify(regpos));		
@@ -334,10 +334,10 @@ function opf403_regstulinkweb(regdevarr){
 				if(outregval<=0)outregval=1;
 			}
 			regsensor_url = pdbuffer.pdjobj.PDDATA.v2sensorstatusurl+"?ID="+pdbuffer.setuuid+"&POS="+regdevarr[rr].POS+"&Type="+typemask+"&value="+outregval
-			//console.log(">>web "+regsensor_url);
+			console.log(">>web "+regsensor_url);
 			client.get(regsensor_url,cargs, function (data, response) {
 				console.log("sensor uplaod url: load ok...");
-			}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+			}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {console.log("timeout for client");req.abort();});
 		}		
 	}	
 }
@@ -614,15 +614,28 @@ app.get('/PDINFO', function (req, res) {
 			switch(cmd){
 				case "ON":
 					//update to File
-					pdbuffer.sysupdate(function(){
-						if(error){ //如果有錯誤，把訊息顯示並離開程式
-							console.log('PDDATA.txt update ERR ! ');							
-							jobj = { "success" : "false" };  
-						}else{
-							console.log('PDDATA.txt update OK ! ');
-							jobj = {  "success" : "true"  }; 							
-						}
-					});
+					// pdbuffer.sysupdate(function(){
+						// if(error){ //如果有錯誤，把訊息顯示並離開程式
+							// console.log('PDDATA.txt update ERR ! ');							
+							// jobj = { "success" : "false" };  
+						// }else{
+							// console.log('PDDATA.txt update OK ! ');
+							// jobj = {  "success" : "true"  }; 							
+						// }
+					// });
+					
+					//update to RedisDB
+					for(let key in pdbuffer.pdjobj.PDDATA.Devtab){
+						pdbuffer.update_redis('pdjobj.PDDATA.Devtab.' + key,function(){
+							if(error){ //如果有錯誤，把訊息顯示並離開程式
+								console.log('PDDATA PDDATA Devtab ' + key + ' update ERR ! ');							
+								jobj = { "success" : "false" };  
+							}else{
+								console.log('PDDATA PDDATA Devtab ' + key + ' update OK ! ');
+								jobj = {  "success" : "true"  }; 							
+							}
+						});
+					}
 					break
 				case "LOAD":
 					if(poslength == 2){						
@@ -657,15 +670,26 @@ app.get('/PDINFO', function (req, res) {
 			switch(cmd){
 				case "ON":
 					//update to File
-					pdbuffer.sysupdate(function(){
+					// pdbuffer.sysupdate(function(){
+						// if(error){ //如果有錯誤，把訊息顯示並離開程式
+							// console.log('PDDATA.txt update ERR ! ');							
+							// jobj = { "success" : "false" };  
+						// }else{
+							// console.log('PDDATA.txt update OK ! ');
+							// jobj = {  "success" : "true"  }; 							
+						// }
+					// });
+					
+					pdbuffer.update_redis('pdjobj.PDDATA',function(){
 						if(error){ //如果有錯誤，把訊息顯示並離開程式
-							console.log('PDDATA.txt update ERR ! ');							
+							console.log('PDDATA PDDATA update ERR ! ');							
 							jobj = { "success" : "false" };  
 						}else{
-							console.log('PDDATA.txt update OK ! ');
+							console.log('PDDATA PDDATA update OK ! ');
 							jobj = {  "success" : "true"  }; 							
 						}
 					});
+					
 					break
 				case "LOAD":
 					cstu = pdbuffer.pdjobj.PDDATA[group];
@@ -696,12 +720,21 @@ app.get('/PDINFO', function (req, res) {
 		switch(cmd){
 			case "ON":
 				//update to File 
-				pdbuffer.sysupdate(function(){
+				// pdbuffer.sysupdate(function(){
+					// if(error){ //如果有錯誤，把訊息顯示並離開程式
+						// console.log('PDDATA.txt update ERR ! ');							
+						// jobj = { "success" : "false" };  
+					// }else{
+						// console.log('PDDATA.txt update OK ! ');
+						// jobj = {  "success" : "true"  }; 							
+					// }
+				// });				 
+				pdbuffer.update_redis('pdjobj.addposmap',function(){
 					if(error){ //如果有錯誤，把訊息顯示並離開程式
-						console.log('PDDATA.txt update ERR ! ');							
+						console.log('PDDATA addposmap update ERR ! ');							
 						jobj = { "success" : "false" };  
 					}else{
-						console.log('PDDATA.txt update OK ! ');
+						console.log('PDDATA addposmap update OK ! ');
 						jobj = {  "success" : "true"  }; 							
 					}
 				});
@@ -774,12 +807,13 @@ function setnet_local_iptime(){
 			ttcode = '"'+data.continent_name+"/"+data.city+'"'
 			console.log("time areg ="+ttcode);
 			pdbuffer.jautocmd.DEVICESET.SETTIMEPAM.LOCALCITY = ttcode;
-			//let setiptime = spawn('sudo timedatectl',['set-timezone',ttcode]);
-			
-			pdbuffer.jautocmd_update(()=>{
-				console.log("JAUTO Save ok !");									
+			//let setiptime = spawn('sudo timedatectl',['set-timezone',ttcode]);			
+			// pdbuffer.jautocmd_update(()=>{
+				// console.log("JAUTO Save ok !");									
+			// });
+			pdbuffer.update_redis('jautocmd.DEVICESET',()=>{
+				console.log("JAUTO DEVICESET Save ok !");									
 			});
-			
 			//setiptime = exec('sudo timedatectl set-timezone '+ttcode);
 			set_city_time(ttcode);
 			
@@ -824,8 +858,11 @@ app.get('/SETTIME', function (req, res) {
 			res.json(jobj);
 			pdbuffer.jautocmd.DEVICESET.SETTIMEPAM.LOCALCITY = cstu;
 			set_city_time(cstu);
-			pdbuffer.jautocmd_update(()=>{
-				console.log("JAUTO Save ok !");									
+			// pdbuffer.jautocmd_update(()=>{
+				// console.log("JAUTO Save ok !");									
+			// });			
+			pdbuffer.update_redis('jautocmd.DEVICESET',()=>{
+				console.log("JAUTO DEVICESET Save ok !");									
 			});
 			break	
 		default:
@@ -867,9 +904,9 @@ app.get('/LED', function (req, res) {
 		if(!(funcode in pdbuffer.pdjobj.PDDATA.Devtab[pos]))return;
 		//console.log("5>>"+group)
 		
-		let cregadd = cstu.substr(0,2)//[0][1] 2 byte
+		let cregadd = cstu.substr(0,2)//[0][1] 1 byte
 		
-		let	nstu = Number('0x'+cstu.substr(2,4))//[2][3][4][5] 4 byte
+		let	nstu = Number('0x'+cstu.substr(2,4))//[2][3][4][5] 2 byte
 		let ttbuf = ""
 		if(group==0){
 			//cmdindex = pdbuffer.pdjobj.subcmd[cmd];
@@ -932,13 +969,16 @@ app.get('/LED', function (req, res) {
 					ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];
 					break	
 				case "SET"://%100= 0x00,%80=0x3B,%50=0x44,%30=0x4A
-					if(pos == "A001")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0]=cstu;//0x60 by B write led level
-					if(pos == "A002")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1]=cstu;//0x61 by B red   led level
-					if(pos == "A021")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2]=cstu;//0x30 by A write led level
-					if(pos == "A022")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3]=cstu;//0x31 by A red   led level
+					if(pos == "A038")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2]=cstu;//0x60 by B write led level
+					if(pos == "A039")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3]=cstu;//0x61 by B red   led level
+					if(pos == "A030")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0]=cstu;//0x30 by A write led level
+					if(pos == "A031")pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1]=cstu;//0x31 by A red   led level
 					//pdbuffer.jautocmd_update(()=>{
 					//	console.log("JAUTO Save ok !");									
-					//});//update buffer to Files
+					//});//update buffer to Files							
+					pdbuffer.update_redis('jautocmd.DEVICESET',()=>{
+						console.log("JAUTO DEVICESET Save ok !");									
+					});
 					return 	
 					break	
 				default:
@@ -1088,7 +1128,8 @@ app.get('/PUMP', function (req, res) {
 					ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];	
 					pdbuffer.pdjobj.PDDATA.Devtab[pos][funcode]["chtab"][cregadd].sub=cmdindex;		
 					pdbuffer.pdjobj.PDDATA.Devtab[pos][funcode]["chtab"][cregadd].stu=nstu;	
-					console.log("PUMP >>2>"+cmd);		
+					console.log("PUMP >>2>"+cmd);	
+					
 					break
 				case "LOAD":
 					ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];
@@ -1113,6 +1154,7 @@ app.get('/PUMP', function (req, res) {
 			ttbuf[8]= group>>8;
 			ttbuf[9]= group&0x00ff;
 			console.log("PUMP >>3>"+cmd);
+			
 		}else{
 		   //group is err
 			return;
@@ -1177,21 +1219,24 @@ app.get('/AIRFAN', function (req, res) {
 				case "LOAD":
 					ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];
 					break	
-				case "SET":			
+				case "SET":		
 					if(nstu == 0 ){
-						if(pos == "B001")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[0]="OFF";//ON ,OFF
-						if(pos == "B002")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[1]="OFF";
-						if(pos == "B003")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[2]="OFF";
-						if(pos == "B004")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[3]="OFF";
+						if(pos == "S001")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[0]="OFF";//ON ,OFF
+						if(pos == "S002")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[1]="OFF";
+						if(pos == "S003")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[2]="OFF";
+						if(pos == "S004")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[3]="OFF";
 					}else{
-						if(pos == "B001")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[0]="ON";//ON ,OFF
-						if(pos == "B002")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[1]="ON";
-						if(pos == "B003")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[2]="ON";
-						if(pos == "B004")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[3]="ON";
+						if(pos == "S001")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[0]="ON";//ON ,OFF
+						if(pos == "S002")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[1]="ON";
+						if(pos == "S003")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[2]="ON";
+						if(pos == "S004")pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[3]="ON";
 					}
 					//pdbuffer.jautocmd_update(()=>{
 					//	console.log("JAUTO Save ok !");									
-					//});//update buffer to Files
+					//});//update buffer to Files							
+					pdbuffer.update_redis('jautocmd.DEVICESET',()=>{
+						console.log("JAUTO DEVICESET Save ok !");									
+					});
 					return 
 					break	
 				default:
@@ -1879,7 +1924,8 @@ app.get('/AUTO', function (req, res) {
 app.listen(setport, function () {    
 	let chkstr = "";
 	
-	pdbuffer.sysload(function(){
+	//pdbuffer.sysload(function(){
+	pdbuffer.allload(function(){
 		ddsnurl = pdbuffer.pdjobj.PDDATA.dsnurl;
 		vdsnurl = pdbuffer.pdjobj.PDDATA.videodsnurl;
 		devloadurl =  pdbuffer.pdjobj.PDDATA.devloadurl;		
@@ -1897,7 +1943,6 @@ app.listen(setport, function () {
 		
 		//### fa auto callback message event ###
 		setInterval(function(){			
-			//console.log("0xfc command check 0..."+global.arxokflag)
 			//console.log("0xfc command check 0..."+global.arxokflag)
 			if(global.arxokflag == true){
 				global.arxokflag=false;
@@ -1947,103 +1992,110 @@ app.listen(setport, function () {
 			opf403_regstulinkweb(uploadregsensorbuff[sbcount]);			
 			opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);
 			
-		},1 * 30 * 1000);
+		},1 * 60 * 1000);
 		
 		
 		if(pdbuffer.pdjobj.PDDATA.linkoffmode == 0){//ext web mode
+			ngrok.disconnect(); // stops all
+			//ngrok.kill(); // kill all link
+			
 			ngrok.connect(setport,function (err, url) {
+				reloadtime = Date.now(); //記住ngrok網址配置時間 ###
+				if(err)console.log("link ngrok err=>"+ err);
+				
 				if(url === undefined ){
 					url="http://0000";
 				}
 				seturl = url
 				chkurl = seturl+"/connectcheck"
-				console.log("link=>"+seturl)
-				setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
-				client.get(setddsnurl, function (data, response) {
+				setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid;
+				console.log("link=>"+seturl +" to "+ setddsnurl);
+				client.get(setddsnurl, cargs, function (data, response) {
 					// parsed response body as js object
-					console.log("get ok...") 
+					console.log("get ddns ok ...");
 					//console.log(data.toString());
 					//raw response 
 					//console.log(response.query);
-					setInterval(function(){
-					  //console.log('test link ...');
-						chkurl = seturl+"/connectcheck"
-						console.log("chklink=>"+chkurl);
-						client.get(chkurl, function (data, response) {  
-							if(data == null){
-								chkstr = "null";
-							}else{
-								chkstr = data.toString(); 
-							}	                     
-							console.log("linkchk ... "+chkstr);
-							if(chkstr === "ready"){                       
-								console.log("linkchk ok ...",linkchkcount)
-								linkchkcount=0;
-								
-								//container_stulinkweb(sensorbuff[sbcount]);//#### link load sensor data 
-								//for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
-												
-								// sbcount++;
-								// if(sbcount>=sbcountmax)sbcount=0;	
-								// opf403_regdev_loadscan(regsensorbuff[sbcount]);//opf402 use reg level load scan 
-								// opf403_regstulinkweb(uploadregsensorbuff[sbcount]);				
-								// opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);							
-								
-							} else {							                       
-								console.log("linkchk fail ...",linkchkcount) 
-								linkchkcount++;
-								//relink DDNS for ngrok 
-								if(((typeof seturl) == "undefined" ) || (linkchkcount >=3) ){
-									console.log("get x11...") 
-									reload104ddsn();
-								}				
-							}
+					
+				}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+				
+				//===== ngrok link check @ 20min ================									
+				setInterval(function(){
+					console.log('test link ...');
+					chkurl = seturl+"/connectcheck"
+					console.log("chklink=>"+chkurl);
+					client.get(chkurl, function (data, response) {  
+						if(data == null){
+							chkstr = "null";
+						}else{
+							chkstr = data.toString(); 
+						}	                     
+						console.log("linkchk ... "+chkstr);
+						if(chkstr === "ready"){                       
+							console.log("linkchk ok ...",linkchkcount);
+							linkchkcount=0;
 							
-						}).on("error", function(err) {
-							console.log("err for client");
+							//container_stulinkweb(sensorbuff[sbcount]);//#### link load sensor data 
+							//for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
+							// sbcount++;
+							// if(sbcount>=sbcountmax)sbcount=0;	
+							// opf403_regdev_loadscan(regsensorbuff[sbcount]);//opf402 use reg level load scan 
+							// opf403_regstulinkweb(uploadregsensorbuff[sbcount]);				
+							// opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);
+							if(Date.now() - reloadtime >= 14400000) reload105ddsn();//四小時自動重配ngrok網址 ###								
+							
+						} else {							                       
 							console.log("linkchk fail ...",linkchkcount) 
 							linkchkcount++;
 							//relink DDNS for ngrok 
 							if(((typeof seturl) == "undefined" ) || (linkchkcount >=3) ){
-								console.log("get x12...") 
-								reload104ddsn();
-							}							
-						});
-					}, 5 * 60 * 1000);
-				}).on("error", function(err) {console.log("err for client");});
+								//console.log("get x11...") 
+								linkchkcount=0;
+								reload105ddsn();
+							}				
+						}
+						
+					}).on("error", function(err) {
+						console.log("err for client");
+						console.log("linkchk fail ...",linkchkcount) 
+						linkchkcount++;
+						//relink DDNS for ngrok 
+						if(((typeof seturl) == "undefined" ) || (linkchkcount >=3) ){
+							//console.log("get x12...") ;
+							linkchkcount=0;
+							reload105ddsn();
+						}							
+					});
+					
+				}, 20 * 60 * 1000);
+				
 			});
 		}else if(pdbuffer.pdjobj.PDDATA.linkoffmode == 1){//off link mode
 			console.log(">>OFF Link Mode !");
-			setInterval(function(){				
-				console.log(">>LOCAL OFF Link Mode !");
-				
-				//device_stulinkweb(sensorbuff[sbcount]);
-				//for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
-				
-				sbcount++;
-				if(sbcount>=sbcountmax)sbcount=0;	
-				opf403_regdev_loadscan(regsensorbuff[sbcount]);			
-				
-				
-				//for(pp in sensorbuff[sbcount])devloadscan(sensorbuff[sbcount][pp]);	//load pos data to buffer 5min					
-			}, 3 * 60 * 1000);
+			// setInterval(function(){				
+				// console.log(">>LOCAL OFF Link Mode !");				
+				// //device_stulinkweb(sensorbuff[sbcount]);
+				// //for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);				
+				// sbcount++;
+				// if(sbcount>=sbcountmax)sbcount=0;	
+				// opf403_regdev_loadscan(regsensorbuff[sbcount]);
+				// //for(pp in sensorbuff[sbcount])devloadscan(sensorbuff[sbcount][pp]);	//load pos data to buffer 5min					
+			// }, 3 * 60 * 1000);
 			
 		}else if(pdbuffer.pdjobj.PDDATA.linkoffmode == 2){//by 220 mode
 			console.log(">>LOCAL server 192.268.5.220 Link Mode !");
-			setInterval(function(){				
-				console.log(">>LOCAL server 192.268.5.220 Link Mode !");
-				//#### link load sensor data 
-				//container_stulinkweb(sensorbuff[sbcount]);//#### link load sensor data 
-				//for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
-				
-				sbcount++;
-				if(sbcount>=sbcountmax)sbcount=0;	
-				opf403_regdev_loadscan(uploadregsensorbuff[sbcount]);					
-				opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);	
-				
-				//### sensor data buffer upload to web server 	
-				//for(pp in sensorbuff[sbcount])devloadscan(sensorbuff[sbcount][pp]);	//load pos data to buffer 5min	
-			}, 3 * 60 * 1000);			
+			// setInterval(function(){				
+				// console.log(">>LOCAL server 192.268.5.220 Link Mode !");
+				// //#### link load sensor data 
+				// //container_stulinkweb(sensorbuff[sbcount]);//#### link load sensor data 
+				// //for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
+				// sbcount++;
+				// if(sbcount>=sbcountmax)sbcount=0;	
+				// opf403_regdev_loadscan(uploadregsensorbuff[sbcount]);					
+				// opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);	
+				// //### sensor data buffer upload to web server 	
+				// //for(pp in sensorbuff[sbcount])devloadscan(sensorbuff[sbcount][pp]);	//load pos data to buffer 5min	
+			// }, 3 * 60 * 1000);			
 			
 		}
 		console.log('Example app listening on port 3000!');		
@@ -2062,9 +2114,9 @@ function reload75ddsn(){
         chkurl = seturl+"/connectcheck"
 		console.log("link linkbox75C=>"+seturl);
         setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
-		client.get(setddsnurl, function (data, response) {
+		client.get(setddsnurl,cargs, function (data, response) {
 			console.log("get ok...") 				
-		}).on("error", function(err) {console.log("err for client");});		
+		}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});	
 	});
 }
 
@@ -2075,38 +2127,72 @@ function reload85ddsn(){
         chkurl = seturl+"/connectcheck"
 		console.log("link Cube85C=>"+seturl);
         setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
-		client.get(setddsnurl, function (data, response) {
+		client.get(setddsnurl,cargs, function (data, response) {
 			console.log("get ok...") 				
-		}).on("error", function(err) {console.log("err for client");});
+		}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 	});
 }
 
 function reload105ddsn(){	
-    console.log('recall ngrok ...');
-	ngrok.connect('192.168.5.105:3000',function (err, url) {
-		seturl = url
-        chkurl = seturl+"/connectcheck"
-		console.log("link container OPL002=>"+seturl);
-        setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
-		client.get(setddsnurl, function (data, response) {
-			console.log("get ok...") 				
-		}).on("error", function(err) {console.log("err for client");});	
-	});
-}
-
-function reload104ddsn(){	
-    console.log('recall ngrok ...');
-	ngrok.connect('192.168.5.104:3000',function (err, url) {
+    console.log('recall link ngrok ...');
+	ngrok.disconnect(); // stops all
+	ngrok.kill(); // kill all link ###
+	
+	reloadtime = Date.now();//###
+	reloadcount++;
+	if(reloadcount < 1100) { //如果非異常狀況之下約每半年才會restart webapp_gx6.js
+		ngrok = reload('ngrok');
+		ngrok.connect('192.168.5.105:3000',function (err, url) {
+			if(url === undefined ){ //### this chek use the ngrok is fail  unlink .... 20180909 
+				url="http://0000";
+			}
+			
+			seturl = url
+			chkurl = seturl+"/connectcheck"
+			console.log("link container opf408L10 or opf403,opdf406 =>"+seturl);
+			
+			setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
+			client.get(setddsnurl,cargs, function (data, response) {
+				console.log("get ok...") 				
+			}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+		});
+	} else {
+		exec('sudo pm2 restart webapp_gx8x2.js',function(){
+			console.log("restart link  webapp ... ")
+		});
+	}
+	
+	// ngrok.connect('192.168.5.105:3000',function (err, url) {
 		// if(url === undefined ){ //### this chek use the ngrok is fail  unlink .... 20180909 
 			// url="http://0000";
 		// }
+		// seturl = url
+        // chkurl = seturl+"/connectcheck"
+		// console.log("link container opf408L10 or opf403,opdf406 =>"+seturl);
+        // setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
+		// client.get(setddsnurl,cargs, function (data, response) {
+			// console.log("get ok...") 				
+		// }).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+	// });
+}
+
+function reload104ddsn(){	
+    console.log('recall link ngrok ...');
+	ngrok.disconnect(); // stops all
+	//ngrok.kill(); // kill all link
+	
+	ngrok.connect('192.168.5.104:3000',function (err, url) {
+		if(url === undefined ){ //### this chek use the ngrok is fail  unlink .... 20180909 
+			url="http://0000";
+		}
+		
 		seturl = url;
+        chkurl = seturl+"/connectcheck"
 		console.log("link container OPF408x2 get x13=>"+seturl);
 		
-        chkurl = seturl+"/connectcheck"
         setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
-		client.get(setddsnurl, function (data, response) {
+		client.get(setddsnurl,cargs, function (data, response) {
 			console.log("get ok...") 				
-		}).on("error", function(err) {console.log("err for client");});	
+		}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 	});
 }

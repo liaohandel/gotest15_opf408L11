@@ -58,6 +58,7 @@
 						}
 				}
 			},	
+			
 			"E002": {"STATU":{"devadd":33,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"82", "FWVER":"0000", "HWVER":"0000"},
 				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
 						"chtab":{
@@ -188,6 +189,100 @@
 				}
 			},	
 			
+			"E003": {"STATU":{"devadd":34,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"82", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"40":{"sub": 0,"stu": 0,"Data": 0},
+							"41":{"sub": 0,"stu": 0,"Data": 0},
+							"42":{"sub": 0,"stu": 0,"Data": 0},
+							"43":{"sub": 0,"stu": 0,"Data": 0},
+							"44":{"sub": 0,"stu": 0,"Data": 0},
+							"45":{"sub": 0,"stu": 0,"Data": 0},
+							"46":{"sub": 0,"stu": 0,"Data": 0},
+							"47":{"sub": 0,"stu": 0,"Data": 0},
+							"48":{"sub": 0,"stu": 0,"Data": 0},
+							"49":{"sub": 0,"stu": 0,"Data": 0},
+							"4A":{"sub": 0,"stu": 0,"Data": 0},
+							"4B":{"sub": 0,"stu": 0,"Data": 0},
+							"4C":{"sub": 0,"stu": 0,"Data": 0},
+							"4D":{"sub": 0,"stu": 0,"Data": 0},
+							"4E":{"sub": 0,"stu": 0,"Data": 0},
+							"4F":{"sub": 0,"stu": 0,"Data": 0},
+							"50":{"sub": 0,"stu": 0,"Data": 0},
+							"51":{"sub": 0,"stu": 0,"Data": 0},
+							"52":{"sub": 0,"stu": 0,"Data": 0},
+							"53":{"sub": 0,"stu": 0,"Data": 0},
+							"54":{"sub": 0,"stu": 0,"Data": 0},
+							"55":{"sub": 0,"stu": 0,"Data": 0},
+							"56":{"sub": 0,"stu": 0,"Data": 0},
+							"57":{"sub": 0,"stu": 0,"Data": 0},
+							"58":{"sub": 0,"stu": 0,"Data": 0},
+							"59":{"sub": 0,"stu": 0,"Data": 0},
+							"5A":{"sub": 0,"stu": 0,"Data": 0},
+							"5B":{"sub": 0,"stu": 0,"Data": 0},
+							"5C":{"sub": 0,"stu": 0,"Data": 0},
+							"5D":{"sub": 0,"stu": 0,"Data": 0},
+							"5E":{"sub": 0,"stu": 0,"Data": 0},
+							"5F":{"sub": 0,"stu": 0,"Data": 0},
+							"60":{"sub": 0,"stu": 0,"Data": 0},
+							"61":{"sub": 0,"stu": 0,"Data": 0},
+							"62":{"sub": 0,"stu": 0,"Data": 0},
+							"63":{"sub": 0,"stu": 0,"Data": 0},
+							"64":{"sub": 0,"stu": 0,"Data": 0},
+							"65":{"sub": 0,"stu": 0,"Data": 0},
+							"66":{"sub": 0,"stu": 0,"Data": 0},
+							"67":{"sub": 0,"stu": 0,"Data": 0},
+							"68":{"sub": 0,"stu": 0,"Data": 0},
+							"9C":{"sub": 0,"stu": 0,"Data": 0},
+							"EE":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74":  {"sub": 0,"stu": 0,"Data": 0,
+						"chtab":{
+							"1F":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				}
+			},	
+						
+			"C00A": {"STATU":{"devadd":35,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"41":{"sub": 0,"stu": 0,"Data": 0},
+							"42":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C73": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"31":{"sub": 0,"stu": 0,"Data": 0},
+							"32":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": {"sub": 0,"stu": 0,"Data": 0,
+						"chtab":{
+							"1F":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				}
+			},				
+			
+			
 			"A001": {"STATU":{"devadd":96,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
 				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
 						"chtab":{
@@ -258,237 +353,7 @@
 							"1F":{"sub": 0,"stu": 0,"Data": 0}
 						}
 				}},
-			"A004": {"STATU":{"devadd":99,"LINK": 1,"GROUP": 10,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": {"sub": 0,"stu": 0,"Data": 0,
-						"chtab":{
-							"1F":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				}},
-			"A005": {"STATU":{"devadd":100,"LINK": 1,"GROUP": 10,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": {"sub": 0,"stu": 0,"Data": 0,
-						"chtab":{
-							"1F":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				}},
-			"A006": {"STATU":{"devadd":101,"LINK": 1,"GROUP": 10,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": {"sub": 0,"stu": 0,"Data": 0,
-						"chtab":{
-							"1F":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				}},
-			"A007": {"STATU":{"devadd":102,"LINK": 1,"GROUP": 10,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": {"sub": 0,"stu": 0,"Data": 0,
-						"chtab":{
-							"1F":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				}},
-			"A008": {"STATU":{"devadd":103,"LINK": 1,"GROUP": 11,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": {"sub": 0,"stu": 0,"Data": 0,
-						"chtab":{
-							"1F":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				}
-			},
-			"A009": {"STATU":{"devadd":104,"LINK": 1,"GROUP": 11,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": {"sub": 0,"stu": 0,"Data": 0,
-						"chtab":{
-							"1F":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				}},
-			"A00A": {"STATU":{"devadd":105,"LINK": 1,"GROUP": 11,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": {"sub": 0,"stu": 0,"Data": 0,
-						"chtab":{
-							"1F":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				}},
-			"A00B": {"STATU":{"devadd":106,"LINK": 1,"GROUP": 11,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": {"sub": 0,"stu": 0,"Data": 0,
-						"chtab":{
-							"1F":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				}},
-			"A00C": {"STATU":{"devadd":107,"LINK": 1,"GROUP": 11,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": {"sub": 0,"stu": 0,"Data": 0,
-						"chtab":{
-							"1F":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				}},
-			"A00D": {"STATU":{"devadd":108,"LINK": 1,"GROUP": 11,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": {"sub": 0,"stu": 0,"Data": 0,
-						"chtab":{
-							"1F":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				}},
+				
 
 			
 			"A021": {"STATU":{"devadd":48,"LINK": 1,"GROUP": 12,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
@@ -562,250 +427,156 @@
 								"1F":{"sub": 0,"stu": 0,"Data": 0}
 							}
 				}
-			},	
-			"A024": {"STATU":{"devadd":51,"LINK": 1,"GROUP": 12,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": 	{"sub": 0,"stu": 0,"Data": 0,
-							"chtab":{
-								"1F":{"sub": 0,"stu": 0,"Data": 0}
-							}
-				}
-			},	
-			"A025": {"STATU":{"devadd":52,"LINK": 1,"GROUP": 12,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": 	{"sub": 0,"stu": 0,"Data": 0,
-							"chtab":{
-								"1F":{"sub": 0,"stu": 0,"Data": 0}
-							}
-				}
-			},	
-			"A026": {"STATU":{"devadd":53,"LINK": 1,"GROUP": 12,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": 	{"sub": 0,"stu": 0,"Data": 0,
-							"chtab":{
-								"1F":{"sub": 0,"stu": 0,"Data": 0}
-							}
-				}
-			},	
-			"A027": {"STATU":{"devadd":54,"LINK": 1,"GROUP": 12,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": 	{"sub": 0,"stu": 0,"Data": 0,
-							"chtab":{
-								"1F":{"sub": 0,"stu": 0,"Data": 0}
-							}
-				}
-			},	
-			"A028": {"STATU":{"devadd":55,"LINK": 1,"GROUP": 13,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": 	{"sub": 0,"stu": 0,"Data": 0,
-							"chtab":{
-								"1F":{"sub": 0,"stu": 0,"Data": 0}
-							}
-				}
-			},	
-			"A029": {"STATU":{"devadd":56,"LINK": 1,"GROUP": 13,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": 	{"sub": 0,"stu": 0,"Data": 0,
-							"chtab":{
-								"1F":{"sub": 0,"stu": 0,"Data": 0}
-							}
-				}
-			},	
-			"A02A": {"STATU":{"devadd":57,"LINK": 1,"GROUP": 13,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": 	{"sub": 0,"stu": 0,"Data": 0,
-							"chtab":{
-								"1F":{"sub": 0,"stu": 0,"Data": 0}
-							}
-				}
-			},	
-			"A02B": {"STATU":{"devadd":58,"LINK": 1,"GROUP": 13,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": 	{"sub": 0,"stu": 0,"Data": 0,
-							"chtab":{
-								"1F":{"sub": 0,"stu": 0,"Data": 0}
-							}
-				}
-			},	
-			"A02C": {"STATU":{"devadd":59,"LINK": 1,"GROUP": 13,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": 	{"sub": 0,"stu": 0,"Data": 0,
-							"chtab":{
-								"1F":{"sub": 0,"stu": 0,"Data": 0}
-							}
-				}
-			},	
-			"A02D": {"STATU":{"devadd":60,"LINK": 1,"GROUP": 13,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"20":{"sub": 0,"stu": 0,"Data": 0},
-							"21":{"sub": 0,"stu": 0,"Data": 0},
-							"22":{"sub": 0,"stu": 0,"Data": 0},
-							"23":{"sub": 0,"stu": 0,"Data": 0},
-							"24":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": 	{"sub": 0,"stu": 0,"Data": 0,
-							"chtab":{
-								"1F":{"sub": 0,"stu": 0,"Data": 0}
-							}
-				}
-			},	
-			
+			},		
 						
-			"B001": {"STATU":{"devadd":0,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
+			"A030": {"STATU":{"devadd":80,"LINK": 1,"GROUP": 12,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"20":{"sub": 0,"stu": 0,"Data": 0},
+							"21":{"sub": 0,"stu": 0,"Data": 0},
+							"22":{"sub": 0,"stu": 0,"Data": 0},
+							"23":{"sub": 0,"stu": 0,"Data": 0},
+							"24":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": 	{"sub": 0,"stu": 0,"Data": 0,
+							"chtab":{
+								"1F":{"sub": 0,"stu": 0,"Data": 0}
+							}
+				}
+			},	
+			"A031": {"STATU":{"devadd":81,"LINK": 1,"GROUP": 12,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"20":{"sub": 0,"stu": 0,"Data": 0},
+							"21":{"sub": 0,"stu": 0,"Data": 0},
+							"22":{"sub": 0,"stu": 0,"Data": 0},
+							"23":{"sub": 0,"stu": 0,"Data": 0},
+							"24":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": 	{"sub": 0,"stu": 0,"Data": 0,
+							"chtab":{
+								"1F":{"sub": 0,"stu": 0,"Data": 0}
+							}
+				}
+			},	
+			"A032": {"STATU":{"devadd":82,"LINK": 1,"GROUP": 12,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"20":{"sub": 0,"stu": 0,"Data": 0},
+							"21":{"sub": 0,"stu": 0,"Data": 0},
+							"22":{"sub": 0,"stu": 0,"Data": 0},
+							"23":{"sub": 0,"stu": 0,"Data": 0},
+							"24":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": 	{"sub": 0,"stu": 0,"Data": 0,
+							"chtab":{
+								"1F":{"sub": 0,"stu": 0,"Data": 0}
+							}
+				}
+			},	
+					
+			"A038": {"STATU":{"devadd":88,"LINK": 1,"GROUP": 12,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"20":{"sub": 0,"stu": 0,"Data": 0},
+							"21":{"sub": 0,"stu": 0,"Data": 0},
+							"22":{"sub": 0,"stu": 0,"Data": 0},
+							"23":{"sub": 0,"stu": 0,"Data": 0},
+							"24":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": 	{"sub": 0,"stu": 0,"Data": 0,
+							"chtab":{
+								"1F":{"sub": 0,"stu": 0,"Data": 0}
+							}
+				}
+			},	
+			"A039": {"STATU":{"devadd":89,"LINK": 1,"GROUP": 12,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"20":{"sub": 0,"stu": 0,"Data": 0},
+							"21":{"sub": 0,"stu": 0,"Data": 0},
+							"22":{"sub": 0,"stu": 0,"Data": 0},
+							"23":{"sub": 0,"stu": 0,"Data": 0},
+							"24":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": 	{"sub": 0,"stu": 0,"Data": 0,
+							"chtab":{
+								"1F":{"sub": 0,"stu": 0,"Data": 0}
+							}
+				}
+			},	
+			"A03A": {"STATU":{"devadd":90,"LINK": 1,"GROUP": 12,"MACADD":"000000000000","MTYPE":"84", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"20":{"sub": 0,"stu": 0,"Data": 0},
+							"21":{"sub": 0,"stu": 0,"Data": 0},
+							"22":{"sub": 0,"stu": 0,"Data": 0},
+							"23":{"sub": 0,"stu": 0,"Data": 0},
+							"24":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": 	{"sub": 0,"stu": 0,"Data": 0,
+							"chtab":{
+								"1F":{"sub": 0,"stu": 0,"Data": 0}
+							}
+				}
+			},	
+					
+					
+			"B001": {"STATU":{"devadd":112,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
 				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
 						"chtab":{
 							"E0":{"sub": 0,"stu": 0,"Data": 0},
@@ -817,6 +588,8 @@
 				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
 						"chtab":{
 							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"01":{"sub": 0,"stu": 0,"Data": 0},
+							"02":{"sub": 0,"stu": 0,"Data": 0},
 							"41":{"sub": 0,"stu": 0,"Data": 0},
 							"42":{"sub": 0,"stu": 0,"Data": 0}
 						}
@@ -834,7 +607,7 @@
 						}
 				}
 			},	
-			"B002": {"STATU":{"devadd":0,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
+			"B002": {"STATU":{"devadd":113,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
 				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
 						"chtab":{
 							"E0":{"sub": 0,"stu": 0,"Data": 0},
@@ -846,6 +619,8 @@
 				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
 						"chtab":{
 							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"01":{"sub": 0,"stu": 0,"Data": 0},
+							"02":{"sub": 0,"stu": 0,"Data": 0},
 							"41":{"sub": 0,"stu": 0,"Data": 0},
 							"42":{"sub": 0,"stu": 0,"Data": 0}
 						}
@@ -863,7 +638,7 @@
 						}
 				}
 			},	
-			"B003": {"STATU":{"devadd":0,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
+			"B003": {"STATU":{"devadd":114,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
 				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
 						"chtab":{
 							"E0":{"sub": 0,"stu": 0,"Data": 0},
@@ -875,96 +650,8 @@
 				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
 						"chtab":{
 							"00":{"sub": 0,"stu": 0,"Data": 0},
-							"41":{"sub": 0,"stu": 0,"Data": 0},
-							"42":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C73": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"00":{"sub": 0,"stu": 0,"Data": 0},
-							"31":{"sub": 0,"stu": 0,"Data": 0},
-							"32":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": {"sub": 0,"stu": 0,"Data": 0,
-						"chtab":{
-							"1F":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				}
-			},	
-			"B004": {"STATU":{"devadd":0,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"00":{"sub": 0,"stu": 0,"Data": 0},
-							"41":{"sub": 0,"stu": 0,"Data": 0},
-							"42":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C73": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"00":{"sub": 0,"stu": 0,"Data": 0},
-							"31":{"sub": 0,"stu": 0,"Data": 0},
-							"32":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": {"sub": 0,"stu": 0,"Data": 0,
-						"chtab":{
-							"1F":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				}
-			},	
-			
-			
-			
-			"C006": {"STATU":{"devadd":125,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"00":{"sub": 0,"stu": 0,"Data": 0},
-							"41":{"sub": 0,"stu": 0,"Data": 0},
-							"42":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C73": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"00":{"sub": 0,"stu": 0,"Data": 0},
-							"31":{"sub": 0,"stu": 0,"Data": 0},
-							"32":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C74": {"sub": 0,"stu": 0,"Data": 0,
-						"chtab":{
-							"1F":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				}
-			},	
-			"C007": {"STATU":{"devadd":126,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
-				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"E0":{"sub": 0,"stu": 0,"Data": 0},
-							"E1":{"sub": 0,"stu": 0,"Data": 0},
-							"E2":{"sub": 0,"stu": 0,"Data": 0},
-							"E3":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"01":{"sub": 0,"stu": 0,"Data": 0},
+							"02":{"sub": 0,"stu": 0,"Data": 0},
 							"41":{"sub": 0,"stu": 0,"Data": 0},
 							"42":{"sub": 0,"stu": 0,"Data": 0}
 						}
@@ -982,8 +669,7 @@
 						}
 				}
 			},
-			
-			"C00A": {"STATU":{"devadd":35,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
+			"B021": {"STATU":{"devadd":115,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
 				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
 						"chtab":{
 							"E0":{"sub": 0,"stu": 0,"Data": 0},
@@ -995,6 +681,8 @@
 				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
 						"chtab":{
 							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"01":{"sub": 0,"stu": 0,"Data": 0},
+							"02":{"sub": 0,"stu": 0,"Data": 0},
 							"41":{"sub": 0,"stu": 0,"Data": 0},
 							"42":{"sub": 0,"stu": 0,"Data": 0}
 						}
@@ -1011,8 +699,197 @@
 							"1F":{"sub": 0,"stu": 0,"Data": 0}
 						}
 				}
-			},	
-				
+			},
+			"B022": {"STATU":{"devadd":116,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"01":{"sub": 0,"stu": 0,"Data": 0},
+							"02":{"sub": 0,"stu": 0,"Data": 0},
+							"41":{"sub": 0,"stu": 0,"Data": 0},
+							"42":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C73": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"31":{"sub": 0,"stu": 0,"Data": 0},
+							"32":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": {"sub": 0,"stu": 0,"Data": 0,
+						"chtab":{
+							"1F":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				}
+			},
+			"B023": {"STATU":{"devadd":117,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"01":{"sub": 0,"stu": 0,"Data": 0},
+							"02":{"sub": 0,"stu": 0,"Data": 0},
+							"41":{"sub": 0,"stu": 0,"Data": 0},
+							"42":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C73": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"31":{"sub": 0,"stu": 0,"Data": 0},
+							"32":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": {"sub": 0,"stu": 0,"Data": 0,
+						"chtab":{
+							"1F":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				}
+			},		
+					
+		
+			"S001": {"STATU":{"devadd":0,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"01":{"sub": 0,"stu": 0,"Data": 0},
+							"02":{"sub": 0,"stu": 0,"Data": 0},
+							"41":{"sub": 0,"stu": 0,"Data": 0},
+							"42":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C73": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"31":{"sub": 0,"stu": 0,"Data": 0},
+							"32":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": {"sub": 0,"stu": 0,"Data": 0,
+						"chtab":{
+							"1F":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				}
+			},
+			"S002": {"STATU":{"devadd":0,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"01":{"sub": 0,"stu": 0,"Data": 0},
+							"02":{"sub": 0,"stu": 0,"Data": 0},
+							"41":{"sub": 0,"stu": 0,"Data": 0},
+							"42":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C73": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"31":{"sub": 0,"stu": 0,"Data": 0},
+							"32":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": {"sub": 0,"stu": 0,"Data": 0,
+						"chtab":{
+							"1F":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				}
+			},		
+			"S003": {"STATU":{"devadd":0,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"01":{"sub": 0,"stu": 0,"Data": 0},
+							"02":{"sub": 0,"stu": 0,"Data": 0},
+							"41":{"sub": 0,"stu": 0,"Data": 0},
+							"42":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C73": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"31":{"sub": 0,"stu": 0,"Data": 0},
+							"32":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": {"sub": 0,"stu": 0,"Data": 0,
+						"chtab":{
+							"1F":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				}
+			},		
+			"S004": {"STATU":{"devadd":0,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"88", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"01":{"sub": 0,"stu": 0,"Data": 0},
+							"02":{"sub": 0,"stu": 0,"Data": 0},
+							"41":{"sub": 0,"stu": 0,"Data": 0},
+							"42":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C73": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"00":{"sub": 0,"stu": 0,"Data": 0},
+							"31":{"sub": 0,"stu": 0,"Data": 0},
+							"32":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": {"sub": 0,"stu": 0,"Data": 0,
+						"chtab":{
+							"1F":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				}
+			},		
+			
+					
 			"G010": {"STATU":{"devadd":128,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"89", "FWVER":"0000", "HWVER":"0000"},
 				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
 						"chtab":{
@@ -1231,8 +1108,68 @@
 							"1F":{"sub": 0,"stu": 0,"Data": 0}
 						}
 				}
-			},	
+			},		
 			
+			"H010": {"STATU":{"devadd":23,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"85", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C77": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"A1":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C76": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"91":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C78": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"92":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": {"sub": 0,"stu": 0,"Data": 0,
+						"chtab":{
+							"1F":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				}
+			},		
+			"H011": {"STATU":{"devadd":24,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"85", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C77": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"A1":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C76": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"91":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C78": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"92":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": {"sub": 0,"stu": 0,"Data": 0,
+						"chtab":{
+							"1F":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				}
+			},	
 			
 			"J001": {"STATU":{"devadd":183,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"89", "FWVER":"0000", "HWVER":"0000"},
 				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
@@ -1398,7 +1335,9 @@
 	},
 	"addposmap" : {		
         "20":"E001",	
-        "21":"E002",
+        "21":"E002",	
+        "22":"E003",		
+        "23":"C00A",
 		
         "84":"J002",    
 		"BD":"J007",
@@ -1406,39 +1345,30 @@
         "60":"A001",
         "61":"A002",
         "62":"A003",
-        "63":"A004",
-        "64":"A005",
-        "65":"A006",
-        "66":"A007",
-        "67":"A008",
-        "68":"A009",
-        "69":"A00A",
-        "6A":"A00B",
-        "6B":"A00C",		
-        "6C":"A00D",
 		
         "30":"A021",
         "31":"A022",
         "32":"A023",
-        "33":"A024",
-        "34":"A025",
-        "35":"A026",
-        "36":"A027",
-        "37":"A028",
-        "38":"A029",
-        "39":"A02A",
-        "3A":"A02B",
-        "3B":"A02C",
-        "3C":"A02D",
 		
-        "00":"B001",
-        "00":"B002",
-        "00":"B003",
-        "00":"B004",
+        "50":"A030",
+        "51":"A031",
+        "52":"A032",
 		
-        "7D":"C006",		
-        "7E":"C007",		
-        "23":"C00A",
+        "58":"A038",
+        "59":"A039",
+        "5A":"A03A",
+		
+        "70":"B001",
+        "71":"B002",
+        "72":"B003",
+        "73":"B021",
+        "74":"B022",
+        "75":"B023",
+			
+        "00":"S001",
+        "00":"S002",
+        "00":"S003",
+        "00":"S004",
 		
         "80":"G010",
 		
@@ -1448,6 +1378,9 @@
         "14":"H004",
         "15":"H005",
         "16":"H006",
+		
+        "17":"H010",
+        "18":"H011",
 		
         "B7":"J001",
 

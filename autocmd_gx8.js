@@ -1,4 +1,4 @@
-const vermess = "[opf402 ] start autocmd_gx8 20180701x1 ..."
+const vermess = "[opf408L8 ] start autocmd_gx8 20181208x1 ..."
 console.log(vermess);
 
 var EventEmitter = require('events').EventEmitter; 
@@ -10,12 +10,12 @@ var Client = require('node-rest-client').Client;
 var client = new Client();
 var cargs = {
     requestConfig: {
-        timeout: 500,
+        timeout: 1000, //500,
         noDelay: true,
         keepAlive: true
     },
     responseConfig: {
-        timeout: 1000 //response timeout 
+        timeout: 1000 //1000 //response timeout 
     }
 };
 
@@ -26,11 +26,9 @@ var cmdcode = require("./handelrs485x2");
 function jobjcopy(jobj){
 	return JSON.parse(JSON.stringify(jobj));	
 }
-
 function autoeventcall(callmask){
 	event.emit(callmask);
 }
-
 event.on('sensorcheck_event', function(){ 
 	console.log("sensor check =>"+pdbuffer.jautocmd.AUTOSN);
 	if(!("GROWLED" in sch_autojob))reload_autojob();
@@ -59,7 +57,7 @@ event.on('sensorcheck_event', function(){
 					sch_autoloadmark[mpos]=1;//auto load to times schedule mark flag 0:no 1:load 
 					setrunobj(mpos)		
 					console.log(">>4["+mpos+"]auto runloop active ="+sch_autoloadmark[mpos]);	
-				}								
+				}							
 			}
 		}else if(sch_autojob[mpos].STATU == 0){//auto is disable 
 			//console.log(">>5["+mpos+"]auto sch active ="+sch_autoloadmark[mpos]);
@@ -115,7 +113,7 @@ function scanstart_comm(timearr,stval){
     }
 }
 
-function scan_schedule_chkloop(chklist){
+function scan_schedule_chkloop(chklist){//check the Time under the time schedule list Rang  return 1 if not return 0
 	let chktimehh = new Date().getHours();//var sttime = new Date(Date.now() + 5000)getMonth(), getFullYear(), getDate(), getDat(), getHours(), getMinutes(), 
 	let chktimemm = new Date().getMinutes();//"chkloop":[{"stt":"0001","endt":"0900"}],
 	let chkmmvalue = chktimehh*60 + chktimemm;
@@ -134,8 +132,8 @@ function scan_schedule_chkloop(chklist){
 }
 
 function device_auto_client(devlist,devcmd){
-	let cmdindex = pdbuffer.pdjobj.subcmd[devcmd]
-	//console.log(">>auto_Client ="+JSON.stringify(devlist)+"for "+devcmd+"="+cmdindex+"@time= "+Date());
+	let cmdindex = pdbuffer.pdjobj.subcmd[devcmd];
+	console.log(">>auto_Client ="+JSON.stringify(devlist)+"for "+devcmd+"="+cmdindex+"@time= "+Date());
 	for(kk in devlist){
 		//console.log("1>>auto_Client ="+JSON.stringify(devlist)+"for "+devcmd+" = "+cmdindex+" = "+kk+" time="+Date());
 		dpos = devlist[kk].POS;
@@ -144,16 +142,18 @@ function device_auto_client(devlist,devcmd){
 		//dstu = devlist[kk].STU.substr(0,2);
 		dstu = devlist[kk].STU.substr(0,2);
 		dgroup = devlist[kk].GROUP;
+		let run_stu="200000";
 		
-		//console.log("2>>auto_Client pos="+dpos+" cmd="+dtype+" add= "+dregadd+" time="+Date());
+		console.log("2>>auto_Client pos="+dpos+" cmd="+dtype+" add= "+dregadd+" time="+Date());
 		if(Number("0x0"+dregadd)<0x20)continue;
+		
 		chkss = device_chek_stu(dpos,dtype,dregadd);
-		//console.log("4>>auto_Client pos="+dpos+" cmd="+dtype+" add= "+dregadd+" time="+Date());
+		console.log("4>>auto_Client pos="+dpos+" cmd="+dtype+" add= "+dregadd+" time="+Date());
 		console.log(">>check =>"+cmdindex+" for "+chkss);
 		if(cmdindex != chkss){	//check the active command is working to device now?
 			//client command 			
-			//console.log("3>>auto_Client ="+JSON.stringify(devlist)+"for "+devcmd+" = "+cmdindex+" = "+kk+" time="+Date());
-			if(dpos=="E002" && dstu=="58"){
+			console.log("3>>auto_Client ="+JSON.stringify(devlist)+"for "+devcmd+" = "+cmdindex+" = "+kk+" time="+Date());
+			if(dpos=="E002" && dstu=="58"){//check REFFAN AUTO Device by LEVEL setup
 				//console.log(">>reffanloop json="+JSON.stringify(pdbuffer.jautocmd.DEVICESET.REFFAN));
 				if(devcmd == "ON"){
 					run1_active=pdbuffer.jautocmd.DEVICESET.REFFAN.ONLEV[0];
@@ -191,12 +191,12 @@ function device_auto_client(devlist,devcmd){
 					console.log("keypad client active  ok ...");
 				}).on("error", function(err) {console.log("err for client");});
 			
-			}else if(dpos.substr(0,2)=="A0" && dtype=="LED"){				
-				//console.log(">>ledrunloop json="+devcmd+"="+JSON.stringify(pdbuffer.jautocmd.DEVICESET.GROWLED));
-				if(dpos == "A001")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0];
-				if(dpos == "A002")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1];
-				if(dpos == "A021")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2];
-				if(dpos == "A022")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3];
+			}else if(dpos.substr(0,2)=="A0" && dtype=="LED"){//Check LED AUTO drive level setup			
+				console.log(">>ledrunloop json="+devcmd+"="+JSON.stringify(pdbuffer.jautocmd.DEVICESET.GROWLED));
+				if(dpos == "A038")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0]; //B LED write
+				if(dpos == "A039")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1]; //B LED red
+				if(dpos == "A030")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2]; //A LED write
+				if(dpos == "A031")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3]; //A LED red
 				
 				runloopactiveurl = "http://127.0.0.1:3000/"+dtype+'?UUID='+pdbuffer.setuuid+"&POS="+dpos+"&Action="+devcmd+"&STU="+run_stu+"&GROUP="+dgroup
 				console.log(">>ledrunloop and auto  client active send to =>"+runloopactiveurl);
@@ -365,7 +365,7 @@ function f3run(akey,cmd){
     console.log("["+akey+"] cmd="+cmd);
 
     switch(akey){
-        case "GROWLED":
+        case "GROWLEDA1":
             if(cmd == "on"){
                 sch_autojob[akey].loopcnt++;
                 if( sch_autojob[akey].loopcnt >=  sch_autojob[akey].loop.length)sch_autojob[akey].loopcnt=0;
@@ -377,7 +377,7 @@ function f3run(akey,cmd){
 					}
 				}
 				//device_auto_client(sch_autojob[akey].devpos,"ON")
-				sch_autojob.GROWLED.stid = new setTimeout(function(){f3run("GROWLED","off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
+				sch_autojob.GROWLEDA1.stid = new setTimeout(function(){f3run("GROWLEDA1","off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
             }
             if(cmd == "off"){ 
 				//console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
@@ -388,7 +388,7 @@ function f3run(akey,cmd){
 					}
 				}
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
-				sch_autojob.GROWLED.stid = new setTimeout(function(){f3run("GROWLED","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
+				sch_autojob.GROWLEDA1.stid = new setTimeout(function(){f3run("GROWLEDA1","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
             }			
             if(cmd == "schcheck"){
 				//console.log("["+akey+"] schloop="+JSON.stringify(sch_autojob[akey].devpos));
@@ -411,7 +411,56 @@ function f3run(akey,cmd){
 					}
 					//device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
-				sch_autojob.GROWLED.stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
+				sch_autojob.GROWLEDA1.stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
+            }
+            break;
+        case "GROWLEDB1":
+            if(cmd == "on"){
+                sch_autojob[akey].loopcnt++;
+                if( sch_autojob[akey].loopcnt >=  sch_autojob[akey].loop.length)sch_autojob[akey].loopcnt=0;
+				//console.log("["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos));
+				pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 1;//### auto
+				if(pdbuffer.jautocmd.WATERLOOP.autotmloop.STATU==1){//### tmauto en 
+					if(pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDAUTOEN==1){						
+						device_auto_client(sch_autojob[akey].devpos,"ON")
+					}
+				}
+				//device_auto_client(sch_autojob[akey].devpos,"ON")
+				sch_autojob.GROWLEDB1.stid = new setTimeout(function(){f3run("GROWLEDB1","off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
+            }
+            if(cmd == "off"){ 
+				//console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
+				pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 0;//### auto
+				if(pdbuffer.jautocmd.WATERLOOP.autotmloop.STATU==1){//### tmauto en 
+					if(pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDAUTOEN==1){						
+						device_auto_client(sch_autojob[akey].devpos,"OFF");
+					}
+				}
+				//device_auto_client(sch_autojob[akey].devpos,"OFF")
+				sch_autojob.GROWLEDB1.stid = new setTimeout(function(){f3run("GROWLEDB1","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
+            }			
+            if(cmd == "schcheck"){
+				//console.log("["+akey+"] schloop="+JSON.stringify(sch_autojob[akey].devpos));
+				//console.log("["+akey+"] schloop");
+				chkflag = scan_schedule_chkloop(sch_autojob[akey].chkloop);
+				if(chkflag == 1){
+					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 1;//### auto
+					if(pdbuffer.jautocmd.WATERLOOP.autotmloop.STATU==1){//### tmauto en 
+						if(pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDAUTOEN==1){						
+							device_auto_client(sch_autojob[akey].devpos,"ON");
+						}
+					}
+					//device_auto_client(sch_autojob[akey].devpos,"ON");
+				}else{
+					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 0;//### auto
+					if(pdbuffer.jautocmd.WATERLOOP.autotmloop.STATU==1){//### tmauto en 
+						if(pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDAUTOEN==1){						
+							device_auto_client(sch_autojob[akey].devpos,"OFF");		
+						}
+					}
+					//device_auto_client(sch_autojob[akey].devpos,"OFF");					
+				}
+				sch_autojob.GROWLEDB1.stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
             }
             break;
         case "CYCLEFAN":
@@ -658,7 +707,95 @@ function f3run(akey,cmd){
 				console.log(">> goto rh load")							
 			}
             break;
-        case "WATERTM":		
+        case "WATERTMH010":	
+            if(cmd == "load"){
+				console.log("["+akey+"] sensorpos="+JSON.stringify(sch_autojob[akey].sensorpos));
+				console.log("["+akey+"] outsensorpos="+JSON.stringify(sch_autojob[akey].outsensorpos));
+				device_load_client(sch_autojob[akey].sensorpos,"LOAD");
+				device_load_client(sch_autojob[akey].outsensorpos,"LOAD");
+				sch_autojob.WATERTMH010.stid = new setTimeout(function(){f3run("WATERTMH010","check")},sch_autojob[akey].loop[0].checkt*60*1000); 
+			}
+            if(cmd == "check"){
+				let chkval = jobjcopy( loadstudata(akey));//clear checek value buffer
+				let ochkval = jobjcopy(loadoutstudata(akey));
+				
+				console.log("all h010=>"+JSON.stringify(chkval)+" chkhigh"+sch_autojob[akey].chkhigh +" chklow="+ sch_autojob[akey].chklow )
+				//=== RUNLOOP check Login  =======
+				if( chkval.vmax > 0){
+					if(chkval.vmax >= sch_autojob[akey].chkhigh){
+						sch_autojob.WATERTMH010.stid = new setTimeout(function(){f3run("WATERTMH010","off")},sch_autojob[akey].loop[0].ont*60*1000); 
+						console.log(">> goto hot on")
+					}else if(chkval.vmax <= sch_autojob[akey].chklow){
+						sch_autojob.WATERTMH010.stid = new setTimeout(function(){f3run("WATERTMH010","on")},sch_autojob[akey].loop[0].ont*60*1000);	
+						console.log(">> goto hot on")						
+					}else{
+						sch_autojob.WATERTMH010.stid = new setTimeout(function(){f3run("WATERTMH010","off")},sch_autojob[akey].loop[0].offt*60*1000);
+						console.log(">> goto hot off")							
+					}
+				}else{
+					sch_autojob.WATERTMH010.stid = new setTimeout(function(){f3run("WATERTMH010","load")},sch_autojob[akey].loop[0].loadt*60*1000); 
+					console.log(">> goto rh load")							
+				}
+				
+			}
+            if(cmd == "off"){
+				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
+				device_auto_client(sch_autojob[akey].devpos,"OFF")
+				sch_autojob.WATERTMH010.stid = new setTimeout(function(){f3run("WATERTMH010","load")},sch_autojob[akey].loop[0].loadt*60*1000); 
+				console.log(">> goto H010 load")							
+			}
+            if(cmd == "on"){
+				console.log("["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos)); 
+				device_auto_client(sch_autojob[akey].devpos,"ON")
+				sch_autojob.WATERTMH010.stid = new setTimeout(function(){f3run("WATERTMH010","load")},sch_autojob[akey].loop[0].loadt*60*1000); 
+				console.log(">> goto H010 load")							
+			}
+		
+            break;
+        case "WATERTM":	
+            if(cmd == "load"){
+				console.log("["+akey+"] sensorpos="+JSON.stringify(sch_autojob[akey].sensorpos));
+				console.log("["+akey+"] outsensorpos="+JSON.stringify(sch_autojob[akey].outsensorpos));
+				device_load_client(sch_autojob[akey].sensorpos,"LOAD");
+				device_load_client(sch_autojob[akey].outsensorpos,"LOAD");
+				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"check")},sch_autojob[akey].loop[0].checkt*60*1000); 
+			}
+            if(cmd == "check"){
+				let chkval = jobjcopy( loadstudata(akey));//clear checek value buffer
+				let ochkval = jobjcopy(loadoutstudata(akey));
+				
+				console.log("all H011=>"+JSON.stringify(chkval)+" chkhigh"+sch_autojob[akey].chkhigh +" chklow="+ sch_autojob[akey].chklow )
+				//=== RUNLOOP check Login  =======
+				if( chkval.vmax > 0){
+					if(chkval.vmax >= sch_autojob[akey].chkhigh){
+						sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"on")},sch_autojob[akey].loop[0].ont*60*1000); 
+						console.log(">> goto Cood on")
+					}else if(chkval.vmax <= sch_autojob[akey].chklow){
+						sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"off")},sch_autojob[akey].loop[0].ont*60*1000);	
+						console.log(">> goto Cood on")						
+					}else{
+						sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"off")},sch_autojob[akey].loop[0].offt*60*1000);
+						console.log(">> goto Cood off")							
+					}
+				}else{
+					sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"load")},sch_autojob[akey].loop[0].loadt*60*1000); 
+					console.log(">> goto H011 load")							
+				}
+				
+			}
+            if(cmd == "off"){
+				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
+				device_auto_client(sch_autojob[akey].devpos,"OFF")
+				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"load")},sch_autojob[akey].loop[0].loadt*60*1000); 
+				console.log(">> goto H011 load")							
+			}
+            if(cmd == "on"){
+				console.log("["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos)); 
+				device_auto_client(sch_autojob[akey].devpos,"ON")
+				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"load")},sch_autojob[akey].loop[0].loadt*60*1000); 
+				console.log(">> goto H011 load")							
+			}	
+		
             break;
         case "CO2":
             if(cmd == "load"){
@@ -843,7 +980,7 @@ function f3run(akey,cmd){
 			};
 			if(cmd == "schcheck"){};
             break;
-        case "LEDHI":
+        case "LEDHIA1":
             if(cmd == "on"){
                 sch_autojob[akey].loopcnt++;
                 if( sch_autojob[akey].loopcnt >=  sch_autojob[akey].loop.length)sch_autojob[akey].loopcnt=0;
@@ -855,7 +992,7 @@ function f3run(akey,cmd){
 					}
 				}
 				//device_auto_client(sch_autojob[akey].devpos,"ON")
-				sch_autojob.LEDHI.stid = new setTimeout(function(){f3run("LEDHI","off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
+				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
             }
             if(cmd == "off"){ 
 				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
@@ -866,7 +1003,7 @@ function f3run(akey,cmd){
 					}
 				}
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
-				sch_autojob.LEDHI.stid = new setTimeout(function(){f3run("LEDHI","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
+				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
             }			
             if(cmd == "schcheck"){
 				//console.log("["+akey+"] schloop="+JSON.stringify(sch_autojob[akey].devpos));
@@ -889,10 +1026,10 @@ function f3run(akey,cmd){
 					}
 					//device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
-				sch_autojob.LEDHI.stid = new setTimeout(function(){f3run("LEDHI","schcheck")},2*60*1000);//
+				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
             }
             break;
-        case "LEDLOW":
+        case "LEDHIB1":
             if(cmd == "on"){
                 sch_autojob[akey].loopcnt++;
                 if( sch_autojob[akey].loopcnt >=  sch_autojob[akey].loop.length)sch_autojob[akey].loopcnt=0;
@@ -904,7 +1041,7 @@ function f3run(akey,cmd){
 					}
 				}
 				//device_auto_client(sch_autojob[akey].devpos,"ON")
-				sch_autojob.LEDLOW.stid = new setTimeout(function(){f3run("LEDLOW","off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
+				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
             }
             if(cmd == "off"){ 
 				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
@@ -915,7 +1052,7 @@ function f3run(akey,cmd){
 					}
 				}
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
-				sch_autojob.LEDLOW.stid = new setTimeout(function(){f3run("LEDLOW","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
+				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
             }			
             if(cmd == "schcheck"){
 				//console.log("["+akey+"] schloop="+JSON.stringify(sch_autojob[akey].devpos));
@@ -938,7 +1075,105 @@ function f3run(akey,cmd){
 					}
 					//device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
-				sch_autojob.LEDLOW.stid = new setTimeout(function(){f3run("LEDLOW","schcheck")},2*60*1000);//
+				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
+            }
+            break;
+        case "LEDLOWA1":
+            if(cmd == "on"){
+                sch_autojob[akey].loopcnt++;
+                if( sch_autojob[akey].loopcnt >=  sch_autojob[akey].loop.length)sch_autojob[akey].loopcnt=0;
+				console.log("["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos));
+				pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 1;//### auto
+				if(pdbuffer.jautocmd.WATERLOOP.autotmloop.STATU==1){//### tmauto en 
+					if(pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDAUTOEN==1){						
+						device_auto_client(sch_autojob[akey].devpos,"ON");
+					}
+				}
+				//device_auto_client(sch_autojob[akey].devpos,"ON")
+				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
+            }
+            if(cmd == "off"){ 
+				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
+				pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 0;//### auto
+				if(pdbuffer.jautocmd.WATERLOOP.autotmloop.STATU==1){//### tmauto en 
+					if(pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDAUTOEN==1){						
+						device_auto_client(sch_autojob[akey].devpos,"OFF");
+					}
+				}
+				//device_auto_client(sch_autojob[akey].devpos,"OFF")
+				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
+            }			
+            if(cmd == "schcheck"){
+				//console.log("["+akey+"] schloop="+JSON.stringify(sch_autojob[akey].devpos));
+				console.log("["+akey+"] schloop");
+				chkflag = scan_schedule_chkloop(sch_autojob[akey].chkloop);
+				if(chkflag == 1){
+					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 1;//### auto
+					if(pdbuffer.jautocmd.WATERLOOP.autotmloop.STATU==1){//### tmauto en 
+						if(pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDAUTOEN==1){						
+							device_auto_client(sch_autojob[akey].devpos,"ON");
+						}
+					}
+					//device_auto_client(sch_autojob[akey].devpos,"ON");
+				}else{
+					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 0;//### auto
+					if(pdbuffer.jautocmd.WATERLOOP.autotmloop.STATU==1){//### tmauto en 
+						if(pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDAUTOEN==1){						
+							device_auto_client(sch_autojob[akey].devpos,"OFF");
+						}
+					}
+					//device_auto_client(sch_autojob[akey].devpos,"OFF");					
+				}
+				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
+            }
+            break;
+        case "LEDLOWB1":
+            if(cmd == "on"){
+                sch_autojob[akey].loopcnt++;
+                if( sch_autojob[akey].loopcnt >=  sch_autojob[akey].loop.length)sch_autojob[akey].loopcnt=0;
+				console.log("["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos));
+				pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 1;//### auto
+				if(pdbuffer.jautocmd.WATERLOOP.autotmloop.STATU==1){//### tmauto en 
+					if(pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDAUTOEN==1){						
+						device_auto_client(sch_autojob[akey].devpos,"ON");
+					}
+				}
+				//device_auto_client(sch_autojob[akey].devpos,"ON")
+				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
+            }
+            if(cmd == "off"){ 
+				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
+				pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 0;//### auto
+				if(pdbuffer.jautocmd.WATERLOOP.autotmloop.STATU==1){//### tmauto en 
+					if(pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDAUTOEN==1){						
+						device_auto_client(sch_autojob[akey].devpos,"OFF");
+					}
+				}
+				//device_auto_client(sch_autojob[akey].devpos,"OFF")
+				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
+            }			
+            if(cmd == "schcheck"){
+				//console.log("["+akey+"] schloop="+JSON.stringify(sch_autojob[akey].devpos));
+				console.log("["+akey+"] schloop");
+				chkflag = scan_schedule_chkloop(sch_autojob[akey].chkloop);
+				if(chkflag == 1){
+					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 1;//### auto
+					if(pdbuffer.jautocmd.WATERLOOP.autotmloop.STATU==1){//### tmauto en 
+						if(pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDAUTOEN==1){						
+							device_auto_client(sch_autojob[akey].devpos,"ON");
+						}
+					}
+					//device_auto_client(sch_autojob[akey].devpos,"ON");
+				}else{
+					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 0;//### auto
+					if(pdbuffer.jautocmd.WATERLOOP.autotmloop.STATU==1){//### tmauto en 
+						if(pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDAUTOEN==1){						
+							device_auto_client(sch_autojob[akey].devpos,"OFF");
+						}
+					}
+					//device_auto_client(sch_autojob[akey].devpos,"OFF");					
+				}
+				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
             }
             break;
         case "IPCAMC906":
@@ -1112,11 +1347,12 @@ var jobitem = {
 		"loop":[{"ont":5,"offt":5}],
 		"chkloop":[{"stt":"0001","endt":"0900"}],
 		"loopcnt":0 ,
-		"devpos":[] 
+		"devpos":[] ,
+		"motopam":[] 
 	};
 	
-var timeloopitem = {"ont":5,"offt":5};
-var chkloopitem = {"stt":"0001","endt":"0900"};
+//var timeloopitem = {"ont":5,"offt":5};
+//var chkloopitem = {"stt":"0001","endt":"0900"};
 
 var runjobitem = {		
 		"schobj":0,stid:null,
@@ -1174,17 +1410,9 @@ function load_autojob(akey,jautodata){
 		sch_autojob[akey].SENSOR_CONTROL = jautodata.SENSOR_CONTROL;	
 		
 		sch_autojob[akey].gotime = "0001";
+		
 		//sch_autojob[akey].goweek = [0,1,2,3,4,5,6];//Number('0x'+cstu)
 		sch_autojob[akey].goweek = [];
-		//nwk=Number('0x'+jautodata.SCHEDULE.WEEK.substr(0,2));
-		//if(nwk & 0x01)sch_autojob[akey].goweek.push(0);
-		//if(nwk & 0x02)sch_autojob[akey].goweek.push(1);
-		//if(nwk & 0x04)sch_autojob[akey].goweek.push(2);
-		//if(nwk & 0x08)sch_autojob[akey].goweek.push(3);
-		//if(nwk & 0x10)sch_autojob[akey].goweek.push(4);
-		//if(nwk & 0x20)sch_autojob[akey].goweek.push(5);
-		//if(nwk & 0x40)sch_autojob[akey].goweek.push(6);	
-		//WEEK = "01111111" [][6][5][4][3][2][1][0]
 		chm6 = jautodata.SCHEDULE.WEEK.substr(1,1);	
 		chm5 = jautodata.SCHEDULE.WEEK.substr(2,1);	
 		chm4 = jautodata.SCHEDULE.WEEK.substr(3,1);	
@@ -1211,12 +1439,10 @@ function load_autojob(akey,jautodata){
 		let chksimitem = {"stt":"0001","endt":"0900"};
 		
 		sch_autojob[akey].loop = [];
-		sch_autojob[akey].chkloop = [];
-		
+		sch_autojob[akey].chkloop = [];		
 		for(ii in jautodata.SCHEDULE.ONLOOP){
 			jsttt = jautodata.SCHEDULE.ONLOOP[ii];
 			console.log("["+ii+"]>>"+jsttt);
-			
 			
 			chksimitem.stt = jsttt.substr(0,4);
 			chksimitem.endt  = jsttt.substr(4,4);
@@ -1230,7 +1456,6 @@ function load_autojob(akey,jautodata){
 				sch_autojob[akey].loop.push(jobjcopy(simoutitem));//###
 				if(xstoff > xston ){
 					simoutitem.ont  =  xstoff - xston ;
-
 				}else{            
 					simoutitem.ont  =  0;
 				}
@@ -1245,22 +1470,18 @@ function load_autojob(akey,jautodata){
 				
 				if(xstoff > xston ){
 					simoutitem.ont  =  xstoff - xston ;
-
 				}else{            
 					simoutitem.ont  =  0;
 				}
 				simoutitem.offt = simend_time - xstoff;
 				sch_autojob[akey].loop.push(jobjcopy(simoutitem));//###
-				
-
-			}else{
-				
+			}else{				
 				if( xston > simoutitem.offt ){
 					simoutitem.offt  =  xston - simoutitem.offt ;
 				}else{            
 					simoutitem.offt  = 1;
 				}        
-				sch_autojob[akey].loop.push(jobjcopy(simoutitem));//###
+				sch_autojob[akey].loop.push(jobjcopy(simoutitem));//###		
 				
 				if(xstoff > xston ){
 					simoutitem.ont  =  xstoff - xston ;
@@ -1272,16 +1493,10 @@ function load_autojob(akey,jautodata){
 			}			
 		}
 		
-		
-		// for(ii in jautodata.SCHEDULE.ONLOOP){
-			// timeitem.ont= jautodata.SCHEDULE.ONLOOP[ii].substr(0,4);
-			// timeitem.offt= jautodata.SCHEDULE.ONLOOP[ii].substr(4,4);
-			// sch_autojob[akey].loop.push(jobjcopy(timeitem));
-		// }		
 		sch_autojob[akey].loopcnt = 0
-		
 		sch_autoloadmark[akey]=0;//auto load to times schedule mark flag 0:no 1:load 
-		console.log(">>load ["+akey+"]="+JSON.stringify(sch_autojob[akey]));		
+		console.log(">>load ["+akey+"]="+JSON.stringify(sch_autojob[akey]));	
+		
 	}else if(jautodata.MODE == 3){//RUNLOOP
 		if(!("RUNLOOP" in jautodata))return;
 		if(!(akey in sch_autojob))sch_autojob[akey]={}	
@@ -1315,6 +1530,7 @@ function load_autojob(akey,jautodata){
 			}
 		}		
 	}
+	
 }
 
 function reload_autojob(){
@@ -1392,7 +1608,7 @@ function active_keypadjob(kpos,kcode,kactive){
 	let run_stu = ""
 	let run_group = ""
 	
-	if(kpos == "KEYPAD0" && kcode =="K003" ){//mask the LED on/OFF control status by autotmloop check ###
+	if(kpos == "KEYPAD0" && kcode =="K003" ){//mask the LED on/OFF control status by autotmloop check ### 溫控LED ONOFF mask
 		if(kactive == "AUTO")pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 1;//### auto
 		if(kactive == "ON")pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 1;//### auto
 		if(kactive == "HI")pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 1;//### auto
@@ -1453,10 +1669,10 @@ function active_keypadjob(kpos,kcode,kactive){
 		}
 		
 		if(run_cmd == "LED" && run_active =="ON" ){// setup the LED lev set
-			if(run_pos == "A001")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0];
-			if(run_pos == "A002")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1];
-			if(run_pos == "A021")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2];
-			if(run_pos == "A022")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3];
+			if(run_pos == "A038")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[2];//0x60 by B write led level
+			if(run_pos == "A039")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[3];//0x61 by B red   led level
+			if(run_pos == "A030")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[0];//0x30 by A write led level
+			if(run_pos == "A031")run_stu = pdbuffer.jautocmd.DEVICESET.GROWLED.ONLEV[1];//0x31 by A red   led level
 		}
 		
 		//console.log(">>["+cc+"]"+run_cmd)
@@ -1474,8 +1690,8 @@ function active_keypadjob(kpos,kcode,kactive){
 	console.log("sudo active update to webui =>"+updatekeysstuatusurl);
 	client.get(updatekeysstuatusurl,cargs, function (data, response) {
 		console.log("keypad active update to webui   ok ...");
-	}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
-
+	//}).on("error", function(err) {console.log("err for client");});
+	}).on("error", function(err) {console.log("err for clientx1");}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
 	//autopushkeypad(kpos,kcode,kactive);
 	
 	updatekeysstuatusurl220 = "http://192.168.5.220/API/v2/KeypadUpdate.php"+"?ID="+pdbuffer.setuuid+"&KeypadID="+kpos+"&Index="+kcode+"&value="+kactive;
@@ -1785,6 +2001,8 @@ function GOBOX2LOOP(ljob){
 	let chkloadval = 0;
 	let oloadval = 0;
 	console.log(">>waterloop ="+ljob.SENSOR_CONTROL);
+	console.log(">>waterlev6 = "+ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.Value +">waterlev7 = "+ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value );
+	console.log(">>waterlev6cnt = "+ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.count +">waterlev7cnt = "+ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count );
 	ljob.SENSOR_CONTROL = Number(ljob.SENSOR_CONTROL);
 	
 	switch(ljob.SENSOR_CONTROL){
@@ -1830,7 +2048,8 @@ function GOBOX2LOOP(ljob){
 					ljob.SENSOR_CONTROL = 0;
 				}else{
 					ljob.CHKLOOP.CHKVALUE.DELAY1 = 0;
-					ljob.SENSOR_CONTROL = 2;
+					//ljob.SENSOR_CONTROL = 2;
+					ljob.SENSOR_CONTROL = 4;//direct jump to s004 for m1  start pump pass s2,s3
 				}
 			}
 			break;
@@ -1853,30 +2072,18 @@ function GOBOX2LOOP(ljob){
 			}
 			break;
 		case 4:			
-			water_client_trige(ljob.CHKLOOP.DEVPOS.M2,"ON");//start pump box2 to box2
-			//water_client_trige(ljob.CHKLOOP.DEVPOS.M4,"ON");//start pump box2 to ec/ph box
-			console.log(">>waterloop ecph M2 ON ,box2 m4 ON");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.M1,"ON");//start pump box2 to box2
+			console.log(">>waterloop and DevCood M1 pump ON ,box2 m1 ON");
 			ljob.CHKLOOP.CHKVALUE.WAIT1 = 2*3;//3 min
 			ljob.SENSOR_CONTROL = 5;
 			break;
 		case 5:
 			if(ljob.CHKLOOP.CHKVALUE.WAIT1 > 0){
-				// if(ljob.CHKLOOP.CHKVALUE.WAIT1==3){
-					// water_client_trige(ljob.CHKLOOP.DEVPOS.M4,"OFF");//stop EC/PH pump
-					// console.log(">>waterloop M4 OFF");
-				// }
-				// waterlev_load_client(ljob.CHKLOOP.SENSORPOS.ECDATA,"LOAD");
-				// waterlev_load_client(ljob.CHKLOOP.SENSORPOS.PHDATA,"LOAD");
-				
-				// console.log(">>waterloop EC LOAD ="+pdbuffer.pdjobj.PDDATA.Devtab.E002.C7A["chtab"]["94"].stu);
-				// console.log(">>waterloop PH LOAD ="+pdbuffer.pdjobj.PDDATA.Devtab.E002.C7B["chtab"]["93"].stu);
 				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
 				ljob.SENSOR_CONTROL = 5;
 			}else {
-				water_client_trige(ljob.CHKLOOP.DEVPOS.M2,"OFF");
-				//water_client_trige(ljob.CHKLOOP.DEVPOS.M4,"OFF");
-				
-				console.log(">>waterloop M2 OFF , M4 M5 OFF");
+				water_client_trige(ljob.CHKLOOP.DEVPOS.M1,"OFF");				
+				console.log(">>waterloop M1 OFF ");
 				ljob.SENSOR_CONTROL = 0;
 			}
 			break;
@@ -1885,7 +2092,9 @@ function GOBOX2LOOP(ljob){
 			if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.Value <= 10){//chekc box1 is full 
 				ljob.SENSOR_CONTROL = 0; 
 			}else{
-				ljob.SENSOR_CONTROL = 7;// ### add new water 
+				//ljob.SENSOR_CONTROL = 7;// ### add new water 
+				ljob.SENSOR_CONTROL = 9;// ### add new water pass s7,s8 m2 pump start 
+				water_client_trige(ljob.CHKLOOP.DEVPOS.M2,"ON");//start pump box1 to box2
 			}
 			break;
 		case 7:
@@ -1906,6 +2115,7 @@ function GOBOX2LOOP(ljob){
 			}
 			break;
 		case 9:
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.M2,"ON");//start pump box1 to box2
 			waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6,"LOAD");
 			waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7,"LOAD");
 			
@@ -2001,7 +2211,11 @@ function GOECDOSELOOP(ljob){
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count >= 3)ljob.SENSOR_CONTROL = 1;
 			}else{
 				ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value = oloadval;//### lev scan load over 3 time is ready
-				ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count = 0;				
+				if(oloadval >=13){
+					ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count = 1;				
+				}else{	
+					ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count = 0;
+				}
 			}			
 			break;
 		case 1://check reg 0x77 > low lev 
@@ -2261,7 +2475,7 @@ function autotmloop(ljob){
 	switch(ljob.SENSOR_CONTROL){
 		case 0://load pam to buffer 			
 
-				ljob.CHKLOOP.SENSORPOS.LEDSTU.LEDSTU = pdbuffer.pdjobj.PDDATA.Devtab.A001.C71.chtab["20"].sub;	
+				ljob.CHKLOOP.SENSORPOS.LEDSTU.LEDSTU = pdbuffer.pdjobj.PDDATA.Devtab.A030.C71.chtab["20"].sub;//####
 				ljob.CHKLOOP.SENSORPOS.INDOORTM1.Value = pdbuffer.pdjobj.PDDATA.Devtab.H001.C77.chtab["A1"].stu;
 				ljob.CHKLOOP.SENSORPOS.INDOORTM2.Value = pdbuffer.pdjobj.PDDATA.Devtab.H002.C77.chtab["A1"].stu;	
 				ljob.CHKLOOP.SENSORPOS.INDOORTM3.Value = pdbuffer.pdjobj.PDDATA.Devtab.H003.C77.chtab["A1"].stu;	
@@ -2400,10 +2614,14 @@ function autotmloop(ljob){
 					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2101")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2101";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
-			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");	
-			
+			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
 					drvledlev4on(ljob);
-					
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				case 2:
 					console.log(">>autotmloop led=ON in15_out1520  wkmode=1");
@@ -2411,9 +2629,13 @@ function autotmloop(ljob){
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2102";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
-					
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
 					drvledlev4on(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				case 3:
 					console.log(">>autotmloop led=ON in15_out2028 wkmode=1");
@@ -2426,11 +2648,15 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4M3,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4AUTO,"AUTO");	
-					
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
 					drvledlev4on(ljob);
 					
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1x10minM3,"ON");
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 4:
 					console.log(">>autotmloop led=ON in15_out2835 wkmode=1");
@@ -2443,9 +2669,13 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4M3,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4AUTO,"AUTO");	
-					
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
 					drvledlev4on(ljob);
-					
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 5:
 					console.log(">>autotmloop led=ON in15_out35 wkmode=1");
@@ -2458,8 +2688,13 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4M3,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4AUTO,"AUTO");	
-					
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
 					drvledlev4on(ljob);
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				default:	
 					ljob.SENSOR_CONTROL=0;
@@ -2476,9 +2711,13 @@ function autotmloop(ljob){
 					
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
-					
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
 					drvledlev4on(ljob);
-			
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				case 2:
 					console.log(">>autotmloop led=ON in1520_out1520  wkmode=2");
@@ -2487,9 +2726,13 @@ function autotmloop(ljob){
 					
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
-					
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
 					drvledlev4on(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				case 3:
 					console.log(">>autotmloop led=ON  in1520_out2028  wkmode=2");
@@ -2501,9 +2744,13 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx3M3,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4M3,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");	
-					
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
 					drvledlev4on(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 4:
 					console.log(">>autotmloop led=ON  in1520_out2835  wkmode=2");
@@ -2515,9 +2762,13 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx3M3,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4M3,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
-					
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
 					drvledlev4on(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 5:
 					console.log(">>autotmloop led=ON  in1520_out35  wkmode=2");
@@ -2529,9 +2780,13 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx3M3,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4M3,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
-					
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
 					drvledlev4on(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				default:	
 					ljob.SENSOR_CONTROL=0;
@@ -2549,8 +2804,13 @@ function autotmloop(ljob){
 					
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on	
-			 devledlevauto(ljob);
-					
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
+					devledlevauto(ljob);
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 2:
 					console.log(">>autotmloop led=ON  in2028_out1520  wkmode=3");
@@ -2560,8 +2820,13 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4AUTO,"AUTO");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on	
-			 devledlevauto(ljob);
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
+					devledlevauto(ljob);
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 3:
 					console.log(">>autotmloop led=ON  in2028_out2028  wkmode=3");
@@ -2570,8 +2835,13 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4AUTO,"AUTO");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on	
-			 devledlevauto(ljob);
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
+					devledlevauto(ljob);
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 4:
 					console.log(">>autotmloop led=ON  in2028_out2835 wkmode=3");
@@ -2580,8 +2850,13 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on
-			 devledlevauto(ljob);
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
+					devledlevauto(ljob);
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 5:
 					console.log(">>autotmloop led=ON  in2028_out35 wkmode=3");
@@ -2590,8 +2865,13 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on
-			 devledlevauto(ljob);
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
+					devledlevauto(ljob);
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				default:	
 					ljob.SENSOR_CONTROL=0;
@@ -2607,8 +2887,13 @@ function autotmloop(ljob){
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2401";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
 			devledlevoff(ljob);
-			
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 2:
 					console.log(">>autotmloop  led=ON  in2835_out1520 wkmode=4");
@@ -2616,8 +2901,13 @@ function autotmloop(ljob){
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2402";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
 			devledlevoff(ljob);
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 3:
 					console.log(">>autotmloop led=ON   in2835_out2028 wkmode=4");
@@ -2625,8 +2915,13 @@ function autotmloop(ljob){
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2403";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
 			devledlevoff(ljob);
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 4:
 					console.log(">>autotmloop led=ON   in2835_out2835 wkmode=4");
@@ -2638,10 +2933,14 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");	
-			
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
 			devledlevoff(ljob);
 					//devledlev1on30min(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				case 5:
 					console.log(">>autotmloop led=ON   in2835_out35 wkmode=4");
@@ -2651,10 +2950,14 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
-			
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
 					devledlevoff(ljob);
 					devledlev1on30min(ljob);
-					
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				default:	
 					ljob.SENSOR_CONTROL=0;
@@ -2671,9 +2974,13 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
-			
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
 					devledlevoff(ljob);
-					
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 2:
 					console.log(">>autotmloop led=ON   in35_out1520 wkmode=5");
@@ -2682,8 +2989,13 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
 					devledlevoff(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 3:
 					console.log(">>autotmloop led=ON   in35_out2028 wkmode=5");
@@ -2692,10 +3004,14 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
-			
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
 					devledlevoff(ljob);			
 					devledlev1on30min(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				case 4:
 					console.log(">>autotmloop led=ON   in135_out2835 wkmode=5");
@@ -2703,9 +3019,14 @@ function autotmloop(ljob){
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2504";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");		
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
 					devledlevoff(ljob);	
 					devledlev1on30min(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				case 5:
 					console.log(">>autotmloop led=ON   in35_out35 wkmode=5");
@@ -2713,10 +3034,14 @@ function autotmloop(ljob){
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2505";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
-			
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
 					devledlevoff(ljob);			
 					devledlev1on30min(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				default:	
 					ljob.SENSOR_CONTROL=0;
@@ -2735,8 +3060,13 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on 
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
 					//devledlevauto(ljob);
-					
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				case 2:
 					console.log(">>autotmloop led=OFF   in15_out1520 wkmode=1");
@@ -2745,8 +3075,13 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
 					//devledlevauto(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				case 3:
 					console.log(">>autotmloop led=OFF   in15_out2028 wkmode=1");
@@ -2757,8 +3092,13 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
 					//devledlevauto(ljob);
-				
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 4:
 					console.log(">>autotmloop led=OFF   in15_out2835 wkmode=1");
@@ -2768,8 +3108,13 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
 					//devledlevauto(ljob);
-			
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 5:
 					console.log(">>autotmloop led=OFF   in15_out35 wkmode=1");
@@ -2779,8 +3124,13 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");	
-			
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
 					//devledlevauto(ljob);		
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				default:	
 					ljob.SENSOR_CONTROL=0;
@@ -2797,8 +3147,13 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
 					//devledlevauto(ljob);
-			
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				case 2:
 					console.log(">>autotmloop led=OFF   in1520_out1520 wkmode=2");
@@ -2807,7 +3162,11 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
 				case 3:
 					console.log(">>autotmloop led=OFF   in1520_out2028 wkmode=2");
@@ -2817,7 +3176,11 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 4:
 					console.log(">>autotmloop led=OFF   in1520_out2835 wkmode=2");
@@ -2827,7 +3190,11 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");	
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				case 5:
 					console.log(">>autotmloop  led=OFF  in1520_out35 wkmode=2");
@@ -2837,7 +3204,11 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");		
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
+					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
 				default:	
 					ljob.SENSOR_CONTROL=0;
@@ -2855,6 +3226,12 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
+
 					break;
 				case 2:
 					console.log(">>autotmloop  led=OFF  in2028_out1520 wkmode=3");
@@ -2864,7 +3241,12 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
+
 					break;
 				case 3:
 					console.log(">>autotmloop  led=OFF  in2028_out2028 wkmode=3");
@@ -2875,7 +3257,12 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 			
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");	
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
+
 					break;
 				case 4:
 					console.log(">>autotmloop led=OFF   in2028_out2835 wkmode=3");
@@ -2885,7 +3272,12 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");	
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
+
 					break;
 				case 5:
 					console.log(">>autotmloop  led=OFF  in2028_out35 wkmode=3");
@@ -2893,7 +3285,12 @@ function autotmloop(ljob){
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3305";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");	
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
+
 					break;
 				default:	
 					ljob.SENSOR_CONTROL=0;
@@ -2910,6 +3307,12 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 o
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
+
 					break;
 				case 2:
 					console.log(">>autotmloop led=OFF   in2835_out1520 wkmode=4");
@@ -2918,7 +3321,12 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 o
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
+
 					break;
 				case 3:
 					console.log(">>autotmloop led=OFF   in2835_out2028 wkmode=4");
@@ -2929,7 +3337,12 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 o
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
+
 					break;
 				case 4:
 					console.log(">>autotmloop led=OFF   in2835_out2835 wkmode=4");
@@ -2940,7 +3353,12 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
+
 					break;
 				case 5:
 					console.log(">>autotmloop led=OFF   in2835_out35 wkmode=4");
@@ -2952,7 +3370,12 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 o
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
+
 					break;
 				default:	
 					ljob.SENSOR_CONTROL=0;
@@ -2969,6 +3392,12 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 o
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
+
 					break;
 				case 2:
 					console.log(">>autotmloop led=OFF   in35_out1520 wkmode=5");
@@ -2977,7 +3406,12 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO")
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");;
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 o
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
+
 					break;
 				case 3:
 					console.log(">>autotmloop led=OFF   in35_out2028 wkmode=5");
@@ -2989,7 +3423,12 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 o
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
+
 					break;
 				case 4:
 					console.log(">>autotmloop led=OFF   in35_out2835 wkmode=5");
@@ -3000,8 +3439,12 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
-			
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
+
 					break;
 				case 5:
 					console.log(">>autotmloop led=OFF   in35_out35 wkmode=5");
@@ -3009,7 +3452,12 @@ function autotmloop(ljob){
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3505";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
-				
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
+
 					break;
 				default:	
 					ljob.SENSOR_CONTROL=0;
@@ -3405,9 +3853,291 @@ function tmdemoloop(ljob){
 
 }
 
+
+//=== autoledmoto_updown_loop ===
+const ledmotokey = ["K042","K043","K044","K045","K046","K047"];
+function autoledmotoloop(ljob){
+	let outksspos = "";
+	let typecmd = "";
+	let typedevreg = "";
+	let chkloadval = 0;
+	let oloadval = 0;
+	let chkflag =0;
+	let chkautoname ="0000";
+	let devlist =[];
+	let motobase = 0;
+	let motooffset = 0;
+	let sss="000000";
+	let updatesn = 0;
+	
+	console.log(">>autoledmotoloop ="+ljob.SENSOR_CONTROL);
+	ljob.SENSOR_CONTROL = Number(ljob.SENSOR_CONTROL);
+	
+	switch(ljob.SENSOR_CONTROL){
+		case 0: //check schedule is mach 			
+			chkflag = scan_schedule_chkloop(ljob.CHKLOOP.chktime);
+			if(chkflag == 1){
+				ljob.CHKLOOP.CHKVALUE.DELAY1 = ljob.CHKLOOP.CHKVALUE.MOTOAUTOLIST.length - 1 ;
+				console.log(">>autoledmotoloop DELAY1="+ljob.CHKLOOP.CHKVALUE.DELAY1);
+				ljob.SENSOR_CONTROL=1;					
+			}else{
+				ljob.CHKLOOP.CHKVALUE.DELAY1 = 0;
+				ljob.SENSOR_CONTROL=11; 
+			}
+			break;
+		case 1: // auto chk all List MOTOAUTOLIST 
+			chkautoname = ljob.CHKLOOP.CHKVALUE.MOTOAUTOLIST[ljob.CHKLOOP.CHKVALUE.DELAY1];
+			sss="0000";
+			if(ljob.CHKLOOP.CHKVALUE.DELAY1<=5)sss = ledmotokey[ljob.CHKLOOP.CHKVALUE.DELAY1];
+			console.log(">>autoledmotoloop = [%s ] = %s ",ljob.CHKLOOP.CHKVALUE.DELAY1,chkautoname);
+			//console.log(">>autoledmotoloop =");
+			if(ljob.CHKLOOP.CHKVALUE.DELAY1>0){
+				ljob.CHKLOOP.CHKVALUE.DELAY1 --;
+				ljob.SENSOR_CONTROL=1;
+				
+				if(pdbuffer.jautocmd.DEVLIST[chkautoname].STATU == 1){
+					for(dd in pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.EPOS){
+						motobase = pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.MOTOPAM[dd].BASE - pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.MOTOPAM[dd].OFFSET;
+						if(motobase<0)motobase=0;
+						pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.MOTOPAM[dd].BASE = motobase;
+						pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.EPOS[dd].STU=("000000"+motobase.toString(16)).substr(-6,6);
+						console.log(">>autoledmotoloop %s STU= %s",chkautoname,pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.EPOS[dd].STU);
+					}
+					pdbuffer.update_redis('jautocmd.DEVLIST.'+chkautoname,()=>{console.log("JAUTO Save ok !");});//update buffer to Files
+					devlist = jobjcopy(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.EPOS);
+					
+					for(ee in devlist)water_client_trige(devlist[ee],"ON");  
+					console.log(">>autoledmotoloop ="+JSON.stringify(devlist));
+					
+					// Index = sss , value = motobase 
+					
+					// console.log(">>autoledmotoloop move="+sss+">"+motobase);					
+					// //update the ledmoto base value to server DB
+					// updatekeysstuatusurl= pdbuffer.pdjobj.PDDATA.v2keypadstatusupdateurl+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
+					// console.log("sudo active update to webui =>"+updatekeysstuatusurl);
+					// client.get(updatekeysstuatusurl,cargs, function (data, response) {
+						// console.log("keypad active update to webui   ok ...");
+					// //}).on("error", function(err) {console.log("err for client");});
+					// }).on("error", function(err) {console.log("err for clientx1");}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
+					// //autopushkeypad(kpos,kcode,kactive);
+					
+					// //update the ledmoto base value to IPC DB
+					// updatekeysstuatusurl220 = "http://192.168.5.220/API/v2/KeypadUpdate.php"+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
+					// console.log("sudo active update to webui =>"+updatekeysstuatusurl220);
+					// client.get(updatekeysstuatusurl220,cargs, function (data, response) {
+						// console.log("keypad active update to webui   ok ...");
+					// }).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+					
+					
+					for(ff in pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM)water_client_trige(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM[ff],"AUTO");
+					console.log(">>autoledmotoloop ="+JSON.stringify(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM));
+				}				
+			}else{
+				ljob.CHKLOOP.CHKVALUE.DELAY1 = 0;
+				ljob.SENSOR_CONTROL=10;
+				
+				if(pdbuffer.jautocmd.DEVLIST[chkautoname].STATU == 1){
+					for(dd in pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.EPOS){
+						motobase = pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.MOTOPAM[dd].BASE - pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.MOTOPAM[dd].OFFSET;
+						pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.MOTOPAM[dd].BASE = motobase;
+						pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.EPOS[dd].STU=("000000"+motobase.toString(16)).substr(-6,6);
+					}
+					pdbuffer.update_redis('jautocmd.DEVLIST.'+chkautoname,()=>{console.log("JAUTO Save ok !");});//update buffer to Files
+					devlist = jobjcopy(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.EPOS);
+					
+					for(ee in devlist)water_client_trige(devlist[ee],"ON");  			
+					
+					// console.log(">>autoledmotoloop move="+sss+">"+motobase);					
+					// //update the ledmoto base value to server DB
+					// updatekeysstuatusurl= pdbuffer.pdjobj.PDDATA.v2keypadstatusupdateurl+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
+					// console.log("sudo active update to webui =>"+updatekeysstuatusurl);
+					// client.get(updatekeysstuatusurl,cargs, function (data, response) {
+						// console.log("keypad active update to webui   ok ...");
+					// //}).on("error", function(err) {console.log("err for client");});
+					// }).on("error", function(err) {console.log("err for clientx1");}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
+					// //autopushkeypad(kpos,kcode,kactive);
+					
+					// //update the ledmoto base value to IPC DB
+					// updatekeysstuatusurl220 = "http://192.168.5.220/API/v2/KeypadUpdate.php"+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
+					// console.log("sudo active update to webui =>"+updatekeysstuatusurl220);
+					// client.get(updatekeysstuatusurl220,cargs, function (data, response) {
+						// console.log("keypad active update to webui   ok ...");
+					// }).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+					
+					for(ff in pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM)water_client_trige(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM[ff],"AUTO");
+				}
+			}
+			break;
+		case 10: //delay 10min for when after auto working
+			ljob.CHKLOOP.CHKVALUE.WAIT1=20;
+			ljob.SENSOR_CONTROL=12;
+			break;
+		case 11: //delay 2 min everytime check time schedule 
+			ljob.CHKLOOP.CHKVALUE.WAIT1=2;
+			ljob.SENSOR_CONTROL=12;
+			break;
+		case 12: //
+			if(ljob.CHKLOOP.CHKVALUE.WAIT1 > 0){
+				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
+				ljob.SENSOR_CONTROL=12;				
+			}else{				
+				ljob.SENSOR_CONTROL=0;
+			}
+			break;
+		default:	
+			ljob.SENSOR_CONTROL=0;
+			break;
+	}
+}
+
+//=== autopumpmotoloop by s1,s2 select  ===
+function autopumpmotoloop(ljob){
+	let outksspos = "";
+	let typecmd = "";
+	let typedevreg = "";
+	let chkloadval = 0;
+	let oloadval = 0;
+	let chkflag =0;
+	let chkautoname ="0000";
+	let devlist =[];
+	let amotochk=0;
+	let bmotochk=0;
+	
+	console.log(">>autopumpmotoloop ="+ljob.SENSOR_CONTROL);
+	ljob.SENSOR_CONTROL = Number(ljob.SENSOR_CONTROL);
+	
+	switch(ljob.SENSOR_CONTROL){
+		case 0: // auto chk all List MOTOAUTOLIST 
+			water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"OFF");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"OFF");
+			ljob.SENSOR_CONTROL=1;//pass delay
+			break;
+		case 1: // auto chk all List MOTOAUTOLIST 
+			if(pdbuffer.jautocmd.DEVLIST.PUMPA.STATU == 1){
+				if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.A1 == 1){
+					//A1 set S1
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM41,"ON");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM42,"OFF");
+				}else if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.A1 == 2){
+					//A1 set S2
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM41,"OFF");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM42,"ON");
+				}
+				if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.A2 == 1){
+					//A1 set S1
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM43,"ON");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM44,"OFF");
+				}else if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.A2 == 2){
+					//A1 set S2
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM43,"OFF");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM44,"ON");
+				}
+				if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.A3 == 1){
+					//A1 set S1
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM45,"ON");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM46,"OFF");
+				}else if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.A3 == 2){
+					//A1 set S2
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM45,"OFF");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM46,"ON");
+				}
+			}	
+			if(pdbuffer.jautocmd.DEVLIST.PUMPB.STATU == 1){
+				if(pdbuffer.jautocmd.DEVLIST.PUMPB.SCHEDULE.MOTOPAM.B1 == 1){
+					//A1 set S1
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM47,"ON");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM48,"OFF");
+				}else if(pdbuffer.jautocmd.DEVLIST.PUMPB.SCHEDULE.MOTOPAM.B1 == 2){
+					//A1 set S2
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM47,"OFF");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM48,"ON");
+				}
+				if(pdbuffer.jautocmd.DEVLIST.PUMPB.SCHEDULE.MOTOPAM.B2 == 1){
+					//A1 set S1
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM49,"ON");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM4A,"OFF");
+				}else if(pdbuffer.jautocmd.DEVLIST.PUMPB.SCHEDULE.MOTOPAM.B2 == 2){
+					//A1 set S2
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM49,"OFF");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM4A,"ON");
+				}
+				if(pdbuffer.jautocmd.DEVLIST.PUMPB.SCHEDULE.MOTOPAM.B3 == 1){
+					//A1 set S1
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM4B,"ON");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM4C,"OFF");
+				}else if(pdbuffer.jautocmd.DEVLIST.PUMPB.SCHEDULE.MOTOPAM.B3 == 2){
+					//A1 set S2
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM4B,"OFF");
+					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM4C,"ON");
+				}
+			}
+			
+			ljob.CHKLOOP.CHKVALUE.WAIT1=1;
+			ljob.SENSOR_CONTROL=3;//pass delay
+			break;
+		case 2: //delay 10min for when after auto working
+			if(ljob.CHKLOOP.CHKVALUE.WAIT1 > 0){
+				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
+				ljob.SENSOR_CONTROL=2;				
+			}else{				
+				ljob.SENSOR_CONTROL=3;
+			}
+			break;
+		case 3: //delay 10min for when after auto working
+			amotochk=0;
+			bmotochk=0;
+			if(pdbuffer.jautocmd.DEVLIST.PUMPA.STATU == 1){
+				if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.PUMPMOTO == "A"){
+					//A set water pump A
+					//water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"ON");
+					amotochk=1;
+				}else if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.PUMPMOTO == "B"){
+					//A set water pump B
+					//water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"ON");
+					bmotochk=1;
+				}
+			}	
+			if(pdbuffer.jautocmd.DEVLIST.PUMPB.STATU == 1){
+				if(pdbuffer.jautocmd.DEVLIST.PUMPB.SCHEDULE.MOTOPAM.PUMPMOTO == "A"){
+					//B set water pump A
+					//water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"ON");
+					amotochk=1;
+				}else if(pdbuffer.jautocmd.DEVLIST.PUMPB.SCHEDULE.MOTOPAM.PUMPMOTO == "B"){
+					//B set water pump B
+					//water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"ON");
+					bmotochk=1;
+				}
+			}
+			
+			if(amotochk==1)water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"ON");
+			if(amotochk==0)water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"OFF");
+			if(bmotochk==1)water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"ON");
+			if(bmotochk==0)water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"OFF");
+			ljob.SENSOR_CONTROL=10;
+			break;	
+		case 10: //delay 10min for when after auto working
+			ljob.CHKLOOP.CHKVALUE.WAIT1=120;
+			ljob.SENSOR_CONTROL=12;
+			break;
+		case 12: //
+			if(ljob.CHKLOOP.CHKVALUE.WAIT1 > 0){
+				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
+				ljob.SENSOR_CONTROL=12;				
+			}else{				
+				ljob.SENSOR_CONTROL=1;
+			}
+			break;
+		default:	
+			ljob.SENSOR_CONTROL=0;
+			break;
+	}
+}
+
+
 //============ auto status run by 30sec ===========================
 event.on('sec30status_event', function(){ 
 	for(jj in pdbuffer.jautocmd.WATERLOOP){	
+		console.log("flow_auto["+jj+"] ="+pdbuffer.jautocmd.WATERLOOP[jj].STATU);
 		switch(jj){
 			case "BOX2LOOP":
 				if(pdbuffer.jautocmd.WATERLOOP.BOX2LOOP.STATU == 1)GOBOX2LOOP(pdbuffer.jautocmd.WATERLOOP.BOX2LOOP);
@@ -3425,9 +4155,16 @@ event.on('sec30status_event', function(){
 				if(pdbuffer.jautocmd.WATERLOOP.autotmloop.STATU == 1)autotmloop(pdbuffer.jautocmd.WATERLOOP.autotmloop);
 				
 				break;
-				
 			case "tmdemoloop":
 				if(pdbuffer.jautocmd.WATERLOOP.tmdemoloop.STATU == 1)tmdemoloop(pdbuffer.jautocmd.WATERLOOP.tmdemoloop);
+				
+				break;
+			case "autoledmotoloop":
+				if(pdbuffer.jautocmd.WATERLOOP.autoledmotoloop.STATU == 1)autoledmotoloop(pdbuffer.jautocmd.WATERLOOP.autoledmotoloop);
+				
+				break;
+			case "autopumpmotoloop":
+				if(pdbuffer.jautocmd.WATERLOOP.autopumpmotoloop.STATU == 1)autopumpmotoloop(pdbuffer.jautocmd.WATERLOOP.autopumpmotoloop);
 				
 				break;
 			default:
@@ -3435,6 +4172,8 @@ event.on('sec30status_event', function(){
 		}	
 	}
 });
+
+
 
 exports.autoeventcall = autoeventcall
 
@@ -3457,6 +4196,4 @@ exports.runauto_pwmon = runauto_pwmon
 
 exports.holdkey_pwmon = holdkey_pwmon
 exports.holdkey_pwmoff = holdkey_pwmoff
-
-
 

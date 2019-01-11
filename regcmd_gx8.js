@@ -1,4 +1,4 @@
-console.log("[opf403 ] start regcmd_gx8 20180701x1 ...");
+console.log("[opf408L8 ] start regcmd_gx8 20181208x1 ...");
 
 var router    = require('express').Router();
 
@@ -15,9 +15,12 @@ var cargs = {
     }
 };
 
+
 var pdbuffer  = require('./pdbuffer_v02.js');
 var autocmd = require('./autocmd_gx8.js');
 var cmdcode = require("./handelrs485x2");
+
+const offautojsonloadurl = "http://192.168.5.220/API/v2/AUTOJSON.php";//http://192.168.5.220/API/v2/AUTOJSON.php?SID=1
 
 //=== syspub function ===
 function jobjcopy(jobj){
@@ -68,6 +71,7 @@ function keylistapicall(kapilist){
 			chkcmd = kapilist[kk].CMD;
 			//keypadlisturl = "http://127.0.0.1:3000/"+kapilist[kk].CMD+"?UUID="+pdbuffer.setuuid+"&Action="+kapilist[kk].Action+"&POS="+kapilist[kk].POS+"&STU="+kapilist[kk].STU+"&GROUP="+kapilist[kk].GROUP
 			keypadlisturl = "http://127.0.0.1:3000/"+chkcmd+"?UUID="+pdbuffer.setuuid+"&Action="+kapilist[kk].Action+"&POS="+kapilist[kk].POS+"&STU="+kapilist[kk].STU+"&GROUP="+kapilist[kk].GROUP
+			console.log(keypadlisturl);
 			client.get(keypadlisturl, function (data, response) {
 				console.log("get ok...");
 			}).on("error", function(err) {console.log("err for client");});
@@ -213,16 +217,18 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 		switch(cmd){//sch subcmd //"f5 20 08 00 02 14 12 34 12 34 13" 14920000A0
 			case "OFF"://reload all auto JSON to buffer
 				res.json(jobj);
-				if(pos == "0000")pdbuffer.jautocmd_load(()=>{
-					console.log("JAUTO reload ok !");
-					autocmd.reload_autojob();//relaod auto json to buffer 
-				});//reload files to buffer
+				// if(pos == "0000")pdbuffer.jautocmd_load(()=>{
+					// console.log("JAUTO reload ok !");
+					// autocmd.reload_autojob();//relaod auto json to buffer 
+				// });//reload files to buffer				
+				if(pos == "0000")pdbuffer.load_redis('jautocmd.DEVLIST',()=>{console.log("JAUTO reload ok !");autocmd.reload_autojob();});//reload files to buffer
 				break
 			case "ON"://save buffer to JSON files 
 				res.json(jobj);
-				if(pos == "0000")pdbuffer.jautocmd_update(()=>{
-					console.log("JAUTO Save ok !");
-				});//update buffer to Files
+				// if(pos == "0000")pdbuffer.jautocmd_update(()=>{
+					// console.log("JAUTO Save ok !");
+				// });//update buffer to Files				
+				if(pos == "0000")pdbuffer.update_redis('jautocmd.DEVLIST',()=>{console.log("JAUTO Save ok !");});//update buffer to Files				
 				break
 			case "LOAD":
 				if(cstu == "02"){					
@@ -255,10 +261,12 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 				}else{
 					if(cstu == "00"){//DEVLIST AUTO OFF
 						pdbuffer.jautocmd.DEVLIST[pos].STATU=0;
+						pdbuffer.update_redis('jautocmd.DEVLIST.' + pos,()=>{console.log("JAUTO DEVLIST " + pos + " Save ok !");});//update buffer to Files
 						if(pos in autocmd.sch_autojob)autocmd.sch_autojob[pos].STATU=0;
 					}
 					if(cstu == "01"){//DEVLIST AUTO ON
 						pdbuffer.jautocmd.DEVLIST[pos].STATU=1;
+						pdbuffer.update_redis('jautocmd.DEVLIST.' + pos,()=>{console.log("JAUTO DEVLIST " + pos + " Save ok !");});//update buffer to Files
 						if(pos in autocmd.sch_autojob)autocmd.sch_autojob[pos].STATU=1;
 					}
 					if(cstu == "02"){//WATERLOOP mode5 OFF
@@ -285,11 +293,12 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 							pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.OUTTM_LEVLIST[1]= Number(settmlow);
 							
 						}
+						pdbuffer.update_redis('jautocmd.WATERLOOP',()=>{console.log("JAUTO WATERLOOP Save ok !");});//update buffer to Files
 					}
 					if(cstu == "03"){//WATERLOOP mode5 ON
 						pdbuffer.jautocmd.WATERLOOP[pos].SENSOR_CONTROL=0;
 						pdbuffer.jautocmd.WATERLOOP[pos].STATU=1;	
-						if(pos == "autotmloop"){
+						if(pos == "autotmloop"){// when start on 自動溫控 之溫度範圍 引用 溫度AUTO設定範圍值 為可調
 							tmlab="TEMPERATURE!LOOP";
 							setrangss = pdbuffer.jautocmd.DEVLIST.AIRCON.RUNLOOP[tmlab];
 							settmlow = setrangss.substr(0,4);
@@ -309,11 +318,12 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 							pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.OUTTM_LEVLIST[2]= Number(settmhi);
 							pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.OUTTM_LEVLIST[1]= Number(settmlow);
 						}
+						pdbuffer.update_redis('jautocmd.WATERLOOP',()=>{console.log("JAUTO WATERLOOP Save ok !");});//update buffer to Files
 					}
 					//keep the auto save up to buffer ### 20180913 by QA aircon test use 
-					pdbuffer.jautocmd_update(()=>{
-							console.log("JAUTO Save ok !");
-					});//update buffer to Files
+					// pdbuffer.jautocmd_update(()=>{
+							// console.log("JAUTO Save ok !");
+					// });//update buffer to Files
 					
 				}
 				//####
@@ -324,18 +334,26 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 				
 				if(pos == "0000"){//when pos ="0000" is load default auto json 
 					for(jaa in pdbuffer.jautocmd.DEFAUTOLIST){
-						pdbuffer.jautocmd.DEVLIST[jaa] = pdbuffer.jautocmd.DEFAUTOLIST[jaa];
-					}
-					pdbuffer.jautocmd_update(()=>{
-						console.log("JAUTO Save ok !");
-									
-					});//update buffer to Files
+						//pdbuffer.jautocmd.DEVLIST[jaa] = pdbuffer.jautocmd.DEFAUTOLIST[jaa];//err obj copy #### jobjcopy(ddjdata.DOSEB);
+						pdbuffer.jautocmd.DEVLIST[jaa] = jobjcopy(pdbuffer.jautocmd.DEFAUTOLIST[jaa]);
+					}					
+					// pdbuffer.jautocmd_update(()=>{
+						// console.log("JAUTO Save ok !");									
+					// });//update buffer to Files
+					pdbuffer.update_redis('jautocmd.DEVLIST',()=>{console.log("JAUTO DEVLIST redisDB Save ok !");});//update buffer to Files		
 					return;
 				}
-				
+				//$url = $DeviceIP.'/REGCMD/AUTOSETUP?UUID='.$DeviceUUID.'&POS=PUMPA&Action=SET&STU='.$ScheduleListID.'&GROUP=0000'; server api command demo 
 				//autojsonloadurl = "http://tscloud.opcom.com/Cloud/API/v2/AUTOJSON?SID="+cstu;
-				autojsonloadurl =  pdbuffer.pdjobj.PDDATA.v2autojsonloadurl+"?SID="+cstu;
-				console.log("get ok...["+pos+"] link>>"+autojsonloadurl);
+				//offautojsonloadurl
+				if(group == 1){//check IPC =1 or WEB=0 auto json load set					
+					autojsonloadurl =  offautojsonloadurl+"?SID="+cstu;//GROUP = 0001 is IPC
+					console.log("get auto IPC ok...["+pos+"] link>>"+autojsonloadurl);
+				}else{//GROUP = 0000 or no define is web 
+					autojsonloadurl =  pdbuffer.pdjobj.PDDATA.v2autojsonloadurl+"?SID="+cstu;
+					console.log("get auto webserver ok...["+pos+"] link>>"+autojsonloadurl);
+					
+				}
 				if(pos == "DOSE"){					
 					client.get(autojsonloadurl, function (data, response) {	
 						console.log("get auto json ok...["+pos+"]>>"+JSON.stringify(data));
@@ -394,11 +412,14 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 							autocmd.load_autojob("DOSED",pdbuffer.jautocmd.DEVLIST.DOSED)
 							if("DOSED" in autocmd.sch_autojob)autocmd.sch_autojob.DOSED.STATU=1;
 							if(!("DOSED" in autocmd.sch_autoloadmark))autocmd.sch_autoloadmark.DOSED=0; 
-						};
-						
-						pdbuffer.jautocmd_update(()=>{
-								console.log("DOSE A,B,C,D JAUTO Save ok !");
-						});//update buffer to Files
+						};						
+						// pdbuffer.jautocmd_update(()=>{
+								// console.log("DOSE A,B,C,D JAUTO Save ok !");
+						// });//update buffer to Files						
+						pdbuffer.update_redis('jautocmd.DEVLIST.DOSEA',()=>{console.log("JAUTO DEVLIST redisDB Save ok !"+pos);});//update buffer to Files	
+						pdbuffer.update_redis('jautocmd.DEVLIST.DOSEB',()=>{console.log("JAUTO DEVLIST redisDB Save ok !"+pos);});//update buffer to Files		
+						pdbuffer.update_redis('jautocmd.DEVLIST.DOSEC',()=>{console.log("JAUTO DEVLIST redisDB Save ok !"+pos);});//update buffer to Files		
+						pdbuffer.update_redis('jautocmd.DEVLIST.DOSED',()=>{console.log("JAUTO DEVLIST redisDB Save ok !"+pos);});//update buffer to Files		
 						
 					}).on("error", function(err) {console.log("err for client");});				
 					
@@ -413,10 +434,11 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 							//console.log(">>autox43");
 							jobj.STATU=1;
 							pdbuffer.jautocmd.DEVLIST[pos] =  jobjcopy(jobj);
-							autocmd.load_autojob(pos,pdbuffer.jautocmd.DEVLIST[pos]);//load json to buffer 
-							pdbuffer.jautocmd_update(()=>{
-									console.log("JAUTO Save ok !");
-							});//update buffer to Files
+							autocmd.load_autojob(pos,pdbuffer.jautocmd.DEVLIST[pos]);//load json to buffer 							
+							// pdbuffer.jautocmd_update(()=>{
+									// console.log("JAUTO Save ok !");
+							// });//update buffer to Files							
+							pdbuffer.update_redis('jautocmd.DEVLIST.'+pos,()=>{console.log("JAUTO DEVLIST redisDB Save ok !");});//update buffer to Files						
 						}
 					}).on("error", function(err) {console.log("err for client");});
 				}else{						
@@ -430,9 +452,10 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 							//console.log(">>autox43");
 							pdbuffer.jautocmd.DEVLIST[pos] =  jobjcopy(jobj);
 							autocmd.load_autojob(pos,pdbuffer.jautocmd.DEVLIST[pos]);//load json to buffer 
-							pdbuffer.jautocmd_update(()=>{
-									console.log("JAUTO Save ok !");
-							});//update buffer to Files
+							// pdbuffer.jautocmd_update(()=>{
+									// console.log("JAUTO Save ok !");
+							// });//update buffer to Files
+							pdbuffer.update_redis('jautocmd.DEVLIST.'+pos,()=>{console.log("JAUTO DEVLIST redisDB Save ok !");});//update buffer to Files								
 						}
 					}).on("error", function(err) {console.log("err for client");});
 				}
@@ -499,15 +522,17 @@ router.get('/KEYSETUP',function(req,res,next){	//ok
 		switch(cmd){//sch subcmd //"f5 20 08 00 02 14 12 34 12 34 13" 14920000A0
 			case "OFF":
 				res.json(jobj);
-				if(pos == "0000")pdbuffer.jkeypd_load(()=>{
-					console.log("JAUTO reload ok !");
-				});//reload files to buffer
+				// if(pos == "0000")pdbuffer.jkeypd_load(()=>{
+					// console.log("JAUTO reload ok !");
+				// });//reload files to buffer
+				if(pos == "0000")pdbuffer.load_redis('jkeypd.KEYLIB.KEYPAD0',()=>{console.log("JKEYPD reload ok !");});//reload files to buffer
 				break
 			case "ON":
 				res.json(jobj);
-				if(pos == "0000")pdbuffer.jkeypd_update(()=>{
-					console.log("JAUTO Save ok !");
-				});//update buffer to Files
+				// if(pos == "0000")pdbuffer.jkeypd_update(()=>{
+					// console.log("JAUTO Save ok !");
+				// });//update buffer to Files
+				if(pos == "0000")pdbuffer.update_redis('jkeypd.KEYLIB.KEYPAD0',()=>{console.log("JKEYPD Save ok !");});//update buffer to Files ###
 				break
 			case "LOAD":			
 				jobj = pdbuffer.jkeypd.KEYLIB[pos][group];
@@ -536,19 +561,17 @@ router.get('/KEYSETUP',function(req,res,next){	//ok
 							if(kk ==  "STATUS")continue;
 							pdbuffer.jkeypd.KEYLIB[pos][group].STATUS.korglist.push(kk);
 						}
-						pdbuffer.jkeypd.KEYLIB[pos][group].STATUS.evncount = pdbuffer.jkeypd.KEYLIB[pos][group].STATUS.korglist.length
+						pdbuffer.jkeypd.KEYLIB[pos][group].STATUS.evncount = pdbuffer.jkeypd.KEYLIB[pos][group].STATUS.korglist.length						
 						pdbuffer.jkeypd_update(()=>{
 							console.log("JAUTO Save ok !");
 						});//update buffer to Files
-						
-					}
-					
-				}).on("error", function(err) {console.log("err for client");});
-				
+						pdbuffer.update_redis('jkeypd.KEYLIB.'+pos+'.'+group,()=>{console.log("JKEYPD reload ok !");});//reload files to buffer						
+					}					
+				}).on("error", function(err) {console.log("err for client");});				
 				break
 			default:
 				console.log(cregadd+" not define =>"+cmd);	
-				return
+				return;
 		}	
 				
 	});	
@@ -762,6 +785,7 @@ router.get('/TMDEVICECAL',function(req,res,next){
 				if(pos == "0000")jobj = jobjcopy(pdbuffer.jautocmd.DEVICESET.CHKLOADTM);//LOAD TM
 				if(pos == "0001")jobj = jobjcopy(pdbuffer.jautocmd.DEVICESET.CHKLOADRH);//LOAD RH
 				if(pos == "0002")jobj = jobjcopy(pdbuffer.jautocmd.DEVICESET.CHKLOADCO2);//LOAD CO2
+				if(pos == "9000")jobj = jobjcopy(pdbuffer.jautocmd.DEVICESET);//all DEVICESET
 				
 				console.log(JSON.stringify(jobj));
 				res.json(jobj);	
@@ -780,9 +804,11 @@ router.get('/TMDEVICECAL',function(req,res,next){
 						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H006 =  Number(tmdat[5]);
 						pdbuffer.jautocmd.DEVICESET.OFFSETTM.E002 =  Number(tmdat[6]);
 						
-						pdbuffer.jautocmd_update(()=>{
-								console.log("JAUTO Save ok !");
-						});//update buffer to Files
+						// pdbuffer.jautocmd_update(()=>{
+								// console.log("JAUTO Save ok !");
+						// });//update buffer to Files
+						pdbuffer.update_redis('jautocmd.DEVICESET',()=>{console.log(" DEVICESET OFFSETTM save ok !");});//reload files to buffer		
+						
 					}
 					
 					jobj = jobjcopy(pdbuffer.jautocmd.DEVICESET.OFFSETTM);
@@ -798,9 +824,10 @@ router.get('/TMDEVICECAL',function(req,res,next){
 						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H006 =  Number(tmdat[5]);
 						pdbuffer.jautocmd.DEVICESET.OFFSETRH.E002 =  Number(tmdat[6]);
 						
-						pdbuffer.jautocmd_update(()=>{
-								console.log("JAUTO Save ok !");
-						});//update buffer to Files
+						// pdbuffer.jautocmd_update(()=>{
+								// console.log("JAUTO Save ok !");
+						// });//update buffer to Files
+						pdbuffer.update_redis('jautocmd.DEVICESET',()=>{console.log(" DEVICESET OFFSETTM save ok !");});//reload files to buffer
 					}
 					
 					jobj = jobjcopy(pdbuffer.jautocmd.DEVICESET.OFFSETRH);
@@ -816,9 +843,10 @@ router.get('/TMDEVICECAL',function(req,res,next){
 						pdbuffer.jautocmd.DEVICESET.OFFSETCO2.H006 =  Number(tmdat[5]);
 						pdbuffer.jautocmd.DEVICESET.OFFSETCO2.E002 =  Number(tmdat[6]);
 						
-						pdbuffer.jautocmd_update(()=>{
-								console.log("JAUTO Save ok !");
-						});//update buffer to Files
+						// pdbuffer.jautocmd_update(()=>{
+								// console.log("JAUTO Save ok !");
+						// });//update buffer to Files
+						pdbuffer.update_redis('jautocmd.DEVICESET',()=>{console.log(" DEVICESET OFFSETTM save ok !");});//reload files to buffer
 					}
 					
 					jobj = jobjcopy(pdbuffer.jautocmd.DEVICESET.OFFSETCO2);
@@ -943,7 +971,8 @@ router.get('/IPCAMVIDEO',function(req,res,next){
 						pdbuffer.jautocmd.DEVLIST.OPWAVE.STATU = 0;
 						if("OPWAVE" in autocmd.sch_autojob)autocmd.sch_autojob.OPWAVE.STATU=0;
 						
-						//console.log("C906 IPCAM set start "+ JSON.stringify(pdbuffer.jautocmd.DEVLIST.IPCAMC906) );	
+						//console.log("C906 IPCAM set start "+ JSON.stringify(pdbuffer.jautocmd.DEVLIST.IPCAMC906) );							
+						pdbuffer.update_redis('jautocmd.DEVLIST.IPCAMC906',()=>{console.log(" DEVICESET OFFSETTM save ok !");});//reload files to buffer
 						break;
 					case "C907":
 						camontime = cstu.substr(0,4);
@@ -956,6 +985,7 @@ router.get('/IPCAMVIDEO',function(req,res,next){
 						if("OPWAVE" in autocmd.sch_autojob)autocmd.sch_autojob.OPWAVE.STATU=0;
 						
 						//console.log("C907 IPCAM set start "+ JSON.stringify(pdbuffer.jautocmd.DEVLIST.IPCAMC907) );	
+						pdbuffer.update_redis('jautocmd.DEVLIST.IPCAMC907',()=>{console.log(" DEVICESET OFFSETTM save ok !");});//reload files to buffer
 						break;
 					case "C908":
 						camontime = cstu.substr(0,4);
@@ -968,6 +998,7 @@ router.get('/IPCAMVIDEO',function(req,res,next){
 						if("OPWAVE" in autocmd.sch_autojob)autocmd.sch_autojob.OPWAVE.STATU=0;
 						
 						//console.log("C908 IPCAM set start "+ JSON.stringify(pdbuffer.jautocmd.DEVLIST.IPCAMC908) );	
+						pdbuffer.update_redis('jautocmd.DEVLIST.IPCAMC908',()=>{console.log(" DEVICESET OFFSETTM save ok !");});//reload files to buffer
 						break;
 					case "C909":
 						camontime = cstu.substr(0,4);
@@ -980,15 +1011,15 @@ router.get('/IPCAMVIDEO',function(req,res,next){
 						if("OPWAVE" in autocmd.sch_autojob)autocmd.sch_autojob.OPWAVE.STATU=0;
 						
 						//console.log("C909 IPCAM set start "+ JSON.stringify(pdbuffer.jautocmd.DEVLIST.IPCAMC909) );	
+						pdbuffer.update_redis('jautocmd.DEVLIST.IPCAMC909',()=>{console.log(" DEVICESET OFFSETTM save ok !");});//reload files to buffer
 						break;
 					default:
 						return;
-				}				
-				pdbuffer.jautocmd_update(()=>{
-					console.log("JAUTO Save ok !");						
-					autocmd.autoeventcall('sensorcheck_event'); 
-				});
-				
+				}								
+				// pdbuffer.jautocmd_update(()=>{
+					// console.log("JAUTO Save ok !");						
+					// autocmd.autoeventcall('sensorcheck_event'); 
+				// });				
 				break;
 			case "OFF"://stop video recode and stop OPWAVE auto flag
 				switch(pos){
@@ -1002,7 +1033,7 @@ router.get('/IPCAMVIDEO',function(req,res,next){
 						client.get(democtiveurl, function (data, response) {
 							console.log("demo C906 client active  ok ...");
 						}).on("error", function(err) {console.log("err for client");});	
-						
+						pdbuffer.update_redis('jautocmd.DEVLIST.IPCAMC906',()=>{console.log(" DEVICESET OFFSETTM save ok !");});//reload files to buffer						
 						break;
 						
 					case "C907":
@@ -1015,6 +1046,7 @@ router.get('/IPCAMVIDEO',function(req,res,next){
 						client.get(democtiveurl, function (data, response) {
 							console.log("demo C907 client active  ok ...");
 						}).on("error", function(err) {console.log("err for client");});	
+						pdbuffer.update_redis('jautocmd.DEVLIST.IPCAMC907',()=>{console.log(" DEVICESET OFFSETTM save ok !");});//reload files to buffer
 						break;
 						
 					case "C908":
@@ -1026,7 +1058,8 @@ router.get('/IPCAMVIDEO',function(req,res,next){
 						console.log(">>ipc tm demo mode send to =>"+democtiveurl);
 						client.get(democtiveurl, function (data, response) {
 							console.log("demo C908 client active  ok ...");
-						}).on("error", function(err) {console.log("err for client");});	
+						}).on("error", function(err) {console.log("err for client");});
+						pdbuffer.update_redis('jautocmd.DEVLIST.IPCAMC908',()=>{console.log(" DEVICESET OFFSETTM save ok !");});//reload files to buffer
 						break;
 						
 					case "C909":
@@ -1038,7 +1071,8 @@ router.get('/IPCAMVIDEO',function(req,res,next){
 						console.log(">>ipc tm demo mode send to =>"+democtiveurl);
 						client.get(democtiveurl, function (data, response) {
 							console.log("demo C909 client active  ok ...");
-						}).on("error", function(err) {console.log("err for client");});	
+						}).on("error", function(err) {console.log("err for client");});
+						pdbuffer.update_redis('jautocmd.DEVLIST.IPCAMC909',()=>{console.log(" DEVICESET OFFSETTM save ok !");});//reload files to buffer	
 						break;
 					default:
 						return;
@@ -1048,12 +1082,13 @@ router.get('/IPCAMVIDEO',function(req,res,next){
 					//start opwave funciton 
 					pdbuffer.jautocmd.DEVLIST.OPWAVE.STATU = 1;
 					if("OPWAVE" in autocmd.sch_autojob)autocmd.sch_autojob.OPWAVE.STATU=1;
+					pdbuffer.update_redis('jautocmd.DEVLIST.OPWAVE',()=>{console.log(" DEVICESET OFFSETTM save ok !");});//reload files to buffer	
 				}
-				pdbuffer.jautocmd_update(()=>{
-					console.log("JAUTO Save ok !");					
-					autocmd.autoeventcall('sensorcheck_event'); 
+				// pdbuffer.jautocmd_update(()=>{
+					// console.log("JAUTO Save ok !");					
+					// autocmd.autoeventcall('sensorcheck_event'); 
 								
-				});
+				// });
 				break;
 			default:
 				console.log(cregadd+" not define =>"+cmd);	

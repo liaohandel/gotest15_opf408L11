@@ -59,6 +59,9 @@ var setdevouturl = devloadurl+"?UUID="+setuuid+"&result="+"{}"
 //=== POS RS422 command lib
 var cmdcode = require("./handelrs485x2.js");
 
+//載入redis自製模板
+var redisfunc = require("./redisfunc.js");
+
 //=== PDDATA.txt to pdjobj
 var filename = "PDDATA.txt"
 var filepath = path.join(__dirname, ("/public/" + filename));
@@ -163,13 +166,19 @@ function sysload(callback){
 
 function sysupdate(callback){	
 
-	let uuiddata = JSON.stringify(xpdjobj);					
-	fs.writeFile(filepath,uuiddata,function(error){
-		if(error){ //如果有錯誤，把訊息顯示並離開程式
-			console.log('PDDATA.txt update ERR ! ');
-		}		
-		callback(err);
-	});
+	let uuiddata = JSON.stringify(xpdjobj);	
+	
+	// fs.writeFile(filepath,uuiddata,function(error){
+		// if(error){ //如果有錯誤，把訊息顯示並離開程式
+			// console.log('PDDATA.txt update ERR ! ');
+		// }		
+		// callback(err);
+	// });
+	
+	fs.writeFileSync(filepath,uuiddata);	
+	console.log('PDDATA.txt update ok ! ');		
+	callback();	
+	
 }
 
 
@@ -192,13 +201,18 @@ function treescan_load(callback){
 }
 
 function treescan_update(callback){	
-	let treescandata = JSON.stringify(jtreescan);					
-	fs.writeFile(filepath_treescan,treescandata,function(error){
-		if(error){ //如果有錯誤，把訊息顯示並離開程式
-			console.log('treescan.txt update ERR ! ');
-		}		
-		callback();
-	});
+	let treescandata = JSON.stringify(jtreescan);		
+	
+	// fs.writeFile(filepath_treescan,treescandata,function(error){
+		// if(error){ //如果有錯誤，把訊息顯示並離開程式
+			// console.log('treescan.txt update ERR ! ');
+		// }		
+		// callback();
+	// });
+	
+	fs.writeFileSync(filepath_treescan,treescandata);	
+	console.log('treescan.txt update ok ! ');		
+	callback();	
 }
 
 //===================================
@@ -219,13 +233,18 @@ function treedata_load(callback){
 }
 
 function treedata_update(callback){	
-	let treedatadata = JSON.stringify(jtreedata);					
-	fs.writeFile(filepath_treedata,treedatadata,function(error){
-		if(error){ //如果有錯誤，把訊息顯示並離開程式
-			console.log('treedata.txt update ERR ! ');
-		}		
-		callback();
-	});	
+	let treedatadata = JSON.stringify(jtreedata);	
+	
+	// fs.writeFile(filepath_treedata,treedatadata,function(error){
+		// if(error){ //如果有錯誤，把訊息顯示並離開程式
+			// console.log('treedata.txt update ERR ! ');
+		// }		
+		// callback();
+	// });	
+	
+	fs.writeFileSync(filepath_treedata,treedatadata);	
+	console.log('treedata.txt update ok ! ');		
+	callback();	
 }
 
 //===================================
@@ -246,13 +265,20 @@ function jautocmd_load(callback){
 }
 
 function jautocmd_update(callback){	
-	let jautocmddata = JSON.stringify(jautocmd);					
-	fs.writeFile(filepath_jautocmd,jautocmddata,function(error){
-		if(error){ //如果有錯誤，把訊息顯示並離開程式
-			console.log('JAUTOCMD.txt update ERR ! ');
-		}		
-		callback();
-	});	
+	let jautocmddata = JSON.stringify(jautocmd);
+	console.log('JAUTOCMD.txt update run x1! ');	
+	
+	// fs.writeFile(filepath_jautocmd,jautocmddata,function(error){
+		// if(error){ //如果有錯誤，把訊息顯示並離開程式
+			// console.log('JAUTOCMD.txt update ERR ! ');
+		// }		
+		// console.log('JAUTOCMD.txt update ok x2! ');		
+		// callback();
+	// });//### for 同步強制寫入 不受系統延遲 
+	fs.writeFileSync(filepath_jautocmd,jautocmddata);
+	
+	console.log('JAUTOCMD.txt update ok x3! ');		
+	callback();	
 }
 
 //===================================
@@ -273,13 +299,16 @@ function jkeypd_load(callback){
 }
 
 function jkeypd_update(callback){	
-	let keypddata = JSON.stringify(jkeypd);					
-	fs.writeFile(filepath_keypd,keypddata,function(error){
-		if(error){ //如果有錯誤，把訊息顯示並離開程式
-			console.log('KEYPD.txt update ERR ! ');
-		}		
-		callback();
-	});	
+	let keypddata = JSON.stringify(jkeypd);		
+	
+	// fs.writeFile(filepath_keypd,keypddata,function(error){
+		// if(error){ //如果有錯誤，把訊息顯示並離開程式
+			// console.log('KEYPD.txt update ERR ! ');
+		// }		
+	// });	
+	fs.writeFileSync(filepath_keypd,keypddata);
+	console.log('KEYPD.txt update ok x4! ');		
+	callback();
 }
 
 //=============================
@@ -372,43 +401,43 @@ function devloadtobuff(sub02cmd){
 			switch(sdevreg){
 				case "71":
 					if(chkval <= 30)return;
-					chklevel = Math.round((chkval-2340)/58);//1 ..21
+					chklevel = Math.round((chkval-3500)/25);//1 ..21
 					if(chklevel <= 0)chklevel=1;
 					//chklevel = chklevel	+1;//1 ..21
 					break	
 				case "72":
 					if(chkval <= 30)return;
-					chklevel = Math.round((chkval-2580)/50);//1 ..21
+					chklevel = Math.round((chkval-3500)/25);//1 ..21
 					if(chklevel <= 0)chklevel=1;
 					//chklevel = chklevel	+1;//1 ..21
 					break	
 				case "73":
 					if(chkval <= 30)return;
-					chklevel = Math.round((chkval-2020)/60);//1 ..21
+					chklevel = Math.round((chkval-3500)/25);//1 ..21
 					if(chklevel <= 0)chklevel=1;
 					//chklevel = chklevel	+1;//1 ..21
 					break	
 				case "74":
 					if(chkval <= 30)return;
-					chklevel = Math.round((chkval-2400)/50);//1 ..21
+					chklevel = Math.round((chkval-3500)/25);//1 ..21
 					if(chklevel <= 0)chklevel=1;
 					//chklevel = chklevel	+1;//1 ..21
 					break	
 				case "75":
 					if(chkval <= 30)return;
-					chklevel = Math.round((chkval-2400)/50);//1 ..21
+					chklevel = Math.round((chkval-3500)/25);//1 ..21
 					if(chklevel <= 0)chklevel=1;
 					//chklevel = chklevel	+1;//1 ..21
 					break	
 				case "76":	
 					if(chkval <= 30)return;			
-					chklevel = Math.round((chkval-2300)/70);//1 ..21
+					chklevel = Math.round((chkval-3500)/25);//1 ..21
 					if(chklevel <= 0)chklevel=1;
 					//chklevel = chklevel	+1;//1 ..21
 					break	
 				case "77":
 					if(chkval <= 30)return;
-					chklevel = Math.round((chkval-2300)/70);
+					chklevel = Math.round((chkval-3500)/25);
 					if(chklevel <= 0)chklevel=1;
 					//chklevel = chklevel	+1;//1 ..21
 					break	
@@ -1095,14 +1124,30 @@ function devalarmbuff(alarmcmd){//fcc10681019f010381
         // console.log("jtreedata ver = ", jtreedata.treever);			
 // });
 
-jautocmd_load(function(){
-		console.log("jautocmd ver =",jautocmd.AUTOSN);		
-});
+// jautocmd_load(function(){
+// 		console.log("jautocmd ver =",jautocmd.AUTOSN);		
+// });
 
-jkeypd_load(function(){
-		console.log("KETPD ver=",jkeypd.KEYVER);		
-});
+// jkeypd_load(function(){
+// 		console.log("KETPD ver=",jkeypd.KEYVER);		
+// });
+function allload(callback){
+	//redis的buffer載入
+	redisfunc.init_redis(function () {
+		setuuid = redisfunc.setuuid;
+		exports.setuuid = setuuid;
 
+		xpdjobj = redisfunc.pdjobj;
+		exports.pdjobj = xpdjobj;
+
+		jautocmd = redisfunc.jautocmd;
+		exports.jautocmd = jautocmd;
+
+		jkeypd = redisfunc.jkeypd;
+		exports.jkeypd = jkeypd;
+		callback();
+	});
+}
 //=== tree data
 //exports.pdjobj = xpdjobj; //#####
 //exports.jtreescan = jtreescan
@@ -1119,7 +1164,6 @@ exports.eventcall = eventcall
 
 exports.totxbuff = totxbuff
 exports.ch1com = ch1com
-
 
 //PDDATA.txt		pdjobj
 exports.sysload = sysload
@@ -1142,25 +1186,12 @@ exports.jkeypd_load = jkeypd_load
 exports.jkeypd_update = jkeypd_update
 exports.keypadpushbuffer = keypadpushbuffer
 
+//redisfunc.js
+exports.init_redis = redisfunc.init_redis;
+exports.load_redis = redisfunc.load_redis;
+exports.update_redis = redisfunc.update_redis;
 
+exports.clear_redis = redisfunc.clear_redis;
+exports.show_all_keys_redis = redisfunc.show_all_keys_redis;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+exports.allload = allload;
