@@ -133,6 +133,8 @@ function scan_schedule_chkloop(chklist){//check the Time under the time schedule
 
 function device_auto_client(devlist,devcmd){
 	let cmdindex = pdbuffer.pdjobj.subcmd[devcmd];
+	let chkss=0;
+	
 	console.log(">>auto_Client ="+JSON.stringify(devlist)+"for "+devcmd+"="+cmdindex+"@time= "+Date());
 	for(kk in devlist){
 		//console.log("1>>auto_Client ="+JSON.stringify(devlist)+"for "+devcmd+" = "+cmdindex+" = "+kk+" time="+Date());
@@ -570,17 +572,19 @@ function f3run(akey,cmd){
             }
             break;
         case "PUMP":
+            break;
             if(cmd == "on"){
                 sch_autojob[akey].loopcnt++;
                 if( sch_autojob[akey].loopcnt >=  sch_autojob[akey].loop.length)sch_autojob[akey].loopcnt=0;
 				console.log("["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos));
-				device_auto_client(sch_autojob[akey].devpos,"ON")
+				device_auto_client(sch_autojob[akey].devpos,"ON");
 				
 				sch_autojob.PUMP.stid = new setTimeout(function(){f3run("PUMP","off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
             }
             if(cmd == "off"){   
 				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
-				device_auto_client(sch_autojob[akey].devpos,"OFF")
+				device_auto_client(sch_autojob[akey].devpos,"OFF");
+				
 				sch_autojob.PUMP.stid = new setTimeout(function(){f3run("PUMP","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);          
             }
             if(cmd == "schcheck"){
@@ -1991,6 +1995,34 @@ function water_client_trige(devlist,devcmd){
 	client.get(water_switch_url, function (data, response) {
 		console.log("PUMP client active  ok ...");
 	}).on("error", function(err) {console.log("err for client");});	
+}
+
+function water_client_onecheck(devlist,devcmd){	
+	let dpos = ""
+	let dtype = ""
+	let dregadd = ""
+	let dstu = ""
+	let dgroup = ""
+	
+	let cmdindex = pdbuffer.pdjobj.subcmd[devcmd];
+	let chkss=0;
+
+	dpos = devlist.POS;
+	dtype = devlist.CMD;
+	dregadd = devlist.STU.substr(0,2);
+	dstu =  devlist.STU;
+	dgroup = devlist.GROUP;
+	
+	chkss = device_chek_stu(dpos,dtype,dregadd);
+	console.log(">>check ["+dpos+"]=>"+cmdindex+" for "+chkss);	
+	if(cmdindex != chkss){	//check the active command is working to device now?
+		
+		water_switch_url = "http://127.0.0.1:3000/"+dtype+'?UUID='+pdbuffer.setuuid+"&POS="+dpos+"&Action="+devcmd+"&STU="+dstu+"&GROUP="+dgroup
+		console.log(">>water PUMP drive  =>"+water_switch_url);
+		client.get(water_switch_url, function (data, response) {
+			console.log("PUMP client active  ok ...");
+		}).on("error", function(err) {console.log("err for client");});	
+	}
 }
 
 //=== waterloop ====
@@ -4012,7 +4044,7 @@ function autopumpmotoloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"OFF");
 			ljob.SENSOR_CONTROL=1;//pass delay
 			break;
-		case 1: // auto chk all List MOTOAUTOLIST 
+		case 1: // auto chk all List MOTOAUTOLIST  and PUMP auto is ON Command 
 			if(pdbuffer.jautocmd.DEVLIST.PUMPA.STATU == 1){
 				if(pdbuffer.jautocmd.DEVLIST.PUMPA.SCHEDULE.MOTOPAM.A1 == 1){
 					//A1 set S1
@@ -4071,7 +4103,7 @@ function autopumpmotoloop(ljob){
 					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM4C,"ON");
 				}
 			}
-			
+							
 			ljob.CHKLOOP.CHKVALUE.WAIT1=1;
 			ljob.SENSOR_CONTROL=3;//pass delay
 			break;
@@ -4109,22 +4141,31 @@ function autopumpmotoloop(ljob){
 				}
 			}
 			
-			if(amotochk==1)water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"ON");
-			if(amotochk==0)water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"OFF");
-			if(bmotochk==1)water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"ON");
-			if(bmotochk==0)water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPB,"OFF");
+			if(pdbuffer.jautocmd.DEVLIST.PUMP.STATU == 0){//PUMP AUTO = 1 pass WPUMPA Control
+				if(amotochk==1)water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"ON");
+				if(amotochk==0)water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"OFF");
+			}
+			//if(amotochk==1)water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"ON");
+			//if(amotochk==0)water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"OFF");
+			if(bmotochk==1)water_client_onecheck(ljob.CHKLOOP.DEVPOS.WPUMPB,"ON");
+			if(bmotochk==0)water_client_onecheck(ljob.CHKLOOP.DEVPOS.WPUMPB,"OFF");
+			
 			ljob.SENSOR_CONTROL=10;
 			break;	
 		case 10: //delay 10min for when after auto working
 			ljob.CHKLOOP.CHKVALUE.WAIT1=120;
 			ljob.SENSOR_CONTROL=12;
 			break;
-		case 12: //
+		case 12: 
 			if(ljob.CHKLOOP.CHKVALUE.WAIT1 > 0){
 				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
-				ljob.SENSOR_CONTROL=12;				
-			}else{				
-				ljob.SENSOR_CONTROL=1;
+				ljob.SENSOR_CONTROL=12;
+			}else{	
+				if(pdbuffer.jautocmd.DEVLIST.PUMP.STATU == 1){
+					ljob.SENSOR_CONTROL=10;					
+				}else{
+					ljob.SENSOR_CONTROL=1;	
+				}				
 			}
 			break;
 		default:	
@@ -4132,7 +4173,6 @@ function autopumpmotoloop(ljob){
 			break;
 	}
 }
-
 
 //============ auto status run by 30sec ===========================
 event.on('sec30status_event', function(){ 
