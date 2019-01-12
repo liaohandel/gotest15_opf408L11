@@ -171,8 +171,6 @@
 			"SENSOR_CONTROL":0, 
 			"TIMER": {
 				"EPOS": [
-					
-					{"POS":"E002","CMD":"PUMP","STU":"9C012CD2F0","GROUP":"00"},
 					{"POS":"E002","CMD":"PUMP","STU":"510000","GROUP":"00"}
 				],
 				"PWM": { "01": 0, "02": 0, "03": 0,  "04": 0 },
@@ -1499,7 +1497,7 @@
 			"SENSOR_CONTROL":0, 
 			"TIMER": {
 				"EPOS": [
-					{"POS":"E002","CMD":"PUMP","STU":"9C012CD2F0","GROUP":"00"},
+					{"POS":"E002","CMD":"PUMP","STU":"9C0064D2F0","GROUP":"00"},
 					{"POS":"E002","CMD":"PUMP","STU":"510000","GROUP":"00"}
 				],
 				"PWM": { "01": 0, "02": 0, "03": 0,  "04": 0 },
@@ -2413,7 +2411,7 @@
 					"SWM4B":{"POS":"E003","CMD":"PUMP","STU":"4B0000","GROUP":"00"},
 					"SWM4C":{"POS":"E003","CMD":"PUMP","STU":"4C0000","GROUP":"00"},
 
-					"WPUMPA":{"POS":"E002","CMD":"PUMP","STU":"9C012CD2F0","GROUP":"00"},
+					"WPUMPA":{"POS":"E002","CMD":"PUMP","STU":"9C0064D2F0","GROUP":"00"},
 					"WPUMPB":{"POS":"E002","CMD":"PUMP","STU":"510000","GROUP":"00"}					
 				},
 				"SENSORPOS":{
@@ -2422,6 +2420,7 @@
 				},
 				"CHKVALUE":{
 					"MOTOAUTOLIST":["PUMPA","PUMPB"],
+					"AUTOCMD":0,
 					"WAIT1":0,
 					"DELAY1":0,
 					"DELAY2":0
