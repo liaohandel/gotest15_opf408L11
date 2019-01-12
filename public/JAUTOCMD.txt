@@ -2235,26 +2235,9 @@
 			"STATU":0,
 			"SENSOR_CONTROL":0,
 			"CHKLOOP": {
-				"DEVPOS":{
-					"M1":{},
-					"M2":{},
-					"M3":{},
-					"M4":{},
-					"MDOSEA":{},
-					"MDOSEB":{},
-					"MDOSEC":{},
-					"MDOSED":{}					
+				"DEVPOS":{			
 				},
 				"SENSORPOS":{
-					"WATERLEVEL1":{},
-					"WATERLEVEL2":{},
-					"WATERLEVEL3":{},
-					"WATERLEVEL4":{},
-					"WATERLEVEL5":{},
-					"WATERLEVEL6":{},
-					"WATERLEVEL7":{},
-					"WATEREC":{},
-					"WATERPH":{}
 				},
 				"CHKVALUE":{
 					"WAIT1":0,
@@ -2434,8 +2417,8 @@
 					"WPUMPB":{"POS":"E002","CMD":"PUMP","STU":"510000","GROUP":"00"}					
 				},
 				"SENSORPOS":{
-					"AUTOLEDMOTOA":{"POS":"A032","CMD":"LED","STU":"200000","GROUP":"00","Value":0,"count":0},
-					"AUTOLEDMOTOB":{"POS":"A03A","CMD":"LED","STU":"200000","GROUP":"00","Value":0,"count":0}
+					"WATERLEVEL6":{"POS":"E002","CMD":"WATERLEVEL","STU":"760000","GROUP":"00","Value":0,"count":0},
+					"WATERLEVEL7":{"POS":"E002","CMD":"WATERLEVEL","STU":"770000","GROUP":"00","Value":0,"count":0}
 				},
 				"CHKVALUE":{
 					"MOTOAUTOLIST":["PUMPA","PUMPB"],
