@@ -16,11 +16,13 @@
 			},
 			"EVENT": {
 				"ON":  [
-					{"CMD":"PWM","POS":"E001","Action":"ON","STU":"000000","GROUP":"FF" }
+					{"CMD":"PWM","POS":"E001","Action":"ON","STU":"000000","GROUP":"FF" },
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"680000","GROUP":"00" }
 				],
 				"OFF": [
 					{"CMD":"PWM","POS":"E001","Action":"OFF","STU":"000000","GROUP":"FF"},
 					{"CMD":"PUMP","POS":"E002","Action":"SET","STU":"EE0000","GROUP":"00"},
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"680000","GROUP":"00" },
 					{"CMD":"REGCMD/KEYSETUP","POS":"KEYPAD0","Action":"AUTO","STU":"OFF","GROUP":"K002"}
 				]
 			}
@@ -272,7 +274,7 @@
 				{"CMD":"REGCMD/AUTOSETUP","POS":"autotmloop","Action":"AUTO","STU":"02","GROUP":"00" },
 				{"CMD":"REGCMD/AUTOSETUP","POS":"AIRRH","Action":"AUTO","STU":"00","GROUP":"00" },
 				{"CMD":"REGCMD/AUTOSETUP","POS":"AIRCON","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"680000","GROUP":"00" },
+				{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"680000","GROUP":"00" },
 				{"CMD":"AIRFAN","POS":"C00A","Action":"OFF","STU":"310114","GROUP":"00"}
 				]
 			}
@@ -296,7 +298,7 @@
 				],
 			  "OFF": [
 				{"CMD":"REGCMD/AUTOSETUP","POS":"AIRRH","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"680000","GROUP":"00" },
+				{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"680000","GROUP":"00" },
 				{"CMD":"AIRFAN","POS":"C00A","Action":"OFF","STU":"310114","GROUP":"00"}
 				]
 			}
