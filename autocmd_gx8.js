@@ -893,6 +893,7 @@ function f3run(akey,cmd){
 				//console.log("["+akey+"] schloop="+JSON.stringify(sch_autojob[akey].devpos));
 				console.log("["+akey+"] schloop");
 				chkflag = scan_schedule_chkloop(sch_autojob[akey].chkloop);
+				console.log(chkflag);
 				if(chkflag == 1){
 					device_auto_client_trige(sch_autojob[akey].devpos,"ON");
 				}else{
@@ -908,6 +909,7 @@ function f3run(akey,cmd){
 				//console.log("["+akey+"] schloop="+JSON.stringify(sch_autojob[akey].devpos));
 				console.log("["+akey+"] schloop");
 				chkflag = scan_schedule_chkloop(sch_autojob[akey].chkloop);
+				console.log(chkflag);
 				if(chkflag == 1){
 					device_auto_client_trige(sch_autojob[akey].devpos,"ON");
 				}else{
@@ -924,6 +926,7 @@ function f3run(akey,cmd){
 				//console.log("["+akey+"] schloop="+JSON.stringify(sch_autojob[akey].devpos));
 				console.log("["+akey+"] schloop");
 				chkflag = scan_schedule_chkloop(sch_autojob[akey].chkloop);
+				console.log(chkflag);
 				if(chkflag == 1){
 					device_auto_client_trige(sch_autojob[akey].devpos,"ON");
 				}else{
@@ -940,6 +943,7 @@ function f3run(akey,cmd){
 				//console.log("["+akey+"] schloop="+JSON.stringify(sch_autojob[akey].devpos));
 				console.log("["+akey+"] schloop");
 				chkflag = scan_schedule_chkloop(sch_autojob[akey].chkloop);
+				console.log(chkflag);
 				if(chkflag == 1){
 					device_auto_client_trige(sch_autojob[akey].devpos,"ON");
 				}else{
@@ -2261,6 +2265,7 @@ function GOECDOSELOOP(ljob){
 			break;
 		case 2://check the time is match schedule by start work 
 			chkflag = scan_schedule_chkloop(ljob.CHKLOOP.chktime);
+			// chkflag = 1;
 			if(chkflag == 0 ){//check time no working then goto check 
 				ljob.SENSOR_CONTROL = 0;
 			}else{
