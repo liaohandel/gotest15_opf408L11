@@ -2510,7 +2510,7 @@ function autotmloop(ljob){
 				ljob.CHKLOOP.SENSORPOS.LEDSTU.LEDSTU = pdbuffer.pdjobj.PDDATA.Devtab.A030.C71.chtab["20"].sub;//####
 				ljob.CHKLOOP.SENSORPOS.INDOORTM1.Value = pdbuffer.pdjobj.PDDATA.Devtab.H001.C77.chtab["A1"].stu;
 				ljob.CHKLOOP.SENSORPOS.INDOORTM2.Value = pdbuffer.pdjobj.PDDATA.Devtab.H002.C77.chtab["A1"].stu;	
-				ljob.CHKLOOP.SENSORPOS.INDOORTM3.Value = pdbuffer.pdjobj.PDDATA.Devtab.H003.C77.chtab["A1"].stu;	
+				//ljob.CHKLOOP.SENSORPOS.INDOORTM3.Value = pdbuffer.pdjobj.PDDATA.Devtab.H003.C77.chtab["A1"].stu;	
 				ljob.CHKLOOP.SENSORPOS.INDOORTM4.Value = pdbuffer.pdjobj.PDDATA.Devtab.H004.C77.chtab["A1"].stu;	
 				ljob.CHKLOOP.SENSORPOS.INDOORTM5.Value = pdbuffer.pdjobj.PDDATA.Devtab.H005.C77.chtab["A1"].stu;	
 				ljob.CHKLOOP.SENSORPOS.INDOORTM6.Value = pdbuffer.pdjobj.PDDATA.Devtab.H006.C77.chtab["A1"].stu;
@@ -2524,7 +2524,7 @@ function autotmloop(ljob){
 				
 				indoortmlist.push(ljob.CHKLOOP.SENSORPOS.INDOORTM1.Value);
 				indoortmlist.push(ljob.CHKLOOP.SENSORPOS.INDOORTM2.Value);
-				indoortmlist.push(ljob.CHKLOOP.SENSORPOS.INDOORTM3.Value);
+				//indoortmlist.push(ljob.CHKLOOP.SENSORPOS.INDOORTM3.Value);
 				indoortmlist.push(ljob.CHKLOOP.SENSORPOS.INDOORTM4.Value);
 				indoortmlist.push(ljob.CHKLOOP.SENSORPOS.INDOORTM5.Value);
 				indoortmlist.push(ljob.CHKLOOP.SENSORPOS.INDOORTM6.Value);

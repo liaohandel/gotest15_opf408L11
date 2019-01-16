@@ -204,7 +204,6 @@
 				"SENSORPOS": [
 					{"POS":"H001","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"},
 					{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"},
-					{"POS":"H003","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"},
 					{"POS":"H004","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"},
 					{"POS":"H005","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"},
 					{"POS":"H006","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}
@@ -225,7 +224,6 @@
 				"SENSORPOS": [
 					{"POS":"H001","CMD":"RH","STU":"920000","GROUP":"00"},
 					{"POS":"H002","CMD":"RH","STU":"920000","GROUP":"00"},
-					{"POS":"H003","CMD":"RH","STU":"920000","GROUP":"00"},
 					{"POS":"H004","CMD":"RH","STU":"920000","GROUP":"00"},
 					{"POS":"H005","CMD":"RH","STU":"920000","GROUP":"00"},
 					{"POS":"H006","CMD":"RH","STU":"920000","GROUP":"00"}
@@ -285,12 +283,7 @@
 			"RUNLOOP":{
 				"EPOS": [{"POS":"E002","CMD":"PUMP","STU":"590000","GROUP":"00"}],
 				"SENSORPOS": [
-					{"POS":"H001","CMD":"CO2","STU":"910000","GROUP":"00"},
-					{"POS":"H002","CMD":"CO2","STU":"910000","GROUP":"00"},
-					{"POS":"H003","CMD":"CO2","STU":"910000","GROUP":"00"},
-					{"POS":"H004","CMD":"CO2","STU":"910000","GROUP":"00"},
-					{"POS":"H005","CMD":"CO2","STU":"910000","GROUP":"00"},
-					{"POS":"H006","CMD":"CO2","STU":"910000","GROUP":"00"}
+					{"POS":"H003","CMD":"CO2","STU":"910000","GROUP":"00"}
 				],
 				"OUTSENSORPOS": [{"POS":"E002","CMD":"CO2","STU":"910000","GROUP":"00"}],
 				"CO2!LOOP": "04500800"
@@ -1531,7 +1524,6 @@
 				"SENSORPOS": [
 					{"POS":"H001","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"},
 					{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"},
-					{"POS":"H003","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"},
 					{"POS":"H004","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"},
 					{"POS":"H005","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"},
 					{"POS":"H006","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}
@@ -1552,7 +1544,6 @@
 				"SENSORPOS": [
 					{"POS":"H001","CMD":"RH","STU":"920000","GROUP":"00"},
 					{"POS":"H002","CMD":"RH","STU":"920000","GROUP":"00"},
-					{"POS":"H003","CMD":"RH","STU":"920000","GROUP":"00"},
 					{"POS":"H004","CMD":"RH","STU":"920000","GROUP":"00"},
 					{"POS":"H005","CMD":"RH","STU":"920000","GROUP":"00"},
 					{"POS":"H006","CMD":"RH","STU":"920000","GROUP":"00"}
@@ -1579,12 +1570,7 @@
 			"RUNLOOP":{
 				"EPOS": [{"POS":"E002","CMD":"PUMP","STU":"590000","GROUP":"00"}],
 				"SENSORPOS": [
-					{"POS":"H001","CMD":"CO2","STU":"910000","GROUP":"00"},
-					{"POS":"H002","CMD":"CO2","STU":"910000","GROUP":"00"},
-					{"POS":"H003","CMD":"CO2","STU":"910000","GROUP":"00"},
-					{"POS":"H004","CMD":"CO2","STU":"910000","GROUP":"00"},
-					{"POS":"H005","CMD":"CO2","STU":"910000","GROUP":"00"},
-					{"POS":"H006","CMD":"CO2","STU":"910000","GROUP":"00"}
+					{"POS":"H003","CMD":"CO2","STU":"910000","GROUP":"00"}
 				],
 				"OUTSENSORPOS": [{"POS":"E002","CMD":"CO2","STU":"910000","GROUP":"00"}],
 				"CO2!LOOP": "04500800"
