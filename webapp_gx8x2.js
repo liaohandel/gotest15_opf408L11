@@ -149,7 +149,6 @@ var uploadregsensorbuff = [
 	[
 		{"POS":"H001","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
-		{"POS":"H003","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H004","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H005","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H006","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
@@ -169,7 +168,6 @@ var uploadregsensorbuff = [
 		{"POS":"H001","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
 		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H002","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
-		{"POS":"H003","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
 		{"POS":"H004","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
 		{"POS":"H005","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
 		{"POS":"H006","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
