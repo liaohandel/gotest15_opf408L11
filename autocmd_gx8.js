@@ -2654,7 +2654,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
 					drvledlev4on(ljob);
 
@@ -2668,7 +2669,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");		
 
 					drvledlev4on(ljob);
 
@@ -2687,7 +2689,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4AUTO,"AUTO");	
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
 					drvledlev4on(ljob);
 					
@@ -2708,7 +2711,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4AUTO,"AUTO");	
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
 					drvledlev4on(ljob);
 
@@ -2727,7 +2731,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4AUTO,"AUTO");	
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");		
 
 					drvledlev4on(ljob);
 
@@ -2750,7 +2755,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
 					drvledlev4on(ljob);
 
@@ -2765,7 +2771,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
 					drvledlev4on(ljob);
 
@@ -2783,7 +2790,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");	
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
 					drvledlev4on(ljob);
 
@@ -2801,7 +2809,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
 					drvledlev4on(ljob);
 
@@ -2819,7 +2828,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
 					drvledlev4on(ljob);
 
@@ -2843,7 +2853,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on	
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
 					devledlevauto(ljob);
 
@@ -2859,7 +2870,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on	
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
 					devledlevauto(ljob);
 
@@ -2874,7 +2886,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on	
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");		
 
 					devledlevauto(ljob);
 
@@ -2889,7 +2902,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
 					devledlevauto(ljob);
 
@@ -2904,7 +2918,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");		
 
 					devledlevauto(ljob);
 
@@ -2926,7 +2941,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");		
 
 			devledlevoff(ljob);
 
@@ -2940,7 +2956,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");	
 
 			devledlevoff(ljob);
 
@@ -2972,7 +2989,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");	
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");	
 
 			devledlevoff(ljob);
 					//devledlev1on30min(ljob);
@@ -2989,7 +3007,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");	
 
 					devledlevoff(ljob);
 					devledlev1on30min(ljob);
@@ -3013,7 +3032,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");
 
 					devledlevoff(ljob);
 
@@ -3028,7 +3048,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");
 
 					devledlevoff(ljob);
 
@@ -3043,7 +3064,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");
 
 					devledlevoff(ljob);			
 					devledlev1on30min(ljob);
@@ -3058,7 +3080,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");	
 
 					devledlevoff(ljob);	
 					devledlev1on30min(ljob);
@@ -3073,7 +3096,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");
 
 					devledlevoff(ljob);			
 					devledlev1on30min(ljob);
@@ -3099,7 +3123,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on 
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
 					//devledlevauto(ljob);
 
@@ -3114,7 +3139,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");
 
 					//devledlevauto(ljob);
 
@@ -3131,7 +3157,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");
 
 					//devledlevauto(ljob);
 
@@ -3147,7 +3174,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");	
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");
 
 					//devledlevauto(ljob);
 
@@ -3163,7 +3191,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");	
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");
 
 					//devledlevauto(ljob);		
 
@@ -3186,7 +3215,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");
 
 					//devledlevauto(ljob);
 
@@ -3201,7 +3231,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
 					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 					break;
@@ -3215,7 +3246,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");
 
 					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
@@ -3229,7 +3261,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");	
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");
 
 					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
@@ -3243,7 +3276,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");		
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
 					water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 					break;
@@ -3265,7 +3299,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 
@@ -3280,7 +3315,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 
@@ -3296,7 +3332,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");	
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 
@@ -3311,7 +3348,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");	
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 
@@ -3324,7 +3362,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");	
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 
@@ -3346,7 +3385,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 o
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 
@@ -3360,7 +3400,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 o
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");		
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 
@@ -3376,7 +3417,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 o
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");		
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 
@@ -3392,7 +3434,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");		
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 
@@ -3409,7 +3452,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");		
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 
@@ -3431,7 +3475,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 o
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");	
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 
@@ -3445,7 +3490,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 o
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");	
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"OFF");
 
@@ -3462,7 +3508,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 o
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");		
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 
@@ -3478,7 +3525,8 @@ function autotmloop(ljob){
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");		
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 
@@ -3491,7 +3539,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"ON");	
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODON,"AUTO");	
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVAIRM7,"ON");
 

@@ -349,6 +349,11 @@
 			"AUTO": [
 					{"CMD":"REGCMD/AUTOSETUP","POS":"WATERTM","Action":"AUTO","STU":"01","GROUP":"00" }
 			],
+			  "ON": [
+					{"CMD":"REGCMD/AUTOSETUP","POS":"WATERTM","Action":"AUTO","STU":"00","GROUP":"00" },
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"640000","GROUP":"00" },
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"480000","GROUP":"00" }
+			],
 			  "OFF": [
 					{"CMD":"REGCMD/AUTOSETUP","POS":"WATERTM","Action":"AUTO","STU":"00","GROUP":"00" },
 					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"640000","GROUP":"00" },
