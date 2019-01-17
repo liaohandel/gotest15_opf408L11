@@ -2232,7 +2232,7 @@
 			"SENSOR_CONTROL":0,
 			"CHKLOOP": {
 				"DEVPOS":{
-					"AIRM1":{"POS":"C00A","CMD":"PUMP","STU":"310114","GROUP":"00"},
+					"AIRM1":{"POS":"C00A","CMD":"AIRFAN","STU":"310114","GROUP":"00"},
 					"TECM2":{"POS":"E002","CMD":"PUMP","STU":"620000","GROUP":"00"},
 					"REFx1x10minM3":{"POS":"E002","CMD":"PUMP","STU":"580BB8","GROUP":"00"},
 					"REFx1M3":{"POS":"E002","CMD":"PUMP","STU":"580000","GROUP":"00"},
@@ -2310,7 +2310,7 @@
 			"SENSOR_CONTROL":0,
 			"CHKLOOP": {
 				"DEVPOS":{
-					"AIRM1":{"POS":"C00A","CMD":"PUMP","STU":"310114","GROUP":"00"},
+					"AIRM1":{"POS":"C00A","CMD":"AIRFAN","STU":"310114","GROUP":"00"},
 					"TECM2":{"POS":"E002","CMD":"PUMP","STU":"620000","GROUP":"00"},
 					"REFx1x10minM3":{"POS":"E002","CMD":"PUMP","STU":"580BB8","GROUP":"00"},
 					"REFx1M3":{"POS":"E002","CMD":"PUMP","STU":"580000","GROUP":"00"},
