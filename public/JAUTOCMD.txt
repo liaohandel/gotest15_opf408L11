@@ -248,7 +248,7 @@
 		
 		"WATERTMH010": {
 			"MODE":3, 
-			"STATU":1, 
+			"STATU":0, 
 			"SENSOR_CONTROL":0,
 			"RUNLOOP":{
 				"EPOS": [
