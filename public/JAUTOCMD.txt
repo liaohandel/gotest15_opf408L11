@@ -115,7 +115,9 @@
 			"SENSOR_CONTROL":0,
 			"TIMER": {
 				"EPOS": [
-					{"POS":"E002","CMD":"PUMP","STU":"5B0000","GROUP":"00"}
+					{"POS":"E002","CMD":"PUMP","STU":"5B0000","GROUP":"00"},
+					{"POS":"E002","CMD":"PUMP","STU":"5C0000","GROUP":"00"},
+					{"POS":"E002","CMD":"PUMP","STU":"5D0000","GROUP":"00"}
 				],
 				"PWM": { "01": 0, "02": 0, "03": 0,  "04": 0 },
 				"ST": "0001",
@@ -1432,7 +1434,9 @@
 			"SENSOR_CONTROL":0,
 			"TIMER": {
 				"EPOS": [
-					{"POS":"E002","CMD":"PUMP","STU":"5B0000","GROUP":"00"}
+					{"POS":"E002","CMD":"PUMP","STU":"5B0000","GROUP":"00"},
+					{"POS":"E002","CMD":"PUMP","STU":"5C0000","GROUP":"00"},
+					{"POS":"E002","CMD":"PUMP","STU":"5D0000","GROUP":"00"}
 				],
 				"PWM": { "01": 0, "02": 0, "03": 0,  "04": 0 },
 				"ST": "0001",
