@@ -98,14 +98,21 @@
 			"EVENT": {
 				"AUTO": [
 					{"CMD":"REGCMD/AUTOSETUP","POS":"CYCLEFAN","Action":"AUTO","STU":"01","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"5B0000","GROUP":"00" }],
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"5B0000","GROUP":"00"},
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"5C0000","GROUP":"00"},
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"5D0000","GROUP":"00"}
+				],
 				"ON": [
 					{"CMD":"REGCMD/AUTOSETUP","POS":"CYCLEFAN","Action":"AUTO","STU":"00","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"5B0000","GROUP":"00" }
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"5B0000","GROUP":"00"},
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"5C0000","GROUP":"00"},
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"5D0000","GROUP":"00"}
 				],
 				"OFF": [
 					{"CMD":"REGCMD/AUTOSETUP","POS":"CYCLEFAN","Action":"AUTO","STU":"00","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"5B0000","GROUP":"00" }
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"5B0000","GROUP":"00"},
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"5C0000","GROUP":"00"},
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"5D0000","GROUP":"00"}
 				]
 			}
 		  },	  
@@ -164,19 +171,19 @@
 				"AUTO": [
 					{"CMD":"REGCMD/AUTOSETUP","POS":"PUMP","Action":"AUTO","STU":"01","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"autopumpmotoloop","Action":"AUTO","STU":"03","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"9C0064D2F0","GROUP":"00" },
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"9C003C5460","GROUP":"00" },
 					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"510000","GROUP":"00" }
 					],
 				"ON": [
 					{"CMD":"REGCMD/AUTOSETUP","POS":"PUMP","Action":"AUTO","STU":"00","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"autopumpmotoloop","Action":"AUTO","STU":"03","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"9C0064D2F0","GROUP":"00" },
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"9C003C5460","GROUP":"00" },
 					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"510000","GROUP":"00" }
 					],
 				"OFF": [
 					{"CMD":"REGCMD/AUTOSETUP","POS":"PUMP","Action":"AUTO","STU":"00","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"autopumpmotoloop","Action":"AUTO","STU":"02","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"9C0064D2F0","GROUP":"00" },
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"9C003C5460","GROUP":"00" },
 					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"510000","GROUP":"00" }
 					]
 			}
@@ -260,6 +267,8 @@
 				{"CMD":"REGCMD/AUTOSETUP","POS":"autotmloop","Action":"AUTO","STU":"03","GROUP":"00" },
 				{"CMD":"REGCMD/AUTOSETUP","POS":"AIRRH","Action":"AUTO","STU":"00","GROUP":"00" },
 				{"CMD":"REGCMD/AUTOSETUP","POS":"AIRCON","Action":"AUTO","STU":"00","GROUP":"00" },
+				{"CMD":"REGCMD/KEYSETUP","POS":"KEYPAD0","Action":"AUTO","STU":"OFF","GROUP":"K016" },
+				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"650000","GROUP":"00" },
 				{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"680000","GROUP":"00" },
 				{"CMD":"AIRFAN","POS":"C00A","Action":"ON","STU":"310114","GROUP":"00"}
 				],
@@ -267,6 +276,8 @@
 				{"CMD":"REGCMD/AUTOSETUP","POS":"autotmloop","Action":"AUTO","STU":"02","GROUP":"00" },
 				{"CMD":"REGCMD/AUTOSETUP","POS":"AIRRH","Action":"AUTO","STU":"00","GROUP":"00" },
 				{"CMD":"REGCMD/AUTOSETUP","POS":"AIRCON","Action":"AUTO","STU":"00","GROUP":"00" },
+				{"CMD":"REGCMD/KEYSETUP","POS":"KEYPAD0","Action":"AUTO","STU":"OFF","GROUP":"K016" },
+				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"650000","GROUP":"00" },
 				{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"680000","GROUP":"00" },
 				{"CMD":"AIRFAN","POS":"C00A","Action":"ON","STU":"310114","GROUP":"00"}
 				],
@@ -274,6 +285,8 @@
 				{"CMD":"REGCMD/AUTOSETUP","POS":"autotmloop","Action":"AUTO","STU":"02","GROUP":"00" },
 				{"CMD":"REGCMD/AUTOSETUP","POS":"AIRRH","Action":"AUTO","STU":"00","GROUP":"00" },
 				{"CMD":"REGCMD/AUTOSETUP","POS":"AIRCON","Action":"AUTO","STU":"00","GROUP":"00" },
+				{"CMD":"REGCMD/KEYSETUP","POS":"KEYPAD0","Action":"AUTO","STU":"OFF","GROUP":"K016" },
+				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"650000","GROUP":"00" },
 				{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"680000","GROUP":"00" },
 				{"CMD":"AIRFAN","POS":"C00A","Action":"OFF","STU":"310114","GROUP":"00"}
 				]
@@ -1728,5 +1741,6 @@
       }
     ]
   }
+
 
 }
