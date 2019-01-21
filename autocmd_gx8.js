@@ -2072,7 +2072,7 @@ function GOBOX2LOOP(ljob){
 		case 1:
 			ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count = 0;
 			console.log(">>waterloop wlev7="+ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value+" type="+(typeof ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value));
-			if( ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value < 11){//### box2 lev is low check 
+			if( ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value < 9){//### box2 lev is low=Lev9 check ###
 				ljob.SENSOR_CONTROL = 6; // add new water 
 			}else{
 				if(ljob.CHKLOOP.CHKVALUE.DELAY1 < 3 ){//box2 runloop 30min and ec/ph check
@@ -2081,7 +2081,7 @@ function GOBOX2LOOP(ljob){
 				}else{
 					ljob.CHKLOOP.CHKVALUE.DELAY1 = 0;
 					//ljob.SENSOR_CONTROL = 2;
-					ljob.SENSOR_CONTROL = 4;//direct jump to s004 for m1  start pump pass s2,s3
+					ljob.SENSOR_CONTROL = 4;//direct jump to s004 for m1 start pump pass s2,s3
 				}
 			}
 			break;
@@ -2178,7 +2178,7 @@ function GOBOX2LOOP(ljob){
 			ljob.SENSOR_CONTROL = 9;
 			if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.count >= 3){
 				ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.count = 0;
-				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.Value <=5){	//chek box1 = low
+				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.Value <=5){//chek box1 = low
 					water_client_trige(ljob.CHKLOOP.DEVPOS.M2,"OFF");	
 					ljob.SENSOR_CONTROL = 0;
 				}else{
@@ -2189,18 +2189,20 @@ function GOBOX2LOOP(ljob){
 		case 10:
 			if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count >= 3){
 				ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count = 0;
-				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value <16){//chekc box2 not full					
+				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value <15){//chekc box2 not full=lev15 ###					
 					ljob.CHKLOOP.CHKVALUE.DELAY2++;
-					if(ljob.CHKLOOP.CHKVALUE.DELAY2 < 50){
+					if(ljob.CHKLOOP.CHKVALUE.DELAY2 < 120){ // < 60min auto stop WaterPUMP ###
 						ljob.CHKLOOP.CHKVALUE.WAIT1 = 0;
 						ljob.SENSOR_CONTROL = 8;			
 					}else{
-						water_client_trige(ljob.CHKLOOP.DEVPOS.M2,"OFF"); //check box2 is full		
+						water_client_trige(ljob.CHKLOOP.DEVPOS.M2,"OFF"); //check time > 60min ###
+						water_client_trige(ljob.CHKLOOP.DEVPOS.ADDWATEROFF,"AUTO");	//addwater Key OFF ###	
 						ljob.SENSOR_CONTROL = 0;						
 					}					
 					//ljob.SENSOR_CONTROL = 9;
 				}else{
-					water_client_trige(ljob.CHKLOOP.DEVPOS.M2,"OFF"); //check box2 is full		
+					water_client_trige(ljob.CHKLOOP.DEVPOS.M2,"OFF"); //check box2 is full
+					water_client_trige(ljob.CHKLOOP.DEVPOS.ADDWATEROFF,"AUTO");	//addwater Key OFF
 					ljob.SENSOR_CONTROL = 0;
 				}
 			}else{
@@ -4012,7 +4014,8 @@ function autoledmotoloop(ljob){
 					
 					for(ff in pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM)water_client_trige(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM[ff],"AUTO");
 					console.log(">>autoledmotoloop ="+JSON.stringify(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM));
-				}				
+				}
+				
 			}else{
 				ljob.CHKLOOP.CHKVALUE.DELAY1 = 0;
 				ljob.SENSOR_CONTROL=10;
@@ -4026,27 +4029,11 @@ function autoledmotoloop(ljob){
 					pdbuffer.update_redis('jautocmd.DEVLIST.'+chkautoname,()=>{console.log("JAUTO Save ok !");});//update buffer to Files
 					devlist = jobjcopy(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.EPOS);
 					
-					for(ee in devlist)water_client_trige(devlist[ee],"ON");  			
-					
-					// console.log(">>autoledmotoloop move="+sss+">"+motobase);					
-					// //update the ledmoto base value to server DB
-					// updatekeysstuatusurl= pdbuffer.pdjobj.PDDATA.v2keypadstatusupdateurl+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
-					// console.log("sudo active update to webui =>"+updatekeysstuatusurl);
-					// client.get(updatekeysstuatusurl,cargs, function (data, response) {
-						// console.log("keypad active update to webui   ok ...");
-					// //}).on("error", function(err) {console.log("err for client");});
-					// }).on("error", function(err) {console.log("err for clientx1");}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
-					// //autopushkeypad(kpos,kcode,kactive);
-					
-					// //update the ledmoto base value to IPC DB
-					// updatekeysstuatusurl220 = "http://192.168.5.220/API/v2/KeypadUpdate.php"+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
-					// console.log("sudo active update to webui =>"+updatekeysstuatusurl220);
-					// client.get(updatekeysstuatusurl220,cargs, function (data, response) {
-						// console.log("keypad active update to webui   ok ...");
-					// }).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
-					
+					for(ee in devlist)water_client_trige(devlist[ee],"ON"); 		
 					for(ff in pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM)water_client_trige(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM[ff],"AUTO");
+					
 				}
+				
 			}
 			break;
 		case 10: //delay 10min for when after auto working
@@ -4152,7 +4139,6 @@ function autopumpmotoloop(ljob){
 					water_client_trige(ljob.CHKLOOP.DEVPOS.SWM4C,"ON");
 				}
 			}
-							
 			ljob.CHKLOOP.CHKVALUE.WAIT1=1;
 			ljob.SENSOR_CONTROL=3;//pass delay
 			break;
@@ -4202,19 +4188,62 @@ function autopumpmotoloop(ljob){
 			ljob.SENSOR_CONTROL=10;
 			break;	
 		case 10: //delay 10min for when after auto working
-			ljob.CHKLOOP.CHKVALUE.WAIT1=120;
+			ljob.CHKLOOP.CHKVALUE.WAIT1=60;
 			ljob.SENSOR_CONTROL=12;
 			break;
 		case 12: 
 			if(ljob.CHKLOOP.CHKVALUE.WAIT1 > 0){
 				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
-				ljob.SENSOR_CONTROL=12;
+				ljob.SENSOR_CONTROL=13;
 			}else{	
 				if(pdbuffer.jautocmd.DEVLIST.PUMP.STATU == 1){
 					ljob.SENSOR_CONTROL=10;					
 				}else{
 					ljob.SENSOR_CONTROL=1;	
 				}				
+			}
+			break;
+		case 13:			
+			waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7,"LOAD");
+					
+			outksspos = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.POS;
+			outkssfuncmd = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.CMD;
+			typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
+			typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.STU.substr(0,2);
+			oloadval = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;//### lev scan load over 3 time is ready
+			
+			ljob.SENSOR_CONTROL=12;
+			if(oloadval == ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value ){
+				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count <= 3)ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count ++;
+				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count >= 3){
+					if( ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value <= 6){//### box2 lev is low check 
+						water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"OFF");
+						ljob.CHKLOOP.CHKVALUE.WAIT1=10;
+						ljob.SENSOR_CONTROL = 14; // too low for wait for add water  
+					}else{
+					}
+				}
+			}else{
+				ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value = oloadval;//### lev scan load over 3 time is ready
+			}			
+			break;
+		case 14: //delay 10min for when after auto working
+			waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7,"LOAD");
+			outksspos = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.POS;
+			outkssfuncmd = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.CMD;
+			typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
+			typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.STU.substr(0,2);
+			ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;//### lev scan load over 3 time is ready
+			
+			if(ljob.CHKLOOP.CHKVALUE.WAIT1 > 0){
+				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
+				ljob.SENSOR_CONTROL=14;				
+			}else{				
+				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value > 8){//### box2 lev is low check 							
+					ljob.SENSOR_CONTROL = 3;
+				}else {							
+					ljob.SENSOR_CONTROL = 10;
+				}
 			}
 			break;
 		default:	
@@ -4264,7 +4293,6 @@ event.on('sec30status_event', function(){
 });
 
 
-
 exports.autoeventcall = autoeventcall
 
 //=== autojob array fucnion and data ===
@@ -4286,4 +4314,5 @@ exports.runauto_pwmon = runauto_pwmon
 
 exports.holdkey_pwmon = holdkey_pwmon
 exports.holdkey_pwmoff = holdkey_pwmoff
+
 
