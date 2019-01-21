@@ -2081,7 +2081,7 @@ function GOBOX2LOOP(ljob){
 				}else{
 					ljob.CHKLOOP.CHKVALUE.DELAY1 = 0;
 					//ljob.SENSOR_CONTROL = 2;
-					ljob.SENSOR_CONTROL = 4;//direct jump to s004 for m1  start pump pass s2,s3
+					ljob.SENSOR_CONTROL = 4;//direct jump to s004 for m1 start pump pass s2,s3
 				}
 			}
 			break;
@@ -2149,7 +2149,7 @@ function GOBOX2LOOP(ljob){
 		case 9:
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.M2,"ON");//start pump box1 to box2
 			waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6,"LOAD");
-			waterlev_load_client(ljob.CHKLOOP.SENSORPOS. ,"LOAD");
+			waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7,"LOAD");
 			
 			outksspos = ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.POS;
 			outkssfuncmd = ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.CMD;			
