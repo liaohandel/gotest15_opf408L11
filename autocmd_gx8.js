@@ -4218,10 +4218,9 @@ function autopumpmotoloop(ljob){
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count >= 3){
 					if( ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value <= 6){//### box2 lev is low check 
 						water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"OFF");
-						ljob.CHKLOOP.CHKVALUE.WAIT1=20;
+						ljob.CHKLOOP.CHKVALUE.WAIT1=10;
 						ljob.SENSOR_CONTROL = 14; // too low for wait for add water  
 					}else{
-						ljob.SENSOR_CONTROL = 12;
 					}
 				}
 			}else{
@@ -4229,11 +4228,22 @@ function autopumpmotoloop(ljob){
 			}			
 			break;
 		case 14: //delay 10min for when after auto working
-			if(ljob.CHKLOOP.CHKVALUE.DELAY1 > 0){
-				ljob.CHKLOOP.CHKVALUE.DELAY1 --;				
+			waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7,"LOAD");
+			outksspos = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.POS;
+			outkssfuncmd = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.CMD;
+			typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
+			typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.STU.substr(0,2);
+			ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;//### lev scan load over 3 time is ready
+			
+			if(ljob.CHKLOOP.CHKVALUE.WAIT1 > 0){
+				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
 				ljob.SENSOR_CONTROL=14;				
 			}else{				
-				ljob.SENSOR_CONTROL=3;
+				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value > 8){//### box2 lev is low check 							
+					ljob.SENSOR_CONTROL = 3;
+				}else {							
+					ljob.SENSOR_CONTROL = 10;
+				}
 			}
 			break;
 		default:	
