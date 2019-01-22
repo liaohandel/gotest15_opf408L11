@@ -2404,8 +2404,8 @@
 					"SWM4B":{"POS":"E003","CMD":"PUMP","STU":"4B0000","GROUP":"00"},
 					"SWM4C":{"POS":"E003","CMD":"PUMP","STU":"4C0000","GROUP":"00"},
 
-					"WPUMPA":{"POS":"E002","CMD":"PUMP","STU":"9C003C5460","GROUP":"00"},
-					"WPUMPB":{"POS":"E002","CMD":"PUMP","STU":"510000","GROUP":"00"}					
+					"WPUMPA":{"POS":"E002","CMD":"PUMP","STU":"510000","GROUP":"00"},
+					"WPUMPB":{"POS":"E002","CMD":"PUMP","STU":"9C003C5460","GROUP":"00"}					
 				},
 				"SENSORPOS":{
 					"WATERLEVEL6":{"POS":"E002","CMD":"WATERLEVEL","STU":"760000","GROUP":"00","Value":0,"count":0},
