@@ -4246,8 +4246,9 @@ function autopumpmotoloop(ljob){
 			}else{				
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value > 8){//### box2 lev is low check 							
 					ljob.SENSOR_CONTROL = 3;
-				}else {							
-					ljob.SENSOR_CONTROL = 10;
+				}else {		
+					ljob.CHKLOOP.CHKVALUE.WAIT1=10;					
+					ljob.SENSOR_CONTROL = 14;
 				}
 			}
 			break;
