@@ -10,12 +10,22 @@ var Client = require('node-rest-client').Client;
 var client = new Client();
 var cargs = {
     requestConfig: {
-        timeout: 1000, //500,
+        timeout: 200, //500,
         noDelay: true,
         keepAlive: true
     },
     responseConfig: {
-        timeout: 1000 //1000 //response timeout 
+        timeout: 200 //1000 //response timeout 
+    }
+};
+var ipccargs = {
+    requestConfig: {
+        timeout: 500,
+        noDelay: true,
+        keepAlive: true
+    },
+    responseConfig: {
+        timeout: 1000 //response timeout 
     }
 };
 
@@ -1700,7 +1710,7 @@ function active_keypadjob(kpos,kcode,kactive){
 	
 	updatekeysstuatusurl220 = "http://192.168.5.220/API/v2/KeypadUpdate.php"+"?ID="+pdbuffer.setuuid+"&KeypadID="+kpos+"&Index="+kcode+"&value="+kactive;
 	console.log("sudo active update to webui =>"+updatekeysstuatusurl220);
-	client.get(updatekeysstuatusurl220,cargs, function (data, response) {
+	client.get(updatekeysstuatusurl220,ipccargs, function (data, response) {
 		console.log("keypad active update to webui   ok ...");
 	}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 	
@@ -1902,7 +1912,7 @@ function alarmchk_load(alarmjob){
 						
 			updateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS="+aapos+"&Type="+alarmjob.EPOS[dd].CMD+"&value="+alarmjob.AMCODE+"&Data="+chkval.vmax;
 						console.log(">>alarm update to web DB =>"+updateipc_alarmcodeurl);
-						client.get(updateipc_alarmcodeurl,cargs, function (data, response) {
+						client.get(updateipc_alarmcodeurl,ipccargs, function (data, response) {
 							console.log("alarm code active update to webDB   ok ...");
 						}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 						
