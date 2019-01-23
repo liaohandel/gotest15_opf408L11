@@ -2052,6 +2052,7 @@ function GOBOX2LOOP(ljob){
 			typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
 			typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.STU.substr(0,2);
 			oloadval = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;//### lev scan load over 3 time is ready
+			if(oloadval==0)break;
 			if(oloadval == ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.Value ){
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.count <= 2)ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.count ++;//0,1,2 
 			}else{
@@ -2064,6 +2065,7 @@ function GOBOX2LOOP(ljob){
 			typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
 			typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.STU.substr(0,2);
 			oloadval = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;//### lev scan load over 3 time is ready
+			if(oloadval==0)break;
 			if(oloadval == ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value ){
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count <= 2)ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count ++;
 			}else{
@@ -2160,6 +2162,7 @@ function GOBOX2LOOP(ljob){
 			typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
 			typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.STU.substr(0,2);
 			oloadval = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;
+			if(oloadval==0)break;
 			if(oloadval == ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.Value ){ //### box1 lev check 
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.count <= 2)ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.count ++;
 			}else{
@@ -2172,6 +2175,7 @@ function GOBOX2LOOP(ljob){
 			typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
 			typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.STU.substr(0,2);
 			oloadval = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;
+			if(oloadval==0)break;
 			if(oloadval == ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value ){//### box2 lev check 
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count <= 2)ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count ++;
 			}else{
@@ -2250,6 +2254,7 @@ function GOECDOSELOOP(ljob){
 			typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
 			typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.STU.substr(0,2);
 			oloadval = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;//### lev scan load over 3 time is ready
+			if(oloadval==0)break;
 			
 			if(oloadval == ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value ){
 				ljob.SENSOR_CONTROL = 0;
@@ -4224,6 +4229,7 @@ function autopumpmotoloop(ljob){
 			typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
 			typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.STU.substr(0,2);
 			oloadval = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;//### lev scan load over 3 time is ready
+			if(oloadval==0)break;
 			
 			ljob.SENSOR_CONTROL=12;
 			if(oloadval == ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value ){
