@@ -344,8 +344,8 @@ function opf403_regstulinkweb220(regdevarr){
 	//[sensor位置回報]  http://tscloud.opcom.com/Cloud/API/v2/SensorStatus?
     //ID={UUID}& POS={POS}&  Type={AirTemp,AirRH,EC,PH,CO2,WaterTemp,WaterLevel}& value={value}	
 	let jjpos={};
-	let regcmdcode="";
-	let cregadd = 0x91;
+	let regcmdcode="C76";
+	let cregadd = "91";
 	let regval = 0;
 	let typemask =""
 	if(regdevarr.length > 0){

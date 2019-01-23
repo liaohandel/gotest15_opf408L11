@@ -318,7 +318,8 @@ function jkeypd_update(callback){
 //=== uart buffer tx loop 1 by 1 and rxbuff ====
 //###=== rx buffer tx buffer sunfunciton ======
 function devloadtobuff(sub02cmd){	
-	console.log("check 02 rxcmd = "+sub02cmd)	
+	console.log("check 02 rxcmd = "+sub02cmd)
+	var buffchkval = 0;
 	sdevadd = sub02cmd.substring(2,4);  	//get devadd map to pos
 	ss = sub02cmd
 	sdevreg = ss.substring(10,12);			//reg type	
@@ -510,7 +511,9 @@ function devloadtobuff(sub02cmd){
 		case "94":	//ELECTRONS(C7A)#reg94
 			sdevstau = ss.substring(12,16);			//reg type	
 			//xpdjobj.PDDATA.Devtab[sdevpos]["C7A"]["chtab"][sdevreg].sub = Number("0x"+sdevsubcmd)
-			xpdjobj.PDDATA.Devtab[sdevpos]["C7A"]["chtab"][sdevreg].stu = Number("0x"+sdevstau);		
+			buffchkval =  Number("0x"+sdevstau);
+			if(buffchkval <=100)buffchkval=0;
+			xpdjobj.PDDATA.Devtab[sdevpos]["C7A"]["chtab"][sdevreg].stu = buffchkval;		
 			break
 		case "81":	//PWM(C7C) #reg81
 			sdevstau = ss.substring(12,16);			//reg type	
