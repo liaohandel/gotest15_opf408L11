@@ -7,6 +7,16 @@ var Client = require('node-rest-client').Client;
 var client = new Client();
 var cargs = {
     requestConfig: {
+        timeout: 200,
+        noDelay: true,
+        keepAlive: true
+    },
+    responseConfig: {
+        timeout: 200 //response timeout 
+    }
+};
+var ipccargs = {
+    requestConfig: {
         timeout: 500,
         noDelay: true,
         keepAlive: true
@@ -994,7 +1004,7 @@ function devalarmbuff(alarmcmd){//fcc10681019f010381
 
 				updateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS="+apos+"&Type="+atype+"&value="+alarmcode+"&Data=0";
 				console.log(">>alarm update to web DB =>"+updateipc_alarmcodeurl);
-				client.get(updateipc_alarmcodeurl,cargs, function (data, response) {
+				client.get(updateipc_alarmcodeurl,ipccargs, function (data, response) {
 					console.log("alarm code active update to webDB  pump ok ...");
 				}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 			}
@@ -1032,7 +1042,7 @@ function devalarmbuff(alarmcmd){//fcc10681019f010381
 
 		updateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS="+apos+"&Type="+atype+"&value="+alarmcode+"&Data=0";
 		console.log(">>alarm update to web DB =>"+updateipc_alarmcodeurl);
-		client.get(updateipc_alarmcodeurl,cargs, function (data, response) {
+		client.get(updateipc_alarmcodeurl,ipccargs, function (data, response) {
 			console.log("alarm code active update to webDB   ok ...");
 		}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 		
