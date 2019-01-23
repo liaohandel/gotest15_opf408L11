@@ -15,7 +15,7 @@ var ngrok = require('ngrok');
 var Client = require('node-rest-client').Client;
 var client = new Client();
 var cargs = {
-    requestConfig: {3
+    requestConfig: {
         timeout: 500,
         noDelay: true,
         keepAlive: true
