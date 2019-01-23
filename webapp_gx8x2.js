@@ -16,12 +16,12 @@ var Client = require('node-rest-client').Client;
 var client = new Client();
 var cargs = {
     requestConfig: {
-        timeout: 500,
+        timeout: 200,
         noDelay: true,
         keepAlive: true
     },
     responseConfig: {
-        timeout: 1000 //response timeout 
+        timeout: 200 //response timeout 
     }
 };
 
@@ -99,6 +99,7 @@ var setdevouturl = devloadurl+"?UUID="+setuuid+"&result="+"{}"
 //["C602","CA01","CA02","C101","C104","C107","C102","C103"],	//6
 //["CA03","CA04","CA05","C105","C106"],	//7
 var sbcount = 0;
+var uploadsbcount = 0;
 var sensorbuff = [
 	["H001"],["H004"],["H003"],["H004"],["H005"],["H006"],["E002"]	//0,1
 ]
@@ -133,56 +134,46 @@ var regsensorbuff = [
 		{"POS":"H003","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
 		{"POS":"H004","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H010","CMD":"TEMPERATURE","STU":"A10000","Type":"WaterTemp","typecmd":"C77","typereg":"A1"},
-		{"POS":"H011","CMD":"TEMPERATURE","STU":"A10000","Type":"WaterTemp","typecmd":"C77","typereg":"A1"}
+		{"POS":"H011","CMD":"TEMPERATURE","STU":"A10000","Type":"WaterTemp","typecmd":"C77","typereg":"A1"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"760000","Type":"WATERLEVEL6","typecmd":"C79","typereg":"76"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"770000","Type":"WATERLEVEL7","typecmd":"C79","typereg":"77"}
 	]
 ]
 
 var uploadregsensorbuff = [
 	[
 		{"POS":"H003","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
-		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"}
-	],
-	[
+		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H010","CMD":"TEMPERATURE","STU":"A10000","Type":"WaterTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H011","CMD":"TEMPERATURE","STU":"A10000","Type":"WaterTemp","typecmd":"C77","typereg":"A1"}
 	],
 	[
 		{"POS":"E002","CMD":"ELECTRONS","STU":"940000","Type":"ELECTRONS","typecmd":"C7A","typereg":"94"},
-		{"POS":"E002","CMD":"PH","STU":"930000","Type":"PH","typecmd":"C7B","typereg":"93"}
-	],
-	[
+		{"POS":"E002","CMD":"PH","STU":"930000","Type":"PH","typecmd":"C7B","typereg":"93"},
 		{"POS":"H001","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"}
 	],
 	[
 		{"POS":"H004","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
-		{"POS":"H005","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"}
-	],
-	[
+		{"POS":"H005","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H006","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"E002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"}
 	],
 	[
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"710000","Type":"WATERLEVEL1","typecmd":"C79","typereg":"71"},
-		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"}
-	],
-	[
+		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"720000","Type":"WATERLEVEL2","typecmd":"C79","typereg":"72"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"730000","Type":"WATERLEVEL3","typecmd":"C79","typereg":"73"}
 	],
 	[	
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"740000","Type":"WATERLEVEL4","typecmd":"C79","typereg":"74"},
-		{"POS":"E002","CMD":"WATERLEVEL","STU":"750000","Type":"WATERLEVEL5","typecmd":"C79","typereg":"75"}
-	],
-	[
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"750000","Type":"WATERLEVEL5","typecmd":"C79","typereg":"75"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"760000","Type":"WATERLEVEL6","typecmd":"C79","typereg":"76"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"770000","Type":"WATERLEVEL7","typecmd":"C79","typereg":"77"}
 	],
 	[
 		{"POS":"H001","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
-		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"}
-	],
-	[
+		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H002","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
 		{"POS":"H004","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"}
 	],
@@ -195,6 +186,7 @@ var uploadregsensorbuff = [
 
 //var sbcountmax =13;
 var sbcountmax = regsensorbuff.length;
+var uploadsbcountmax = uploadregsensorbuff.length;
 
 
 //=== syspub function ===
@@ -557,10 +549,11 @@ app.get('/typecheck', function (req, res) { //sensor PDDATA buffer upload to web
     res.send("ready web typwchk");		
 	console.log(">>LOCAL server 192.268.5.220 Link Mode !");	
 	
-	sbcount++;
-	if(sbcount>=sbcountmax)sbcount=0;				
-	opf403_regstulinkweb(uploadregsensorbuff[sbcount]);
-	opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);
+	uploadsbcount++;
+	if(uploadsbcount>=uploadsbcountmax)uploadsbcount=0;		
+	console.log("upload max="+uploadsbcountmax+" upload count="+uploadsbcount);			
+	opf403_regstulinkweb(uploadregsensorbuff[uploadsbcount]);
+	opf403_regstulinkweb220(uploadregsensorbuff[uploadsbcount]);
 	
 });
 
@@ -577,8 +570,6 @@ app.get('/fwupdate_stop', function (req, res) { //sensor PDDATA buffer upload to
 	exec(stop_cmdStr, function(){
 		console.log("stop link C922 v8022 ... ")
 	});
-	
-	
 });
 
 app.get('/PDINFO', function (req, res) {
@@ -1994,8 +1985,11 @@ app.listen(setport, function () {
 			sbcount++;
 			if(sbcount>=sbcountmax)sbcount=0;	
 			opf403_regdev_loadscan(regsensorbuff[sbcount]); //opf402 use reg level load scan 
-			opf403_regstulinkweb(uploadregsensorbuff[sbcount]);			
-			opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);
+			
+			uploadsbcount++;
+			if(uploadsbcount>=uploadsbcountmax)uploadsbcount=0;	
+			opf403_regstulinkweb(uploadregsensorbuff[uploadsbcount]);			
+			opf403_regstulinkweb220(uploadregsensorbuff[uploadsbcount]);
 			
 		},1 * 60 * 1000);
 		
@@ -2077,30 +2071,9 @@ app.listen(setport, function () {
 			});
 		}else if(pdbuffer.pdjobj.PDDATA.linkoffmode == 1){//off link mode
 			console.log(">>OFF Link Mode !");
-			// setInterval(function(){				
-				// console.log(">>LOCAL OFF Link Mode !");				
-				// //device_stulinkweb(sensorbuff[sbcount]);
-				// //for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);				
-				// sbcount++;
-				// if(sbcount>=sbcountmax)sbcount=0;	
-				// opf403_regdev_loadscan(regsensorbuff[sbcount]);
-				// //for(pp in sensorbuff[sbcount])devloadscan(sensorbuff[sbcount][pp]);	//load pos data to buffer 5min					
-			// }, 3 * 60 * 1000);
 			
 		}else if(pdbuffer.pdjobj.PDDATA.linkoffmode == 2){//by 220 mode
 			console.log(">>LOCAL server 192.268.5.220 Link Mode !");
-			// setInterval(function(){				
-				// console.log(">>LOCAL server 192.268.5.220 Link Mode !");
-				// //#### link load sensor data 
-				// //container_stulinkweb(sensorbuff[sbcount]);//#### link load sensor data 
-				// //for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
-				// sbcount++;
-				// if(sbcount>=sbcountmax)sbcount=0;	
-				// opf403_regdev_loadscan(uploadregsensorbuff[sbcount]);					
-				// opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);	
-				// //### sensor data buffer upload to web server 	
-				// //for(pp in sensorbuff[sbcount])devloadscan(sensorbuff[sbcount][pp]);	//load pos data to buffer 5min	
-			// }, 3 * 60 * 1000);			
 			
 		}
 		console.log('Example app listening on port 3000!');		
