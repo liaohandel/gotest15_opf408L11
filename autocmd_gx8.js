@@ -2233,7 +2233,15 @@ function GOECDOSELOOP(ljob){
 	ljob.SENSOR_CONTROL = Number(ljob.SENSOR_CONTROL);
 	
 	switch(ljob.SENSOR_CONTROL){
-		case 0: //check reg 0x77 lev scan 
+		case 0: //check the time is match schedule by start work 	
+			chkflag = scan_schedule_chkloop(ljob.CHKLOOP.chktime);
+			if(chkflag == 0 ){//check time no working then goto check 
+				ljob.SENSOR_CONTROL = 0;
+			}else{
+				ljob.SENSOR_CONTROL = 20;//in the active time arge
+			}
+			break;
+		case 20: //check reg 0x77 lev scan 
 			//waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6,"LOAD");
 			waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7,"LOAD");
 					
@@ -2249,20 +2257,20 @@ function GOECDOSELOOP(ljob){
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count >= 3)ljob.SENSOR_CONTROL = 1;
 			}else{
 				ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value = oloadval;//### lev scan load over 3 time is ready
-				if(oloadval >=13){
+				if(oloadval >=8){
 					ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count = 1;				
 				}else{	
-					ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count = 0;
+					ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count = 20;
 				}
 			}			
 			break;
 		case 1://check reg 0x77 > low lev 
 			ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count = 0;
 			console.log(">>waterloop wlev7="+ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value+" type="+(typeof ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value));
-			if( ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value <= 5){//### box2 lev is low check 
-				ljob.SENSOR_CONTROL = 0; // too low for wait for add water  
+			if( ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value <= 7){//### box2 lev is low check 
+				ljob.SENSOR_CONTROL = 20; // too low for wait for add water  
 			}else{
-				ljob.SENSOR_CONTROL = 2;
+				ljob.SENSOR_CONTROL = 3;
 			}
 			break;
 		case 2://check the time is match schedule by start work 
@@ -2275,9 +2283,9 @@ function GOECDOSELOOP(ljob){
 			}
 			break;
 		case 3://start EC/PH scan read 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.M3,"OFF");//switch to box2 切換到 肥水箱
-			console.log(">>ecphscanloop M3 OFF by Box2 ...");
-			ljob.CHKLOOP.CHKVALUE.WAIT1 = 5;
+			water_client_trige(ljob.CHKLOOP.DEVPOS.M3,"ON");//switch to box2 切換到 肥水箱
+			console.log(">>ecphscanloop M3 ON SWITCH TO Box2 ...");
+			ljob.CHKLOOP.CHKVALUE.WAIT1 = 2;
 			ljob.SENSOR_CONTROL = 4;
 			break;
 		case 4://wait by M3 switch OFF 等待切換
@@ -2290,7 +2298,7 @@ function GOECDOSELOOP(ljob){
 			break;
 		case 5:
 			water_client_trige(ljob.CHKLOOP.DEVPOS.M4,"ON");//start pump box2 to ec/ph box
-			console.log(">>ecphscanloop ecphbox2 m4  ON");
+			console.log(">>ecphscanloop PUMP to ecphbox2 m4  ON");
 			ljob.CHKLOOP.CHKVALUE.WAIT1 = 2*5;//3 min
 			ljob.SENSOR_CONTROL = 6;
 			break;
@@ -2309,11 +2317,11 @@ function GOECDOSELOOP(ljob){
 				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
 				ljob.SENSOR_CONTROL = 6;
 			}else {
-				water_client_trige(ljob.CHKLOOP.DEVPOS.M3,"ON");//switch to box2
+				water_client_trige(ljob.CHKLOOP.DEVPOS.M3,"OFF");//switch to box1
 				water_client_trige(ljob.CHKLOOP.DEVPOS.M4,"OFF");
 				
-				console.log(">>waterloop , M3 ON, M4 OFF");
-				ljob.CHKLOOP.CHKVALUE.WAIT1 = 1*2;//1 min
+				console.log(">>waterloop , M3 OFF, M4 OFF");
+				ljob.CHKLOOP.CHKVALUE.WAIT1 = 2*2;//2 min
 				ljob.SENSOR_CONTROL = 7;
 			}
 		
@@ -2329,7 +2337,7 @@ function GOECDOSELOOP(ljob){
 		case 8://start clear water 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.M4,"ON");//start pump box2 to ec/ph box
 			console.log(">>ecphscanloop ecphbox2 m4  ON");
-			ljob.CHKLOOP.CHKVALUE.WAIT1 = 2*2;//2 min
+			ljob.CHKLOOP.CHKVALUE.WAIT1 = 2*3;//3 min
 			ljob.SENSOR_CONTROL = 9;		
 			break;
 		case 9:
@@ -2341,11 +2349,11 @@ function GOECDOSELOOP(ljob){
 				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
 				ljob.SENSOR_CONTROL = 9;
 			}else {
-				water_client_trige(ljob.CHKLOOP.DEVPOS.M3,"OFF");//switch to box2
+				water_client_trige(ljob.CHKLOOP.DEVPOS.M3,"OFF");//switch to box1
 				water_client_trige(ljob.CHKLOOP.DEVPOS.M4,"OFF");
 				
 				console.log(">>waterloop , M3 OFF, M4 OFF");
-				ljob.CHKLOOP.CHKVALUE.WAIT1 = 2*2;
+				ljob.CHKLOOP.CHKVALUE.WAIT1 = 2*2;//2 min
 				ljob.SENSOR_CONTROL = 10;
 			}
 			
