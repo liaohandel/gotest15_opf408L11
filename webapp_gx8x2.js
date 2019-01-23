@@ -15,13 +15,13 @@ var ngrok = require('ngrok');
 var Client = require('node-rest-client').Client;
 var client = new Client();
 var cargs = {
-    requestConfig: {
-        timeout: 200,
+    requestConfig: {3
+        timeout: 500,
         noDelay: true,
         keepAlive: true
     },
     responseConfig: {
-        timeout: 200 //response timeout 
+        timeout: 1000 //response timeout 
     }
 };
 
@@ -145,15 +145,13 @@ var uploadregsensorbuff = [
 		{"POS":"H003","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
 		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H010","CMD":"TEMPERATURE","STU":"A10000","Type":"WaterTemp","typecmd":"C77","typereg":"A1"},
-		{"POS":"H011","CMD":"TEMPERATURE","STU":"A10000","Type":"WaterTemp","typecmd":"C77","typereg":"A1"}
-	],
-	[
+		{"POS":"H011","CMD":"TEMPERATURE","STU":"A10000","Type":"WaterTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"E002","CMD":"ELECTRONS","STU":"940000","Type":"ELECTRONS","typecmd":"C7A","typereg":"94"},
-		{"POS":"E002","CMD":"PH","STU":"930000","Type":"PH","typecmd":"C7B","typereg":"93"},
-		{"POS":"H001","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
-		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"}
+		{"POS":"E002","CMD":"PH","STU":"930000","Type":"PH","typecmd":"C7B","typereg":"93"}
 	],
 	[
+		{"POS":"H001","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
+		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H004","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H005","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H006","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
@@ -161,11 +159,8 @@ var uploadregsensorbuff = [
 	],
 	[
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"710000","Type":"WATERLEVEL1","typecmd":"C79","typereg":"71"},
-		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"720000","Type":"WATERLEVEL2","typecmd":"C79","typereg":"72"},
-		{"POS":"E002","CMD":"WATERLEVEL","STU":"730000","Type":"WATERLEVEL3","typecmd":"C79","typereg":"73"}
-	],
-	[	
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"730000","Type":"WATERLEVEL3","typecmd":"C79","typereg":"73"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"740000","Type":"WATERLEVEL4","typecmd":"C79","typereg":"74"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"750000","Type":"WATERLEVEL5","typecmd":"C79","typereg":"75"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"760000","Type":"WATERLEVEL6","typecmd":"C79","typereg":"76"},
@@ -173,11 +168,8 @@ var uploadregsensorbuff = [
 	],
 	[
 		{"POS":"H001","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
-		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H002","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
-		{"POS":"H004","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"}
-	],
-	[
+		{"POS":"H004","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
 		{"POS":"H005","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
 		{"POS":"H006","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
 		{"POS":"E002","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"}
@@ -310,8 +302,11 @@ function opf403_regstulinkweb(regdevarr){
 	let regval = 0;
 	let outregval=0;
 	let typemask =""
+	let uploadpassflag=0;
+	
 	if(regdevarr.length > 0){
 		for(rr in regdevarr){
+			uploadpassflag=1;
 			if(!(regdevarr[rr].POS in pdbuffer.pdjobj.PDDATA.Devtab))continue;//undefine pos is pass
 			jjpos=pdbuffer.pdjobj.PDDATA.Devtab[regdevarr[rr].POS];
 			if(!(regdevarr[rr].CMD in regcmdtab ))continue;//undefine is pass			
@@ -334,7 +329,9 @@ function opf403_regstulinkweb(regdevarr){
 			console.log(">>web "+regsensor_url);
 			client.get(regsensor_url,cargs, function (data, response) {
 				console.log("sensor uplaod url: load ok...");
-			}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {console.log("timeout for client");req.abort();});
+				uploadpassflag=0;
+			}).on("error", function(err) {console.log("web err for client");uploadpassflag=1;}).on('requestTimeout', function (req) {console.log("timeout for client");req.abort();});
+			if(uploadpassflag==1)break;//uplaod fail is pass
 		}		
 	}	
 }
@@ -348,8 +345,11 @@ function opf403_regstulinkweb220(regdevarr){
 	let cregadd = "91";
 	let regval = 0;
 	let typemask =""
+	let uploadpassflag=0;
+	
 	if(regdevarr.length > 0){
 		for(rr in regdevarr){
+			uploadpassflag=1;
 			if(!(regdevarr[rr].POS in pdbuffer.pdjobj.PDDATA.Devtab))continue;//undefine pos is pass
 			jjpos=pdbuffer.pdjobj.PDDATA.Devtab[regdevarr[rr].POS];
 			if(!(regdevarr[rr].CMD in regcmdtab ))continue;//undefine is pass			
@@ -374,7 +374,9 @@ function opf403_regstulinkweb220(regdevarr){
 			//console.log(">>web "+regsensor_url);
 			client.get(regsensor_url,cargs, function (data, response) {
 				console.log("sensor uplaod url: load ok...");
-			}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+				uploadpassflag=0;
+			}).on("error", function(err) {console.log("ipc err for client");uploadpassflag=1;}).on('requestTimeout', function (req) {req.abort();});
+			if(uploadpassflag==1)break;//uplaod fail is pass
 		}		
 	}	
 }

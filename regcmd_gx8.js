@@ -363,52 +363,80 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 						ddjdata = jobjcopy(data);
 						if("DOSEA" in ddjdata){
 							for(dda in ddjdata.DOSEA.SCHEDULE.EPOS){
-								sec02val = Number(ddjdata.DOSEA.SCHEDULE.EPOS[dda].STU.substr(2,4));
-								sec02str = "0000"+sec02val.toString(16)
+								sec02val = (Number(ddjdata.DOSEA.SCHEDULE.EPOS[dda].STU.substr(2,4)))/2;
+								sec02str = "0000"+sec02val.toString(16);
 								sec02valhex = ddjdata.DOSEA.SCHEDULE.EPOS[dda].STU.substr(0,2)+sec02str.substr((sec02str.length-4),4);
 								ddjdata.DOSEA.SCHEDULE.EPOS[dda].STU = sec02valhex;		
 							}
 							pdbuffer.jautocmd.DEVLIST.DOSEA = jobjcopy(ddjdata.DOSEA);
-							pdbuffer.jautocmd.DEVLIST.DOSEA.STATU=1;
+							if(pdbuffer.jautocmd.DEVLIST.DOSEA.SCHEDULE.ONLOOP.length > 0){
+								pdbuffer.jautocmd.DEVLIST.DOSEA.STATU=1;
+								pdbuffer.jkeypd.KEYLIB.KEYPAD0.K018.EVENT.ON[0].STU = pdbuffer.jautocmd.DEVLIST.DOSEA.SCHEDULE.EPOS[0].STU;//setup to K018 ON
+							}else{
+								pdbuffer.jautocmd.DEVLIST.DOSEA.STATU=0;
+								pdbuffer.jkeypd.KEYLIB.KEYPAD0.K018.EVENT.ON[0].STU = "440001";//setup to K018 ON = 0
+							}
+							console.log("get auto k018 on...[DOSEA]>>"+JSON.stringify(pdbuffer.jkeypd.KEYLIB.KEYPAD0.K018.EVENT.ON[0]));
 							autocmd.load_autojob("DOSEA",pdbuffer.jautocmd.DEVLIST.DOSEA)
 							if("DOSEA" in autocmd.sch_autojob)autocmd.sch_autojob.DOSEA.STATU=1;
 							if(!("DOSEA" in autocmd.sch_autoloadmark))autocmd.sch_autoloadmark.DOSEA=0;
 						};
 						if("DOSEB" in ddjdata){
 							for(dda in ddjdata.DOSEB.SCHEDULE.EPOS){
-								sec02val = Number(ddjdata.DOSEB.SCHEDULE.EPOS[dda].STU.substr(2,4));
-								sec02str = "0000"+sec02val.toString(16)
+								sec02val = (Number(ddjdata.DOSEB.SCHEDULE.EPOS[dda].STU.substr(2,4)))/2;
+								sec02str = "0000"+sec02val.toString(16);
 								sec02valhex = ddjdata.DOSEB.SCHEDULE.EPOS[dda].STU.substr(0,2)+sec02str.substr((sec02str.length-4),4);
 								ddjdata.DOSEB.SCHEDULE.EPOS[dda].STU = sec02valhex;		
 							}
 							pdbuffer.jautocmd.DEVLIST.DOSEB = jobjcopy(ddjdata.DOSEB);
-							pdbuffer.jautocmd.DEVLIST.DOSEB.STATU=1;
+							if(pdbuffer.jautocmd.DEVLIST.DOSEB.SCHEDULE.ONLOOP.length > 0){
+								pdbuffer.jautocmd.DEVLIST.DOSEB.STATU=1;
+								pdbuffer.jkeypd.KEYLIB.KEYPAD0.K018.EVENT.ON[1].STU = pdbuffer.jautocmd.DEVLIST.DOSEB.SCHEDULE.EPOS[0].STU;//setup to K018 ON
+							}else{
+								pdbuffer.jautocmd.DEVLIST.DOSEB.STATU=0;
+								pdbuffer.jkeypd.KEYLIB.KEYPAD0.K018.EVENT.ON[1].STU = "450001";//setup to K018 ON = 0
+							}
+							console.log("get auto k018 on...[DOSEB]>>"+JSON.stringify(pdbuffer.jkeypd.KEYLIB.KEYPAD0.K018.EVENT.ON[1]));
 							autocmd.load_autojob("DOSEB",pdbuffer.jautocmd.DEVLIST.DOSEB)
 							if("DOSEB" in autocmd.sch_autojob)autocmd.sch_autojob.DOSEB.STATU=1;
 							if(!("DOSEB" in autocmd.sch_autoloadmark))autocmd.sch_autoloadmark.DOSEB=0; 
 						};
 						if("DOSEC" in ddjdata){
 							for(dda in ddjdata.DOSEC.SCHEDULE.EPOS){
-								sec02val = Number(ddjdata.DOSEC.SCHEDULE.EPOS[dda].STU.substr(2,4));
-								sec02str = "0000"+sec02val.toString(16)
+								sec02val = (Number(ddjdata.DOSEC.SCHEDULE.EPOS[dda].STU.substr(2,4)))/2;
+								sec02str = "0000"+sec02val.toString(16);
 								sec02valhex = ddjdata.DOSEC.SCHEDULE.EPOS[dda].STU.substr(0,2)+sec02str.substr((sec02str.length-4),4);
 								ddjdata.DOSEC.SCHEDULE.EPOS[dda].STU = sec02valhex;		
 							}
 							pdbuffer.jautocmd.DEVLIST.DOSEC = jobjcopy(ddjdata.DOSEC);
-							pdbuffer.jautocmd.DEVLIST.DOSEC.STATU=1;
+							if(pdbuffer.jautocmd.DEVLIST.DOSEC.SCHEDULE.ONLOOP.length > 0){
+								pdbuffer.jautocmd.DEVLIST.DOSEC.STATU=1;
+								pdbuffer.jkeypd.KEYLIB.KEYPAD0.K018.EVENT.ON[2].STU = pdbuffer.jautocmd.DEVLIST.DOSEC.SCHEDULE.EPOS[0].STU;//setup to K018 ON
+							}else{
+								pdbuffer.jautocmd.DEVLIST.DOSEC.STATU=0;
+								pdbuffer.jkeypd.KEYLIB.KEYPAD0.K018.EVENT.ON[2].STU = "460001";//setup to K018 ON = 0
+							}
+							console.log("get auto k018 on...[DOSEC]>>"+JSON.stringify(pdbuffer.jkeypd.KEYLIB.KEYPAD0.K018.EVENT.ON[2]));
 							autocmd.load_autojob("DOSEC",pdbuffer.jautocmd.DEVLIST.DOSEC)
 							if("DOSEC" in autocmd.sch_autojob)autocmd.sch_autojob.DOSEC.STATU=1;
 							if(!("DOSEC" in autocmd.sch_autoloadmark))autocmd.sch_autoloadmark.DOSEC=0; 
 						};
 						if("DOSED" in ddjdata){
 							for(dda in ddjdata.DOSED.SCHEDULE.EPOS){
-								sec02val = Number(ddjdata.DOSED.SCHEDULE.EPOS[dda].STU.substr(2,4));
-								sec02str = "0000"+sec02val.toString(16)
+								sec02val = (Number(ddjdata.DOSED.SCHEDULE.EPOS[dda].STU.substr(2,4)))/2;
+								sec02str = "0000"+sec02val.toString(16);
 								sec02valhex = ddjdata.DOSED.SCHEDULE.EPOS[dda].STU.substr(0,2)+sec02str.substr((sec02str.length-4),4);
 								ddjdata.DOSED.SCHEDULE.EPOS[dda].STU = sec02valhex;		
 							}
 							pdbuffer.jautocmd.DEVLIST.DOSED = jobjcopy(ddjdata.DOSED);
-							pdbuffer.jautocmd.DEVLIST.DOSED.STATU=1;
+							if(pdbuffer.jautocmd.DEVLIST.DOSED.SCHEDULE.ONLOOP.length > 0){
+								pdbuffer.jautocmd.DEVLIST.DOSED.STATU=1;
+								pdbuffer.jkeypd.KEYLIB.KEYPAD0.K018.EVENT.ON[3].STU = pdbuffer.jautocmd.DEVLIST.DOSED.SCHEDULE.EPOS[0].STU;//setup to K018 ON
+							}else{
+								pdbuffer.jautocmd.DEVLIST.DOSED.STATU=0;
+								pdbuffer.jkeypd.KEYLIB.KEYPAD0.K018.EVENT.ON[3].STU = "610001";//setup to K018 ON = 0
+							}
+							console.log("get auto k018 on...[DOSED]>>"+JSON.stringify(pdbuffer.jkeypd.KEYLIB.KEYPAD0.K018.EVENT.ON[3]));
 							autocmd.load_autojob("DOSED",pdbuffer.jautocmd.DEVLIST.DOSED)
 							if("DOSED" in autocmd.sch_autojob)autocmd.sch_autojob.DOSED.STATU=1;
 							if(!("DOSED" in autocmd.sch_autoloadmark))autocmd.sch_autoloadmark.DOSED=0; 
@@ -419,7 +447,9 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 						pdbuffer.update_redis('jautocmd.DEVLIST.DOSEA',()=>{console.log("JAUTO DEVLIST redisDB Save ok !"+pos);});//update buffer to Files	
 						pdbuffer.update_redis('jautocmd.DEVLIST.DOSEB',()=>{console.log("JAUTO DEVLIST redisDB Save ok !"+pos);});//update buffer to Files		
 						pdbuffer.update_redis('jautocmd.DEVLIST.DOSEC',()=>{console.log("JAUTO DEVLIST redisDB Save ok !"+pos);});//update buffer to Files		
-						pdbuffer.update_redis('jautocmd.DEVLIST.DOSED',()=>{console.log("JAUTO DEVLIST redisDB Save ok !"+pos);});//update buffer to Files		
+						pdbuffer.update_redis('jautocmd.DEVLIST.DOSED',()=>{console.log("JAUTO DEVLIST redisDB Save ok !"+pos);});//update buffer to Files	
+						
+						pdbuffer.update_redis('jkeypd.KEYLIB.KEYPAD0.K018',()=>{console.log("JAUTO DEVLIST redisDB Save ok !"+pos);});//update buffer to Files	KEYPD#KEYLIB#KEYPAD0#K018
 						
 					}).on("error", function(err) {console.log("err for client");});				
 					
