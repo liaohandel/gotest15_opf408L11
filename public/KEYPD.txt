@@ -407,36 +407,42 @@
 			},
 			"EVENT": {
 			  "AUTO": [
-				{"CMD":"REGCMD/AUTOSETUP","POS":"ECDOSE","Action":"AUTO","STU":"01","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"PHDOSE","Action":"AUTO","STU":"01","GROUP":"00" }
+					{"CMD":"REGCMD/AUTOSETUP","POS":"DOSEA","Action":"AUTO","STU":"01","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"DOSEB","Action":"AUTO","STU":"01","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"DOSEC","Action":"AUTO","STU":"01","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"DOSED","Action":"AUTO","STU":"01","GROUP":"00" }
 				],
 			  "ON": [
-				{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"440000","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"450000","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"460000","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"610000","GROUP":"00" }
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"440032","GROUP":"00" },
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"450032","GROUP":"00" },
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"460032","GROUP":"00" },
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"610032","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"DOSEA","Action":"AUTO","STU":"00","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"DOSEB","Action":"AUTO","STU":"00","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"DOSEC","Action":"AUTO","STU":"00","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"DOSED","Action":"AUTO","STU":"00","GROUP":"00" }
 				],
 			  "OFF": [
-				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"440000","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"450000","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"460000","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"610000","GROUP":"00" },
-				{"CMD":"REGCMD/KEYSETUP","POS":"KEYPAD0","Action":"AUTO","STU":"OFF","GROUP":"K017"},
-				{"CMD":"REGCMD/KEYSETUP","POS":"KEYPAD0","Action":"AUTO","STU":"OFF","GROUP":"K014"},
-				{"CMD":"REGCMD/KEYSETUP","POS":"KEYPAD0","Action":"AUTO","STU":"OFF","GROUP":"K020"},
-				{"CMD":"REGCMD/AUTOSETUP","POS":"DOSEA","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"DOSEB","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"DOSEC","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"REGCMD/AUTOSETUP","POS":"DOSED","Action":"AUTO","STU":"00","GROUP":"00" }
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"440000","GROUP":"00" },
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"450000","GROUP":"00" },
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"460000","GROUP":"00" },
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"610000","GROUP":"00" },
+					{"CMD":"REGCMD/KEYSETUP","POS":"KEYPAD0","Action":"AUTO","STU":"OFF","GROUP":"K017"},
+					{"CMD":"REGCMD/KEYSETUP","POS":"KEYPAD0","Action":"AUTO","STU":"OFF","GROUP":"K014"},
+					{"CMD":"REGCMD/KEYSETUP","POS":"KEYPAD0","Action":"AUTO","STU":"OFF","GROUP":"K020"},
+					{"CMD":"REGCMD/AUTOSETUP","POS":"DOSEA","Action":"AUTO","STU":"00","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"DOSEB","Action":"AUTO","STU":"00","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"DOSEC","Action":"AUTO","STU":"00","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"DOSED","Action":"AUTO","STU":"00","GROUP":"00" }
 				],
 			  "PH70": [
-				{"CMD":"PH","POS":"E002","Action":"ON","STU":"9302BC","GROUP":"00" }
+					{"CMD":"PH","POS":"E002","Action":"ON","STU":"9302BC","GROUP":"00" }
 			  ],
 			  "PH40": [
-				{"CMD":"PH","POS":"E002","Action":"ON","STU":"930190","GROUP":"00" }
+					{"CMD":"PH","POS":"E002","Action":"ON","STU":"930190","GROUP":"00" }
 			  ],
 			  "EC70": [
-				{"CMD":"ELECTRONS","POS":"E002","Action":"ON","STU":"940000","GROUP":"00" }
+					{"CMD":"ELECTRONS","POS":"E002","Action":"ON","STU":"940000","GROUP":"00" }
 			  ]
 			}
 		},
