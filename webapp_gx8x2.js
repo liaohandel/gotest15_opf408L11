@@ -12,6 +12,7 @@ const app = express()
 var bodyParser = require('body-parser');  //no use
 var ngrok = require('ngrok');
 
+var chkweblink = 0;
 var Client = require('node-rest-client').Client;
 var client = new Client();
 var cargs = {
@@ -24,6 +25,17 @@ var cargs = {
         timeout: 1000 //response timeout 
     }
 };
+var ipccargs = {
+    requestConfig: {
+        timeout: 500,
+        noDelay: true,
+        keepAlive: true
+    },
+    responseConfig: {
+        timeout: 1000 //response timeout 
+    }
+};
+
 
 var path = require('path');
 var fs = require('fs');
@@ -372,7 +384,7 @@ function opf403_regstulinkweb220(regdevarr){
 			
 			regsensor_url = ipcsensorupdateurl +"ID="+pdbuffer.setuuid+"&POS="+regdevarr[rr].POS+"&Type="+typemask+"&value="+outregval
 			//console.log(">>web "+regsensor_url);
-			client.get(regsensor_url,cargs, function (data, response) {
+			client.get(regsensor_url,ipccargs, function (data, response) {
 				console.log("sensor uplaod url: load ok...");
 				uploadpassflag=0;
 			}).on("error", function(err) {console.log("ipc err for client");uploadpassflag=1;}).on('requestTimeout', function (req) {req.abort();});

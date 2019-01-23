@@ -14,6 +14,16 @@ var cargs = {
         timeout: 200 //response timeout 
     }
 };
+var ipccargs = {
+    requestConfig: {
+        timeout: 500,
+        noDelay: true,
+        keepAlive: true
+    },
+    responseConfig: {
+        timeout: 1000 //response timeout 
+    }
+};
 
 
 var pdbuffer  = require('./pdbuffer_v02.js');
@@ -87,7 +97,7 @@ function keylistapicall(kapilist){
 				
 				updatekeysstuatusurl220 = "http://192.168.5.220/API/v2/KeypadUpdate.php"+"?ID="+pdbuffer.setuuid+"&KeypadID="+kapilist[kk].POS+"&Index="+kapilist[kk].GROUP+"&value="+kapilist[kk].STU;
 				console.log("sudo active update to webui =>"+updatekeysstuatusurl220);
-				client.get(updatekeysstuatusurl220,cargs, function (data, response) {
+				client.get(updatekeysstuatusurl220,ipccargs, function (data, response) {
 					console.log("keypad active update to webui   ok ...");
 				}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 				
