@@ -368,7 +368,7 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 					
 				}
 				if(pos == "DOSE"){							
-					if(global.weblinkflag == 1)break;
+					//if(global.weblinkflag == 1)break;
 					client.get(autojsonloadurl, function (data, response) {	
 						console.log("get auto json ok...["+pos+"]>>"+JSON.stringify(data));
 						//console.log("get auto json ok...sch_autoloadmark ="+JSON.stringify(autocmd.sch_autoloadmark));						
@@ -468,7 +468,7 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 					}).on("error", function(err) {console.log("err for client");});				
 					
 				}else if(pos == "OPWAVE"){
-					if(global.weblinkflag == 1)break;									
+					//if(global.weblinkflag == 1)break;									
 					client.get(autojsonloadurl, function (data, response) {					
 						console.log("get auto json ok...["+pos+"]>>"+JSON.stringify(data));
 						//jobj = jobjcopy(response)						
@@ -487,7 +487,7 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 						}
 					}).on("error", function(err) {console.log("err for client");});
 				}else{			
-					if(global.weblinkflag == 1)break;		
+					//if(global.weblinkflag == 1)break;		
 					client.get(autojsonloadurl, function (data, response) {					
 						console.log("get auto json ok...["+pos+"]>>"+JSON.stringify(data));
 						//jobj = jobjcopy(response)
