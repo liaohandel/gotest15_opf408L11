@@ -10,12 +10,12 @@ var Client = require('node-rest-client').Client;
 var client = new Client();
 var cargs = {
     requestConfig: {
-        timeout: 200, //500,
+        timeout: 500, //500,
         noDelay: true,
         keepAlive: true
     },
     responseConfig: {
-        timeout: 200 //1000 //response timeout 
+        timeout: 1000 //1000 //response timeout 
     }
 };
 var ipccargs = {
@@ -1702,10 +1702,12 @@ function active_keypadjob(kpos,kcode,kactive){
 //if(run_cmd == "REGCMD/KEYSETUP"){
 	updatekeysstuatusurl= pdbuffer.pdjobj.PDDATA.v2keypadstatusupdateurl+"?ID="+pdbuffer.setuuid+"&KeypadID="+kpos+"&Index="+kcode+"&value="+kactive;
 	console.log("sudo active update to webui =>"+updatekeysstuatusurl);
-	client.get(updatekeysstuatusurl,cargs, function (data, response) {
-		console.log("keypad active update to webui   ok ...");
-	//}).on("error", function(err) {console.log("err for client");});
-	}).on("error", function(err) {console.log("err for clientx1");}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
+	
+		if(global.weblinkflag == 0){
+			client.get(updatekeysstuatusurl,cargs, function (data, response) {
+				console.log("keypad active update to webui   ok ...");
+			}).on("error", function(err) {console.log("err for clientx1");global.weblinkflag=1;}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
+		}
 	//autopushkeypad(kpos,kcode,kactive);
 	
 	updatekeysstuatusurl220 = "http://192.168.5.220/API/v2/KeypadUpdate.php"+"?ID="+pdbuffer.setuuid+"&KeypadID="+kpos+"&Index="+kcode+"&value="+kactive;
@@ -1905,10 +1907,12 @@ function alarmchk_load(alarmjob){
 		
 			update_alarmcodeurl= "http://tscloud.opcom.com/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS="+aapos+"&Type="+alarmjob.EPOS[dd].CMD+"&value="+alarmjob.AMCODE+"&Data="+chkval.vmax;
 						console.log(">>alarm update to web DB =>"+update_alarmcodeurl);
+						
+		if(global.weblinkflag == 0){
 						client.get(update_alarmcodeurl,cargs, function (data, response) {
 							console.log("alarm code active update to webDB   ok ...");
-						}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
-						
+						}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
+		}			
 						
 			updateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS="+aapos+"&Type="+alarmjob.EPOS[dd].CMD+"&value="+alarmjob.AMCODE+"&Data="+chkval.vmax;
 						console.log(">>alarm update to web DB =>"+updateipc_alarmcodeurl);
@@ -3616,10 +3620,13 @@ function tmdemoloop(ljob){
 			
 			democtiveurl = "http://106.104.112.56/Cloud/API/v2/Demotest.php?UUID="+pdbuffer.setuuid+"&STU=0"
 			console.log(">>tm demo mode send to =>"+democtiveurl);
+		
+		if(global.weblinkflag == 0){	
 			client.get(democtiveurl, function (data, response) {
 				console.log("demo client active  ok ...");
 			}).on("error", function(err) {console.log("err for client");});			
-				
+		}
+		
 			democtiveurl = "http://192.168.5.220/API/v2/Demotest.php?UUID="+pdbuffer.setuuid+"&STU=0"
 			console.log(">>ipc tm demo mode send to =>"+democtiveurl);
 			client.get(democtiveurl, function (data, response) {
@@ -3670,10 +3677,12 @@ function tmdemoloop(ljob){
 	
 			democtiveurl = "http://106.104.112.56/Cloud/API/v2/Demotest.php?UUID="+pdbuffer.setuuid+"&STU=1"
 			console.log(">>tm demo mode send to =>"+democtiveurl);
+			
+		if(global.weblinkflag == 0){
 			client.get(democtiveurl, function (data, response) {
 				console.log("demo client active  ok ...");
 			}).on("error", function(err) {console.log("err for client");});		
-			
+		}
 			
 			democtiveurl = "http://192.168.5.220/API/v2/Demotest.php?UUID="+pdbuffer.setuuid+"&STU=1"
 			console.log(">>ipc tm demo mode send to =>"+democtiveurl);
@@ -3726,10 +3735,13 @@ function tmdemoloop(ljob){
 			}
 			democtiveurl = "http://106.104.112.56/Cloud/API/v2/Demotest.php?UUID="+pdbuffer.setuuid+"&STU=2"
 			console.log(">>tm demo mode send to =>"+democtiveurl);
+			
+		if(global.weblinkflag == 0){
 			client.get(democtiveurl, function (data, response) {
 				console.log("demo client active  ok ...");
 			}).on("error", function(err) {console.log("err for client");});		
-			
+		}
+		
 			democtiveurl = "http://192.168.5.220/API/v2/Demotest.php?UUID="+pdbuffer.setuuid+"&STU=2"
 			console.log(">>ipc tm demo mode send to =>"+democtiveurl);
 			client.get(democtiveurl, function (data, response) {
@@ -3775,10 +3787,13 @@ function tmdemoloop(ljob){
 		
 			democtiveurl = "http://106.104.112.56/Cloud/API/v2/Demotest.php?UUID="+pdbuffer.setuuid+"&STU=3"
 			console.log(">>tm demo mode send to =>"+democtiveurl);
+			
+		if(global.weblinkflag == 0){
 			client.get(democtiveurl, function (data, response) {
 				console.log("demo client active  ok ...");
 			}).on("error", function(err) {console.log("err for client");});	
-			
+		}
+		
 			democtiveurl = "http://192.168.5.220/API/v2/Demotest.php?UUID="+pdbuffer.setuuid+"&STU=3"
 			console.log(">>ipc tm demo mode send to =>"+democtiveurl);
 			client.get(democtiveurl, function (data, response) {
@@ -3830,10 +3845,12 @@ function tmdemoloop(ljob){
 			}	
 			democtiveurl = "http://106.104.112.56/Cloud/API/v2/Demotest.php?UUID="+pdbuffer.setuuid+"&STU=1"
 			console.log(">>tm demo mode send to =>"+democtiveurl);
+			
+		if(global.weblinkflag == 0){
 			client.get(democtiveurl, function (data, response) {
 				console.log("demo client active  ok ...");
 			}).on("error", function(err) {console.log("err for client");});	
-
+		}
 			
 			democtiveurl = "http://192.168.5.220/API/v2/Demotest.php?UUID="+pdbuffer.setuuid+"&STU=1"
 			console.log(">>ipc tm demo mode send to =>"+democtiveurl);
@@ -3887,10 +3904,12 @@ function tmdemoloop(ljob){
 				
 			democtiveurl = "http://106.104.112.56/Cloud/API/v2/Demotest.php?UUID="+pdbuffer.setuuid+"&STU=2"
 			console.log(">>tm demo mode send to =>"+democtiveurl);
+			
+		if(global.weblinkflag == 0){
 			client.get(democtiveurl, function (data, response) {
 				console.log("demo client active  ok ...");
 			}).on("error", function(err) {console.log("err for client");});		
-			
+		}	
 			
 			democtiveurl = "http://192.168.5.220/API/v2/Demotest.php?UUID="+pdbuffer.setuuid+"&STU=2"
 			console.log(">>ipc tm demo mode send to =>"+democtiveurl);
@@ -3934,10 +3953,12 @@ function tmdemoloop(ljob){
 			}
 				
 			democtiveurl = "http://106.104.112.56/Cloud/API/v2/Demotest.php?UUID="+pdbuffer.setuuid+"&STU=3"
+			
+		if(global.weblinkflag == 0){
 			client.get(democtiveurl, function (data, response) {
 				console.log("demo client active  ok ...");
 			}).on("error", function(err) {console.log("err for client");});	
-
+		}
 			
 			democtiveurl = "http://192.168.5.220/API/v2/Demotest.php?UUID="+pdbuffer.setuuid+"&STU=3"
 			console.log(">>ipc tm demo mode send to =>"+democtiveurl);
@@ -4014,25 +4035,6 @@ function autoledmotoloop(ljob){
 					
 					for(ee in devlist)water_client_trige(devlist[ee],"ON");  
 					console.log(">>autoledmotoloop ="+JSON.stringify(devlist));
-					
-					// Index = sss , value = motobase 
-					
-					// console.log(">>autoledmotoloop move="+sss+">"+motobase);					
-					// //update the ledmoto base value to server DB
-					// updatekeysstuatusurl= pdbuffer.pdjobj.PDDATA.v2keypadstatusupdateurl+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
-					// console.log("sudo active update to webui =>"+updatekeysstuatusurl);
-					// client.get(updatekeysstuatusurl,cargs, function (data, response) {
-						// console.log("keypad active update to webui   ok ...");
-					// //}).on("error", function(err) {console.log("err for client");});
-					// }).on("error", function(err) {console.log("err for clientx1");}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
-					// //autopushkeypad(kpos,kcode,kactive);
-					
-					// //update the ledmoto base value to IPC DB
-					// updatekeysstuatusurl220 = "http://192.168.5.220/API/v2/KeypadUpdate.php"+"?ID="+pdbuffer.setuuid+"&KeypadID=KEYPAD0&Index="+sss+"&value="+motobase;
-					// console.log("sudo active update to webui =>"+updatekeysstuatusurl220);
-					// client.get(updatekeysstuatusurl220,cargs, function (data, response) {
-						// console.log("keypad active update to webui   ok ...");
-					// }).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 					
 					
 					for(ff in pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM)water_client_trige(pdbuffer.jautocmd.DEVLIST[chkautoname].SCHEDULE.LEDPAM[ff],"AUTO");

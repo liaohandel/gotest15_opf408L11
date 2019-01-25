@@ -3,16 +3,17 @@ console.log("pdbuff v2.0 20180516 ... XD");
 var EventEmitter = require('events').EventEmitter; 
 var event = new EventEmitter(); 
 
+global.weblinkflag = 0;
 var Client = require('node-rest-client').Client;
 var client = new Client();
 var cargs = {
     requestConfig: {
-        timeout: 200,
+        timeout: 500,
         noDelay: true,
         keepAlive: true
     },
     responseConfig: {
-        timeout: 200 //response timeout 
+        timeout: 1000 //response timeout 
     }
 };
 var ipccargs = {
@@ -857,7 +858,9 @@ event.on('sendkeypad_event', function() { //FCC10681019E010281
 		console.log("type ="+typeof(sdev)+" data="+sdev);
 		setdevouturl = key105loadurl+"?KEY="+sdevkey+"&STATE="+sdevstu+"&EVENT="+sdevevent;       
 		console.log("url="+setdevouturl);
-        client.get(setdevouturl, function (data, response) {}).on("error", function(err) {console.log("err for client");});
+		if(global.weblinkflag == 0){
+			client.get(setdevouturl, function (data, response) {}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;});
+		}
 		setTimeout(function(){event.emit('sendkeypad_event')},10);		
 	}
 });
@@ -998,10 +1001,11 @@ function devalarmbuff(alarmcmd){//fcc10681019f010381
 				//alarm code 0x4001 => by POS device list to upload
 				update_alarmcodeurl= "http://tscloud.opcom.com/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS="+apos+"&Type="+atype+"&value="+alarmcode+"&Data=0";
 				console.log(">>alarm update to web DB =>"+update_alarmcodeurl);
-				client.get(update_alarmcodeurl,cargs, function (data, response) {
-					console.log("alarm code active update to webDB pump  ok ...");
-				}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
-
+		if(global.weblinkflag == 0){
+					client.get(update_alarmcodeurl,cargs, function (data, response) {
+						console.log("alarm code active update to webDB pump  ok ...");
+					}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
+		}
 				updateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS="+apos+"&Type="+atype+"&value="+alarmcode+"&Data=0";
 				console.log(">>alarm update to web DB =>"+updateipc_alarmcodeurl);
 				client.get(updateipc_alarmcodeurl,ipccargs, function (data, response) {
@@ -1035,10 +1039,12 @@ function devalarmbuff(alarmcmd){//fcc10681019f010381
 		//alarm code 0x4001 => by POS device list to upload
 		update_alarmcodeurl= "http://tscloud.opcom.com/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS="+apos+"&Type="+atype+"&value="+alarmcode+"&Data=0";
 		console.log(">>alarm update to web DB =>"+update_alarmcodeurl);
-		client.get(update_alarmcodeurl,cargs, function (data, response) {
-			console.log("alarm code active update to webDB   ok ...");
-		}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
-
+		
+		if(global.weblinkflag == 0){
+			client.get(update_alarmcodeurl,cargs, function (data, response) {
+				console.log("alarm code active update to webDB   ok ...");
+			}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
+		}
 
 		updateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS="+apos+"&Type="+atype+"&value="+alarmcode+"&Data=0";
 		console.log(">>alarm update to web DB =>"+updateipc_alarmcodeurl);
