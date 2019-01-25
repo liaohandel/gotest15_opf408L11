@@ -2071,6 +2071,7 @@ app.listen(setport, function () {
 						//relink DDNS for ngrok 
 						if(((typeof seturl) == "undefined" ) || (linkchkcount >=3) ){
 							//console.log("get x12...") ;
+							global.weblinkflag = 0; // retry web link 
 							linkchkcount=0;
 							reload105ddsn();
 						}							
