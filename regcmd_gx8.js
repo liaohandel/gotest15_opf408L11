@@ -6,12 +6,12 @@ var Client = require('node-rest-client').Client;
 var client = new Client();
 var cargs = {
     requestConfig: {
-        timeout: 200,
+        timeout: 500,
         noDelay: true,
         keepAlive: true
     },
     responseConfig: {
-        timeout: 200 //response timeout 
+        timeout: 1000 //response timeout 
     }
 };
 var ipccargs = {
@@ -91,9 +91,12 @@ function keylistapicall(kapilist){
 				
 				updatekeysstuatusurl= pdbuffer.pdjobj.PDDATA.v2keypadstatusupdateurl+"?ID="+pdbuffer.setuuid+"&KeypadID="+kapilist[kk].POS+"&Index="+kapilist[kk].GROUP+"&value="+kapilist[kk].STU;
 				console.log("sudo active update to webui =>"+updatekeysstuatusurl);
+				
+		if(global.weblinkflag == 0){
 				client.get(updatekeysstuatusurl,cargs, function (data, response) {
 					console.log("keypad active update to webui   ok ...");
-				}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+				}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
+		}
 				
 				updatekeysstuatusurl220 = "http://192.168.5.220/API/v2/KeypadUpdate.php"+"?ID="+pdbuffer.setuuid+"&KeypadID="+kapilist[kk].POS+"&Index="+kapilist[kk].GROUP+"&value="+kapilist[kk].STU;
 				console.log("sudo active update to webui =>"+updatekeysstuatusurl220);
@@ -364,7 +367,8 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 					console.log("get auto webserver ok...["+pos+"] link>>"+autojsonloadurl);
 					
 				}
-				if(pos == "DOSE"){					
+				if(pos == "DOSE"){							
+					//if(global.weblinkflag == 1)break;
 					client.get(autojsonloadurl, function (data, response) {	
 						console.log("get auto json ok...["+pos+"]>>"+JSON.stringify(data));
 						//console.log("get auto json ok...sch_autoloadmark ="+JSON.stringify(autocmd.sch_autoloadmark));						
@@ -380,7 +384,7 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 							}
 							pdbuffer.jautocmd.DEVLIST.DOSEA = jobjcopy(ddjdata.DOSEA);
 							if(pdbuffer.jautocmd.DEVLIST.DOSEA.SCHEDULE.ONLOOP.length > 0){
-								pdbuffer.jautocmd.DEVLIST.DOSEA.STATU=1;
+								pdbuffer.jautocmd.DEVLIST.DOSEA.STATU=0;
 								pdbuffer.jkeypd.KEYLIB.KEYPAD0.K018.EVENT.ON[0].STU = pdbuffer.jautocmd.DEVLIST.DOSEA.SCHEDULE.EPOS[0].STU;//setup to K018 ON
 							}else{
 								pdbuffer.jautocmd.DEVLIST.DOSEA.STATU=0;
@@ -400,7 +404,7 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 							}
 							pdbuffer.jautocmd.DEVLIST.DOSEB = jobjcopy(ddjdata.DOSEB);
 							if(pdbuffer.jautocmd.DEVLIST.DOSEB.SCHEDULE.ONLOOP.length > 0){
-								pdbuffer.jautocmd.DEVLIST.DOSEB.STATU=1;
+								pdbuffer.jautocmd.DEVLIST.DOSEB.STATU=0;
 								pdbuffer.jkeypd.KEYLIB.KEYPAD0.K018.EVENT.ON[1].STU = pdbuffer.jautocmd.DEVLIST.DOSEB.SCHEDULE.EPOS[0].STU;//setup to K018 ON
 							}else{
 								pdbuffer.jautocmd.DEVLIST.DOSEB.STATU=0;
@@ -420,7 +424,7 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 							}
 							pdbuffer.jautocmd.DEVLIST.DOSEC = jobjcopy(ddjdata.DOSEC);
 							if(pdbuffer.jautocmd.DEVLIST.DOSEC.SCHEDULE.ONLOOP.length > 0){
-								pdbuffer.jautocmd.DEVLIST.DOSEC.STATU=1;
+								pdbuffer.jautocmd.DEVLIST.DOSEC.STATU=0;
 								pdbuffer.jkeypd.KEYLIB.KEYPAD0.K018.EVENT.ON[2].STU = pdbuffer.jautocmd.DEVLIST.DOSEC.SCHEDULE.EPOS[0].STU;//setup to K018 ON
 							}else{
 								pdbuffer.jautocmd.DEVLIST.DOSEC.STATU=0;
@@ -440,7 +444,7 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 							}
 							pdbuffer.jautocmd.DEVLIST.DOSED = jobjcopy(ddjdata.DOSED);
 							if(pdbuffer.jautocmd.DEVLIST.DOSED.SCHEDULE.ONLOOP.length > 0){
-								pdbuffer.jautocmd.DEVLIST.DOSED.STATU=1;
+								pdbuffer.jautocmd.DEVLIST.DOSED.STATU=0;
 								pdbuffer.jkeypd.KEYLIB.KEYPAD0.K018.EVENT.ON[3].STU = pdbuffer.jautocmd.DEVLIST.DOSED.SCHEDULE.EPOS[0].STU;//setup to K018 ON
 							}else{
 								pdbuffer.jautocmd.DEVLIST.DOSED.STATU=0;
@@ -463,7 +467,8 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 						
 					}).on("error", function(err) {console.log("err for client");});				
 					
-				}else if(pos == "OPWAVE"){										
+				}else if(pos == "OPWAVE"){
+					//if(global.weblinkflag == 1)break;									
 					client.get(autojsonloadurl, function (data, response) {					
 						console.log("get auto json ok...["+pos+"]>>"+JSON.stringify(data));
 						//jobj = jobjcopy(response)						
@@ -481,7 +486,8 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 							pdbuffer.update_redis('jautocmd.DEVLIST.'+pos,()=>{console.log("JAUTO DEVLIST redisDB Save ok !");});//update buffer to Files						
 						}
 					}).on("error", function(err) {console.log("err for client");});
-				}else{						
+				}else{			
+					//if(global.weblinkflag == 1)break;		
 					client.get(autojsonloadurl, function (data, response) {					
 						console.log("get auto json ok...["+pos+"]>>"+JSON.stringify(data));
 						//jobj = jobjcopy(response)
@@ -589,6 +595,7 @@ router.get('/KEYSETUP',function(req,res,next){	//ok
 				//autojsonloadurl = "http://tscloud.opcom.com/Cloud/API/v2/AUTOJSON?SID="+cstu;	
 				autojsonloadurl =  pdbuffer.pdjobj.PDDATA.v2keypadjsonloadurl+"?SID="+cstu;			
 				console.log("get ok...["+pos+"] link>>"+autojsonloadurl);
+				if(global.weblinkflag == 1)break;
 				client.get(autojsonloadurl, function (data, response) {					
 					console.log("get auto json ok...["+pos+"]>>"+JSON.stringify(data));
 					//jobj = jobjcopy(response)
@@ -608,7 +615,7 @@ router.get('/KEYSETUP',function(req,res,next){	//ok
 						pdbuffer.update_redis('jkeypd.KEYLIB.'+pos+'.'+group,()=>{console.log("JKEYPD reload ok !");});//reload files to buffer						
 					}					
 				}).on("error", function(err) {console.log("err for client");});				
-				break
+				break;
 			default:
 				console.log(cregadd+" not define =>"+cmd);	
 				return;
@@ -930,10 +937,13 @@ router.get('/TMLIVEDEMO',function(req,res,next){
 				
 				democtiveurl = "http://106.104.112.56/Cloud/API/v2/Demotest.php?UUID="+pdbuffer.setuuid+"&STU=1"
 				console.log(">>tm demo mode send to =>"+democtiveurl);
+				
+		if(global.weblinkflag == 0){
 				client.get(democtiveurl, function (data, response) {
 					console.log("demo client active  ok ...");
 				}).on("error", function(err) {console.log("err for client");});			
-				
+		}
+		
 				democtiveurl = "http://192.168.5.220/API/v2/Demotest.php?UUID="+pdbuffer.setuuid+"&STU=1"
 				console.log(">>ipc tm demo mode send to =>"+democtiveurl);
 				client.get(democtiveurl, function (data, response) {
@@ -951,10 +961,13 @@ router.get('/TMLIVEDEMO',function(req,res,next){
 					
 				democtiveurl = "http://106.104.112.56/Cloud/API/v2/Demotest.php?UUID="+pdbuffer.setuuid+"&STU=0"
 				console.log(">>tm demo mode send to =>"+democtiveurl);
+				
+		if(global.weblinkflag == 0){
 				client.get(democtiveurl, function (data, response) {
 					console.log("demo client active  ok ...");
 				}).on("error", function(err) {console.log("err for client");});		
-					
+		}
+		
 				democtiveurl = "http://192.168.5.220/API/v2/Demotest.php?UUID="+pdbuffer.setuuid+"&STU=0"
 				console.log(">>ipc tm demo mode send to =>"+democtiveurl);
 				client.get(democtiveurl, function (data, response) {

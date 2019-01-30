@@ -1109,6 +1109,36 @@
 						}
 				}
 			},		
+			"H007": {"STATU":{"devadd":25,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"85", "FWVER":"0000", "HWVER":"0000"},
+				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"E0":{"sub": 0,"stu": 0,"Data": 0},
+							"E1":{"sub": 0,"stu": 0,"Data": 0},
+							"E2":{"sub": 0,"stu": 0,"Data": 0},
+							"E3":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C77": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"A1":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C76": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"91":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C78": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"92":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C74": {"sub": 0,"stu": 0,"Data": 0,
+						"chtab":{
+							"1F":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				}
+			},	
 			
 			"H010": {"STATU":{"devadd":23,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"85", "FWVER":"0000", "HWVER":"0000"},
 				"C70":	{"sub": 0,"stu": 0,"Data": 0, 
@@ -1378,6 +1408,7 @@
         "14":"H004",
         "15":"H005",
         "16":"H006",
+        "19":"H007",
 		
         "17":"H010",
         "18":"H011",

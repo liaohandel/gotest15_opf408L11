@@ -209,7 +209,7 @@
 					{"POS":"H005","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"},
 					{"POS":"H006","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}
 				],
-				"OUTSENSORPOS": [{"POS":"E002","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
+				"OUTSENSORPOS": [{"POS":"H007","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
 				"TEMPERATURE!LOOP": "02000280"
 			}
 		},
@@ -228,7 +228,7 @@
 					{"POS":"H005","CMD":"RH","STU":"920000","GROUP":"00"},
 					{"POS":"H006","CMD":"RH","STU":"920000","GROUP":"00"}
 				],
-				"OUTSENSORPOS": [{"POS":"E002","CMD":"RH","STU":"920000","GROUP":"00"}],
+				"OUTSENSORPOS": [{"POS":"H007","CMD":"RH","STU":"920000","GROUP":"00"}],
 				"RH!LOOP": "05000750"
 			}
 		},
@@ -1529,7 +1529,7 @@
 					{"POS":"H005","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"},
 					{"POS":"H006","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}
 				],
-				"OUTSENSORPOS": [{"POS":"E002","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
+				"OUTSENSORPOS": [{"POS":"H007","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
 				"TEMPERATURE!LOOP": "02000280"
 			}
 		},
@@ -1559,7 +1559,7 @@
 			"RUNLOOP":{
 				"EPOS": [{"POS":"E002","CMD":"PUMP","STU":"660000","GROUP":"00"}],
 				"SENSORPOS": [{"POS":"H001","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
-				"OUTSENSORPOS": [{"POS":"E002","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
+				"OUTSENSORPOS": [{"POS":"H007","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00"}],
 				"TEMPERATURE!LOOP": "05000750"
 			}
 		},
@@ -2280,7 +2280,7 @@
 					"INDOORTM4":{"POS":"H004","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00","Value":0,"count":0},
 					"INDOORTM5":{"POS":"H005","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00","Value":0,"count":0},
 					"INDOORTM6":{"POS":"H006","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00","Value":0,"count":0},
-					"OUTDOORTM":{"POS":"E002","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00","Value":0,"count":0}
+					"OUTDOORTM":{"POS":"H007","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00","Value":0,"count":0}
 				},
 				"CHKVALUE":{
 					"WAIT1":0,
