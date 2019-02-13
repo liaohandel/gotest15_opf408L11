@@ -185,7 +185,7 @@ function loaddata(){
 						//106.104.112.56/Cloud/API/videobox.php?UUID=111&DevicePOS=C906&DeviceIP=xxx.xxx.xxx:8006
 						//http://tscloud.opcom.com/Cloud/API/v2/UpdateIP?UUID=OFA1C002DB290C1F72CD5B0C&UpdateIP=https://ngrok.com/1111
 						//setddsnurl = vdsnurl+'?UUID='+setuuid+'&DeviceIP='+seturl+'&DevicePOS='+campos
-						base_updateurl="http://tscloud.opcom.com/Cloud/API/v2/UpdateIP"
+						base_updateurl="http://106.104.112.56/Cloud/API/v2/UpdateIP"
 						updateddsnurl = base_updateurl+'?UUID='+setuuid+'&UpdateIP='+seturl
 						
 						//setddsnurl = vdsnurl+'?UUID='+setuuid+'&DeviceIP='+seturl+'&DevicePOS='+setdeviceport

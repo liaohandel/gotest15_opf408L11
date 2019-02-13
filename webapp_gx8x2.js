@@ -88,7 +88,7 @@ var offdev105statusurl="http://192.168.5.220/API/ContainerStatus.php"
 var offdevloadurl = "http://192.168.5.220/API/DeviceUpdate.php"
 var offtypeloadurl = "http://192.168.5.220/API/TypeUpdate.php"
 var offtypechannelurl = "http://192.168.5.220/API/TypeChannelsUpdate.php"
-//"v2keypadstatusupdateurl": "http://tscloud.opcom.com/Cloud/API/v2/KeypadUpdate",
+//"v2keypadstatusupdateurl": "http://106.104.112.56/Cloud/API/v2/KeypadUpdate",
 var ipcsensorupdateurl = "http://192.168.5.220/API/v2/SensorStatus.php?"
 
 

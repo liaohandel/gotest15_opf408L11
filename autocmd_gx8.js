@@ -1909,7 +1909,7 @@ function alarmchk_load(alarmjob){
 						//http://tscloud.opcom.com/Cloud/API/v2/Alarm?ID={UUID}
 						//&POS={POS}&Type={Type}&value={value}					
 		
-			update_alarmcodeurl= "http://tscloud.opcom.com/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS="+aapos+"&Type="+alarmjob.EPOS[dd].CMD+"&value="+alarmjob.AMCODE+"&Data="+chkval.vmax;
+			update_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS="+aapos+"&Type="+alarmjob.EPOS[dd].CMD+"&value="+alarmjob.AMCODE+"&Data="+chkval.vmax;
 						console.log(">>alarm update to web DB =>"+update_alarmcodeurl);
 						
 		if(global.weblinkflag == 0){
