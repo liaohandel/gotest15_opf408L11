@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>模擬器</title>
+	<!-- <link href="icon.png" rel="icon"> -->
+	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="mylibrary.js"></script>
+	<script type="text/javascript" src="devtab.js"></script>
+	<script type="text/javascript" src="cmdtab.js"></script>
+	<script type="text/javascript" src="apicmd.js"></script>
+	<script type="text/javascript" src="keypad.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+	<table>
+		<tr>
+			<td colspan="4">
+				UUID: <input type="text" id="UUID" style="width:250px;">
+				<input type="button" id="setgetUUID" value="將UUID設定成URL" style="width:auto;">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table id="PIRTRIGGER">
+				</table>
+			</td>
+			<td colspan="3">
+				<table id="KEYPAD1TRIGGER">
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>　</td>
+		</tr>
+		<tr>
+			<td colspan="4">
+				<table id="E002PUMPstatu">
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>　</td>
+		</tr>
+		<tr>
+			<td>
+				<table id="C00AAIRFANstatu">
+				</table>
+			</td>
+			<td>
+				<table id="E003PUMPstatu">
+				</table>
+			</td>
+			<td>
+				<table id="LEDstatu">
+				</table>
+			</td>
+			<td>
+				<table id="LEDPUMPstatu">
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>　</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<table id="E002WATERLEVELstatu">
+				</table>
+			</td>
+			<td colspan="2">
+				<table id="checktb">
+				</table>
+				<br>
+				<table id="ECPHstatu">
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>　</td>
+		</tr>
+		<tr>
+			<td colspan="4">
+				<table id="TMRHCO2statu">
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>　</td>
+		</tr>
+	</table>
+</body>
+
+</html>

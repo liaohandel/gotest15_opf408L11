@@ -1,0 +1,12 @@
+table table, table table th, table table td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+input[type=text] {
+	width: 50px;
+}
+
+input[type=button] {
+	width: 40px;
+}
