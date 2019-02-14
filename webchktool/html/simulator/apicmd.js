@@ -1,5 +1,4 @@
 var apicmd = {
-	"UUID": "OFA1C005DB8DF11ECBF14A2D",
 	"loadcheck": {
 		"mod": "url",
 		"name": "從感應器讀取資料到樹莓派(3in1 & 水位 & 水溫)",

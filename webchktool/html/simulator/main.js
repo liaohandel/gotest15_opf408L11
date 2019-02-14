@@ -1,21 +1,32 @@
 var socket = io.connect();
-
+var UUID = { value: 0 };
 socket.on('message', function (data) {
 	let cmd = data.CMD;
 	let pos = data.POS;
 	let subcmd = data.Action;
 	let stu = data.STU;
-	let subkey = stu.substr(0, 2);
+	let subkey;
+	let vlu;
 	let group = data.GROUP;
 
-	if (!(pos in devtab)) return;
-	if (!(cmd in cmdtab)) return;
-	if (!(cmd in devtab[pos])) return;
+	if (cmd != 'UUID') {
+		subkey = stu.substr(0, 2);
+		vlu = stu.substr(2, 4);
+		if (!(pos in devtab)) return;
+		if (!(cmd in cmdtab)) return;
+		if (!(cmd in devtab[pos])) return;
 
-	if (!(subcmd in subcmdtab)) return;
-	if (!(subkey in devtab[pos][cmd])) return;
+		if (!(subcmd in subcmdtab)) return;
+		if (!(subkey in devtab[pos][cmd])) return;
+	}
 
+	let stunamearr = [pos, cmd, 'stu', 'R' + subkey];
 	let stuname = '';
+	let stuname2 = '';
+
+	let obj = { "CMD": "WATERLEVEL", "POS": "E002", "Action": "SET", "STU": "000000", "GROUP": "00" };
+	obj.POS = pos;
+	obj.CMD = cmd;
 
 	switch (cmd) {
 		case 'PUMP':
@@ -23,12 +34,15 @@ socket.on('message', function (data) {
 				stuname = [pos, cmd, 'act', 'R' + '00'].join('_');
 				switch (subkey) {
 					case '00':
+						window[stuname].style.backgroundColor = '#0ff';
 						window[stuname].innerHTML = '絕對';
 						break;
 					case '01':
+						window[stuname].style.backgroundColor = '#f0f';
 						window[stuname].innerHTML = '下降';
 						break;
 					case '02':
+						window[stuname].style.backgroundColor = '#ff0';
 						window[stuname].innerHTML = '上升';
 						break;
 					default:
@@ -41,11 +55,11 @@ socket.on('message', function (data) {
 				if (devtab.E003.PUMP[subkey].stu == 0) {
 					switch (subcmd) {
 						case 'ON':
-							window[stuname].style.backgroundColor = '#f00';
+							window[stuname].style.backgroundColor = '#0f0';
 							window[stuname].innerHTML = '噴';
 							break;
 						case 'OFF':
-							window[stuname].style.backgroundColor = '#0f0';
+							window[stuname].style.backgroundColor = '#fff';
 							window[stuname].innerHTML = '流';
 							break;
 						default:
@@ -54,11 +68,11 @@ socket.on('message', function (data) {
 				} else {
 					switch (subcmd) {
 						case 'ON':
-							window[stuname].style.backgroundColor = '#f00';
+							window[stuname].style.backgroundColor = '#0f0';
 							window[stuname].innerHTML = '肥';
 							break;
 						case 'OFF':
-							window[stuname].style.backgroundColor = '#0f0';
+							window[stuname].style.backgroundColor = '#fff';
 							window[stuname].innerHTML = '清';
 							break;
 						default:
@@ -69,11 +83,11 @@ socket.on('message', function (data) {
 				stuname = [pos, cmd, 'stu', 'R' + subkey].join('_');
 				switch (subcmd) {
 					case 'ON':
-						window[stuname].style.backgroundColor = '#f00';
+						window[stuname].style.backgroundColor = '#0f0';
 						window[stuname].innerHTML = '開';
 						break;
 					case 'OFF':
-						window[stuname].style.backgroundColor = '#0f0';
+						window[stuname].style.backgroundColor = '#fff';
 						window[stuname].innerHTML = '關';
 						break;
 					default:
@@ -83,11 +97,20 @@ socket.on('message', function (data) {
 			break;
 		case 'WATERLEVEL':
 			stuname = [pos, cmd, 'range', 'R' + subkey].join('_');
+			stuname2 = [pos, cmd, 'stu', 'R' + subkey].join('_');
 			switch (subcmd) {
+				case 'SET':
+					if (vlu != '0000') {
+						window[stuname].value = Number('0x' + vlu);
+						window[stuname2].value = window[stuname].value / sensorvalue[cmd].div;
+					} else {
+						obj.Action = 'SET';
+						obj.STU = subkey + paddingLeft((window[stuname].value * 1).toString(16), 4);
+						socket.emit('client_data', obj);
+					}
+					break;
 				case 'LOAD':
-					let obj = { "CMD": "WATERLEVEL", "POS": "E002", "Action": "SET", "STU": "000000", "GROUP": "00" };
-					obj.POS = pos;
-					obj.CMD = cmd;
+					obj.Action = 'SET';
 					obj.STU = subkey + paddingLeft((window[stuname].value * 1).toString(16), 4);
 					socket.emit('client_data', obj);
 					break;
@@ -97,11 +120,20 @@ socket.on('message', function (data) {
 			break;
 		case 'TEMPERATURE':
 			stuname = [pos, cmd, 'range', 'R' + subkey].join('_');
+			stuname2 = [pos, cmd, 'stu', 'R' + subkey].join('_');
 			switch (subcmd) {
+				case 'SET':
+					if (vlu != '0000') {
+						window[stuname].value = Number('0x' + vlu);
+						window[stuname2].value = window[stuname].value / sensorvalue[cmd].div;
+					} else {
+						obj.Action = 'SET';
+						obj.STU = subkey + paddingLeft((window[stuname].value * 1).toString(16), 4);
+						socket.emit('client_data', obj);
+					}
+					break;
 				case 'LOAD':
-					let obj = { "CMD": "WATERLEVEL", "POS": "E002", "Action": "SET", "STU": "000000", "GROUP": "00" };
-					obj.POS = pos;
-					obj.CMD = cmd;
+					obj.Action = 'SET';
 					obj.STU = subkey + paddingLeft((window[stuname].value * 1).toString(16), 4);
 					socket.emit('client_data', obj);
 					break;
@@ -111,11 +143,20 @@ socket.on('message', function (data) {
 			break;
 		case 'RH':
 			stuname = [pos, cmd, 'range', 'R' + subkey].join('_');
+			stuname2 = [pos, cmd, 'stu', 'R' + subkey].join('_');
 			switch (subcmd) {
+				case 'SET':
+					if (vlu != '0000') {
+						window[stuname].value = Number('0x' + vlu);
+						window[stuname2].value = window[stuname].value / sensorvalue[cmd].div;
+					} else {
+						obj.Action = 'SET';
+						obj.STU = subkey + paddingLeft((window[stuname].value * 1).toString(16), 4);
+						socket.emit('client_data', obj);
+					}
+					break;
 				case 'LOAD':
-					let obj = { "CMD": "WATERLEVEL", "POS": "E002", "Action": "SET", "STU": "000000", "GROUP": "00" };
-					obj.POS = pos;
-					obj.CMD = cmd;
+					obj.Action = 'SET';
 					obj.STU = subkey + paddingLeft((window[stuname].value * 1).toString(16), 4);
 					socket.emit('client_data', obj);
 					break;
@@ -125,11 +166,20 @@ socket.on('message', function (data) {
 			break;
 		case 'CO2':
 			stuname = [pos, cmd, 'range', 'R' + subkey].join('_');
+			stuname2 = [pos, cmd, 'stu', 'R' + subkey].join('_');
 			switch (subcmd) {
+				case 'SET':
+					if (vlu != '0000') {
+						window[stuname].value = Number('0x' + vlu);
+						window[stuname2].value = window[stuname].value / sensorvalue[cmd].div;
+					} else {
+						obj.Action = 'SET';
+						obj.STU = subkey + paddingLeft((window[stuname].value * 1).toString(16), 4);
+						socket.emit('client_data', obj);
+					}
+					break;
 				case 'LOAD':
-					let obj = { "CMD": "WATERLEVEL", "POS": "E002", "Action": "SET", "STU": "000000", "GROUP": "00" };
-					obj.POS = pos;
-					obj.CMD = cmd;
+					obj.Action = 'SET';
 					obj.STU = subkey + paddingLeft((window[stuname].value * 1).toString(16), 4);
 					socket.emit('client_data', obj);
 					break;
@@ -139,11 +189,20 @@ socket.on('message', function (data) {
 			break;
 		case 'ELECTRONS':
 			stuname = [pos, cmd, 'range', 'R' + subkey].join('_');
+			stuname2 = [pos, cmd, 'stu', 'R' + subkey].join('_');
 			switch (subcmd) {
+				case 'SET':
+					if (vlu != '0000') {
+						window[stuname].value = Number('0x' + vlu);
+						window[stuname2].value = window[stuname].value / sensorvalue[cmd].div;
+					} else {
+						obj.Action = 'SET';
+						obj.STU = subkey + paddingLeft((window[stuname].value * 1).toString(16), 4);
+						socket.emit('client_data', obj);
+					}
+					break;
 				case 'LOAD':
-					let obj = { "CMD": "WATERLEVEL", "POS": "E002", "Action": "SET", "STU": "000000", "GROUP": "00" };
-					obj.POS = pos;
-					obj.CMD = cmd;
+					obj.Action = 'SET';
 					obj.STU = subkey + paddingLeft((window[stuname].value * 1).toString(16), 4);
 					socket.emit('client_data', obj);
 					break;
@@ -153,11 +212,20 @@ socket.on('message', function (data) {
 			break;
 		case 'PH':
 			stuname = [pos, cmd, 'range', 'R' + subkey].join('_');
+			stuname2 = [pos, cmd, 'stu', 'R' + subkey].join('_');
 			switch (subcmd) {
+				case 'SET':
+					if (vlu != '0000') {
+						window[stuname].value = Number('0x' + vlu);
+						window[stuname2].value = window[stuname].value / sensorvalue[cmd].div;
+					} else {
+						obj.Action = 'SET';
+						obj.STU = subkey + paddingLeft((window[stuname].value * 1).toString(16), 4);
+						socket.emit('client_data', obj);
+					}
+					break;
 				case 'LOAD':
-					let obj = { "CMD": "WATERLEVEL", "POS": "E002", "Action": "SET", "STU": "000000", "GROUP": "00" };
-					obj.POS = pos;
-					obj.CMD = cmd;
+					obj.Action = 'SET';
 					obj.STU = subkey + paddingLeft((window[stuname].value * 1).toString(16), 4);
 					socket.emit('client_data', obj);
 					break;
@@ -169,11 +237,11 @@ socket.on('message', function (data) {
 			stuname = [pos, cmd, 'stu', 'R' + subkey].join('_');
 			switch (subcmd) {
 				case 'ON':
-					window[stuname].style.backgroundColor = '#f00';
+					window[stuname].style.backgroundColor = '#0f0';
 					window[stuname].innerHTML = '開';
 					break;
 				case 'OFF':
-					window[stuname].style.backgroundColor = '#0f0';
+					window[stuname].style.backgroundColor = '#fff';
 					window[stuname].innerHTML = '關';
 					break;
 				default:
@@ -186,11 +254,11 @@ socket.on('message', function (data) {
 			stuname = [pos, cmd, 'stu', 'R' + subkey].join('_');
 			switch (subcmd) {
 				case 'ON':
-					window[stuname].style.backgroundColor = '#f00';
+					window[stuname].style.backgroundColor = '#0f0';
 					window[stuname].innerHTML = '開';
 					break;
 				case 'OFF':
-					window[stuname].style.backgroundColor = '#0f0';
+					window[stuname].style.backgroundColor = '#fff';
 					window[stuname].innerHTML = '關';
 					break;
 				default:
@@ -216,12 +284,112 @@ socket.on('message', function (data) {
 			stuname = [pos, cmd, 'tm', 'R' + subkey].join('_');
 			window[stuname].innerHTML = Number('0x' + stu.substr(4, 2));
 			break;
+		case 'UUID':
+			if (subcmd == 'SET') {
+				UUID.value = stu;
+				if (!isinit) {
+					isinit = true;
+					init();
+				}
+			}
+			break;
 
 		default:
 			break;
 	}
 });
 
+function buildsensor(stunamearr, sv) {
+	let ss = '';
+	let stuname = '';
+
+	stunamearr[2] = 'sub';
+	stuname = stunamearr.join('_');
+	ss += '<input type="button" value="-' + sv.add / sv.div + '" id="' + stuname + '">';
+	stunamearr[2] = 'dec';
+	stuname = stunamearr.join('_');
+	ss += '<input type="button" value="-' + sv.inc / sv.div + '" id="' + stuname + '">';
+	stunamearr[2] = 'stu';
+	stuname = stunamearr.join('_');
+	ss += '<input type="text" value="' + sv.stu / sv.div + '" maxlength="' + sv.maxlength + '" id="' + stuname + '">';
+	stunamearr[2] = 'inc';
+	stuname = stunamearr.join('_');
+	ss += '<input type="button" value="+' + sv.inc / sv.div + '" id="' + stuname + '">';
+	stunamearr[2] = 'add';
+	stuname = stunamearr.join('_');
+	ss += '<input type="button" value="+' + sv.add / sv.div + '" id="' + stuname + '">';
+	stunamearr[2] = 'range';
+	stuname = stunamearr.join('_');
+	ss += '<input type="range" value="' + sv.stu + '" min="' + sv.min + '" max="' + sv.max + '" id="' + stuname + '">';
+	return ss;
+}
+function setsensor(stunamearr, sv, obj) {
+	stunamearr[2] = 'sub';
+	let stunamesub = stunamearr.join('_');
+	stunamearr[2] = 'dec';
+	let stunamedec = stunamearr.join('_');
+	stunamearr[2] = 'stu';
+	let stunamestu = stunamearr.join('_');
+	stunamearr[2] = 'inc';
+	let stunameinc = stunamearr.join('_');
+	stunamearr[2] = 'add';
+	let stunameadd = stunamearr.join('_');
+	stunamearr[2] = 'range';
+	let stunamerange = stunamearr.join('_');
+
+	let it = stunamearr[3].substr(1, 2);
+	obj.Action = 'LOAD';
+	obj.STU = it + '0000';
+	socket.emit('client_data', obj);
+
+	let setss = function (test) {
+		console.log(test);
+		obj.Action = 'SET';
+		obj.STU = it + paddingLeft((window[stunamerange].value * 1).toString(16), 4);
+		socket.emit('client_data', obj);
+	}
+	window[stunamesub].onclick = function () {
+		window[stunamerange].stepDown(sv.add);
+		window[stunamestu].value = window[stunamerange].value / sv.div;
+		setss('sub onclick');
+	};
+	window[stunamedec].onclick = function () {
+		window[stunamerange].stepDown(sv.inc);
+		window[stunamestu].value = window[stunamerange].value / sv.div;
+		setss('dec onclick');
+	};
+	window[stunameinc].onclick = function () {
+		window[stunamerange].stepUp(sv.inc);
+		window[stunamestu].value = window[stunamerange].value / sv.div;
+		setss('inc onclick');
+	};
+	window[stunameadd].onclick = function () {
+		window[stunamerange].stepUp(sv.add);
+		window[stunamestu].value = window[stunamerange].value / sv.div;
+		setss('add onclick');
+	};
+	window[stunamerange].onmousedown = function () {
+		window[stunamerange].onmousemove = function () {
+			window[stunamestu].value = window[stunamerange].value / sv.div;
+		};
+	};
+	window[stunamerange].onmouseup = function () {
+		window[stunamerange].onmousemove = function () {
+		};
+	};
+	window[stunamestu].onchange = function () {
+		if (window[stunamestu].value < sv.min)
+			window[stunamestu].value = sv.min;
+		if (window[stunamestu].value > sv.max)
+			window[stunamestu].value = sv.max;
+		window[stunamerange].value = window[stunamestu].value * sv.div;
+		setss('stu onchange');
+	};
+	window[stunamerange].onclick = function () {
+		window[stunamestu].value = window[stunamerange].value / sv.div;
+		setss('range onclick');
+	};
+}
 function E002PUMP() {
 	let keyarr = Object.keys(devtab.E002.PUMP).sort();
 
@@ -252,95 +420,26 @@ function E002PUMP() {
 }
 function E002WATERLEVEL() {
 	let keyarr = Object.keys(devtab.E002.WATERLEVEL).sort();
-
 	let ss = '<tr><td colspan="4">水位感測器</td></tr>';
 	for (let i = 0; i < keyarr.length; i++) {
 		let it = keyarr[i];
 		ss += '<tr>';
 		ss += '<td>' + 'R' + it + '</td>';
 		ss += '<td>' + devtab.E002.WATERLEVEL[it].name + '</td>';
-		ss += '<td>';
-		ss += '<input type="button" value="-10" id="E002_WATERLEVEL_sub5_R' + it + '">';
-		ss += '<input type="button" value="-1" id="E002_WATERLEVEL_dec_R' + it + '">';
-		ss += '<input type="text" value="3500" maxlength="4" id="E002_WATERLEVEL_stu_R' + it + '">';
-		ss += '<input type="button" value="+1" id="E002_WATERLEVEL_inc_R' + it + '">';
-		ss += '<input type="button" value="+10" id="E002_WATERLEVEL_add5_R' + it + '">';
-		ss += '<input type="range" value="3500" min="3500" max="4000" id="E002_WATERLEVEL_range_R' + it + '">';
-		ss += '</td>';
+		ss += '<td>' + buildsensor(['E002', 'WATERLEVEL', 'stu', 'R' + it], sensorvalue['WATERLEVEL']) + '</td>';
 		ss += '</tr>';
 	}
 	E002WATERLEVELstatu.innerHTML += ss;
 	for (let i = 0; i < keyarr.length; i++) {
 		let it = keyarr[i];
-		window['E002_WATERLEVEL_sub5_R' + it].onclick = function () {
-			window['E002_WATERLEVEL_range_R' + it].stepDown(10);
-			window['E002_WATERLEVEL_stu_R' + it].value = window['E002_WATERLEVEL_range_R' + it].value;
-		};
-		window['E002_WATERLEVEL_dec_R' + it].onclick = function () {
-			window['E002_WATERLEVEL_range_R' + it].stepDown(1);
-			window['E002_WATERLEVEL_stu_R' + it].value = window['E002_WATERLEVEL_range_R' + it].value;
-		};
-		window['E002_WATERLEVEL_inc_R' + it].onclick = function () {
-			window['E002_WATERLEVEL_range_R' + it].stepUp(1);
-			window['E002_WATERLEVEL_stu_R' + it].value = window['E002_WATERLEVEL_range_R' + it].value;
-		};
-		window['E002_WATERLEVEL_add5_R' + it].onclick = function () {
-			window['E002_WATERLEVEL_range_R' + it].stepUp(10);
-			window['E002_WATERLEVEL_stu_R' + it].value = window['E002_WATERLEVEL_range_R' + it].value;
-		};
-		window['E002_WATERLEVEL_range_R' + it].onmousedown = function () {
-			window['E002_WATERLEVEL_range_R' + it].onmousemove = function () {
-				window['E002_WATERLEVEL_stu_R' + it].value = window['E002_WATERLEVEL_range_R' + it].value;
-			};
-		};
-		window['E002_WATERLEVEL_range_R' + it].onmouseup = function () {
-			window['E002_WATERLEVEL_range_R' + it].onmousemove = function () {
-			};
-		};
-		window['E002_WATERLEVEL_stu_R' + it].onchange = function () {
-			if (window['E002_WATERLEVEL_stu_R' + it].value < 3500)
-				window['E002_WATERLEVEL_stu_R' + it].value = 3500;
-			if (window['E002_WATERLEVEL_stu_R' + it].value > 4000)
-				window['E002_WATERLEVEL_stu_R' + it].value = 4000;
-			window['E002_WATERLEVEL_range_R' + it].value = window['E002_WATERLEVEL_stu_R' + it].value;
-		};
-		window['E002_WATERLEVEL_range_R' + it].onclick = function () {
-			window['E002_WATERLEVEL_stu_R' + it].value = window['E002_WATERLEVEL_range_R' + it].value;
-		};
-
+		setsensor(['E002', 'WATERLEVEL', 'stu', 'R' + it], sensorvalue['WATERLEVEL'],
+			{ "CMD": "WATERLEVEL", "POS": "E002", "Action": "LOAD", "STU": "000000", "GROUP": "00" });
 	}
 }
 function TMRHCO2() {
 	let devarr = Object.keys(devtab).sort();
 	let ssall = '<tr><td colspan="3">溫溼度CO2</td></tr><tr><td>代號</td><td>功能</td><td>溫度(°C)</td><td>濕度(%)</td><td>CO2(ppm)</td></tr>';
 	let sensor = ['TEMPERATURE', 'RH', 'CO2'];
-	let sensorvalue = [
-		{
-			inc: 1,
-			add: 10,
-			stu: 270,
-			maxlength: 4,
-			min: 0,
-			max: 500,
-			div: 10
-		}, {
-			inc: 1,
-			add: 10,
-			stu: 50,
-			maxlength: 3,
-			min: 0,
-			max: 100,
-			div: 1
-		}, {
-			inc: 1,
-			add: 10,
-			stu: 700,
-			maxlength: 4,
-			min: 0,
-			max: 3000,
-			div: 1
-		}
-	];
 	for (let d = 0; d < devarr.length; d++) {
 		let pos = devarr[d];
 		let ss = '<tr><td>' + pos + '</td>'
@@ -349,28 +448,7 @@ function TMRHCO2() {
 		for (let k = 0; k < sensor.length; k++) {
 			if (sensor[k] in devtab[pos]) {
 				b = true;
-				let stunamearr = [pos, sensor[k], 'stu', 'R' + Object.keys(devtab[pos][sensor[k]])[0]];
-				let stuname = '';
-				ss += '<td>';
-				stunamearr[2] = 'sub5';
-				stuname = stunamearr.join('_');
-				ss += '<input type="button" value="-' + sensorvalue[k].add / sensorvalue[k].div + '" id="' + stuname + '">';
-				stunamearr[2] = 'dec';
-				stuname = stunamearr.join('_');
-				ss += '<input type="button" value="-' + sensorvalue[k].inc / sensorvalue[k].div + '" id="' + stuname + '">';
-				stunamearr[2] = 'stu';
-				stuname = stunamearr.join('_');
-				ss += '<input type="text" value="' + sensorvalue[k].stu / sensorvalue[k].div + '" maxlength="' + sensorvalue[k].maxlength + '" id="' + stuname + '">';
-				stunamearr[2] = 'inc';
-				stuname = stunamearr.join('_');
-				ss += '<input type="button" value="+' + sensorvalue[k].inc / sensorvalue[k].div + '" id="' + stuname + '">';
-				stunamearr[2] = 'add5';
-				stuname = stunamearr.join('_');
-				ss += '<input type="button" value="+' + sensorvalue[k].add / sensorvalue[k].div + '" id="' + stuname + '">';
-				stunamearr[2] = 'range';
-				stuname = stunamearr.join('_');
-				ss += '<input type="range" value="' + sensorvalue[k].stu + '" min="' + sensorvalue[k].min + '" max="' + sensorvalue[k].max + '" id="' + stuname + '">';
-				ss += '</td>';
+				ss += '<td>' + buildsensor([pos, sensor[k], 'stu', 'R' + Object.keys(devtab[pos][sensor[k]])[0]], sensorvalue[sensor[k]]) + '</td>';
 			} else {
 				ss += '<td></td>';
 			}
@@ -383,80 +461,14 @@ function TMRHCO2() {
 		let pos = devarr[d];
 		for (let k = 0; k < sensor.length; k++) {
 			if (sensor[k] in devtab[pos]) {
-				let stunamearr = [pos, sensor[k], 'stu', 'R' + Object.keys(devtab[pos][sensor[k]])[0]];
-				stunamearr[2] = 'sub5';
-				let stunamesub5 = stunamearr.join('_');
-				stunamearr[2] = 'dec';
-				let stunamedec = stunamearr.join('_');
-				stunamearr[2] = 'stu';
-				let stunamestu = stunamearr.join('_');
-				stunamearr[2] = 'inc';
-				let stunameinc = stunamearr.join('_');
-				stunamearr[2] = 'add5';
-				let stunameadd5 = stunamearr.join('_');
-				stunamearr[2] = 'range';
-				let stunamerange = stunamearr.join('_');
-				let sv = sensorvalue[k];
-				window[stunamesub5].onclick = function () {
-					window[stunamerange].stepDown(sv.add);
-					window[stunamestu].value = window[stunamerange].value / sv.div;
-				};
-				window[stunamedec].onclick = function () {
-					window[stunamerange].stepDown(sv.inc);
-					window[stunamestu].value = window[stunamerange].value / sv.div;
-				};
-				window[stunameinc].onclick = function () {
-					window[stunamerange].stepUp(sv.inc);
-					window[stunamestu].value = window[stunamerange].value / sv.div;
-				};
-				window[stunameadd5].onclick = function () {
-					window[stunamerange].stepUp(sv.add);
-					window[stunamestu].value = window[stunamerange].value / sv.div;
-				};
-				window[stunamerange].onmousedown = function () {
-					window[stunamerange].onmousemove = function () {
-						window[stunamestu].value = window[stunamerange].value / sv.div;
-					};
-				};
-				window[stunamerange].onmouseup = function () {
-					window[stunamerange].onmousemove = function () {
-					};
-				};
-				window[stunamestu].onchange = function () {
-					if (window[stunamestu].value < sv.min)
-						window[stunamestu].value = sv.min;
-					if (window[stunamestu].value > sv.max)
-						window[stunamestu].value = sv.max;
-					window[stunamerange].value = window[stunamestu].valu * sv.div;
-				};
-				window[stunamerange].onclick = function () {
-					window[stunamestu].value = window[stunamerange].value / sv.div;
-				};
+				setsensor([pos, sensor[k], 'stu', 'R' + Object.keys(devtab[pos][sensor[k]])[0]], sensorvalue[sensor[k]],
+					{ "CMD": sensor[k], "POS": pos, "Action": "LOAD", "STU": "000000", "GROUP": "00" });
 			}
 		}
 	}
 }
 function ECPH() {
 	let sensor = ['ELECTRONS', 'PH'];
-	let sensorvalue = [
-		{
-			inc: 1,
-			add: 10,
-			stu: 500,
-			maxlength: 4,
-			min: 0,
-			max: 2000,
-			div: 1
-		}, {
-			inc: 1,
-			add: 10,
-			stu: 70,
-			maxlength: 4,
-			min: 0,
-			max: 140,
-			div: 10
-		}
-	];
 	let ss = '<tr><td colspan="4">EC & pH</td></tr>';
 	for (let k = 0; k < sensor.length; k++) {
 		let keyarr = Object.keys(devtab.E002[sensor[k]]).sort();
@@ -464,16 +476,10 @@ function ECPH() {
 		ss += '<tr>';
 		ss += '<td>' + 'R' + it + '</td>';
 		ss += '<td>' + devtab.E002[sensor[k]][it].name + '</td>';
+		ss += '<td>' + buildsensor(['E002', sensor[k], 'stu', 'R' + it], sensorvalue[sensor[k]]) + '</td>';
 		ss += '<td>';
-		ss += '<input type="button" value="-' + sensorvalue[k].add / sensorvalue[k].div + '" id="E002_' + sensor[k] + '_sub5_R' + it + '">';
-		ss += '<input type="button" value="-' + sensorvalue[k].inc / sensorvalue[k].div + '" id="E002_' + sensor[k] + '_dec_R' + it + '">';
-		ss += '<input type="text" value="' + sensorvalue[k].stu / sensorvalue[k].div + '" maxlength="' + sensorvalue[k].maxlength + '" id="E002_' + sensor[k] + '_stu_R' + it + '">';
-		ss += '<input type="button" value="+' + sensorvalue[k].inc / sensorvalue[k].div + '" id="E002_' + sensor[k] + '_inc_R' + it + '">';
-		ss += '<input type="button" value="+' + sensorvalue[k].add / sensorvalue[k].div + '" id="E002_' + sensor[k] + '_add5_R' + it + '">';
-		ss += '<input type="range" value="' + sensorvalue[k].stu + '" min="' + sensorvalue[k].min + '" max="' + sensorvalue[k].max + '" id="E002_' + sensor[k] + '_range_R' + it + '">';
-		ss += '</td>';
-		ss += '<td>';
-		ss += '<input type="button" value="' + apicmd[sensor[k]].keyname + '" id="E002_' + sensor[k] + '_api_R' + it + '" style="width:70px;">';
+		let stuname = ['E002', sensor[k], 'api', 'R' + it].join('_');
+		ss += '<input type="button" value="' + apicmd[sensor[k]].keyname + '" id="' + stuname + '" style="width:70px;">';
 		ss += '</td>';
 		ss += '</tr>';
 	}
@@ -481,45 +487,13 @@ function ECPH() {
 	for (let k = 0; k < sensor.length; k++) {
 		let keyarr = Object.keys(devtab.E002[sensor[k]]).sort();
 		let it = keyarr[0];
-		let keyname = sensor[k];
-		let sv = sensorvalue[k];
-		window['E002_' + keyname + '_sub5_R' + it].onclick = function () {
-			window['E002_' + keyname + '_range_R' + it].stepDown(sv.add);
-			window['E002_' + keyname + '_stu_R' + it].value = window['E002_' + keyname + '_range_R' + it].value / sv.div;
-		};
-		window['E002_' + keyname + '_dec_R' + it].onclick = function () {
-			window['E002_' + keyname + '_range_R' + it].stepDown(sv.inc);
-			window['E002_' + keyname + '_stu_R' + it].value = window['E002_' + keyname + '_range_R' + it].value / sv.div;
-		};
-		window['E002_' + keyname + '_inc_R' + it].onclick = function () {
-			window['E002_' + keyname + '_range_R' + it].stepUp(sv.inc);
-			window['E002_' + keyname + '_stu_R' + it].value = window['E002_' + keyname + '_range_R' + it].value / sv.div;
-		};
-		window['E002_' + keyname + '_add5_R' + it].onclick = function () {
-			window['E002_' + keyname + '_range_R' + it].stepUp(sv.add);
-			window['E002_' + keyname + '_stu_R' + it].value = window['E002_' + keyname + '_range_R' + it].value / sv.div;
-		};
-		window['E002_' + keyname + '_range_R' + it].onmousedown = function () {
-			window['E002_' + keyname + '_range_R' + it].onmousemove = function () {
-				window['E002_' + keyname + '_stu_R' + it].value = window['E002_' + keyname + '_range_R' + it].value / sv.div;
-			};
-		};
-		window['E002_' + keyname + '_range_R' + it].onmouseup = function () {
-			window['E002_' + keyname + '_range_R' + it].onmousemove = function () {
-			};
-		};
-		window['E002_' + keyname + '_stu_R' + it].onchange = function () {
-			if (window['E002_' + keyname + '_stu_R' + it].value < sv.min)
-				window['E002_' + keyname + '_stu_R' + it].value = sv.min;
-			if (window['E002_' + keyname + '_stu_R' + it].value > sv.max)
-				window['E002_' + keyname + '_stu_R' + it].value = sv.max;
-			window['E002_' + keyname + '_range_R' + it].value = window['E002_' + keyname + '_stu_R' + it].value * sv.div;
-		};
-		window['E002_' + keyname + '_range_R' + it].onclick = function () {
-			window['E002_' + keyname + '_stu_R' + it].value = window['E002_' + keyname + '_range_R' + it].value / sv.div;
-		};
+
+		setsensor(['E002', sensor[k], 'stu', 'R' + it], sensorvalue[sensor[k]],
+			{ "CMD": sensor[k], "POS": 'E002', "Action": "LOAD", "STU": "000000", "GROUP": "00" });
+
+		let stuname = ['E002', sensor[k], 'api', 'R' + it].join('_');
 		let acc = [apicmd[sensor[k]].cmd];
-		window['E002_' + keyname + '_api_R' + it].onclick = function () {
+		window[stuname].onclick = function () {
 			sendaapicmd(acc);
 		};
 
@@ -754,7 +728,7 @@ function KEYPAD1() {
 
 		stunamearr[2] = 'stu';
 		stuname = stunamearr.join('_');
-		window[stuname].style.backgroundColor = '#0f0';
+		window[stuname].style.backgroundColor = '#fff';
 		window[stuname].innerHTML = '關';
 
 
@@ -770,10 +744,10 @@ function KEYPAD1() {
 			stunamearr[2] = 'stu';
 			stuname = stunamearr.join('_');
 			if (kk.stu) {
-				window[stuname].style.backgroundColor = '#f00';
+				window[stuname].style.backgroundColor = '#0f0';
 				window[stuname].innerHTML = '開';
 			} else {
-				window[stuname].style.backgroundColor = '#0f0';
+				window[stuname].style.backgroundColor = '#fff';
 				window[stuname].innerHTML = '關';
 			}
 		};
@@ -781,9 +755,12 @@ function KEYPAD1() {
 }
 function checkfunc() {
 	let ck = ["loadcheck", "typecheck"];
-	let ss = '<tr><td colspan="4">強制動作按鈕</td></tr>';
+	let ss = '<tr><td colspan="9">強制動作按鈕</td></tr>';
 	for (let k = 0; k < ck.length; k++) {
 		ss += '<tr>';
+		for (let i = 0; i < 5; i++) {
+			ss += '<td id="CHECK_' + ck[k] + '_stu' + i + '" style="width:10px;"></td>';
+		}
 		ss += '<td>';
 		ss += '<input type="button" value="' + apicmd[ck[k]].keyname + '" id="CHECK_' + ck[k] + '_url" style="width:70px;">';
 		ss += '</td>';
@@ -794,22 +771,30 @@ function checkfunc() {
 	for (let k = 0; k < ck.length; k++) {
 		let keyname = ck[k];
 		let acc = apicmd[ck[k]].url;
-		window['CHECK_' + ck[k] + '_url'].onclick = function () {
-			sendurl(acc);
+		window['CHECK_' + keyname + '_url'].onclick = function () {
+			generator(function* () {
+				for (let i = 0; i < 5; i++) {
+					window['CHECK_' + ck[k] + '_stu' + i].style.backgroundColor = '#fff';
+				}
+				for (let i = 0; i < 5; i++) {
+					yield {
+						nextfunc: function (...args) {
+							setTimeout(...args);
+						},
+						argsfront: [],
+						cbfunc: function () { },
+						argsback: [1000]
+					};
+					window['CHECK_' + ck[k] + '_stu' + i].style.backgroundColor = '#0f0';
+					sendurl(acc);
+				}
+			});
 		};
 	}
 }
-window.onload = function () {
-	let getarr = url2array();
-	if (typeof getarr.UUID == 'undefined')
-		UUID.value = apicmd.UUID;
-	else
-		UUID.value = getarr.UUID;
 
-	setgetUUID.onclick = function () {
-		array2url({ 'UUID': UUID.value });
-	};
-
+var isinit = false;
+function init() {
 	E002PUMP();
 	E002WATERLEVEL();
 	TMRHCO2();
@@ -821,4 +806,14 @@ window.onload = function () {
 	PIR();
 	KEYPAD1();
 	checkfunc();
+}
+
+window.onload = function () {
+	let obj = { "CMD": "UUID", "POS": "E002", "Action": "LOAD", "STU": "000000", "GROUP": "00" };
+	socket.emit('client_data', obj);
+	// setgetUUID.onclick = function () {
+	// 	let obj = { "CMD": "UUID", "POS": "E002", "Action": "SET", "STU": "000000", "GROUP": "00" };
+	// 	obj.STU = UUID.value;
+	// 	socket.emit('client_data', obj);
+	// };
 }

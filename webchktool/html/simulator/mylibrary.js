@@ -57,3 +57,20 @@ function array2url(arr) {
 	var url = location.href.split('?')[0];
 	window.history.pushState({}, 0, url + strUrl + location.hash);
 }
+
+function generator(genfunc) {
+    var g = genfunc();
+
+    function next() {
+        let res = g.next();
+        if (!res.done) {
+            if (typeof res.value.argsfront != 'object') res.value.argsfront = [];
+            if (typeof res.value.argsback != 'object') res.value.argsback = [];
+            res.value.nextfunc(...res.value.argsfront, function (...args) {
+                res.value.cbfunc(...args);
+                next();
+            }, ...res.value.argsback);
+        }
+    }
+    next();
+}

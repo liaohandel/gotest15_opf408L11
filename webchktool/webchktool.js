@@ -14,6 +14,10 @@ server.listen(port, function () {
 		setInterval(function () {
 			pdbuffer.eventcall('rxbuff_event');
 		}, 50);
+		pdbuffer.initswreg();
+		setInterval(function () {
+			pdbuffer.eventcall('swreg_event');
+		}, 1000);
 	});
 });
 
