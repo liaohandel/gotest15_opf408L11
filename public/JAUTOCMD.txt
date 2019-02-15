@@ -2280,7 +2280,9 @@
 					"INDOORTM4":{"POS":"H004","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00","Value":0,"count":0},
 					"INDOORTM5":{"POS":"H005","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00","Value":0,"count":0},
 					"INDOORTM6":{"POS":"H006","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00","Value":0,"count":0},
-					"OUTDOORTM":{"POS":"H007","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00","Value":0,"count":0}
+					"OUTDOORTM":{"POS":"H007","CMD":"TEMPERATURE","STU":"A10000","GROUP":"00","Value":0,"count":0},
+					"WATERLEVEL6":{"POS":"E002","CMD":"WATERLEVEL","STU":"760000","GROUP":"00","Value":0,"count":0},
+					"WATERLEVEL7":{"POS":"E002","CMD":"WATERLEVEL","STU":"770000","GROUP":"00","Value":0,"count":0}
 				},
 				"CHKVALUE":{
 					"WAIT1":0,
