@@ -2522,7 +2522,7 @@ function devhotdrvchk(ljob,devcmd){
 	let chkvalue=0;
 	let typecmd ="";
 	
-	if(devcmd=="ON")then{
+	if(devcmd=="ON") {
 		waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6,"LOAD");
 				
 		outksspos = ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.POS;
