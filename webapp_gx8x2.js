@@ -893,7 +893,7 @@ app.use('/REGCMD', regcmdRoutes);
 
 
 app.get('/LED', function (req, res) {
-	console.log(req.query);	
+	console.log('LED' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1075,7 +1075,7 @@ app.get('/LED', function (req, res) {
 
 //=======================================================
 app.get('/PUMP', function (req, res) {
-  console.log(req.query);	
+	console.log('PUMP' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1175,7 +1175,7 @@ app.get('/PUMP', function (req, res) {
 
 //=====================================================
 app.get('/AIRFAN', function (req, res) {
-	console.log(req.query);	
+	console.log('AIRFAN' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1271,7 +1271,7 @@ app.get('/AIRFAN', function (req, res) {
 })
 //=====================================================
 app.get('/GROUP', function (req, res) {
-	console.log(req.query);	
+	console.log('GROUP' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1336,7 +1336,7 @@ app.get('/GROUP', function (req, res) {
 
 //=====================================================
 app.get('/UV', function (req, res) {
-	console.log(req.query);	
+	console.log('UV' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1418,7 +1418,7 @@ app.get('/UV', function (req, res) {
 
 //=====================================================
 app.get('/CO2', function (req, res) {
-	console.log(req.query);	
+	console.log('CO2' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1476,7 +1476,7 @@ app.get('/CO2', function (req, res) {
 
 //=====================================================
 app.get('/TEMPERATURE', function (req, res) {
-	console.log(req.query);	
+	console.log('TEMPERATURE' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1531,7 +1531,7 @@ app.get('/TEMPERATURE', function (req, res) {
 })
 //=====================================================
 app.get('/RH', function (req, res) {
-	console.log(req.query);	
+	console.log('RH' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1585,7 +1585,7 @@ app.get('/RH', function (req, res) {
 });
 //=====================================================
 app.get('/WATERLEVEL', function (req, res) {
-	console.log(req.query);	
+	console.log('WATERLEVEL' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1639,7 +1639,7 @@ app.get('/WATERLEVEL', function (req, res) {
 });
 //=====================================================
 app.get('/ELECTRONS', function (req, res) {
-	console.log(req.query);	
+	console.log('ELECTRONS' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1698,7 +1698,7 @@ app.get('/ELECTRONS', function (req, res) {
 })
 //=====================================================
 app.get('/PH', function (req, res) {
-	console.log(req.query);	
+	console.log('PH' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1759,7 +1759,7 @@ app.get('/PH', function (req, res) {
 })
 //=====================================================
 app.get('/DeviceList', function (req, res) {
-  console.log(req.query);	
+	console.log('DeviceList' + JSON.stringify(req.query));	
   let cmd = req.query.Action
   let uuid = req.query.UUID
   let pos = req.query.POS
@@ -1831,7 +1831,7 @@ app.get('/DeviceList', function (req, res) {
 
 //=====================================================
 app.get('/PWM', function (req, res) {
-	console.log(req.query);	
+	console.log('PWM' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1904,7 +1904,7 @@ app.get('/PWM', function (req, res) {
 
 //=====================================================
 app.get('/AUTO', function (req, res) {
-	console.log(req.query);	
+	console.log('AUTO' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
