@@ -2590,7 +2590,7 @@ function autotmloop(ljob){
 				indoortmlist.push(ljob.CHKLOOP.SENSORPOS.INDOORTM5.Value);
 				indoortmlist.push(ljob.CHKLOOP.SENSORPOS.INDOORTM6.Value);
 				
-				ljob.CHKLOOP.SENSORPOS.OUTDOORTM.Value =  pdbuffer.pdjobj.PDDATA.Devtab.E002.C77.chtab["A1"].stu;
+				ljob.CHKLOOP.SENSORPOS.OUTDOORTM.Value =  pdbuffer.pdjobj.PDDATA.Devtab.H007.C77.chtab["A1"].stu;
 				outdoortmlist.push(ljob.CHKLOOP.SENSORPOS.OUTDOORTM.Value);
 				
 				ljob.CHKLOOP.CHKVALUE.INSTDATALIST=jobjcopy(indoortmlist);
