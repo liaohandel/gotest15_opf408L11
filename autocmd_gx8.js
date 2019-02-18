@@ -1,4 +1,4 @@
-const vermess = "[opf408L8 ] start autocmd_gx8 20181208x1 ..."
+const vermess = "[opf408L8 ] start autocmd_gx8 20190218x1 ..."
 console.log(vermess);
 
 var EventEmitter = require('events').EventEmitter; 
