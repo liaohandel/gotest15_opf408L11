@@ -2526,7 +2526,7 @@ function devledlevauto(ljob){
 function devhotdrvchk(ljob,devcmd){
 	let chkvalue=0;
 	let typecmd ="";
-	
+	console.log('devhotdrvchk');
 	if(devcmd=="ON") {
 		waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6,"LOAD");
 				
@@ -2535,8 +2535,8 @@ function devhotdrvchk(ljob,devcmd){
 		typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
 		typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.STU.substr(0,2);
 		chkvalue = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;//### lev scan load over 3 time is ready
-		
-		if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.Value >= 10){//chekc box1 is full
+		console.log('devhotdrvchk = WATERLEVEL6 '+chkvalue);
+		if(chkvalue >= 10){//chekc box1 is full
 			//water devhot is ready 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
 		}else{
