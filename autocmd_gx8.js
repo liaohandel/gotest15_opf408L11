@@ -28,6 +28,7 @@ var ipccargs = {
         timeout: 1000 //response timeout 
     }
 };
+var exec = require('child_process').exec;
 
 var pdbuffer  = require('./pdbuffer_v02.js');
 var cmdcode = require("./handelrs485x2");
@@ -888,10 +889,14 @@ function f3run(akey,cmd){
 				ssipcam108 = "http://opcom:88888888@192.168.5.108:8008/cgi/ptz_set?Channel=1&Group=PTZCtrlInfo&AutoScan=1"
 				ssipcam109 = "http://opcom:88888888@192.168.5.109:8009/cgi/ptz_set?Channel=1&Group=PTZCtrlInfo&AutoScan=1"
 					//ipcam auto turn run command 
-				client.get(ssipcam106, function (data, response) {console.log("ipcam 106 ok ...");}).on("error", function(err) {console.log("err for client");});
-				client.get(ssipcam107, function (data, response) {console.log("ipcam 107 ok ...");}).on("error", function(err) {console.log("err for client");});
-				client.get(ssipcam108, function (data, response) {console.log("ipcam 108 ok ...");}).on("error", function(err) {console.log("err for client");});
-				client.get(ssipcam109, function (data, response) {console.log("ipcam 109 ok ...");}).on("error", function(err) {console.log("err for client");});
+				// client.get(ssipcam106, function (data, response) {console.log("ipcam 106 ok ...");}).on("error", function(err) {console.log("err for client");});
+				// client.get(ssipcam107, function (data, response) {console.log("ipcam 107 ok ...");}).on("error", function(err) {console.log("err for client");});
+				// client.get(ssipcam108, function (data, response) {console.log("ipcam 108 ok ...");}).on("error", function(err) {console.log("err for client");});
+				// client.get(ssipcam109, function (data, response) {console.log("ipcam 109 ok ...");}).on("error", function(err) {console.log("err for client");});
+				exec('wget -O- -q "' + ssipcam106 + '"', function (err, stdout, stderr) { console.log("ipcam 106 ok ..."); });
+				exec('wget -O- -q "' + ssipcam107 + '"', function (err, stdout, stderr) { console.log("ipcam 107 ok ..."); });
+				exec('wget -O- -q "' + ssipcam108 + '"', function (err, stdout, stderr) { console.log("ipcam 108 ok ..."); });
+				exec('wget -O- -q "' + ssipcam109 + '"', function (err, stdout, stderr) { console.log("ipcam 109 ok ..."); });
 			};
             break;
         case "DOSE":
@@ -2590,7 +2595,7 @@ function autotmloop(ljob){
 				indoortmlist.push(ljob.CHKLOOP.SENSORPOS.INDOORTM5.Value);
 				indoortmlist.push(ljob.CHKLOOP.SENSORPOS.INDOORTM6.Value);
 				
-				ljob.CHKLOOP.SENSORPOS.OUTDOORTM.Value =  pdbuffer.pdjobj.PDDATA.Devtab.H007.C77.chtab["A1"].stu;
+				ljob.CHKLOOP.SENSORPOS.OUTDOORTM.Value =  pdbuffer.pdjobj.PDDATA.Devtab.E002.C77.chtab["A1"].stu;
 				outdoortmlist.push(ljob.CHKLOOP.SENSORPOS.OUTDOORTM.Value);
 				
 				ljob.CHKLOOP.CHKVALUE.INSTDATALIST=jobjcopy(indoortmlist);

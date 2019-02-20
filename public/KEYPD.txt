@@ -173,21 +173,21 @@
 					{"CMD":"REGCMD/AUTOSETUP","POS":"autopumpmotoloop","Action":"AUTO","STU":"03","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"ECDOSELOOP","Action":"AUTO","STU":"03","GROUP":"00" },
 					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"9C003C5460","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"510000","GROUP":"00" }
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"4F0000","GROUP":"00" }
 					],
 				"ON": [
 					{"CMD":"REGCMD/AUTOSETUP","POS":"PUMP","Action":"AUTO","STU":"00","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"autopumpmotoloop","Action":"AUTO","STU":"03","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"ECDOSELOOP","Action":"AUTO","STU":"03","GROUP":"00" },
 					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"9C003C5460","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"510000","GROUP":"00" }
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"4F0000","GROUP":"00" }
 					],
 				"OFF": [
 					{"CMD":"REGCMD/AUTOSETUP","POS":"PUMP","Action":"AUTO","STU":"00","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"autopumpmotoloop","Action":"AUTO","STU":"02","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"ECDOSELOOP","Action":"AUTO","STU":"02","GROUP":"00" },
 					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"9C003C5460","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"510000","GROUP":"00" }
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"4F0000","GROUP":"00" }
 					]
 			}
 		  },	  
@@ -455,15 +455,15 @@
 			"EVENT": {
 			  "AUTO": [
 				{"CMD":"REGCMD/AUTOSETUP","POS":"OPWAVE","Action":"AUTO","STU":"01","GROUP":"00" },
-				{"CMD":"LED","POS":"G010","Action":"OFF","STU":"200000","GROUP":"00" }
+				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"540000","GROUP":"00" }
 			  ],
 			  "ON": [
 				{"CMD":"REGCMD/AUTOSETUP","POS":"OPWAVE","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"LED","POS":"G010","Action":"ON","STU":"200000","GROUP":"00" }
+				{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"540000","GROUP":"00" }
 				],
 			  "OFF": [
 				{"CMD":"REGCMD/AUTOSETUP","POS":"OPWAVE","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"LED","POS":"G010","Action":"OFF","STU":"200000","GROUP":"00" }]
+				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"540000","GROUP":"00" }]
 			}
 		},
 		"K020": {
