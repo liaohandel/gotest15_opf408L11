@@ -1,4 +1,4 @@
-const vermess = "[opf408L8 ] start autocmd_gx8 20181208x1 ..."
+const vermess = "[opf408L8 ] start autocmd_gx8 20190218x1 ..."
 console.log(vermess);
 
 var EventEmitter = require('events').EventEmitter; 
@@ -875,7 +875,7 @@ function f3run(akey,cmd){
 				
 			};
 			if(cmd == "schcheck"){
-				console.log("["+akey+"] schloop");
+				console.log(">>["+akey+"] schloop");
 				chkflag = scan_schedule_chkloop(sch_autojob[akey].chkloop);
 				if(chkflag == 1){
 					device_auto_client(sch_autojob[akey].devpos,"ON");
@@ -1882,6 +1882,8 @@ function alarmchk_load(alarmjob){
 	let achkmode =0 ;
 	let aapos ="0000";
 	let devlist =[];
+	let failupdate_alarmcodeurl=""
+	let failupdateipc_alarmcodeurl=""
 	
 	//let chkval = jobjcopy( loadstudata(akey));//clear checek value buffer
 	let chkval = jobjcopy(alarm_loadstudata(alarmjob.SENSORPOS));
@@ -1915,19 +1917,48 @@ function alarmchk_load(alarmjob){
 						//&POS={POS}&Type={Type}&value={value}					
 		
 			update_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS="+aapos+"&Type="+alarmjob.EPOS[dd].CMD+"&value="+alarmjob.AMCODE+"&Data="+chkval.vmax;
-						console.log(">>alarm update to web DB =>"+update_alarmcodeurl);
-						
-		if(global.weblinkflag == 0){
-						client.get(update_alarmcodeurl,cargs, function (data, response) {
-							console.log("alarm code active update to webDB   ok ...");
-						}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
-		}			
+						console.log(">>alarm update to web DB =>"+update_alarmcodeurl);			
+						if(global.weblinkflag == 0){
+										client.get(update_alarmcodeurl,cargs, function (data, response) {
+											console.log("alarm code active update to webDB   ok ...");
+										}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
+						}			
 						
 			updateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS="+aapos+"&Type="+alarmjob.EPOS[dd].CMD+"&value="+alarmjob.AMCODE+"&Data="+chkval.vmax;
 						console.log(">>alarm update to web DB =>"+updateipc_alarmcodeurl);
 						client.get(updateipc_alarmcodeurl,ipccargs, function (data, response) {
 							console.log("alarm code active update to webDB   ok ...");
 						}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+						
+						if(alarmjob.AMCODE == "1012"){
+						}else if (alarmjob.AMCODE == "1012"){ //AC ERR  POS="C00A"
+		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS=C00A"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS=C00A"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+						}else if (alarmjob.AMCODE == "2006"){ //boxA ERR  POS="DOSEA"
+		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS=DOSEA"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS=DOSEA"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+						}else if (alarmjob.AMCODE == "2008"){ //boxB ERR  POS="DOSEB"
+		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS=DOSEB"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS=DOSEB"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+						}else if (alarmjob.AMCODE == "2010"){ //boxC ERR  POS="BOSEC"
+		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS=DOSEC"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS=DOSEC"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+						}else if (alarmjob.AMCODE == "2012"){ //boxD ERR  POS="DOCED"
+		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS=DOSED"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS=DOSED"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+						}			
+						if("Alarm" in failupdate_alarmcodeurl){
+							if(global.weblinkflag == 0){
+											client.get(failupdate_alarmcodeurl,cargs, function (data, response) {
+												console.log("alarm code active update to webDB   ok ...");
+											}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
+							}
+						}	
+						if("Alarm" in failupdateipc_alarmcodeurl){
+							client.get(failupdateipc_alarmcodeurl,ipccargs, function (data, response) {
+								console.log("alarm code active update to webDB   ok ...");
+							}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});		
+						}
 						
 		// updateipc_alarmcodeurl= "http://192.168.5.250/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS="+aapos+"&Type="+alarmjob.EPOS[dd].CMD+"&value="+alarmjob.AMCODE+"&Data="+chkval.vmax;
 						// console.log(">>alarm update to web DB =>"+updateipc_alarmcodeurl);
@@ -1937,6 +1968,7 @@ function alarmchk_load(alarmjob){
 						
 					}
 				}
+				
 			}else{
 				if("ON" in alarmjob.EPOS[dd].ACTION){
 					if(alarmjob.EPOS[dd].ACTION.ON == alarmjob.CHKMODE){
@@ -2223,13 +2255,13 @@ function GOBOX2LOOP(ljob){
 						ljob.SENSOR_CONTROL = 8;			
 					}else{
 						water_client_trige(ljob.CHKLOOP.DEVPOS.M2,"OFF"); //check time > 60min ###
-						water_client_trige(ljob.CHKLOOP.DEVPOS.ADDWATEROFF,"AUTO");	//addwater Key OFF ###	
+						//water_client_trige(ljob.CHKLOOP.DEVPOS.ADDWATEROFF,"AUTO");	//addwater Key OFF ###	20190220 modify
 						ljob.SENSOR_CONTROL = 0;						
 					}					
 					//ljob.SENSOR_CONTROL = 9;
 				}else{
 					water_client_trige(ljob.CHKLOOP.DEVPOS.M2,"OFF"); //check box2 is full
-					water_client_trige(ljob.CHKLOOP.DEVPOS.ADDWATEROFF,"AUTO");	//addwater Key OFF
+					//water_client_trige(ljob.CHKLOOP.DEVPOS.ADDWATEROFF,"AUTO");	//addwater Key OFF ### 20190220 modify
 					ljob.SENSOR_CONTROL = 0;
 				}
 			}else{
