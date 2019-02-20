@@ -1932,29 +1932,29 @@ function alarmchk_load(alarmjob){
 						
 						if(alarmjob.AMCODE == "1012"){
 						}else if (alarmjob.AMCODE == "1012"){ //AC ERR  POS="C00A"
-		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS=C00A"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
-		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS=C00A"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=C00A"+"&Type=AIRFAN&value=1012&Data=0";
+		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=C00A"+"&Type=AIRFAN&value=1012&Data=0";
 						}else if (alarmjob.AMCODE == "2006"){ //boxA ERR  POS="DOSEA"
-		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS=DOSEA"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
-		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS=DOSEA"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSEA"+"&Type=PUMP&value=2006&Data=0";
+		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSEA"+"&Type=PUMP&value=2006&Data=0";
 						}else if (alarmjob.AMCODE == "2008"){ //boxB ERR  POS="DOSEB"
-		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS=DOSEB"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
-		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS=DOSEB"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSEB"+"&Type=PUMP&value=2008&Data=0";
+		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSEB"+"&Type=PUMP&value=2008&Data=0";
 						}else if (alarmjob.AMCODE == "2010"){ //boxC ERR  POS="BOSEC"
-		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS=DOSEC"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
-		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS=DOSEC"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSEC"+"&Type=PUMP&value=2010&Data=0";
+		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSEC"+"&Type=PUMP&value=2010&Data=0";
 						}else if (alarmjob.AMCODE == "2012"){ //boxD ERR  POS="DOCED"
-		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS=DOSED"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
-		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS=DOSED"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSED"+"&Type=PUMP&value=2012&Data=0";
+		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSED"+"&Type=PUMP&value=2012&Data=0";
 						}			
-						if("Alarm" in failupdate_alarmcodeurl){
+						if(failupdate_alarmcodeurl.length > 4){
 							if(global.weblinkflag == 0){
 											client.get(failupdate_alarmcodeurl,cargs, function (data, response) {
 												console.log("alarm code active update to webDB   ok ...");
 											}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
 							}
 						}	
-						if("Alarm" in failupdateipc_alarmcodeurl){
+						if(failupdateipc_alarmcodeurl.length > 4){
 							client.get(failupdateipc_alarmcodeurl,ipccargs, function (data, response) {
 								console.log("alarm code active update to webDB   ok ...");
 							}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});		
