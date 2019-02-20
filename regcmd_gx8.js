@@ -103,7 +103,6 @@ function keylistapicall(kapilist){
 				client.get(updatekeysstuatusurl220,ipccargs, function (data, response) {
 					console.log("keypad active update to webui   ok ...");
 				}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
-				
 			};
 		}
 	}
