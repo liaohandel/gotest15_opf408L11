@@ -28,6 +28,7 @@ var ipccargs = {
         timeout: 1000 //response timeout 
     }
 };
+var exec = require('child_process').exec;
 
 var pdbuffer  = require('./pdbuffer_v02.js');
 var cmdcode = require("./handelrs485x2");
@@ -888,10 +889,14 @@ function f3run(akey,cmd){
 				ssipcam108 = "http://opcom:88888888@192.168.5.108:8008/cgi/ptz_set?Channel=1&Group=PTZCtrlInfo&AutoScan=1"
 				ssipcam109 = "http://opcom:88888888@192.168.5.109:8009/cgi/ptz_set?Channel=1&Group=PTZCtrlInfo&AutoScan=1"
 					//ipcam auto turn run command 
-				client.get(ssipcam106, function (data, response) {console.log("ipcam 106 ok ...");}).on("error", function(err) {console.log("err for client");});
-				client.get(ssipcam107, function (data, response) {console.log("ipcam 107 ok ...");}).on("error", function(err) {console.log("err for client");});
-				client.get(ssipcam108, function (data, response) {console.log("ipcam 108 ok ...");}).on("error", function(err) {console.log("err for client");});
-				client.get(ssipcam109, function (data, response) {console.log("ipcam 109 ok ...");}).on("error", function(err) {console.log("err for client");});
+				// client.get(ssipcam106, function (data, response) {console.log("ipcam 106 ok ...");}).on("error", function(err) {console.log("err for client");});
+				// client.get(ssipcam107, function (data, response) {console.log("ipcam 107 ok ...");}).on("error", function(err) {console.log("err for client");});
+				// client.get(ssipcam108, function (data, response) {console.log("ipcam 108 ok ...");}).on("error", function(err) {console.log("err for client");});
+				// client.get(ssipcam109, function (data, response) {console.log("ipcam 109 ok ...");}).on("error", function(err) {console.log("err for client");});
+				exec('wget -O- -q "' + ssipcam106 + '"', function (err, stdout, stderr) { console.log("ipcam 106 ok ..."); });
+				exec('wget -O- -q "' + ssipcam107 + '"', function (err, stdout, stderr) { console.log("ipcam 107 ok ..."); });
+				exec('wget -O- -q "' + ssipcam108 + '"', function (err, stdout, stderr) { console.log("ipcam 108 ok ..."); });
+				exec('wget -O- -q "' + ssipcam109 + '"', function (err, stdout, stderr) { console.log("ipcam 109 ok ..."); });
 			};
             break;
         case "DOSE":
@@ -1883,10 +1888,12 @@ function alarmchk_load(alarmjob){
 	//let chkval = jobjcopy( loadstudata(akey));//clear checek value buffer
 	let chkval = jobjcopy(alarm_loadstudata(alarmjob.SENSORPOS));
 	
+	console.log(">>chk alarm code ="+alarmjob.AMCODE);
+	console.log(">>chk alarm code chkval ="+chkval.vmax);						
 	if(chkval.vmax == 0)return;//device link ERR !
 	
-	if( chkval.vmax >= alarmjob.MODETRIG.high)achkmode = 3;
-	if((chkval.vmax > alarmjob.MODETRIG.low) && (chkval.vmax < alarmjob.MODETRIG.high) )achkmode = 2;
+	if( chkval.vmax > alarmjob.MODETRIG.high)achkmode = 3;
+	if((chkval.vmax > alarmjob.MODETRIG.low) && (chkval.vmax <= alarmjob.MODETRIG.high) )achkmode = 2;
 	if( chkval.vmax <= alarmjob.MODETRIG.low)achkmode = 1;
 	
 	if(alarmjob.CHKMODE == achkmode){
@@ -1925,31 +1932,32 @@ function alarmchk_load(alarmjob){
 							console.log("alarm code active update to webDB   ok ...");
 						}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 						
-						if(alarmjob.AMCODE == "1012"){
-						}else if (alarmjob.AMCODE == "1012"){ //AC ERR  POS="C00A"
-		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS=C00A"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
-		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS=C00A"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+						if (alarmjob.AMCODE == "1012"){ //AC ERR  POS="C00A"
+		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=C00A"+"&Type=AIRFAN&value=1012&Data=0";
+		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=C00A"+"&Type=AIRFAN&value=1012&Data=0";
 						}else if (alarmjob.AMCODE == "2006"){ //boxA ERR  POS="DOSEA"
-		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS=DOSEA"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
-		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS=DOSEA"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSEA"+"&Type=PUMP&value=2006&Data=0";
+		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSEA"+"&Type=PUMP&value=2006&Data=0";
 						}else if (alarmjob.AMCODE == "2008"){ //boxB ERR  POS="DOSEB"
-		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS=DOSEB"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
-		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS=DOSEB"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSEB"+"&Type=PUMP&value=2008&Data=0";
+		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSEB"+"&Type=PUMP&value=2008&Data=0";
 						}else if (alarmjob.AMCODE == "2010"){ //boxC ERR  POS="BOSEC"
-		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS=DOSEC"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
-		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS=DOSEC"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSEC"+"&Type=PUMP&value=2010&Data=0";
+		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSEC"+"&Type=PUMP&value=2010&Data=0";
 						}else if (alarmjob.AMCODE == "2012"){ //boxD ERR  POS="DOCED"
-		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS=DOSED"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
-		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS=DOSED"+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSED"+"&Type=PUMP&value=2012&Data=0";
+		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSED"+"&Type=PUMP&value=2012&Data=0";
 						}			
-						if("Alarm" in failupdate_alarmcodeurl){
+						console.log("alarm code url" + failupdate_alarmcodeurl);
+						console.log("alarm code url" + failupdateipc_alarmcodeurl);
+						if(failupdate_alarmcodeurl.length > 4){
 							if(global.weblinkflag == 0){
 											client.get(failupdate_alarmcodeurl,cargs, function (data, response) {
 												console.log("alarm code active update to webDB   ok ...");
 											}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
 							}
 						}	
-						if("Alarm" in failupdateipc_alarmcodeurl){
+						if(failupdateipc_alarmcodeurl.length > 4){
 							client.get(failupdateipc_alarmcodeurl,ipccargs, function (data, response) {
 								console.log("alarm code active update to webDB   ok ...");
 							}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});		
@@ -2622,7 +2630,7 @@ function autotmloop(ljob){
 				indoortmlist.push(ljob.CHKLOOP.SENSORPOS.INDOORTM5.Value);
 				indoortmlist.push(ljob.CHKLOOP.SENSORPOS.INDOORTM6.Value);
 				
-				ljob.CHKLOOP.SENSORPOS.OUTDOORTM.Value =  pdbuffer.pdjobj.PDDATA.Devtab.H007.C77.chtab["A1"].stu;
+				ljob.CHKLOOP.SENSORPOS.OUTDOORTM.Value =  pdbuffer.pdjobj.PDDATA.Devtab.E002.C77.chtab["A1"].stu;
 				outdoortmlist.push(ljob.CHKLOOP.SENSORPOS.OUTDOORTM.Value);
 				
 				ljob.CHKLOOP.CHKVALUE.INSTDATALIST=jobjcopy(indoortmlist);

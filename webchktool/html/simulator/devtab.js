@@ -63,6 +63,12 @@ var devtab = {
 		},
 		"PH": {
 			"93": { "name": "酸鹼值", "stu": 0 }
+		},
+		"TEMPERATURE": {
+			"A1": { "name": " ", "stu": 0 }
+		},
+		"RH": {
+			"92": { "name": " ", "stu": 0 }
 		}
 	},
 	"E003": {

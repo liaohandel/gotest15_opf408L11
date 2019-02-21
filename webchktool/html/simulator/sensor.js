@@ -20,11 +20,11 @@ var sensorvalue = {
 	'RH': {
 		inc: 1,
 		add: 10,
-		stu: 50,
+		stu: 500,
 		maxlength: 3,
 		min: 1,
-		max: 100,
-		div: 1
+		max: 1000,
+		div: 10
 	},
 	'CO2': {
 		inc: 1,
