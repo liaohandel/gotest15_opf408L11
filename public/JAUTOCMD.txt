@@ -1223,7 +1223,7 @@
 			"SENSORPOS": [
 			  {"POS": "E002","CMD": "WATERLEVEL","STU": "710000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":4,"high":8},
+			"MODETRIG":{"low":8,"high":10},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1233,7 +1233,7 @@
 			"SENSORPOS": [
 			  {"POS": "E002","CMD": "WATERLEVEL","STU": "710000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":0,"high":4},
+			"MODETRIG":{"low":0,"high":8},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1243,17 +1243,17 @@
 			"SENSORPOS": [
 			  {"POS": "E002","CMD": "WATERLEVEL","STU": "720000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":4,"high":8},
+			"MODETRIG":{"low":8,"high":10},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
 		"am2008":{
 			"STATU":1,"AMCODE":"2008",
-			"EPOS": [{"POS":"0000","CMD":"WATERLEVEL","STU":"720000","GROUP":"00","ACTION":{"LINK":0}}],
+			"EPOS": [{"POS":"0000","CMD":"WATERLEVEL","STU":"720000","GROUP":"00","ACTION":{"LINK":2}}],
 			"SENSORPOS": [
 			  {"POS": "E002","CMD": "WATERLEVEL","STU": "720000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":0,"high":4},
+			"MODETRIG":{"low":0,"high":8},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1263,7 +1263,7 @@
 			"SENSORPOS": [
 			  {"POS": "E002","CMD": "WATERLEVEL","STU": "730000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":4,"high":8},
+			"MODETRIG":{"low":8,"high":10},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1273,7 +1273,7 @@
 			"SENSORPOS": [
 			  {"POS": "E002","CMD": "WATERLEVEL","STU": "730000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":0,"high":4},
+			"MODETRIG":{"low":0,"high":8},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1283,7 +1283,7 @@
 			"SENSORPOS": [
 			  {"POS": "E002","CMD": "WATERLEVEL","STU": "740000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":4,"high":8},
+			"MODETRIG":{"low":8,"high":10},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1293,7 +1293,7 @@
 			"SENSORPOS": [
 			  {"POS": "E002","CMD": "WATERLEVEL","STU": "740000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":0,"high":4 },
+			"MODETRIG":{"low":0,"high":8},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		}

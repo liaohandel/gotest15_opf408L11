@@ -1888,10 +1888,12 @@ function alarmchk_load(alarmjob){
 	//let chkval = jobjcopy( loadstudata(akey));//clear checek value buffer
 	let chkval = jobjcopy(alarm_loadstudata(alarmjob.SENSORPOS));
 	
+	console.log(">>chk alarm code ="+alarmjob.AMCODE);
+	console.log(">>chk alarm code chkval ="+chkval.vmax);						
 	if(chkval.vmax == 0)return;//device link ERR !
 	
-	if( chkval.vmax >= alarmjob.MODETRIG.high)achkmode = 3;
-	if((chkval.vmax > alarmjob.MODETRIG.low) && (chkval.vmax < alarmjob.MODETRIG.high) )achkmode = 2;
+	if( chkval.vmax > alarmjob.MODETRIG.high)achkmode = 3;
+	if((chkval.vmax > alarmjob.MODETRIG.low) && (chkval.vmax <= alarmjob.MODETRIG.high) )achkmode = 2;
 	if( chkval.vmax <= alarmjob.MODETRIG.low)achkmode = 1;
 	
 	if(alarmjob.CHKMODE == achkmode){
@@ -1930,8 +1932,7 @@ function alarmchk_load(alarmjob){
 							console.log("alarm code active update to webDB   ok ...");
 						}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 						
-						if(alarmjob.AMCODE == "1012"){
-						}else if (alarmjob.AMCODE == "1012"){ //AC ERR  POS="C00A"
+						if (alarmjob.AMCODE == "1012"){ //AC ERR  POS="C00A"
 		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=C00A"+"&Type=AIRFAN&value=1012&Data=0";
 		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=C00A"+"&Type=AIRFAN&value=1012&Data=0";
 						}else if (alarmjob.AMCODE == "2006"){ //boxA ERR  POS="DOSEA"
@@ -1947,6 +1948,8 @@ function alarmchk_load(alarmjob){
 		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSED"+"&Type=PUMP&value=2012&Data=0";
 		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSED"+"&Type=PUMP&value=2012&Data=0";
 						}			
+						console.log("alarm code url" + failupdate_alarmcodeurl);
+						console.log("alarm code url" + failupdateipc_alarmcodeurl);
 						if(failupdate_alarmcodeurl.length > 4){
 							if(global.weblinkflag == 0){
 											client.get(failupdate_alarmcodeurl,cargs, function (data, response) {
