@@ -303,16 +303,24 @@
 			}
 		},
 		"DOSE": {
-			"MODE":3,
+			"MODE":0,
 			"STATU":0,
 			"SENSOR_CONTROL":2,
 			"RUNLOOP": {
 				"EPOS": [
-					{"POS":"E002","CMD":"PUMP","STU":"490000","GROUP":"00"},
-					{"POS":"E002","CMD":"PUMP","STU":"43000A","GROUP":"00"}
+					{"POS":"E002","CMD":"PUMP","STU":"44000A","GROUP":"00"},
+					{"POS":"E002","CMD":"PUMP","STU":"45000A","GROUP":"00"},
+					{"POS":"E002","CMD":"PUMP","STU":"46000A","GROUP":"00"},
+					{"POS":"E002","CMD":"PUMP","STU":"61000A","GROUP":"00"}
 				],
-				"SENSORPOS": [{"POS":"E002","CMD":"PH","STU":"930000","GROUP":"00"}],
-				"OUTSENSORPOS": [{"POS":"E002","CMD":"ELECTRONS","STU":"940000","GROUP":"00"}],
+				"SENSORPOS": [
+					{"POS":"E002","CMD":"PH","STU":"930000","GROUP":"00"},
+					{"POS":"E002","CMD":"ELECTRONS","STU":"940000","GROUP":"00"}
+				],
+				"OUTSENSORPOS": [
+					{"POS":"E002","CMD":"PH","STU":"930000","GROUP":"00"},
+					{"POS":"E002","CMD":"ELECTRONS","STU":"940000","GROUP":"00"}
+				],
 				"DOSE!LOOP": "00000000"
 			}
 		},
@@ -877,6 +885,32 @@
 				"PWM": {"01": 0,"02": 0,"03": 0,"04": 0},
 				"WEEK": "01111111",
 				"ONLOOP": [ "01000101"]
+			}
+		},
+		"LOOPDOSE": {
+			"MODE":0,
+			"STATU":0,
+			"SENSOR_CONTROL":2,
+			"RUNLOOP": {
+				"EPOS": [
+					{"POS":"E002","CMD":"PUMP","STU":"44000A","GROUP":"00"},
+					{"POS":"E002","CMD":"PUMP","STU":"45000A","GROUP":"00"},
+					{"POS":"E002","CMD":"PUMP","STU":"46000A","GROUP":"00"},
+					{"POS":"E002","CMD":"PUMP","STU":"61000A","GROUP":"00"}
+				],
+				"SENSORPOS": [
+					{"POS":"E002","CMD":"PH","STU":"930000","GROUP":"00"},
+					{"POS":"E002","CMD":"ELECTRONS","STU":"940000","GROUP":"00"}
+				],
+				"OUTSENSORPOS": [
+					{"POS":"E002","CMD":"PH","STU":"930000","GROUP":"00"},
+					{"POS":"E002","CMD":"ELECTRONS","STU":"940000","GROUP":"00"}
+				],
+				"SENSORDATA":{
+					"ECDATA":[0,0],
+					"PHDATA":[0,0]
+				},
+				"DOSE!LOOP": "00000000"
 			}
 		}
 
@@ -2227,6 +2261,10 @@
 				"DEVPOS":{			
 				},
 				"SENSORPOS":{
+					"WATERLEVEL6":{"POS":"E002","CMD":"WATERLEVEL","STU":"760000","GROUP":"00","Value":0,"count":0},
+					"WATERLEVEL7":{"POS":"E002","CMD":"WATERLEVEL","STU":"770000","GROUP":"00","Value":0,"count":0},
+					"ECDATA":{"POS":"E002","CMD":"ELECTRONS","STU":"940000","GROUP":"00","Value":0,"count":0},
+					"PHDATA":{"POS":"E002","CMD":"PH","STU":"930000","GROUP":"00","Value":0,"count":0}
 				},
 				"CHKVALUE":{
 					"WAIT1":0,

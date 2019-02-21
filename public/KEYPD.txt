@@ -403,7 +403,7 @@
 			"STATUS": {
 			  "stcnt": 6,
 			  "stpt": 0,
-			  "stmask": ["AUTO","ON","OFF","PH70","PH40","EC70"]
+			  "stmask": ["AUTO","ON","OFF","PH70","PH40","EC70","LOOPADD"]
 			},
 			"EVENT": {
 			  "AUTO": [
@@ -443,6 +443,9 @@
 			  ],
 			  "EC70": [
 					{"CMD":"ELECTRONS","POS":"E002","Action":"ON","STU":"940000","GROUP":"00" }
+			  ],
+			  "LOOPADD": [
+					{"CMD":"REGCMD/AUTOSETUP","POS":"PHDOSELOOP","Action":"AUTO","STU":"03","GROUP":"00" }
 			  ]
 			}
 		},
