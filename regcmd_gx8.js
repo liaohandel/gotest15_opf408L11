@@ -184,7 +184,7 @@ const webuiautokey = {
 // auto function active api command 
 //=====================================================
 router.get('/AUTOSETUP',function(req,res,next){	//ok	
-	console.log(req.query);	
+	console.log('AUTOSETUP' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -519,7 +519,7 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 // KeyPAD function command call api 
 //=====================================================
 router.get('/KEYSETUP',function(req,res,next){	//ok	
-	console.log(req.query);	
+	console.log('KEYSETUP' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -628,7 +628,7 @@ router.get('/KEYSETUP',function(req,res,next){	//ok
 // 設備維修 更換 設定指令  參照 POS name 
 //======================================================
 router.get('/IPADDMACSETUP',function(req,res,next){	
-	console.log(req.query);	
+	console.log('IPADDMACSETUP' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -714,7 +714,7 @@ router.get('/IPADDMACSETUP',function(req,res,next){
 // 設備自動報警 功能開啟 或 關閉 by POS name 
 //=======================================================
 router.get('/DEVALARMSET',function(req,res,next){	
-	console.log(req.query);	
+	console.log('DEVALARMSET' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -806,7 +806,7 @@ router.get('/DEVALARMSET',function(req,res,next){
 // sensor offset 校正值 操作介面 API
 //=======================================================
 router.get('/TMDEVICECAL',function(req,res,next){	
-	console.log(req.query);	
+	console.log('TMDEVICECAL' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -913,7 +913,7 @@ router.get('/TMDEVICECAL',function(req,res,next){
 //溫控 LiveDEMO 操作介面 API 
 //=======================================================
 router.get('/TMLIVEDEMO',function(req,res,next){	
-	console.log(req.query);	
+	console.log('TMLIVEDEMO' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -995,7 +995,7 @@ router.get('/TMLIVEDEMO',function(req,res,next){
 ipcamlist = ["C906","C907","C908","C909"];
 
 router.get('/IPCAMVIDEO',function(req,res,next){	
-	console.log(req.query);	
+	console.log('IPCAMVIDEO' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
