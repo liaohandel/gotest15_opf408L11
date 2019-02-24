@@ -994,7 +994,7 @@
 		},
 		"am1006":{
 			"STATU":1,"AMCODE":"1006",
-			"EPOS": [{"POS":"0000","CMD":"CO2","STU":"910000","GROUP":"00","ACTION":{"LINK":1}}],
+			"EPOS": [{"POS":"0000","CMD":"CO2","STU":"910000","GROUP":"00","ACTION":{"LINK":2}}],
 			"SENSORPOS": [
 			  {"POS": "H001","CMD": "CO2","STU": "910000","GROUP": "00"},
 			  {"POS": "H002","CMD": "CO2","STU": "910000","GROUP": "00"},

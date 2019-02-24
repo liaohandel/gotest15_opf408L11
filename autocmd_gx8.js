@@ -1933,21 +1933,24 @@ function alarmchk_load(alarmjob){
 						}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 						
 						if (alarmjob.AMCODE == "1012"){ //AC ERR  POS="C00A"
-		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=C00A"+"&Type=AIRFAN&value=1012&Data=0";
-		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=C00A"+"&Type=AIRFAN&value=1012&Data=0";
+							failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=C00A"+"&Type=AIRFAN&value=1012&Data=0";
+							failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=C00A"+"&Type=AIRFAN&value=1012&Data=0";
 						}else if (alarmjob.AMCODE == "2006"){ //boxA ERR  POS="DOSEA"
-		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSEA"+"&Type=PUMP&value=2006&Data=0";
-		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSEA"+"&Type=PUMP&value=2006&Data=0";
+							failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSEA"+"&Type=PUMP&value=2006&Data=0";
+							failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSEA"+"&Type=PUMP&value=2006&Data=0";
 						}else if (alarmjob.AMCODE == "2008"){ //boxB ERR  POS="DOSEB"
-		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSEB"+"&Type=PUMP&value=2008&Data=0";
-		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSEB"+"&Type=PUMP&value=2008&Data=0";
+							failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSEB"+"&Type=PUMP&value=2008&Data=0";
+							failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSEB"+"&Type=PUMP&value=2008&Data=0";
 						}else if (alarmjob.AMCODE == "2010"){ //boxC ERR  POS="BOSEC"
-		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSEC"+"&Type=PUMP&value=2010&Data=0";
-		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSEC"+"&Type=PUMP&value=2010&Data=0";
+							failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSEC"+"&Type=PUMP&value=2010&Data=0";
+							failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSEC"+"&Type=PUMP&value=2010&Data=0";
 						}else if (alarmjob.AMCODE == "2012"){ //boxD ERR  POS="DOCED"
-		failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSED"+"&Type=PUMP&value=2012&Data=0";
-		failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSED"+"&Type=PUMP&value=2012&Data=0";
-						}			
+							failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSED"+"&Type=PUMP&value=2012&Data=0";
+							failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSED"+"&Type=PUMP&value=2012&Data=0";
+						}else if (alarmjob.AMCODE == "1006"){ //boxD ERR  POS="CO2"
+							failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=E002"+"&Type=PUMP&value=1006&Data=0";
+							failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=E002"+"&Type=PUMP&value=1006&Data=0";
+						}
 						console.log("alarm code url" + failupdate_alarmcodeurl);
 						console.log("alarm code url" + failupdateipc_alarmcodeurl);
 						if(failupdate_alarmcodeurl.length > 4){
