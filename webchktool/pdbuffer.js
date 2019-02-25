@@ -269,8 +269,7 @@ let swreg = [
 	{
 		"obj": { "CMD": "PUMP", "POS": "E002", "Action": "OFF", "STU": "9C0000", "GROUP": "00" },
 		"auto": [
-			{ "CMD": "PUMP", "POS": "E002", "Action": "OFF", "STU": "4D0000", "GROUP": "00" },
-			{ "CMD": "PUMP", "POS": "E002", "Action": "OFF", "STU": "4F0000", "GROUP": "00" }
+			{ "CMD": "PUMP", "POS": "E002", "Action": "OFF", "STU": "4D0000", "GROUP": "00" }
 		]
 	}, {
 		"obj": { "CMD": "PUMP", "POS": "E002", "Action": "OFF", "STU": "440000", "GROUP": "00" },
