@@ -842,13 +842,13 @@ router.get('/TMDEVICECAL',function(req,res,next){
 				
 				if(pos=="0000"){// pos="0000" is TM
 					if(tmdat.length >=7){
-						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H001 =  Number(tmdat[0]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H002 =  Number(tmdat[1]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H003 =  Number(tmdat[2]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H004 =  Number(tmdat[3]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H005 =  Number(tmdat[4]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H006 =  Number(tmdat[5]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETTM.E002 =  Number(tmdat[6]);
+						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H001 =  Number(tmdat[0])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H002 =  Number(tmdat[1])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H003 =  Number(tmdat[2])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H004 =  Number(tmdat[3])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H005 =  Number(tmdat[4])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H006 =  Number(tmdat[5])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETTM.E002 =  Number(tmdat[6])*10;
 						
 						// pdbuffer.jautocmd_update(()=>{
 								// console.log("JAUTO Save ok !");
@@ -862,13 +862,13 @@ router.get('/TMDEVICECAL',function(req,res,next){
 				}
 				if(pos=="0001"){// pos = "0001" is RH
 					if(tmdat.length >=7){
-						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H001 =  Number(tmdat[0]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H002 =  Number(tmdat[1]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H003 =  Number(tmdat[2]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H004 =  Number(tmdat[3]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H005 =  Number(tmdat[4]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H006 =  Number(tmdat[5]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETRH.E002 =  Number(tmdat[6]);
+						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H001 =  Number(tmdat[0])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H002 =  Number(tmdat[1])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H003 =  Number(tmdat[2])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H004 =  Number(tmdat[3])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H005 =  Number(tmdat[4])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H006 =  Number(tmdat[5])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETRH.E002 =  Number(tmdat[6])*10;
 						
 						// pdbuffer.jautocmd_update(()=>{
 								// console.log("JAUTO Save ok !");
