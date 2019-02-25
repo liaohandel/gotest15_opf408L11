@@ -1948,8 +1948,8 @@ function alarmchk_load(alarmjob){
 							failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSED"+"&Type=PUMP&value=2012&Data=0";
 							failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSED"+"&Type=PUMP&value=2012&Data=0";
 						}else if (alarmjob.AMCODE == "1006"){ //boxD ERR  POS="CO2"
-							failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=E002"+"&Type=PUMP&value=1006&Data=0";
-							failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=E002"+"&Type=PUMP&value=1006&Data=0";
+							failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=ECO2"+"&Type=PUMP&value=1006&Data=0";
+							failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=ECO2"+"&Type=PUMP&value=1006&Data=0";
 						}
 						console.log("alarm code url" + failupdate_alarmcodeurl);
 						console.log("alarm code url" + failupdateipc_alarmcodeurl);
