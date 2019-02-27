@@ -41,7 +41,7 @@ function autoeventcall(callmask){
 	event.emit(callmask);
 }
 event.on('sensorcheck_event', function(){ 
-	console.log("sensor check =>"+pdbuffer.jautocmd.AUTOSN);
+	// console.log("sensor check =>"+pdbuffer.jautocmd.AUTOSN);
 	if(!("GROWLED" in sch_autojob))reload_autojob();
 	for(ii in sch_autojob){
 		mpos=ii;
