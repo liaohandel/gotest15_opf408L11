@@ -2,7 +2,8 @@ const vermess = "[opf408L8 ] start autocmd_gx8 20190218x1 ..."
 console.log(vermess);
 
 var EventEmitter = require('events').EventEmitter; 
-var event = new EventEmitter(); 
+var event = new EventEmitter();
+event.setMaxListeners(100);
 var schedule = require('node-schedule');
 var moment = require('moment');
 
@@ -46,7 +47,7 @@ event.on('sensorcheck_event', function(){
 	for(ii in sch_autojob){
 		mpos=ii;
 		if(!(mpos in sch_autoloadmark))sch_autoloadmark[mpos]=0;	
-		console.log(">>["+mpos+"]auto statu="+sch_autojob[mpos].STATU+" loadmark="+sch_autoloadmark[mpos]);
+		// console.log(">>["+mpos+"]auto statu="+sch_autojob[mpos].STATU+" loadmark="+sch_autoloadmark[mpos]);
 		if(sch_autojob[mpos].STATU==1){//auto is run enable to event process
 			if(sch_autojob[mpos].MODE == 1){ //TIMER
 				if(!(mpos in sch_autoloadmark))sch_autoloadmark[mpos]=0;	
@@ -4339,7 +4340,7 @@ function autopumpmotoloop(ljob){
 			if(oloadval == ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value ){
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count <= 3)ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count ++;
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count >= 3){
-					if( ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value <= 6){//### box2 lev is low check 
+					if( ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value <= 8){//### box2 lev is low check 
 						water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"OFF");
 						ljob.CHKLOOP.CHKVALUE.WAIT1=10;
 						ljob.SENSOR_CONTROL = 14; // too low for wait for add water  
@@ -4362,7 +4363,7 @@ function autopumpmotoloop(ljob){
 				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
 				ljob.SENSOR_CONTROL=14;				
 			}else{				
-				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value > 8){//### box2 lev is low check 							
+				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value > 10){//### box2 lev is low check 							
 					ljob.SENSOR_CONTROL = 3;
 				}else {		
 					ljob.CHKLOOP.CHKVALUE.WAIT1=10;					

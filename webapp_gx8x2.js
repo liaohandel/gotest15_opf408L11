@@ -5,6 +5,7 @@ var reloadtime = Date.now();
 
 var EventEmitter = require('events').EventEmitter; 
 var event = new EventEmitter(); 
+event.setMaxListeners(100);
 
 const express = require('express')
 const app = express()
