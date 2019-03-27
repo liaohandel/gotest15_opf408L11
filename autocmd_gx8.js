@@ -1,8 +1,9 @@
-const vermess = "[opf408L8 ] start autocmd_gx8 20181208x1 ..."
+const vermess = "[opf408L8 ] start autocmd_gx8 20190218x1 ..."
 console.log(vermess);
 
 var EventEmitter = require('events').EventEmitter; 
-var event = new EventEmitter(); 
+var event = new EventEmitter();
+event.setMaxListeners(100);
 var schedule = require('node-schedule');
 var moment = require('moment');
 
@@ -28,6 +29,7 @@ var ipccargs = {
         timeout: 1000 //response timeout 
     }
 };
+var exec = require('child_process').exec;
 
 var pdbuffer  = require('./pdbuffer_v02.js');
 var cmdcode = require("./handelrs485x2");
@@ -40,12 +42,12 @@ function autoeventcall(callmask){
 	event.emit(callmask);
 }
 event.on('sensorcheck_event', function(){ 
-	console.log("sensor check =>"+pdbuffer.jautocmd.AUTOSN);
+	// console.log("sensor check =>"+pdbuffer.jautocmd.AUTOSN);
 	if(!("GROWLED" in sch_autojob))reload_autojob();
 	for(ii in sch_autojob){
 		mpos=ii;
 		if(!(mpos in sch_autoloadmark))sch_autoloadmark[mpos]=0;	
-		//console.log(">>["+mpos+"]auto statu="+sch_autojob[mpos].STATU+" loadmark="+sch_autoloadmark[mpos]);
+		// console.log(">>["+mpos+"]auto statu="+sch_autojob[mpos].STATU+" loadmark="+sch_autoloadmark[mpos]);
 		if(sch_autojob[mpos].STATU==1){//auto is run enable to event process
 			if(sch_autojob[mpos].MODE == 1){ //TIMER
 				if(!(mpos in sch_autoloadmark))sch_autoloadmark[mpos]=0;	
@@ -582,7 +584,7 @@ function f3run(akey,cmd){
             }
             break;
         case "PUMP":
-            break;
+            //break;
             if(cmd == "on"){
                 sch_autojob[akey].loopcnt++;
                 if( sch_autojob[akey].loopcnt >=  sch_autojob[akey].loop.length)sch_autojob[akey].loopcnt=0;
@@ -874,7 +876,7 @@ function f3run(akey,cmd){
 				
 			};
 			if(cmd == "schcheck"){
-				console.log("["+akey+"] schloop");
+				console.log(">>["+akey+"] schloop");
 				chkflag = scan_schedule_chkloop(sch_autojob[akey].chkloop);
 				if(chkflag == 1){
 					device_auto_client(sch_autojob[akey].devpos,"ON");
@@ -888,10 +890,14 @@ function f3run(akey,cmd){
 				ssipcam108 = "http://opcom:88888888@192.168.5.108:8008/cgi/ptz_set?Channel=1&Group=PTZCtrlInfo&AutoScan=1"
 				ssipcam109 = "http://opcom:88888888@192.168.5.109:8009/cgi/ptz_set?Channel=1&Group=PTZCtrlInfo&AutoScan=1"
 					//ipcam auto turn run command 
-				client.get(ssipcam106, function (data, response) {console.log("ipcam 106 ok ...");}).on("error", function(err) {console.log("err for client");});
-				client.get(ssipcam107, function (data, response) {console.log("ipcam 107 ok ...");}).on("error", function(err) {console.log("err for client");});
-				client.get(ssipcam108, function (data, response) {console.log("ipcam 108 ok ...");}).on("error", function(err) {console.log("err for client");});
-				client.get(ssipcam109, function (data, response) {console.log("ipcam 109 ok ...");}).on("error", function(err) {console.log("err for client");});
+				// client.get(ssipcam106, function (data, response) {console.log("ipcam 106 ok ...");}).on("error", function(err) {console.log("err for client");});
+				// client.get(ssipcam107, function (data, response) {console.log("ipcam 107 ok ...");}).on("error", function(err) {console.log("err for client");});
+				// client.get(ssipcam108, function (data, response) {console.log("ipcam 108 ok ...");}).on("error", function(err) {console.log("err for client");});
+				// client.get(ssipcam109, function (data, response) {console.log("ipcam 109 ok ...");}).on("error", function(err) {console.log("err for client");});
+				exec('wget -O- -q "' + ssipcam106 + '"', function (err, stdout, stderr) { console.log("ipcam 106 ok ..."); });
+				exec('wget -O- -q "' + ssipcam107 + '"', function (err, stdout, stderr) { console.log("ipcam 107 ok ..."); });
+				exec('wget -O- -q "' + ssipcam108 + '"', function (err, stdout, stderr) { console.log("ipcam 108 ok ..."); });
+				exec('wget -O- -q "' + ssipcam109 + '"', function (err, stdout, stderr) { console.log("ipcam 109 ok ..."); });
 			};
             break;
         case "DOSE":
@@ -903,6 +909,7 @@ function f3run(akey,cmd){
 				//console.log("["+akey+"] schloop="+JSON.stringify(sch_autojob[akey].devpos));
 				console.log("["+akey+"] schloop");
 				chkflag = scan_schedule_chkloop(sch_autojob[akey].chkloop);
+				console.log(chkflag);
 				if(chkflag == 1){
 					device_auto_client_trige(sch_autojob[akey].devpos,"ON");
 				}else{
@@ -918,6 +925,7 @@ function f3run(akey,cmd){
 				//console.log("["+akey+"] schloop="+JSON.stringify(sch_autojob[akey].devpos));
 				console.log("["+akey+"] schloop");
 				chkflag = scan_schedule_chkloop(sch_autojob[akey].chkloop);
+				console.log(chkflag);
 				if(chkflag == 1){
 					device_auto_client_trige(sch_autojob[akey].devpos,"ON");
 				}else{
@@ -934,6 +942,7 @@ function f3run(akey,cmd){
 				//console.log("["+akey+"] schloop="+JSON.stringify(sch_autojob[akey].devpos));
 				console.log("["+akey+"] schloop");
 				chkflag = scan_schedule_chkloop(sch_autojob[akey].chkloop);
+				console.log(chkflag);
 				if(chkflag == 1){
 					device_auto_client_trige(sch_autojob[akey].devpos,"ON");
 				}else{
@@ -950,6 +959,7 @@ function f3run(akey,cmd){
 				//console.log("["+akey+"] schloop="+JSON.stringify(sch_autojob[akey].devpos));
 				console.log("["+akey+"] schloop");
 				chkflag = scan_schedule_chkloop(sch_autojob[akey].chkloop);
+				console.log(chkflag);
 				if(chkflag == 1){
 					device_auto_client_trige(sch_autojob[akey].devpos,"ON");
 				}else{
@@ -1873,14 +1883,18 @@ function alarmchk_load(alarmjob){
 	let achkmode =0 ;
 	let aapos ="0000";
 	let devlist =[];
+	let failupdate_alarmcodeurl=""
+	let failupdateipc_alarmcodeurl=""
 	
 	//let chkval = jobjcopy( loadstudata(akey));//clear checek value buffer
 	let chkval = jobjcopy(alarm_loadstudata(alarmjob.SENSORPOS));
 	
+	console.log(">>chk alarm code ="+alarmjob.AMCODE);
+	console.log(">>chk alarm code chkval ="+chkval.vmax);						
 	if(chkval.vmax == 0)return;//device link ERR !
 	
-	if( chkval.vmax >= alarmjob.MODETRIG.high)achkmode = 3;
-	if((chkval.vmax > alarmjob.MODETRIG.low) && (chkval.vmax < alarmjob.MODETRIG.high) )achkmode = 2;
+	if( chkval.vmax > alarmjob.MODETRIG.high)achkmode = 3;
+	if((chkval.vmax > alarmjob.MODETRIG.low) && (chkval.vmax <= alarmjob.MODETRIG.high) )achkmode = 2;
 	if( chkval.vmax <= alarmjob.MODETRIG.low)achkmode = 1;
 	
 	if(alarmjob.CHKMODE == achkmode){
@@ -1905,20 +1919,53 @@ function alarmchk_load(alarmjob){
 						//http://tscloud.opcom.com/Cloud/API/v2/Alarm?ID={UUID}
 						//&POS={POS}&Type={Type}&value={value}					
 		
-			update_alarmcodeurl= "http://tscloud.opcom.com/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS="+aapos+"&Type="+alarmjob.EPOS[dd].CMD+"&value="+alarmjob.AMCODE+"&Data="+chkval.vmax;
-						console.log(">>alarm update to web DB =>"+update_alarmcodeurl);
-						
-		if(global.weblinkflag == 0){
-						client.get(update_alarmcodeurl,cargs, function (data, response) {
-							console.log("alarm code active update to webDB   ok ...");
-						}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
-		}			
+			update_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS="+aapos+"&Type="+alarmjob.EPOS[dd].CMD+"&value="+alarmjob.AMCODE+"&Data="+chkval.vmax;
+						console.log(">>alarm update to web DB =>"+update_alarmcodeurl);			
+						if(global.weblinkflag == 0){
+										client.get(update_alarmcodeurl,cargs, function (data, response) {
+											console.log("alarm code active update to webDB   ok ...");
+										}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
+						}			
 						
 			updateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS="+aapos+"&Type="+alarmjob.EPOS[dd].CMD+"&value="+alarmjob.AMCODE+"&Data="+chkval.vmax;
 						console.log(">>alarm update to web DB =>"+updateipc_alarmcodeurl);
 						client.get(updateipc_alarmcodeurl,ipccargs, function (data, response) {
 							console.log("alarm code active update to webDB   ok ...");
 						}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+						
+						if (alarmjob.AMCODE == "1012"){ //AC ERR  POS="C00A"
+							failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=C00A"+"&Type=AIRFAN&value=1012&Data=0";
+							failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=C00A"+"&Type=AIRFAN&value=1012&Data=0";
+						}else if (alarmjob.AMCODE == "2006"){ //boxA ERR  POS="DOSEA"
+							failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSEA"+"&Type=PUMP&value=2006&Data=0";
+							failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSEA"+"&Type=PUMP&value=2006&Data=0";
+						}else if (alarmjob.AMCODE == "2008"){ //boxB ERR  POS="DOSEB"
+							failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSEB"+"&Type=PUMP&value=2008&Data=0";
+							failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSEB"+"&Type=PUMP&value=2008&Data=0";
+						}else if (alarmjob.AMCODE == "2010"){ //boxC ERR  POS="BOSEC"
+							failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSEC"+"&Type=PUMP&value=2010&Data=0";
+							failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSEC"+"&Type=PUMP&value=2010&Data=0";
+						}else if (alarmjob.AMCODE == "2012"){ //boxD ERR  POS="DOCED"
+							failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=DOSED"+"&Type=PUMP&value=2012&Data=0";
+							failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=DOSED"+"&Type=PUMP&value=2012&Data=0";
+						}else if (alarmjob.AMCODE == "1006"){ //boxD ERR  POS="CO2"
+							failupdate_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+pdbuffer.setuuid+"&POS=ECO2"+"&Type=PUMP&value=1006&Data=0";
+							failupdateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS=ECO2"+"&Type=PUMP&value=1006&Data=0";
+						}
+						console.log("alarm code url" + failupdate_alarmcodeurl);
+						console.log("alarm code url" + failupdateipc_alarmcodeurl);
+						if(failupdate_alarmcodeurl.length > 4){
+							if(global.weblinkflag == 0){
+											client.get(failupdate_alarmcodeurl,cargs, function (data, response) {
+												console.log("alarm code active update to webDB   ok ...");
+											}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
+							}
+						}	
+						if(failupdateipc_alarmcodeurl.length > 4){
+							client.get(failupdateipc_alarmcodeurl,ipccargs, function (data, response) {
+								console.log("alarm code active update to webDB   ok ...");
+							}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});		
+						}
 						
 		// updateipc_alarmcodeurl= "http://192.168.5.250/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS="+aapos+"&Type="+alarmjob.EPOS[dd].CMD+"&value="+alarmjob.AMCODE+"&Data="+chkval.vmax;
 						// console.log(">>alarm update to web DB =>"+updateipc_alarmcodeurl);
@@ -1928,6 +1975,7 @@ function alarmchk_load(alarmjob){
 						
 					}
 				}
+				
 			}else{
 				if("ON" in alarmjob.EPOS[dd].ACTION){
 					if(alarmjob.EPOS[dd].ACTION.ON == alarmjob.CHKMODE){
@@ -2214,13 +2262,13 @@ function GOBOX2LOOP(ljob){
 						ljob.SENSOR_CONTROL = 8;			
 					}else{
 						water_client_trige(ljob.CHKLOOP.DEVPOS.M2,"OFF"); //check time > 60min ###
-						water_client_trige(ljob.CHKLOOP.DEVPOS.ADDWATEROFF,"AUTO");	//addwater Key OFF ###	
+						//water_client_trige(ljob.CHKLOOP.DEVPOS.ADDWATEROFF,"AUTO");	//addwater Key OFF ###	20190220 modify
 						ljob.SENSOR_CONTROL = 0;						
 					}					
 					//ljob.SENSOR_CONTROL = 9;
 				}else{
 					water_client_trige(ljob.CHKLOOP.DEVPOS.M2,"OFF"); //check box2 is full
-					water_client_trige(ljob.CHKLOOP.DEVPOS.ADDWATEROFF,"AUTO");	//addwater Key OFF
+					//water_client_trige(ljob.CHKLOOP.DEVPOS.ADDWATEROFF,"AUTO");	//addwater Key OFF ### 20190220 modify
 					ljob.SENSOR_CONTROL = 0;
 				}
 			}else{
@@ -2290,6 +2338,7 @@ function GOECDOSELOOP(ljob){
 			break;
 		case 2://check the time is match schedule by start work 
 			chkflag = scan_schedule_chkloop(ljob.CHKLOOP.chktime);
+			// chkflag = 1;
 			if(chkflag == 0 ){//check time no working then goto check 
 				ljob.SENSOR_CONTROL = 0;
 			}else{
@@ -2518,6 +2567,33 @@ function devledlevauto(ljob){
 	
 }
 
+function devhotdrvchk(ljob,devcmd){
+	let chkvalue=0;
+	let typecmd ="";
+	console.log('devhotdrvchk');
+	if(devcmd=="ON") {
+		waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6,"LOAD");
+				
+		outksspos = ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.POS;
+		outkssfuncmd = ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.CMD;
+		typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
+		typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.STU.substr(0,2);
+		chkvalue = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;//### lev scan load over 3 time is ready
+		console.log('devhotdrvchk = WATERLEVEL6 '+chkvalue);
+		if(chkvalue >= 10){//chekc box1 is full
+			//water devhot is ready 
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+		}else{
+			//stop devhot 			
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+		}
+	}else{
+		//is no ON command not need check water level6
+		water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
+	}
+}
+
+
 function autotmloop(ljob){
 	let outksspos = "";
 	let typecmd = "";
@@ -2677,7 +2753,9 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");
+			
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
@@ -2692,7 +2770,9 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");	
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");		
 
@@ -2712,7 +2792,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4AUTO,"AUTO");	
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");	
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
@@ -2734,7 +2815,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4AUTO,"AUTO");	
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");		
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
@@ -2754,7 +2836,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4AUTO,"AUTO");	
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");		
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");		
 
@@ -2778,7 +2861,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");		
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
@@ -2794,7 +2878,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");	
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
@@ -2813,7 +2898,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4M3,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");	
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");		
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
@@ -2832,7 +2918,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4M3,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");		
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
@@ -2851,7 +2938,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4M3,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");		
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
@@ -3146,7 +3234,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on 
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");		
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
@@ -3162,7 +3251,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");		
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");
 
@@ -3180,7 +3270,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");	
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");
 
@@ -3197,7 +3288,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");	
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");		
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");
 
@@ -3214,7 +3306,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");	
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");		
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");
 
@@ -3238,7 +3331,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");	
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");
 
@@ -3254,7 +3348,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 on
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");	
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
@@ -3269,7 +3364,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");		
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");
 
@@ -3284,7 +3380,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");	
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");	
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");	
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");
 
@@ -3299,7 +3396,8 @@ function autotmloop(ljob){
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");		
 
-			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"ON");	
+			devhotdrvchk(ljob,"ON");		
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOOD,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVCOODOFF,"AUTO");	
 
@@ -4242,7 +4340,7 @@ function autopumpmotoloop(ljob){
 			if(oloadval == ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value ){
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count <= 3)ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count ++;
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count >= 3){
-					if( ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value <= 6){//### box2 lev is low check 
+					if( ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value <= 8){//### box2 lev is low check 
 						water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"OFF");
 						ljob.CHKLOOP.CHKVALUE.WAIT1=10;
 						ljob.SENSOR_CONTROL = 14; // too low for wait for add water  
@@ -4265,7 +4363,7 @@ function autopumpmotoloop(ljob){
 				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
 				ljob.SENSOR_CONTROL=14;				
 			}else{				
-				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value > 8){//### box2 lev is low check 							
+				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value > 10){//### box2 lev is low check 							
 					ljob.SENSOR_CONTROL = 3;
 				}else {		
 					ljob.CHKLOOP.CHKVALUE.WAIT1=10;					

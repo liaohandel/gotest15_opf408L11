@@ -28,8 +28,8 @@
     "request": "^2.83.0",
     "require-reload": "^0.2.2",
     "serialport": "^6.2.0",
+    "socket.io": "^2.2.0",
     "thunkify": "^2.1.2",
     "util": "^0.10.3"
   }
 }
-
