@@ -168,6 +168,9 @@ var devtab = {
 	},
 	"A030": {
 		"name": "A區白光紀錄", "stu": 0,
+		"TRIGGER": {
+			"20": { "name": "LED", "stu": 0 }
+		},
 		"LED": {
 			"22": { "name": " ", "stu": 0 }
 		}
@@ -187,6 +190,9 @@ var devtab = {
 	},
 	"A038": {
 		"name": "B區白光紀錄", "stu": 0,
+		"TRIGGER": {
+			"20": { "name": "LED", "stu": 0 }
+		},
 		"LED": {
 			"22": { "name": " ", "stu": 0 }
 		}
