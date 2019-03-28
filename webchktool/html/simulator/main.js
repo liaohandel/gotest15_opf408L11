@@ -687,6 +687,42 @@ function PIR() {
 		};
 	}
 }
+function LEDERROR() {
+	let devarr = Object.keys(devtab).sort();
+
+	let ss = '<tr><td colspan="4">亮度感測器報錯</td></tr>';
+	for (let d = 0; d < devarr.length; d++) {
+		let pos = devarr[d];
+		if (!('TRIGGER' in devtab[pos])) continue;
+		if (!('20' in devtab[pos]['TRIGGER'])) continue;
+		if (devtab[pos]['TRIGGER']['20'].name != "LED") continue;
+		let stunamearr = [pos, 'TRIGGER', 'tg', 'R' + '20'];
+		let stuname = '';
+		ss += '<tr><td>' + pos + '</td>';
+		ss += '<td>';
+		stunamearr[2] = 'tg';
+		stuname = stunamearr.join('_');
+		ss += '<input type="button" value="' + devtab[pos].name + '" id="' + stuname + '" style="width:auto;">';
+		ss += '</td>';
+		ss += '</tr>';
+	}
+	LEDERRORTRIGGER.innerHTML += ss;
+	for (let d = 0; d < devarr.length; d++) {
+		let pos = devarr[d];
+		if (!('TRIGGER' in devtab[pos])) continue;
+		if (!('20' in devtab[pos]['TRIGGER'])) continue;
+		if (devtab[pos]['TRIGGER']['20'].name != "LED") continue;
+		let stunamearr = [pos, 'TRIGGER', 'tg', 'R' + '20'];
+		let stuname = '';
+		stunamearr[2] = 'tg';
+		stuname = stunamearr.join('_');
+		window[stuname].onclick = function () {
+			let obj = { "CMD": "TRIGGER", "POS": "J002", "Action": "ALARM", "STU": "200000", "GROUP": "00" };
+			obj.POS = pos;
+			socket.emit('client_data', obj);
+		};
+	}
+}
 function KEYPAD1() {
 	let keyarr = Object.keys(keypad.KEYPAD1.KEY).sort();
 	let ssarr = [];
@@ -804,6 +840,7 @@ function init() {
 	E003PUMP();
 	C00AAIRFAN();
 	PIR();
+	LEDERROR();
 	KEYPAD1();
 	checkfunc();
 }
