@@ -41,6 +41,12 @@ function jobjcopy(jobj){
 function autoeventcall(callmask){
 	event.emit(callmask);
 }
+
+function clearstid(stid){
+	if(stid==null)return;
+	if(stid._idleTimeout!=-1)clearTimeout(stid);
+}
+
 event.on('sensorcheck_event', function(){ 
 	// console.log("sensor check =>"+pdbuffer.jautocmd.AUTOSN);
 	if(!("GROWLED" in sch_autojob))reload_autojob();
@@ -268,13 +274,15 @@ function settimeobj(akey){
 	
 	sch_autojob[akey].schobj =  schedule.scheduleJob( rulest , function(){//for time start time啟動時間 觸發
 		console.log('>>>scheduleCronstyle xx:step ' + new Date());    
-		if(sch_autojob[akey].stid != null)clearTimeout(sch_autojob[akey].stid);
+		// if(sch_autojob[akey].stid != null)clearTimeout(sch_autojob[akey].stid);
+		clearstid(sch_autojob[akey].stid);
 		console.log('>>>'+akey);
 		sch_autojob[akey].loopcnt=-1;
 		sch_autojob[akey].stid = new setTimeout(function(){ f3run(akey,"on")},1000);
 	}); 
 	
-	if(sch_autojob[akey].stid != null)clearTimeout(sch_autojob[akey].stid);
+	// if(sch_autojob[akey].stid != null)clearTimeout(sch_autojob[akey].stid);
+	clearstid(sch_autojob[akey].stid);
 	sch_autojob[akey].stid = new setTimeout(function(){ f3run(akey,"on")},100);//when setup then start TIME funcion ### 立刻觸發 
 	
 	sch_autoloadmark[akey]=1;//auto load to times schedule mark flag 0:no 1:load 
@@ -290,7 +298,8 @@ function setschobj(akey){
 	
 	sch_autojob[akey].schobj =  schedule.scheduleJob( rulest , function(){
 		console.log('>>>scheduleCronstyle xx:step ' + new Date());    
-		if(sch_autojob[akey].stid != null)clearTimeout(sch_autojob[akey].stid);
+		// if(sch_autojob[akey].stid != null)clearTimeout(sch_autojob[akey].stid);
+		clearstid(sch_autojob[akey].stid);
 		console.log('>>>'+akey);
 		sch_autojob[akey].loopcnt=-1;
 		sch_autojob[akey].stid = new setTimeout(function(){ f3run(akey,"schcheck")},10);
@@ -335,7 +344,8 @@ function setschobj(akey){
 }
 
 function setrunobj(akey){//startup RUNLOOP
-	if(sch_autojob[akey].stid != null)clearTimeout(sch_autojob[akey].stid);//stop and delete  old data 
+	// if(sch_autojob[akey].stid != null)clearTimeout(sch_autojob[akey].stid);//stop and delete  old data 
+	clearstid(sch_autojob[akey].stid);
 	//sch_autojob[akey].loopcnt=-1;
 	sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"load")},1000); //start event load 
 	sch_autoloadmark[akey]=1;//auto load to times schedule mark flag 0:no 1:load 
@@ -376,8 +386,11 @@ function device_load_client(devlist,devcmd){
 // auto status = 0x00: auto off , 0x01:auto on ,0x10:buffer active by schedule  
 //=== ON/OFF fucnction list ======
 function f3run(akey,cmd){
-    console.log("["+akey+"] cmd="+cmd);
-
+	console.log("["+akey+"] cmd="+cmd);
+	if(pdbuffer.jautocmd.DEVLIST[akey].STATU==0){
+		console.log("["+akey+"] STATU=0");
+		return;
+	}
     switch(akey){
         case "GROWLEDA1":
             if(cmd == "on"){
@@ -391,6 +404,7 @@ function f3run(akey,cmd){
 					}
 				}
 				//device_auto_client(sch_autojob[akey].devpos,"ON")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.GROWLEDA1.stid = new setTimeout(function(){f3run("GROWLEDA1","off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
             }
             if(cmd == "off"){ 
@@ -402,6 +416,7 @@ function f3run(akey,cmd){
 					}
 				}
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.GROWLEDA1.stid = new setTimeout(function(){f3run("GROWLEDA1","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
             }			
             if(cmd == "schcheck"){
@@ -425,6 +440,7 @@ function f3run(akey,cmd){
 					}
 					//device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.GROWLEDA1.stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
             }
             break;
@@ -440,6 +456,7 @@ function f3run(akey,cmd){
 					}
 				}
 				//device_auto_client(sch_autojob[akey].devpos,"ON")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.GROWLEDB1.stid = new setTimeout(function(){f3run("GROWLEDB1","off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
             }
             if(cmd == "off"){ 
@@ -451,6 +468,7 @@ function f3run(akey,cmd){
 					}
 				}
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.GROWLEDB1.stid = new setTimeout(function(){f3run("GROWLEDB1","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
             }			
             if(cmd == "schcheck"){
@@ -474,6 +492,7 @@ function f3run(akey,cmd){
 					}
 					//device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.GROWLEDB1.stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
             }
             break;
@@ -483,6 +502,7 @@ function f3run(akey,cmd){
                 if( sch_autojob[akey].loopcnt >=  sch_autojob[akey].loop.length)sch_autojob[akey].loopcnt=0;
 				console.log(">>["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos)+" loopcnt="+sch_autojob[akey].loopcnt);
 				device_auto_client(sch_autojob[akey].devpos,"ON")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.CYCLEFAN.stid = new setTimeout(function(){f3run("CYCLEFAN","off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
             }
             if(cmd == "off"){    
@@ -490,6 +510,7 @@ function f3run(akey,cmd){
 				console.log(">>["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)+" loopcnt="+sch_autojob[akey].loopcnt); 
 				device_auto_client(sch_autojob[akey].devpos,"OFF")				
 				console.log(">>["+akey+"] devofft="+sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt+" loopcnt="+sch_autojob[akey].loopcnt); 
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.CYCLEFAN.stid = new setTimeout(function(){f3run("CYCLEFAN","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);      
             }
 						
@@ -502,6 +523,7 @@ function f3run(akey,cmd){
 				}else{
 					device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.CYCLEFAN.stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
             }
             break;
@@ -511,11 +533,13 @@ function f3run(akey,cmd){
                 if( sch_autojob[akey].loopcnt >=  sch_autojob[akey].loop.length)sch_autojob[akey].loopcnt=0;
 				console.log("["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos));
 				device_auto_client(sch_autojob[akey].devpos,"ON")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.SPRAY.stid = new setTimeout(function(){f3run("SPRAY","off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
             }
             if(cmd == "off"){   
 				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
 				device_auto_client(sch_autojob[akey].devpos,"OFF")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.SPRAY.stid = new setTimeout(function(){f3run("SPRAY","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);           
             }
             if(cmd == "schcheck"){
@@ -527,6 +551,7 @@ function f3run(akey,cmd){
 				}else{
 					device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.SPRAY.stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
             }
             break;
@@ -536,6 +561,7 @@ function f3run(akey,cmd){
                 if( sch_autojob[akey].loopcnt >=  sch_autojob[akey].loop.length)sch_autojob[akey].loopcnt=0;
 				console.log(">>["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos)+" loopcnt="+sch_autojob[akey].loopcnt);
 				device_auto_client(sch_autojob[akey].devpos,"ON")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.REFRESH.stid = new setTimeout(function(){f3run("REFRESH","off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
             }
             if(cmd == "off"){   
@@ -543,7 +569,7 @@ function f3run(akey,cmd){
 				console.log(">>["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)+" loopcnt="+sch_autojob[akey].loopcnt); 
 				device_auto_client(sch_autojob[akey].devpos,"OFF");
 				console.log(">>["+akey+"] devofft="+sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt+" loopcnt="+sch_autojob[akey].loopcnt); 
-				
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.REFRESH.stid = new setTimeout(function(){f3run("REFRESH","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);       
             }
             if(cmd == "schcheck"){
@@ -555,6 +581,7 @@ function f3run(akey,cmd){
 				}else{
 					device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.REFRESH.stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
             }
             break;
@@ -564,11 +591,13 @@ function f3run(akey,cmd){
                 if( sch_autojob[akey].loopcnt >=  sch_autojob[akey].loop.length)sch_autojob[akey].loopcnt=0;
 				console.log("["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos));
 				device_auto_client(sch_autojob[akey].devpos,"ON")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.UV.stid = new setTimeout(function(){f3run("UV","off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
             }
             if(cmd == "off"){ 
 				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
 				device_auto_client(sch_autojob[akey].devpos,"OFF")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.UV.stid = new setTimeout(function(){f3run("UV","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);          
             }
             if(cmd == "schcheck"){
@@ -580,6 +609,7 @@ function f3run(akey,cmd){
 				}else{
 					device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.UV.stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
             }
             break;
@@ -590,13 +620,13 @@ function f3run(akey,cmd){
                 if( sch_autojob[akey].loopcnt >=  sch_autojob[akey].loop.length)sch_autojob[akey].loopcnt=0;
 				console.log("["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos));
 				device_auto_client(sch_autojob[akey].devpos,"ON");
-				
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.PUMP.stid = new setTimeout(function(){f3run("PUMP","off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
             }
             if(cmd == "off"){   
 				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
 				device_auto_client(sch_autojob[akey].devpos,"OFF");
-				
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.PUMP.stid = new setTimeout(function(){f3run("PUMP","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);          
             }
             if(cmd == "schcheck"){
@@ -608,6 +638,7 @@ function f3run(akey,cmd){
 				}else{
 					device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.PUMP.stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
             }
             break;
@@ -617,11 +648,13 @@ function f3run(akey,cmd){
                 if( sch_autojob[akey].loopcnt >=  sch_autojob[akey].loop.length)sch_autojob[akey].loopcnt=0;
 				console.log("["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos));
 				device_auto_client(sch_autojob[akey].devpos,"ON")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.GROWUPDOWN.stid = new setTimeout(function(){f3run("GROWUPDOWN","off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
             }
             if(cmd == "off"){   
 				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
 				device_auto_client(sch_autojob[akey].devpos,"OFF")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.GROWUPDOWN.stid = new setTimeout(function(){f3run("GROWUPDOWN","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);          
             }
             if(cmd == "schcheck"){
@@ -633,6 +666,7 @@ function f3run(akey,cmd){
 				}else{
 					device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.GROWUPDOWN.stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
             }
             break;
@@ -642,6 +676,7 @@ function f3run(akey,cmd){
 				console.log("["+akey+"] outsensorpos="+JSON.stringify(sch_autojob[akey].outsensorpos));
 				device_load_client(sch_autojob[akey].sensorpos,"LOAD");
 				device_load_client(sch_autojob[akey].outsensorpos,"LOAD");
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.AIRCON.stid = new setTimeout(function(){f3run("AIRCON","check")},sch_autojob[akey].loop[0].checkt*60*1000); 
 			}
             if(cmd == "check"){				
@@ -652,16 +687,20 @@ function f3run(akey,cmd){
 				//=== RUNLOOP check Login  =======
 				if( chkval.vmax > 0){
 					if(chkval.vmax >= sch_autojob[akey].chkhigh){
+						clearstid(sch_autojob[akey].stid);
 						sch_autojob.AIRCON.stid = new setTimeout(function(){f3run("AIRCON","on")},sch_autojob[akey].loop[0].ont*60*1000); 
 						console.log("1>> goto tm on")
 					}else if(chkval.vmax <= sch_autojob[akey].chklow){
+						clearstid(sch_autojob[akey].stid);
 						sch_autojob.AIRCON.stid = new setTimeout(function(){f3run("AIRCON","on")},sch_autojob[akey].loop[0].ont*60*1000);	
 						console.log("2>> goto tm on")						
 					}else{
+						clearstid(sch_autojob[akey].stid);
 						sch_autojob.AIRCON.stid = new setTimeout(function(){f3run("AIRCON","off")},sch_autojob[akey].loop[0].offt*60*1000);
 						console.log("3>> goto tm off")							
 					}
 				}else{
+					clearstid(sch_autojob[akey].stid);
 					sch_autojob.AIRCON.stid = new setTimeout(function(){f3run("AIRCON","load")},sch_autojob[akey].loop[0].loadt*60*1000); 
 					console.log("4>> goto tm load")							
 				}
@@ -669,12 +708,14 @@ function f3run(akey,cmd){
             if(cmd == "off"){
 				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); //"EPOS": [{"POS":"A001","CMD":"PUMP","GROUP":0}]
 				device_auto_client(sch_autojob[akey].devpos,"OFF")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.AIRCON.stid = new setTimeout(function(){f3run("AIRCON","load")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].loadt*60*1000);
 				console.log(">> goto tm load")
 			}
             if(cmd == "on"){
 				console.log("["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos)); 
 				device_auto_client(sch_autojob[akey].devpos,"ON")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.AIRCON.stid = new setTimeout(function(){f3run("AIRCON","load")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].loadt*60*1000);
 				console.log(">> goto tm load")
 			}
@@ -685,6 +726,7 @@ function f3run(akey,cmd){
 				console.log("["+akey+"] outsensorpos="+JSON.stringify(sch_autojob[akey].outsensorpos));
 				device_load_client(sch_autojob[akey].sensorpos,"LOAD");
 				device_load_client(sch_autojob[akey].outsensorpos,"LOAD");
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.AIRRH.stid = new setTimeout(function(){f3run("AIRRH","check")},sch_autojob[akey].loop[0].checkt*60*1000); 
 			}
             if(cmd == "check"){
@@ -695,16 +737,20 @@ function f3run(akey,cmd){
 				//=== RUNLOOP check Login  =======
 				if( chkval.vmax > 0){
 					if(chkval.vmax >= sch_autojob[akey].chkhigh){
+						clearstid(sch_autojob[akey].stid);
 						sch_autojob.AIRRH.stid = new setTimeout(function(){f3run("AIRRH","on")},sch_autojob[akey].loop[0].ont*60*1000); 
 						console.log(">> goto rh on")
 					}else if(chkval.vmax <= sch_autojob[akey].chklow){
+						clearstid(sch_autojob[akey].stid);
 						sch_autojob.AIRRH.stid = new setTimeout(function(){f3run("AIRRH","on")},sch_autojob[akey].loop[0].ont*60*1000);	
 						console.log(">> goto rh on")						
 					}else{
+						clearstid(sch_autojob[akey].stid);
 						sch_autojob.AIRRH.stid = new setTimeout(function(){f3run("AIRRH","off")},sch_autojob[akey].loop[0].offt*60*1000);
 						console.log(">> goto rh off")							
 					}
 				}else{
+					clearstid(sch_autojob[akey].stid);
 					sch_autojob.AIRRH.stid = new setTimeout(function(){f3run("AIRRH","load")},sch_autojob[akey].loop[0].loadt*60*1000); 
 					console.log(">> goto rh load")							
 				}
@@ -713,12 +759,14 @@ function f3run(akey,cmd){
             if(cmd == "off"){
 				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
 				device_auto_client(sch_autojob[akey].devpos,"OFF")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.AIRRH.stid = new setTimeout(function(){f3run("AIRRH","load")},sch_autojob[akey].loop[0].loadt*60*1000); 
 				console.log(">> goto rh load")							
 			}
             if(cmd == "on"){
 				console.log("["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos)); 
 				device_auto_client(sch_autojob[akey].devpos,"ON")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.AIRRH.stid = new setTimeout(function(){f3run("AIRRH","load")},sch_autojob[akey].loop[0].loadt*60*1000); 
 				console.log(">> goto rh load")							
 			}
@@ -729,6 +777,7 @@ function f3run(akey,cmd){
 				console.log("["+akey+"] outsensorpos="+JSON.stringify(sch_autojob[akey].outsensorpos));
 				device_load_client(sch_autojob[akey].sensorpos,"LOAD");
 				device_load_client(sch_autojob[akey].outsensorpos,"LOAD");
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.WATERTMH010.stid = new setTimeout(function(){f3run("WATERTMH010","check")},sch_autojob[akey].loop[0].checkt*60*1000); 
 			}
             if(cmd == "check"){
@@ -739,16 +788,20 @@ function f3run(akey,cmd){
 				//=== RUNLOOP check Login  =======
 				if( chkval.vmax > 0){
 					if(chkval.vmax >= sch_autojob[akey].chkhigh){
+						clearstid(sch_autojob[akey].stid);
 						sch_autojob.WATERTMH010.stid = new setTimeout(function(){f3run("WATERTMH010","off")},sch_autojob[akey].loop[0].ont*60*1000); 
 						console.log(">> goto hot on")
 					}else if(chkval.vmax <= sch_autojob[akey].chklow){
+						clearstid(sch_autojob[akey].stid);
 						sch_autojob.WATERTMH010.stid = new setTimeout(function(){f3run("WATERTMH010","on")},sch_autojob[akey].loop[0].ont*60*1000);	
 						console.log(">> goto hot on")						
 					}else{
+						clearstid(sch_autojob[akey].stid);
 						sch_autojob.WATERTMH010.stid = new setTimeout(function(){f3run("WATERTMH010","off")},sch_autojob[akey].loop[0].offt*60*1000);
 						console.log(">> goto hot off")							
 					}
 				}else{
+					clearstid(sch_autojob[akey].stid);
 					sch_autojob.WATERTMH010.stid = new setTimeout(function(){f3run("WATERTMH010","load")},sch_autojob[akey].loop[0].loadt*60*1000); 
 					console.log(">> goto rh load")							
 				}
@@ -757,12 +810,14 @@ function f3run(akey,cmd){
             if(cmd == "off"){
 				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
 				device_auto_client(sch_autojob[akey].devpos,"OFF")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.WATERTMH010.stid = new setTimeout(function(){f3run("WATERTMH010","load")},sch_autojob[akey].loop[0].loadt*60*1000); 
 				console.log(">> goto H010 load")							
 			}
             if(cmd == "on"){
 				console.log("["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos)); 
 				device_auto_client(sch_autojob[akey].devpos,"ON")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.WATERTMH010.stid = new setTimeout(function(){f3run("WATERTMH010","load")},sch_autojob[akey].loop[0].loadt*60*1000); 
 				console.log(">> goto H010 load")							
 			}
@@ -774,6 +829,7 @@ function f3run(akey,cmd){
 				console.log("["+akey+"] outsensorpos="+JSON.stringify(sch_autojob[akey].outsensorpos));
 				device_load_client(sch_autojob[akey].sensorpos,"LOAD");
 				device_load_client(sch_autojob[akey].outsensorpos,"LOAD");
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"check")},sch_autojob[akey].loop[0].checkt*60*1000); 
 			}
             if(cmd == "check"){
@@ -784,16 +840,20 @@ function f3run(akey,cmd){
 				//=== RUNLOOP check Login  =======
 				if( chkval.vmax > 0){
 					if(chkval.vmax >= sch_autojob[akey].chkhigh){
+						clearstid(sch_autojob[akey].stid);
 						sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"on")},sch_autojob[akey].loop[0].ont*60*1000); 
 						console.log(">> goto Cood on")
 					}else if(chkval.vmax <= sch_autojob[akey].chklow){
+						clearstid(sch_autojob[akey].stid);
 						sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"off")},sch_autojob[akey].loop[0].ont*60*1000);	
 						console.log(">> goto Cood on")						
 					}else{
+						clearstid(sch_autojob[akey].stid);
 						sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"off")},sch_autojob[akey].loop[0].offt*60*1000);
 						console.log(">> goto Cood off")							
 					}
 				}else{
+					clearstid(sch_autojob[akey].stid);
 					sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"load")},sch_autojob[akey].loop[0].loadt*60*1000); 
 					console.log(">> goto H011 load")							
 				}
@@ -802,12 +862,14 @@ function f3run(akey,cmd){
             if(cmd == "off"){
 				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
 				device_auto_client(sch_autojob[akey].devpos,"OFF")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"load")},sch_autojob[akey].loop[0].loadt*60*1000); 
 				console.log(">> goto H011 load")							
 			}
             if(cmd == "on"){
 				console.log("["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos)); 
 				device_auto_client(sch_autojob[akey].devpos,"ON")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"load")},sch_autojob[akey].loop[0].loadt*60*1000); 
 				console.log(">> goto H011 load")							
 			}	
@@ -819,6 +881,7 @@ function f3run(akey,cmd){
 				console.log("["+akey+"] outsensorpos="+JSON.stringify(sch_autojob[akey].outsensorpos));
 				device_load_client(sch_autojob[akey].sensorpos,"LOAD");
 				device_load_client(sch_autojob[akey].outsensorpos,"LOAD");
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.CO2.stid = new setTimeout(function(){f3run("CO2","check")},sch_autojob[akey].loop[0].checkt*60*1000); 
 			}
             if(cmd == "check"){				
@@ -829,17 +892,21 @@ function f3run(akey,cmd){
 				//=== RUNLOOP check Login  ======= by Co2 0x91 
 				if( chkval.vmax > 0){
 					if(chkval.vmax >= sch_autojob[akey].chkhigh){
+						clearstid(sch_autojob[akey].stid);
 						sch_autojob.CO2.stid = new setTimeout(function(){f3run("CO2","off")},sch_autojob[akey].loop[0].ont*60*1000); 
 						console.log(">> goto co2 off")
 					}else if(chkval.vmax <= sch_autojob[akey].chklow){
+						clearstid(sch_autojob[akey].stid);
 						sch_autojob.CO2.stid = new setTimeout(function(){f3run("CO2","on")},sch_autojob[akey].loop[0].ont*60*1000);	
 						console.log(">> goto co2 on")						
 					}
 					// else{
+						// clearstid(sch_autojob[akey].stid);
 						// sch_autojob.CO2.stid = new setTimeout(function(){f3run("CO2","off")},sch_autojob[akey].loop[0].offt*60*1000);
 						// console.log(">> goto co2 off")							
 					// }
 				}else{
+					clearstid(sch_autojob[akey].stid);
 					sch_autojob.CO2.stid = new setTimeout(function(){f3run("CO2","load")},sch_autojob[akey].loop[0].loadt*60*1000); 
 					console.log(">> goto co2 load")							
 				}
@@ -848,12 +915,14 @@ function f3run(akey,cmd){
             if(cmd == "off"){
 				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos));  
 				device_auto_client(sch_autojob[akey].devpos,"OFF")				
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.CO2.stid = new setTimeout(function(){f3run("CO2","load")},sch_autojob[akey].loop[0].loadt*60*1000); 
 				console.log(">> goto co2 load")		
 			}
             if(cmd == "on"){
 				console.log("["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos));
 				device_auto_client(sch_autojob[akey].devpos,"ON")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.CO2.stid = new setTimeout(function(){f3run("CO2","load")},sch_autojob[akey].loop[0].loadt*60*1000); 
 				console.log(">> goto co2 load")			
 			}
@@ -864,6 +933,7 @@ function f3run(akey,cmd){
                 if( sch_autojob[akey].loopcnt >=  sch_autojob[akey].loop.length)sch_autojob[akey].loopcnt=0;
 				console.log(">>["+akey+"] devon="+JSON.stringify(sch_autojob[akey].devpos)+" loopcnt="+sch_autojob[akey].loopcnt);
 				device_auto_client(sch_autojob[akey].devpos,"ON")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.OPWAVE.stid = new setTimeout(function(){f3run("OPWAVE","off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
 				
 			};
@@ -872,6 +942,7 @@ function f3run(akey,cmd){
 				console.log(">>["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)+" loopcnt="+sch_autojob[akey].loopcnt); 
 				device_auto_client(sch_autojob[akey].devpos,"OFF")				
 				console.log(">>["+akey+"] devofft="+sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt+" loopcnt="+sch_autojob[akey].loopcnt); 
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.OPWAVE.stid = new setTimeout(function(){f3run("OPWAVE","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);   
 				
 			};
@@ -883,6 +954,7 @@ function f3run(akey,cmd){
 				}else{
 					device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.OPWAVE.stid = new setTimeout(function(){f3run(akey,"schcheck")},5*60*1000);//
 				
 				ssipcam106 = "http://opcom:88888888@192.168.5.106:8006/cgi/ptz_set?Channel=1&Group=PTZCtrlInfo&AutoScan=1"
@@ -915,6 +987,7 @@ function f3run(akey,cmd){
 				}else{
 					device_auto_client_trige(sch_autojob[akey].devpos,"OFF");					
 				}
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.DOSEA.stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
 			};
             break;
@@ -931,6 +1004,7 @@ function f3run(akey,cmd){
 				}else{
 					device_auto_client_trige(sch_autojob[akey].devpos,"OFF");					
 				}
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.DOSEB.stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
 				
 			};
@@ -948,6 +1022,7 @@ function f3run(akey,cmd){
 				}else{
 					device_auto_client_trige(sch_autojob[akey].devpos,"OFF");					
 				}
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.DOSEC.stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
 				
 			};
@@ -965,24 +1040,26 @@ function f3run(akey,cmd){
 				}else{
 					device_auto_client_trige(sch_autojob[akey].devpos,"OFF");					
 				}
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.DOSED.stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
 				
 			};
             break;
         case "ECDOSE"://"ECDOSE","PHDOSE"
 			if(cmd == "load"){				
-			
-				sch_autojob.ECDOSE.stid = new setTimeout(function(){f3run("ECDOSE","check")},sch_autojob[akey].loop[0].checkt*60*1000); 
-				
+				clearstid(sch_autojob[akey].stid);
+				sch_autojob.ECDOSE.stid = new setTimeout(function(){f3run("ECDOSE","check")},sch_autojob[akey].loop[0].checkt*60*1000); 				
 			};
 			if(cmd == "check"){
-				
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.ECDOSE.stid = new setTimeout(function(){f3run("ECDOSE","on")},sch_autojob[akey].loop[0].checkt*60*1000);				
 			};
 			if(cmd == "on"){
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.ECDOSE.stid = new setTimeout(function(){f3run("ECDOSE","off")},sch_autojob[akey].loop[0].checkt*60*1000); 				
 			};
 			if(cmd == "off"){
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.ECDOSE.stid = new setTimeout(function(){f3run("ECDOSE","load")},sch_autojob[akey].loop[0].checkt*60*1000); 				
 			};
 			if(cmd == "schcheck"){
@@ -991,15 +1068,19 @@ function f3run(akey,cmd){
             break;
         case "PHDOSE":
 			if(cmd == "load"){				
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.PHDOSE.stid = new setTimeout(function(){f3run("PHDOSE","check")},sch_autojob[akey].loop[0].checkt*60*1000); 
 			};
 			if(cmd == "check"){
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.PHDOSE.stid = new setTimeout(function(){f3run("PHDOSE","on")},sch_autojob[akey].loop[0].checkt*60*1000);				
 			};
 			if(cmd == "on"){
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.PHDOSE.stid = new setTimeout(function(){f3run("PHDOSE","off")},sch_autojob[akey].loop[0].checkt*60*1000); 				
 			};
 			if(cmd == "off"){
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob.PHDOSE.stid = new setTimeout(function(){f3run("PHDOSE","load")},sch_autojob[akey].loop[0].checkt*60*1000); 				
 			};
 			if(cmd == "schcheck"){};
@@ -1016,6 +1097,7 @@ function f3run(akey,cmd){
 					}
 				}
 				//device_auto_client(sch_autojob[akey].devpos,"ON")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
             }
             if(cmd == "off"){ 
@@ -1027,6 +1109,7 @@ function f3run(akey,cmd){
 					}
 				}
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
             }			
             if(cmd == "schcheck"){
@@ -1050,6 +1133,7 @@ function f3run(akey,cmd){
 					}
 					//device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
             }
             break;
@@ -1065,6 +1149,7 @@ function f3run(akey,cmd){
 					}
 				}
 				//device_auto_client(sch_autojob[akey].devpos,"ON")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
             }
             if(cmd == "off"){ 
@@ -1076,6 +1161,7 @@ function f3run(akey,cmd){
 					}
 				}
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
             }			
             if(cmd == "schcheck"){
@@ -1099,6 +1185,7 @@ function f3run(akey,cmd){
 					}
 					//device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
             }
             break;
@@ -1114,6 +1201,7 @@ function f3run(akey,cmd){
 					}
 				}
 				//device_auto_client(sch_autojob[akey].devpos,"ON")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
             }
             if(cmd == "off"){ 
@@ -1125,6 +1213,7 @@ function f3run(akey,cmd){
 					}
 				}
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
             }			
             if(cmd == "schcheck"){
@@ -1148,6 +1237,7 @@ function f3run(akey,cmd){
 					}
 					//device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
             }
             break;
@@ -1163,6 +1253,7 @@ function f3run(akey,cmd){
 					}
 				}
 				//device_auto_client(sch_autojob[akey].devpos,"ON")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
             }
             if(cmd == "off"){ 
@@ -1174,6 +1265,7 @@ function f3run(akey,cmd){
 					}
 				}
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
             }			
             if(cmd == "schcheck"){
@@ -1197,6 +1289,7 @@ function f3run(akey,cmd){
 					}
 					//device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"schcheck")},2*60*1000);//
             }
             break;
@@ -1212,6 +1305,7 @@ function f3run(akey,cmd){
 					client.get(democtiveurl, function (data, response) {
 						console.log("demo C906 client active  ok ...");
 					}).on("error", function(err) {console.log("err for client");});	
+					clearstid(sch_autojob[akey].stid);
 					sch_autojob[akey].stid = new setTimeout(function(){f3run("IPCAMC906","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
 				}
 				//http://192.168.5.220/Query/TimeLams.php?ID={UUID}&IPCAM={C906}&Statu=1
@@ -1219,6 +1313,7 @@ function f3run(akey,cmd){
 			if(cmd == "off"){
 				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run("IPCAMC906","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);      
 			};
             break;
@@ -1235,6 +1330,7 @@ function f3run(akey,cmd){
 					client.get(democtiveurl, function (data, response) {
 						console.log("demo C907 client active  ok ...");
 					}).on("error", function(err) {console.log("err for client");});	
+					clearstid(sch_autojob[akey].stid);
 					sch_autojob[akey].stid = new setTimeout(function(){f3run("IPCAMC907","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
 				}
 				//http://192.168.5.220/Query/TimeLams.php?ID={UUID}&IPCAM={C906}&Statu=1
@@ -1242,6 +1338,7 @@ function f3run(akey,cmd){
 			if(cmd == "off"){
 				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run("IPCAMC907","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);      
 			};
             break;
@@ -1258,6 +1355,7 @@ function f3run(akey,cmd){
 					client.get(democtiveurl, function (data, response) {
 						console.log("demo C908 client active  ok ...");
 					}).on("error", function(err) {console.log("err for client");});	
+					clearstid(sch_autojob[akey].stid);
 					sch_autojob[akey].stid = new setTimeout(function(){f3run("IPCAMC908","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
 				}
 				//http://192.168.5.220/Query/TimeLams.php?ID={UUID}&IPCAM={C906}&Statu=1
@@ -1265,6 +1363,7 @@ function f3run(akey,cmd){
 			if(cmd == "off"){
 				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
+				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run("IPCAMC908","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);      
 			};
             break;
@@ -1281,13 +1380,15 @@ function f3run(akey,cmd){
 					client.get(democtiveurl, function (data, response) {
 						console.log("demo C909 client active  ok ...");
 					}).on("error", function(err) {console.log("err for client");});	
-					 sch_autojob[akey].stid = new setTimeout(function(){f3run("IPCAMC909","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
+					clearstid(sch_autojob[akey].stid);
+					sch_autojob[akey].stid = new setTimeout(function(){f3run("IPCAMC909","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
 				}
 				//http://192.168.5.220/Query/TimeLams.php?ID={UUID}&IPCAM={C906}&Statu=1
 			};
 			if(cmd == "off"){
 				console.log("["+akey+"] devoff="+JSON.stringify(sch_autojob[akey].devpos)); 
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
+				clearstid(sch_autojob[akey].stid);
 				 sch_autojob[akey].stid = new setTimeout(function(){f3run("IPCAMC909","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);      
 			};
             break;
