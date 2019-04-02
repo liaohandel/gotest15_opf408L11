@@ -2005,89 +2005,87 @@ app.listen(setport, function () {
 		},1 * 60 * 1000);
 		
 		
-		if(pdbuffer.pdjobj.PDDATA.linkoffmode == 0){//ext web mode
-			ngrok.disconnect(); // stops all
-			//ngrok.kill(); // kill all link
+		// if(pdbuffer.pdjobj.PDDATA.linkoffmode == 0){//ext web mode
+		// 	ngrok.disconnect(); // stops all
+		// 	//ngrok.kill(); // kill all link
 			
-			ngrok.connect(setport,function (err, url) {
-				reloadtime = Date.now(); //記住ngrok網址配置時間 ###
-				if(err)console.log("link ngrok err=>"+ err);
+		// 	ngrok.connect(setport,function (err, url) {
+		// 		reloadtime = Date.now(); //記住ngrok網址配置時間 ###
+		// 		if(err)console.log("link ngrok err=>"+ err);
 				
-				if(url === undefined ){
-					url="http://0000";
-				}
-				seturl = url
-				chkurl = seturl+"/connectcheck"
-				setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid;
-				console.log("link=>"+seturl +" to "+ setddsnurl);
-				client.get(setddsnurl, cargs, function (data, response) {
-					// parsed response body as js object
-					console.log("get ddns ok ...");
-					//console.log(data.toString());
-					//raw response 
-					//console.log(response.query);
+		// 		if(url === undefined ){
+		// 			url="http://0000";
+		// 		}
+		// 		seturl = url
+		// 		chkurl = seturl+"/connectcheck"
+		// 		setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid;
+		// 		console.log("link=>"+seturl +" to "+ setddsnurl);
+		// 		client.get(setddsnurl, cargs, function (data, response) {
+		// 			// parsed response body as js object
+		// 			console.log("get ddns ok ...");
+		// 			//console.log(data.toString());
+		// 			//raw response 
+		// 			//console.log(response.query);
 					
-				}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+		// 		}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 				
-				//===== ngrok link check @ 20min ================									
-				setInterval(function(){
-					console.log('test link ...');
-					chkurl = seturl+"/connectcheck"
-					console.log("chklink=>"+chkurl);
-					client.get(chkurl, function (data, response) {  
-						if(data == null){
-							chkstr = "null";
-						}else{
-							chkstr = data.toString(); 
-						}	                     
-						console.log("linkchk ... "+chkstr);
-						if(chkstr === "ready"){                       
-							console.log("linkchk ok ...",linkchkcount);
-							linkchkcount=0;
+		// 		//===== ngrok link check @ 20min ================									
+		// 		setInterval(function(){
+		// 			console.log('test link ...');
+		// 			chkurl = seturl+"/connectcheck"
+		// 			console.log("chklink=>"+chkurl);
+		// 			client.get(chkurl, function (data, response) {  
+		// 				if(data == null){
+		// 					chkstr = "null";
+		// 				}else{
+		// 					chkstr = data.toString(); 
+		// 				}	                     
+		// 				console.log("linkchk ... "+chkstr);
+		// 				if(chkstr === "ready"){                       
+		// 					console.log("linkchk ok ...",linkchkcount);
+		// 					linkchkcount=0;
 							
-							//container_stulinkweb(sensorbuff[sbcount]);//#### link load sensor data 
-							//for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
-							// sbcount++;
-							// if(sbcount>=sbcountmax)sbcount=0;	
-							// opf403_regdev_loadscan(regsensorbuff[sbcount]);//opf402 use reg level load scan 
-							// opf403_regstulinkweb(uploadregsensorbuff[sbcount]);				
-							// opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);
-							if(Date.now() - reloadtime >= 14400000) reload105ddsn();//四小時自動重配ngrok網址 ###								
+		// 					//container_stulinkweb(sensorbuff[sbcount]);//#### link load sensor data 
+		// 					//for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
+		// 					// sbcount++;
+		// 					// if(sbcount>=sbcountmax)sbcount=0;	
+		// 					// opf403_regdev_loadscan(regsensorbuff[sbcount]);//opf402 use reg level load scan 
+		// 					// opf403_regstulinkweb(uploadregsensorbuff[sbcount]);				
+		// 					// opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);
+		// 					if(Date.now() - reloadtime >= 14400000) reload105ddsn();//四小時自動重配ngrok網址 ###								
 							
-						} else {							                       
-							console.log("linkchk fail ...",linkchkcount) 
-							linkchkcount++;
-							//relink DDNS for ngrok 
-							if(((typeof seturl) == "undefined" ) || (linkchkcount >=3) ){
-								//console.log("get x11...") 
-								linkchkcount=0;
-								reload105ddsn();
-							}				
-						}
+		// 				} else {							                       
+		// 					console.log("linkchk fail ...",linkchkcount) 
+		// 					linkchkcount++;
+		// 					//relink DDNS for ngrok 
+		// 					if(((typeof seturl) == "undefined" ) || (linkchkcount >=3) ){
+		// 						//console.log("get x11...") 
+		// 						linkchkcount=0;
+		// 						reload105ddsn();
+		// 					}				
+		// 				}
 						
-					}).on("error", function(err) {
-						console.log("err for client");
-						console.log("linkchk fail ...",linkchkcount) 
-						linkchkcount++;
-						//relink DDNS for ngrok 
-						if(((typeof seturl) == "undefined" ) || (linkchkcount >=3) ){
-							//console.log("get x12...") ;
-							global.weblinkflag = 0; // retry web link 
-							linkchkcount=0;
-							reload105ddsn();
-						}							
-					});
+		// 			}).on("error", function(err) {
+		// 				console.log("err for client");
+		// 				console.log("linkchk fail ...",linkchkcount) 
+		// 				linkchkcount++;
+		// 				//relink DDNS for ngrok 
+		// 				if(((typeof seturl) == "undefined" ) || (linkchkcount >=3) ){
+		// 					//console.log("get x12...") ;
+		// 					global.weblinkflag = 0; // retry web link 
+		// 					linkchkcount=0;
+		// 					reload105ddsn();
+		// 				}							
+		// 			});
 					
-				}, 20 * 60 * 1000);
+		// 		}, 20 * 60 * 1000);
 				
-			});
-		}else if(pdbuffer.pdjobj.PDDATA.linkoffmode == 1){//off link mode
-			console.log(">>OFF Link Mode !");
-			
-		}else if(pdbuffer.pdjobj.PDDATA.linkoffmode == 2){//by 220 mode
-			console.log(">>LOCAL server 192.268.5.220 Link Mode !");
-			
-		}
+		// 	});
+		// }else if(pdbuffer.pdjobj.PDDATA.linkoffmode == 1){//off link mode
+		// 	console.log(">>OFF Link Mode !");
+		// }else if(pdbuffer.pdjobj.PDDATA.linkoffmode == 2){//by 220 mode
+		// 	console.log(">>LOCAL server 192.268.5.220 Link Mode !");
+		// }
 		console.log('Example app listening on port 3000!');		
 		//power on start command 
 		//autocmd.active_keypadjob('KEYPAD0','K001','ON');//POWER KEY ON
@@ -2126,44 +2124,44 @@ function reload85ddsn(){
 function reload105ddsn(){	
     console.log('recall link ngrok ...');
 	ngrok.disconnect(); // stops all
-	ngrok.kill(); // kill all link ###
+	// ngrok.kill(); // kill all link ###
 	
-	reloadtime = Date.now();//###
-	reloadcount++;
-	if(reloadcount < 1100) { //如果非異常狀況之下約每半年才會restart webapp_gx6.js
-		ngrok = reload('ngrok');
-		ngrok.connect('192.168.5.105:3000',function (err, url) {
-			if(url === undefined ){ //### this chek use the ngrok is fail  unlink .... 20180909 
-				url="http://0000";
-			}
+	// reloadtime = Date.now();//###
+	// reloadcount++;
+	// if(reloadcount < 1100) { //如果非異常狀況之下約每半年才會restart webapp_gx6.js
+	// 	ngrok = reload('ngrok');
+	// 	ngrok.connect('192.168.5.105:3000',function (err, url) {
+	// 		if(url === undefined ){ //### this chek use the ngrok is fail  unlink .... 20180909 
+	// 			url="http://0000";
+	// 		}
 			
-			seturl = url
-			chkurl = seturl+"/connectcheck"
-			console.log("link container opf408L10 or opf403,opdf406 =>"+seturl);
+	// 		seturl = url
+	// 		chkurl = seturl+"/connectcheck"
+	// 		console.log("link container opf408L10 or opf403,opdf406 =>"+seturl);
 			
-			setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
-			client.get(setddsnurl,cargs, function (data, response) {
-				console.log("get ok...") 				
-			}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
-		});
-	} else {
-		exec('sudo pm2 restart webapp_gx8x2.js',function(){
-			console.log("restart link  webapp ... ")
-		});
-	}
+	// 		setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
+	// 		client.get(setddsnurl,cargs, function (data, response) {
+	// 			console.log("get ok...") 				
+	// 		}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+	// 	});
+	// } else {
+	// 	exec('sudo pm2 restart webapp_gx8x2.js',function(){
+	// 		console.log("restart link  webapp ... ")
+	// 	});
+	// }
 	
-	// ngrok.connect('192.168.5.105:3000',function (err, url) {
-		// if(url === undefined ){ //### this chek use the ngrok is fail  unlink .... 20180909 
-			// url="http://0000";
-		// }
-		// seturl = url
-        // chkurl = seturl+"/connectcheck"
-		// console.log("link container opf408L10 or opf403,opdf406 =>"+seturl);
-        // setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
-		// client.get(setddsnurl,cargs, function (data, response) {
-			// console.log("get ok...") 				
-		// }).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
-	// });
+	ngrok.connect('192.168.5.105:3000',function (err, url) {
+		if(url === undefined ){ //### this chek use the ngrok is fail  unlink .... 20180909 
+			url="http://0000";
+		}
+		seturl = url
+        chkurl = seturl+"/connectcheck"
+		console.log("link container opf408L10 or opf403,opdf406 =>"+seturl);
+        setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
+		client.get(setddsnurl,cargs, function (data, response) {
+			console.log("get ok...") 				
+		}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+	});
 }
 
 function reload104ddsn(){	

@@ -64,6 +64,18 @@
 		env: {
 			NODE_ENV: "production"
 		}
+    },
+    // #6
+    {
+		name    : "loadwebappddns.js",
+		script  : "/home/pi/opcom_prj/gotest15_opf408L10/loadwebappddns.js",
+        cwd		: "/home/pi/opcom_prj/gotest15_opf408L10/",
+		out_file : "/dev/null",
+		error_file : "/logs/runerr.txt",
+		exec_mode  : "cluster",
+		env: {
+			NODE_ENV: "production"
+		}
     }
   ]
 
