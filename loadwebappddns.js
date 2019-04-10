@@ -21,14 +21,14 @@ var pdjobj = {}
 var Client = require('node-rest-client').Client;
 var client = new Client();
 var cargs = {
-    requestConfig: {
-        timeout: 500,
-        noDelay: true,
-        keepAlive: true
-    },
-    responseConfig: {
-        timeout: 1000 //response timeout 
-    }
+	requestConfig: {
+		timeout: 500,
+		noDelay: true,
+		keepAlive: true
+	},
+	responseConfig: {
+		timeout: 1000 //response timeout 
+	}
 };
 
 var seturl = ""
@@ -43,9 +43,9 @@ var setdeviceip = 'https://c4915760.ngrok.io'
 var setdeviceport = 'C909'
 var setuuid = '1234567890abcdefghijk'
 
-var setddsnurl = ddsnurl+'?DeviceIP='+setdeviceip+'&UUID='+setuuid
-var setvdsnurl = ddsnurl+'?DeviceIP='+setdeviceip+'&DevicePOS='+setdeviceport+'&UUID='+setuuid
-var setdevouturl = devloadurl+"?UUID="+setuuid+"&result="+"{}"
+var setddsnurl = ddsnurl + '?DeviceIP=' + setdeviceip + '&UUID=' + setuuid
+var setvdsnurl = ddsnurl + '?DeviceIP=' + setdeviceip + '&DevicePOS=' + setdeviceport + '&UUID=' + setuuid
+var setdevouturl = devloadurl + "?UUID=" + setuuid + "&result=" + "{}"
 
 var ngrok = require('ngrok');
 
@@ -80,9 +80,13 @@ fs.readFile(filepath, function (err, content) {
 					console.log("ddns ready");
 				} else {
 					exec('sudo pm2 restart loadwebappddns.js', function () {
-						console.log("restart link webapp ... ");
+						console.log("restart link loadwebappddns ... ");
 					});
 				}
+			}).on("error", function (err) {
+				exec('sudo pm2 restart loadwebappddns.js', function () {
+					console.log("restart link loadwebappddns ... ");
+				});
 			});
 		}, 10 * 60 * 1000);
 	} else if (pdjobj.PDDATA.linkoffmode == 1) {//off link mode
