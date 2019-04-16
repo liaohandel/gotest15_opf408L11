@@ -276,7 +276,7 @@ function  opf403_regdev_loadscan(regpos){ //poslist ,direct buffer LOAD save to 
 		
 		for(rr in regpos){
 			if(!(regpos[rr].POS in pdbuffer.pdjobj.PDDATA.Devtab))continue;//undefine pos is pass
-			pdbuffer.pdjobj.PDDATA.Devtab[regpos[rr].POS][regpos[rr].typecmd].chtab[regpos[rr].typereg].stu=0;
+			// pdbuffer.pdjobj.PDDATA.Devtab[regpos[rr].POS][regpos[rr].typecmd].chtab[regpos[rr].typereg].stu=0;
 			//pdbuffer.pdjobj.PDDATA.Devtab.H001.C77.chtab["A1"].stu=0;
 			
 			cregadd = regpos[rr].STU.substr(0,2)//[0][1] 2 byte
@@ -346,7 +346,10 @@ function opf403_regstulinkweb(regdevarr){
 		}		
 	}	
 }
-
+var wlcnt = {
+	"76": 0,
+	"77": 0
+};
 function opf403_regstulinkweb220(regdevarr){
 	//console.log("### sensor link upload web DB..."+JSON.stringify(regdevarr));
 	//[sensor位置回報]  http://tscloud.opcom.com/Cloud/API/v2/SensorStatus?
@@ -373,6 +376,19 @@ function opf403_regstulinkweb220(regdevarr){
 			
 			typemask = regdevarr[rr].CMD
 			if(regdevarr[rr].CMD == "WATERLEVEL"){
+				// if(cregadd in wlcnt){
+				// 	if(regval <= 3){
+				// 		wlcnt[cregadd]++;
+				// 		if(wlcnt[cregadd] <= 5){
+				// 			continue;
+				// 		} else {
+				// 			wlcnt[cregadd] = 0;
+				// 		}
+				// 	} else {
+				// 		wlcnt[cregadd] = 0;
+				// 	}
+				// 	console.log("WATERLEVEL "+regval+",cnt="+wlcnt[cregadd]);
+				// }
 				typemask = regdevarr[rr].Type;
 				//outregval=Math.round((regval/5)); // water level 1..20 => 1..5
 				outregval=Math.ceil((regval/5)); // water level 1..20 => 1..5
@@ -380,7 +396,8 @@ function opf403_regstulinkweb220(regdevarr){
 			}
 			
 			regsensor_url = ipcsensorupdateurl +"ID="+pdbuffer.setuuid+"&POS="+regdevarr[rr].POS+"&Type="+typemask+"&value="+outregval
-			//console.log(">>web "+regsensor_url);
+			console.log(">>web220 "+regsensor_url);
+			console.log(">>web220 value "+regval);
 			client.get(regsensor_url,ipccargs, function (data, response) {
 				console.log("sensor uplaod url: load ok...");
 			}).on("error", function(err) {console.log("ipc err for client");}).on('requestTimeout', function (req) {req.abort();});
@@ -2002,7 +2019,7 @@ app.listen(setport, function () {
 			opf403_regstulinkweb(uploadregsensorbuff[uploadsbcount]);			
 			opf403_regstulinkweb220(uploadregsensorbuff[uploadsbcount]);
 			
-		},1 * 60 * 1000);
+		},2 * 60 * 1000);
 		
 		
 		// if(pdbuffer.pdjobj.PDDATA.linkoffmode == 0){//ext web mode
