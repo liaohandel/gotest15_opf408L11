@@ -173,21 +173,21 @@
 					{"CMD":"REGCMD/AUTOSETUP","POS":"autopumpmotoloop","Action":"AUTO","STU":"03","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"ECDOSELOOP","Action":"AUTO","STU":"03","GROUP":"00" },
 					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"9C003C5460","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"510000","GROUP":"00" }
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"4F0000","GROUP":"00" }
 					],
 				"ON": [
 					{"CMD":"REGCMD/AUTOSETUP","POS":"PUMP","Action":"AUTO","STU":"00","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"autopumpmotoloop","Action":"AUTO","STU":"03","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"ECDOSELOOP","Action":"AUTO","STU":"03","GROUP":"00" },
 					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"9C003C5460","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"510000","GROUP":"00" }
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"4F0000","GROUP":"00" }
 					],
 				"OFF": [
 					{"CMD":"REGCMD/AUTOSETUP","POS":"PUMP","Action":"AUTO","STU":"00","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"autopumpmotoloop","Action":"AUTO","STU":"02","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"ECDOSELOOP","Action":"AUTO","STU":"02","GROUP":"00" },
 					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"9C003C5460","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"510000","GROUP":"00" }
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"4F0000","GROUP":"00" }
 					]
 			}
 		  },	  
@@ -403,7 +403,7 @@
 			"STATUS": {
 			  "stcnt": 6,
 			  "stpt": 0,
-			  "stmask": ["AUTO","ON","OFF","PH70","PH40","EC70"]
+			  "stmask": ["AUTO","ON","OFF","PH70","PH40","EC70","LOOPADD"]
 			},
 			"EVENT": {
 			  "AUTO": [
@@ -443,6 +443,9 @@
 			  ],
 			  "EC70": [
 					{"CMD":"ELECTRONS","POS":"E002","Action":"ON","STU":"940000","GROUP":"00" }
+			  ],
+			  "LOOPADD": [
+					{"CMD":"REGCMD/AUTOSETUP","POS":"PHDOSELOOP","Action":"AUTO","STU":"03","GROUP":"00" }
 			  ]
 			}
 		},
@@ -455,15 +458,15 @@
 			"EVENT": {
 			  "AUTO": [
 				{"CMD":"REGCMD/AUTOSETUP","POS":"OPWAVE","Action":"AUTO","STU":"01","GROUP":"00" },
-				{"CMD":"LED","POS":"G010","Action":"OFF","STU":"200000","GROUP":"00" }
+				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"540000","GROUP":"00" }
 			  ],
 			  "ON": [
 				{"CMD":"REGCMD/AUTOSETUP","POS":"OPWAVE","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"LED","POS":"G010","Action":"ON","STU":"200000","GROUP":"00" }
+				{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"540000","GROUP":"00" }
 				],
 			  "OFF": [
 				{"CMD":"REGCMD/AUTOSETUP","POS":"OPWAVE","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"LED","POS":"G010","Action":"OFF","STU":"200000","GROUP":"00" }]
+				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"540000","GROUP":"00" }]
 			}
 		},
 		"K020": {
@@ -585,16 +588,16 @@
 			},
 			"EVENT": {
 			  "RON25": [
-				{"CMD":"LED","POS":"A032","Action":"ON","STU":"210041","GROUP":"00" },
-				{"CMD":"LED","POS":"A031","Action":"SET","STU":"210041","GROUP":"00" }
-				],
-			  "RON50": [
 				{"CMD":"LED","POS":"A032","Action":"ON","STU":"210032","GROUP":"00" },
 				{"CMD":"LED","POS":"A031","Action":"SET","STU":"210032","GROUP":"00" }
 				],
+			  "RON50": [
+				{"CMD":"LED","POS":"A032","Action":"ON","STU":"210022","GROUP":"00" },
+				{"CMD":"LED","POS":"A031","Action":"SET","STU":"210022","GROUP":"00" }
+				],
 			  "RON75": [
-				{"CMD":"LED","POS":"A032","Action":"ON","STU":"210019","GROUP":"00" },
-				{"CMD":"LED","POS":"A031","Action":"SET","STU":"210019","GROUP":"00" }
+				{"CMD":"LED","POS":"A032","Action":"ON","STU":"210011","GROUP":"00" },
+				{"CMD":"LED","POS":"A031","Action":"SET","STU":"210011","GROUP":"00" }
 				],
 			  "RON100": [
 				{"CMD":"LED","POS":"A032","Action":"ON","STU":"210000","GROUP":"00" },
@@ -643,16 +646,16 @@
 			},
 			"EVENT": {
 			  "RON25": [
-				{"CMD":"LED","POS":"A039","Action":"SET","STU":"210041","GROUP":"00" },
-				{"CMD":"LED","POS":"A03A","Action":"ON","STU":"210041","GROUP":"00" }
-				],
-			  "RON50": [
 				{"CMD":"LED","POS":"A039","Action":"SET","STU":"210032","GROUP":"00" },
 				{"CMD":"LED","POS":"A03A","Action":"ON","STU":"210032","GROUP":"00" }
 				],
+			  "RON50": [
+				{"CMD":"LED","POS":"A039","Action":"SET","STU":"210022","GROUP":"00" },
+				{"CMD":"LED","POS":"A03A","Action":"ON","STU":"210022","GROUP":"00" }
+				],
 			  "RON75": [
-				{"CMD":"LED","POS":"A039","Action":"SET","STU":"210019","GROUP":"00" },
-				{"CMD":"LED","POS":"A03A","Action":"ON","STU":"210019","GROUP":"00" }
+				{"CMD":"LED","POS":"A039","Action":"SET","STU":"210011","GROUP":"00" },
+				{"CMD":"LED","POS":"A03A","Action":"ON","STU":"210011","GROUP":"00" }
 				],
 			  "RON100": [
 				{"CMD":"LED","POS":"A039","Action":"SET","STU":"210000","GROUP":"00" },

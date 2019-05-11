@@ -596,7 +596,7 @@ router.get('/TREESCANLOAD',function(req,res,next){
 				for(jj in pdbuffer.jtreescan.SCANLIST){
 					tsss = pdbuffer.jtreescan.SCANLIST[jj];
 					tss = jj+","+tsss+",0001,0001"
-					webtreelisturl ="http://tscloud.opcom.com/Cloud/API/v2/DeviceScan?ID="+pdbuffer.setuuid+"&DeviceMAC="+tss
+					webtreelisturl ="http://106.104.112.56/Cloud/API/v2/DeviceScan?ID="+pdbuffer.setuuid+"&DeviceMAC="+tss
 					console.log("link==>"+webtreelisturl)
 					client.get(webtreelisturl, function (data, response) {
 						console.log("reload devtab web link !"+data.toString())

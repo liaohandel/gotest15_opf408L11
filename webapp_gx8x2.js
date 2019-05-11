@@ -5,6 +5,7 @@ var reloadtime = Date.now();
 
 var EventEmitter = require('events').EventEmitter; 
 var event = new EventEmitter(); 
+event.setMaxListeners(100);
 
 const express = require('express')
 const app = express()
@@ -88,7 +89,7 @@ var offdev105statusurl="http://192.168.5.220/API/ContainerStatus.php"
 var offdevloadurl = "http://192.168.5.220/API/DeviceUpdate.php"
 var offtypeloadurl = "http://192.168.5.220/API/TypeUpdate.php"
 var offtypechannelurl = "http://192.168.5.220/API/TypeChannelsUpdate.php"
-//"v2keypadstatusupdateurl": "http://tscloud.opcom.com/Cloud/API/v2/KeypadUpdate",
+//"v2keypadstatusupdateurl": "http://106.104.112.56/Cloud/API/v2/KeypadUpdate",
 var ipcsensorupdateurl = "http://192.168.5.220/API/v2/SensorStatus.php?"
 
 
@@ -110,8 +111,10 @@ var setdevouturl = devloadurl+"?UUID="+setuuid+"&result="+"{}"
 
 //["C602","CA01","CA02","C101","C104","C107","C102","C103"],	//6
 //["CA03","CA04","CA05","C105","C106"],	//7
+var divalarmcount = 0;
 var sbcount = 0;
 var uploadsbcount = 0;
+var divuploadcount = 0;
 var sensorbuff = [
 	["H001"],["H004"],["H003"],["H004"],["H005"],["H006"],["E002"]	//0,1
 ]
@@ -123,7 +126,7 @@ var regsensorbuff = [
 		{"POS":"H004","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H005","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H006","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
-		{"POS":"H007","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"}
+		{"POS":"E002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"}
 	],
 	[
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"710000","Type":"WATERLEVEL1","typecmd":"C79","typereg":"71"},
@@ -140,7 +143,7 @@ var regsensorbuff = [
 		{"POS":"H004","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
 		{"POS":"H005","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
 		{"POS":"H006","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
-		{"POS":"H007","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"}
+		{"POS":"E002","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"}
 	],
 	[
 		{"POS":"H003","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
@@ -167,7 +170,7 @@ var uploadregsensorbuff = [
 		{"POS":"H004","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H005","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"H006","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
-		{"POS":"H007","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"}
+		{"POS":"E002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"}
 	],
 	[
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"710000","Type":"WATERLEVEL1","typecmd":"C79","typereg":"71"},
@@ -184,7 +187,7 @@ var uploadregsensorbuff = [
 		{"POS":"H004","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
 		{"POS":"H005","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
 		{"POS":"H006","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
-		{"POS":"H007","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"}
+		{"POS":"E002","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"}
 	]
 ]
 
@@ -275,7 +278,7 @@ function  opf403_regdev_loadscan(regpos){ //poslist ,direct buffer LOAD save to 
 		
 		for(rr in regpos){
 			if(!(regpos[rr].POS in pdbuffer.pdjobj.PDDATA.Devtab))continue;//undefine pos is pass
-			pdbuffer.pdjobj.PDDATA.Devtab[regpos[rr].POS][regpos[rr].typecmd].chtab[regpos[rr].typereg].stu=0;
+			// pdbuffer.pdjobj.PDDATA.Devtab[regpos[rr].POS][regpos[rr].typecmd].chtab[regpos[rr].typereg].stu=0;
 			//pdbuffer.pdjobj.PDDATA.Devtab.H001.C77.chtab["A1"].stu=0;
 			
 			cregadd = regpos[rr].STU.substr(0,2)//[0][1] 2 byte
@@ -345,7 +348,10 @@ function opf403_regstulinkweb(regdevarr){
 		}		
 	}	
 }
-
+var wlcnt = {
+	"76": 0,
+	"77": 0
+};
 function opf403_regstulinkweb220(regdevarr){
 	//console.log("### sensor link upload web DB..."+JSON.stringify(regdevarr));
 	//[sensor位置回報]  http://tscloud.opcom.com/Cloud/API/v2/SensorStatus?
@@ -372,6 +378,19 @@ function opf403_regstulinkweb220(regdevarr){
 			
 			typemask = regdevarr[rr].CMD
 			if(regdevarr[rr].CMD == "WATERLEVEL"){
+				// if(cregadd in wlcnt){
+				// 	if(regval <= 3){
+				// 		wlcnt[cregadd]++;
+				// 		if(wlcnt[cregadd] <= 5){
+				// 			continue;
+				// 		} else {
+				// 			wlcnt[cregadd] = 0;
+				// 		}
+				// 	} else {
+				// 		wlcnt[cregadd] = 0;
+				// 	}
+				// 	console.log("WATERLEVEL "+regval+",cnt="+wlcnt[cregadd]);
+				// }
 				typemask = regdevarr[rr].Type;
 				//outregval=Math.round((regval/5)); // water level 1..20 => 1..5
 				outregval=Math.ceil((regval/5)); // water level 1..20 => 1..5
@@ -379,7 +398,8 @@ function opf403_regstulinkweb220(regdevarr){
 			}
 			
 			regsensor_url = ipcsensorupdateurl +"ID="+pdbuffer.setuuid+"&POS="+regdevarr[rr].POS+"&Type="+typemask+"&value="+outregval
-			//console.log(">>web "+regsensor_url);
+			console.log(">>web220 "+regsensor_url);
+			console.log(">>web220 value "+regval);
 			client.get(regsensor_url,ipccargs, function (data, response) {
 				console.log("sensor uplaod url: load ok...");
 			}).on("error", function(err) {console.log("ipc err for client");}).on('requestTimeout', function (req) {req.abort();});
@@ -893,7 +913,7 @@ app.use('/REGCMD', regcmdRoutes);
 
 
 app.get('/LED', function (req, res) {
-	console.log(req.query);	
+	console.log('LED' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1075,7 +1095,7 @@ app.get('/LED', function (req, res) {
 
 //=======================================================
 app.get('/PUMP', function (req, res) {
-  console.log(req.query);	
+	console.log('PUMP' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1175,7 +1195,7 @@ app.get('/PUMP', function (req, res) {
 
 //=====================================================
 app.get('/AIRFAN', function (req, res) {
-	console.log(req.query);	
+	console.log('AIRFAN' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1271,7 +1291,7 @@ app.get('/AIRFAN', function (req, res) {
 })
 //=====================================================
 app.get('/GROUP', function (req, res) {
-	console.log(req.query);	
+	console.log('GROUP' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1336,7 +1356,7 @@ app.get('/GROUP', function (req, res) {
 
 //=====================================================
 app.get('/UV', function (req, res) {
-	console.log(req.query);	
+	console.log('UV' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1418,7 +1438,7 @@ app.get('/UV', function (req, res) {
 
 //=====================================================
 app.get('/CO2', function (req, res) {
-	console.log(req.query);	
+	console.log('CO2' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1476,7 +1496,7 @@ app.get('/CO2', function (req, res) {
 
 //=====================================================
 app.get('/TEMPERATURE', function (req, res) {
-	console.log(req.query);	
+	console.log('TEMPERATURE' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1531,7 +1551,7 @@ app.get('/TEMPERATURE', function (req, res) {
 })
 //=====================================================
 app.get('/RH', function (req, res) {
-	console.log(req.query);	
+	console.log('RH' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1585,7 +1605,7 @@ app.get('/RH', function (req, res) {
 });
 //=====================================================
 app.get('/WATERLEVEL', function (req, res) {
-	console.log(req.query);	
+	console.log('WATERLEVEL' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1639,7 +1659,7 @@ app.get('/WATERLEVEL', function (req, res) {
 });
 //=====================================================
 app.get('/ELECTRONS', function (req, res) {
-	console.log(req.query);	
+	console.log('ELECTRONS' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1698,7 +1718,7 @@ app.get('/ELECTRONS', function (req, res) {
 })
 //=====================================================
 app.get('/PH', function (req, res) {
-	console.log(req.query);	
+	console.log('PH' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1759,7 +1779,7 @@ app.get('/PH', function (req, res) {
 })
 //=====================================================
 app.get('/DeviceList', function (req, res) {
-  console.log(req.query);	
+	console.log('DeviceList' + JSON.stringify(req.query));	
   let cmd = req.query.Action
   let uuid = req.query.UUID
   let pos = req.query.POS
@@ -1831,7 +1851,7 @@ app.get('/DeviceList', function (req, res) {
 
 //=====================================================
 app.get('/PWM', function (req, res) {
-	console.log(req.query);	
+	console.log('PWM' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1904,7 +1924,7 @@ app.get('/PWM', function (req, res) {
 
 //=====================================================
 app.get('/AUTO', function (req, res) {
-	console.log(req.query);	
+	console.log('AUTO' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -1990,103 +2010,107 @@ app.listen(setport, function () {
 		//### user callback message event ###
 		setInterval(function(){			
 			console.log("alarm message check 4...");
-			autocmd.autoeventcall('alarmcheck_event'); //cechk auto scan 
-
+			divalarmcount++;
+			if(divalarmcount >= 3){
+				divalarmcount=0;
+				autocmd.autoeventcall('alarmcheck_event'); //cechk auto scan 
+			}
 			sbcount++;
 			if(sbcount>=sbcountmax)sbcount=0;	
 			opf403_regdev_loadscan(regsensorbuff[sbcount]); //opf402 use reg level load scan 
 			
-			uploadsbcount++;
-			if(uploadsbcount>=uploadsbcountmax)uploadsbcount=0;	
-			opf403_regstulinkweb(uploadregsensorbuff[uploadsbcount]);			
-			opf403_regstulinkweb220(uploadregsensorbuff[uploadsbcount]);
-			
-		},1 * 60 * 1000);
+			divuploadcount++;
+			if(divuploadcount >= 2) {
+				divuploadcount = 0;
+				uploadsbcount++;
+				if(uploadsbcount>=uploadsbcountmax)uploadsbcount=0;	
+				opf403_regstulinkweb(uploadregsensorbuff[uploadsbcount]);
+				opf403_regstulinkweb220(uploadregsensorbuff[uploadsbcount]);
+			}
+		},2 * 60 * 1000);
 		
 		
-		if(pdbuffer.pdjobj.PDDATA.linkoffmode == 0){//ext web mode
-			ngrok.disconnect(); // stops all
-			//ngrok.kill(); // kill all link
+		// if(pdbuffer.pdjobj.PDDATA.linkoffmode == 0){//ext web mode
+		// 	ngrok.disconnect(); // stops all
+		// 	//ngrok.kill(); // kill all link
 			
-			ngrok.connect(setport,function (err, url) {
-				reloadtime = Date.now(); //記住ngrok網址配置時間 ###
-				if(err)console.log("link ngrok err=>"+ err);
+		// 	ngrok.connect(setport,function (err, url) {
+		// 		reloadtime = Date.now(); //記住ngrok網址配置時間 ###
+		// 		if(err)console.log("link ngrok err=>"+ err);
 				
-				if(url === undefined ){
-					url="http://0000";
-				}
-				seturl = url
-				chkurl = seturl+"/connectcheck"
-				setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid;
-				console.log("link=>"+seturl +" to "+ setddsnurl);
-				client.get(setddsnurl, cargs, function (data, response) {
-					// parsed response body as js object
-					console.log("get ddns ok ...");
-					//console.log(data.toString());
-					//raw response 
-					//console.log(response.query);
+		// 		if(url === undefined ){
+		// 			url="http://0000";
+		// 		}
+		// 		seturl = url
+		// 		chkurl = seturl+"/connectcheck"
+		// 		setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid;
+		// 		console.log("link=>"+seturl +" to "+ setddsnurl);
+		// 		client.get(setddsnurl, cargs, function (data, response) {
+		// 			// parsed response body as js object
+		// 			console.log("get ddns ok ...");
+		// 			//console.log(data.toString());
+		// 			//raw response 
+		// 			//console.log(response.query);
 					
-				}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+		// 		}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 				
-				//===== ngrok link check @ 20min ================									
-				setInterval(function(){
-					console.log('test link ...');
-					chkurl = seturl+"/connectcheck"
-					console.log("chklink=>"+chkurl);
-					client.get(chkurl, function (data, response) {  
-						if(data == null){
-							chkstr = "null";
-						}else{
-							chkstr = data.toString(); 
-						}	                     
-						console.log("linkchk ... "+chkstr);
-						if(chkstr === "ready"){                       
-							console.log("linkchk ok ...",linkchkcount);
-							linkchkcount=0;
+		// 		//===== ngrok link check @ 20min ================									
+		// 		setInterval(function(){
+		// 			console.log('test link ...');
+		// 			chkurl = seturl+"/connectcheck"
+		// 			console.log("chklink=>"+chkurl);
+		// 			client.get(chkurl, function (data, response) {  
+		// 				if(data == null){
+		// 					chkstr = "null";
+		// 				}else{
+		// 					chkstr = data.toString(); 
+		// 				}	                     
+		// 				console.log("linkchk ... "+chkstr);
+		// 				if(chkstr === "ready"){                       
+		// 					console.log("linkchk ok ...",linkchkcount);
+		// 					linkchkcount=0;
 							
-							//container_stulinkweb(sensorbuff[sbcount]);//#### link load sensor data 
-							//for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
-							// sbcount++;
-							// if(sbcount>=sbcountmax)sbcount=0;	
-							// opf403_regdev_loadscan(regsensorbuff[sbcount]);//opf402 use reg level load scan 
-							// opf403_regstulinkweb(uploadregsensorbuff[sbcount]);				
-							// opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);
-							if(Date.now() - reloadtime >= 14400000) reload105ddsn();//四小時自動重配ngrok網址 ###								
+		// 					//container_stulinkweb(sensorbuff[sbcount]);//#### link load sensor data 
+		// 					//for(ii in sensorbuff[sbcount])typeloadlinkweb(sensorbuff[sbcount][ii]);
+		// 					// sbcount++;
+		// 					// if(sbcount>=sbcountmax)sbcount=0;	
+		// 					// opf403_regdev_loadscan(regsensorbuff[sbcount]);//opf402 use reg level load scan 
+		// 					// opf403_regstulinkweb(uploadregsensorbuff[sbcount]);				
+		// 					// opf403_regstulinkweb220(uploadregsensorbuff[sbcount]);
+		// 					if(Date.now() - reloadtime >= 14400000) reload105ddsn();//四小時自動重配ngrok網址 ###								
 							
-						} else {							                       
-							console.log("linkchk fail ...",linkchkcount) 
-							linkchkcount++;
-							//relink DDNS for ngrok 
-							if(((typeof seturl) == "undefined" ) || (linkchkcount >=3) ){
-								//console.log("get x11...") 
-								linkchkcount=0;
-								reload105ddsn();
-							}				
-						}
+		// 				} else {							                       
+		// 					console.log("linkchk fail ...",linkchkcount) 
+		// 					linkchkcount++;
+		// 					//relink DDNS for ngrok 
+		// 					if(((typeof seturl) == "undefined" ) || (linkchkcount >=3) ){
+		// 						//console.log("get x11...") 
+		// 						linkchkcount=0;
+		// 						reload105ddsn();
+		// 					}				
+		// 				}
 						
-					}).on("error", function(err) {
-						console.log("err for client");
-						console.log("linkchk fail ...",linkchkcount) 
-						linkchkcount++;
-						//relink DDNS for ngrok 
-						if(((typeof seturl) == "undefined" ) || (linkchkcount >=3) ){
-							//console.log("get x12...") ;
-							global.weblinkflag = 0; // retry web link 
-							linkchkcount=0;
-							reload105ddsn();
-						}							
-					});
+		// 			}).on("error", function(err) {
+		// 				console.log("err for client");
+		// 				console.log("linkchk fail ...",linkchkcount) 
+		// 				linkchkcount++;
+		// 				//relink DDNS for ngrok 
+		// 				if(((typeof seturl) == "undefined" ) || (linkchkcount >=3) ){
+		// 					//console.log("get x12...") ;
+		// 					global.weblinkflag = 0; // retry web link 
+		// 					linkchkcount=0;
+		// 					reload105ddsn();
+		// 				}							
+		// 			});
 					
-				}, 20 * 60 * 1000);
+		// 		}, 20 * 60 * 1000);
 				
-			});
-		}else if(pdbuffer.pdjobj.PDDATA.linkoffmode == 1){//off link mode
-			console.log(">>OFF Link Mode !");
-			
-		}else if(pdbuffer.pdjobj.PDDATA.linkoffmode == 2){//by 220 mode
-			console.log(">>LOCAL server 192.268.5.220 Link Mode !");
-			
-		}
+		// 	});
+		// }else if(pdbuffer.pdjobj.PDDATA.linkoffmode == 1){//off link mode
+		// 	console.log(">>OFF Link Mode !");
+		// }else if(pdbuffer.pdjobj.PDDATA.linkoffmode == 2){//by 220 mode
+		// 	console.log(">>LOCAL server 192.268.5.220 Link Mode !");
+		// }
 		console.log('Example app listening on port 3000!');		
 		//power on start command 
 		//autocmd.active_keypadjob('KEYPAD0','K001','ON');//POWER KEY ON
@@ -2125,44 +2149,44 @@ function reload85ddsn(){
 function reload105ddsn(){	
     console.log('recall link ngrok ...');
 	ngrok.disconnect(); // stops all
-	ngrok.kill(); // kill all link ###
+	// ngrok.kill(); // kill all link ###
 	
-	reloadtime = Date.now();//###
-	reloadcount++;
-	if(reloadcount < 1100) { //如果非異常狀況之下約每半年才會restart webapp_gx6.js
-		ngrok = reload('ngrok');
-		ngrok.connect('192.168.5.105:3000',function (err, url) {
-			if(url === undefined ){ //### this chek use the ngrok is fail  unlink .... 20180909 
-				url="http://0000";
-			}
+	// reloadtime = Date.now();//###
+	// reloadcount++;
+	// if(reloadcount < 1100) { //如果非異常狀況之下約每半年才會restart webapp_gx6.js
+	// 	ngrok = reload('ngrok');
+	// 	ngrok.connect('192.168.5.105:3000',function (err, url) {
+	// 		if(url === undefined ){ //### this chek use the ngrok is fail  unlink .... 20180909 
+	// 			url="http://0000";
+	// 		}
 			
-			seturl = url
-			chkurl = seturl+"/connectcheck"
-			console.log("link container opf408L10 or opf403,opdf406 =>"+seturl);
+	// 		seturl = url
+	// 		chkurl = seturl+"/connectcheck"
+	// 		console.log("link container opf408L10 or opf403,opdf406 =>"+seturl);
 			
-			setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
-			client.get(setddsnurl,cargs, function (data, response) {
-				console.log("get ok...") 				
-			}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
-		});
-	} else {
-		exec('sudo pm2 restart webapp_gx8x2.js',function(){
-			console.log("restart link  webapp ... ")
-		});
-	}
+	// 		setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
+	// 		client.get(setddsnurl,cargs, function (data, response) {
+	// 			console.log("get ok...") 				
+	// 		}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+	// 	});
+	// } else {
+	// 	exec('sudo pm2 restart webapp_gx8x2.js',function(){
+	// 		console.log("restart link  webapp ... ")
+	// 	});
+	// }
 	
-	// ngrok.connect('192.168.5.105:3000',function (err, url) {
-		// if(url === undefined ){ //### this chek use the ngrok is fail  unlink .... 20180909 
-			// url="http://0000";
-		// }
-		// seturl = url
-        // chkurl = seturl+"/connectcheck"
-		// console.log("link container opf408L10 or opf403,opdf406 =>"+seturl);
-        // setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
-		// client.get(setddsnurl,cargs, function (data, response) {
-			// console.log("get ok...") 				
-		// }).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
-	// });
+	ngrok.connect('192.168.5.105:3000',function (err, url) {
+		if(url === undefined ){ //### this chek use the ngrok is fail  unlink .... 20180909 
+			url="http://0000";
+		}
+		seturl = url
+        chkurl = seturl+"/connectcheck"
+		console.log("link container opf408L10 or opf403,opdf406 =>"+seturl);
+        setddsnurl = ddsnurl+'?DeviceIP='+seturl+'&UUID='+setuuid
+		client.get(setddsnurl,cargs, function (data, response) {
+			console.log("get ok...") 				
+		}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
+	});
 }
 
 function reload104ddsn(){	

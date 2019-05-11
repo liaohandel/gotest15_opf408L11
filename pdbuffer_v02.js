@@ -999,7 +999,7 @@ function devalarmbuff(alarmcmd){//fcc10681019f010381
 			alarmcode =  jautocmd.EVENTID.DEVPUMP[sdevreg][2];
 			if(sdevcmd == "07"){			
 				//alarm code 0x4001 => by POS device list to upload
-				update_alarmcodeurl= "http://tscloud.opcom.com/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS="+apos+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+				update_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS="+apos+"&Type="+atype+"&value="+alarmcode+"&Data=0";
 				console.log(">>alarm update to web DB =>"+update_alarmcodeurl);
 		if(global.weblinkflag == 0){
 					client.get(update_alarmcodeurl,cargs, function (data, response) {
@@ -1037,7 +1037,7 @@ function devalarmbuff(alarmcmd){//fcc10681019f010381
 		alarmcode =  jautocmd.EVENTID.DEVLED[sdevadd][2];
 		
 		//alarm code 0x4001 => by POS device list to upload
-		update_alarmcodeurl= "http://tscloud.opcom.com/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS="+apos+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+		update_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS="+apos+"&Type="+atype+"&value="+alarmcode+"&Data=0";
 		console.log(">>alarm update to web DB =>"+update_alarmcodeurl);
 		
 		if(global.weblinkflag == 0){

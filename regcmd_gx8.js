@@ -103,7 +103,6 @@ function keylistapicall(kapilist){
 				client.get(updatekeysstuatusurl220,ipccargs, function (data, response) {
 					console.log("keypad active update to webui   ok ...");
 				}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
-				
 			};
 		}
 	}
@@ -185,7 +184,7 @@ const webuiautokey = {
 // auto function active api command 
 //=====================================================
 router.get('/AUTOSETUP',function(req,res,next){	//ok	
-	console.log(req.query);	
+	console.log('AUTOSETUP' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -520,7 +519,7 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 // KeyPAD function command call api 
 //=====================================================
 router.get('/KEYSETUP',function(req,res,next){	//ok	
-	console.log(req.query);	
+	console.log('KEYSETUP' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -629,7 +628,7 @@ router.get('/KEYSETUP',function(req,res,next){	//ok
 // 設備維修 更換 設定指令  參照 POS name 
 //======================================================
 router.get('/IPADDMACSETUP',function(req,res,next){	
-	console.log(req.query);	
+	console.log('IPADDMACSETUP' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -715,7 +714,7 @@ router.get('/IPADDMACSETUP',function(req,res,next){
 // 設備自動報警 功能開啟 或 關閉 by POS name 
 //=======================================================
 router.get('/DEVALARMSET',function(req,res,next){	
-	console.log(req.query);	
+	console.log('DEVALARMSET' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -807,7 +806,7 @@ router.get('/DEVALARMSET',function(req,res,next){
 // sensor offset 校正值 操作介面 API
 //=======================================================
 router.get('/TMDEVICECAL',function(req,res,next){	
-	console.log(req.query);	
+	console.log('TMDEVICECAL' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -843,13 +842,13 @@ router.get('/TMDEVICECAL',function(req,res,next){
 				
 				if(pos=="0000"){// pos="0000" is TM
 					if(tmdat.length >=7){
-						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H001 =  Number(tmdat[0]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H002 =  Number(tmdat[1]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H003 =  Number(tmdat[2]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H004 =  Number(tmdat[3]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H005 =  Number(tmdat[4]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H006 =  Number(tmdat[5]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETTM.E002 =  Number(tmdat[6]);
+						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H001 =  Number(tmdat[0])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H002 =  Number(tmdat[1])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H003 =  Number(tmdat[2])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H004 =  Number(tmdat[3])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H005 =  Number(tmdat[4])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETTM.H006 =  Number(tmdat[5])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETTM.E002 =  Number(tmdat[6])*10;
 						
 						// pdbuffer.jautocmd_update(()=>{
 								// console.log("JAUTO Save ok !");
@@ -863,13 +862,13 @@ router.get('/TMDEVICECAL',function(req,res,next){
 				}
 				if(pos=="0001"){// pos = "0001" is RH
 					if(tmdat.length >=7){
-						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H001 =  Number(tmdat[0]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H002 =  Number(tmdat[1]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H003 =  Number(tmdat[2]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H004 =  Number(tmdat[3]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H005 =  Number(tmdat[4]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H006 =  Number(tmdat[5]);
-						pdbuffer.jautocmd.DEVICESET.OFFSETRH.E002 =  Number(tmdat[6]);
+						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H001 =  Number(tmdat[0])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H002 =  Number(tmdat[1])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H003 =  Number(tmdat[2])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H004 =  Number(tmdat[3])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H005 =  Number(tmdat[4])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETRH.H006 =  Number(tmdat[5])*10;
+						pdbuffer.jautocmd.DEVICESET.OFFSETRH.E002 =  Number(tmdat[6])*10;
 						
 						// pdbuffer.jautocmd_update(()=>{
 								// console.log("JAUTO Save ok !");
@@ -914,7 +913,7 @@ router.get('/TMDEVICECAL',function(req,res,next){
 //溫控 LiveDEMO 操作介面 API 
 //=======================================================
 router.get('/TMLIVEDEMO',function(req,res,next){	
-	console.log(req.query);	
+	console.log('TMLIVEDEMO' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -996,7 +995,7 @@ router.get('/TMLIVEDEMO',function(req,res,next){
 ipcamlist = ["C906","C907","C908","C909"];
 
 router.get('/IPCAMVIDEO',function(req,res,next){	
-	console.log(req.query);	
+	console.log('IPCAMVIDEO' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
