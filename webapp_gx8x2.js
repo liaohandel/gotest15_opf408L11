@@ -111,8 +111,10 @@ var setdevouturl = devloadurl+"?UUID="+setuuid+"&result="+"{}"
 
 //["C602","CA01","CA02","C101","C104","C107","C102","C103"],	//6
 //["CA03","CA04","CA05","C105","C106"],	//7
+var divalarmcount = 0;
 var sbcount = 0;
 var uploadsbcount = 0;
+var divuploadcount = 0;
 var sensorbuff = [
 	["H001"],["H004"],["H003"],["H004"],["H005"],["H006"],["E002"]	//0,1
 ]
@@ -2008,17 +2010,23 @@ app.listen(setport, function () {
 		//### user callback message event ###
 		setInterval(function(){			
 			console.log("alarm message check 4...");
-			autocmd.autoeventcall('alarmcheck_event'); //cechk auto scan 
-
+			divalarmcount++;
+			if(divalarmcount >= 3){
+				divalarmcount=0;
+				autocmd.autoeventcall('alarmcheck_event'); //cechk auto scan 
+			}
 			sbcount++;
 			if(sbcount>=sbcountmax)sbcount=0;	
 			opf403_regdev_loadscan(regsensorbuff[sbcount]); //opf402 use reg level load scan 
 			
-			uploadsbcount++;
-			if(uploadsbcount>=uploadsbcountmax)uploadsbcount=0;	
-			opf403_regstulinkweb(uploadregsensorbuff[uploadsbcount]);			
-			opf403_regstulinkweb220(uploadregsensorbuff[uploadsbcount]);
-			
+			divuploadcount++;
+			if(divuploadcount >= 2) {
+				divuploadcount = 0;
+				uploadsbcount++;
+				if(uploadsbcount>=uploadsbcountmax)uploadsbcount=0;	
+				opf403_regstulinkweb(uploadregsensorbuff[uploadsbcount]);
+				opf403_regstulinkweb220(uploadregsensorbuff[uploadsbcount]);
+			}
 		},2 * 60 * 1000);
 		
 		
