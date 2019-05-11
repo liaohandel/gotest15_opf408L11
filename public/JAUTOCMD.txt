@@ -988,7 +988,7 @@
 			  {"POS": "H005","CMD": "CO2","STU": "910000","GROUP": "00"},
 			  {"POS": "H006","CMD": "CO2","STU": "910000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":600,"high":800},
+			"MODETRIG":{"low":400,"high":500},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1003,7 +1003,7 @@
 			  {"POS": "H005","CMD": "CO2","STU": "910000","GROUP": "00"},
 			  {"POS": "H006","CMD": "CO2","STU": "910000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":0,"high":600},
+			"MODETRIG":{"low":350,"high":400},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1019,7 +1019,7 @@
 			  {"POS": "H005","CMD": "RH","STU": "920000","GROUP": "00"},
 			  {"POS": "H006","CMD": "RH","STU": "920000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":800,"high":850},
+			"MODETRIG":{"low":900,"high":950},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1034,7 +1034,7 @@
 			  {"POS": "H005","CMD": "RH","STU": "920000","GROUP": "00"},
 			  {"POS": "H006","CMD": "RH","STU": "920000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":850,"high":1000},
+			"MODETRIG":{"low":950,"high":1000},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1136,7 +1136,7 @@
 			"SENSORPOS": [
 				{"POS":"E002","CMD":"PH","STU":"930000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":650,"high":700},
+			"MODETRIG":{"low":700,"high":850},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1146,7 +1146,7 @@
 			"SENSORPOS": [
 				{"POS":"E002","CMD":"PH","STU":"930000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":700,"high":1000},
+			"MODETRIG":{"low":850,"high":1400},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1156,7 +1156,7 @@
 			"SENSORPOS": [
 				{"POS":"E002","CMD":"PH","STU":"930000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":530,"high":550},
+			"MODETRIG":{"low":400,"high":500},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1166,7 +1166,7 @@
 			"SENSORPOS": [
 				{"POS":"E002","CMD":"PH","STU":"930000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":100,"high":530},
+			"MODETRIG":{"low":100,"high":400},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1176,7 +1176,7 @@
 			"SENSORPOS": [
 				{"POS":"E002","CMD":"ELECTRONS","STU":"940000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":210,"high":220},
+			"MODETRIG":{"low":230,"high":240},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1186,7 +1186,7 @@
 			"SENSORPOS": [
 				{"POS":"E002","CMD":"ELECTRONS","STU":"940000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":220,"high":500},
+			"MODETRIG":{"low":240,"high":500},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1196,7 +1196,7 @@
 			"SENSORPOS": [
 				{"POS":"E002","CMD":"ELECTRONS","STU":"940000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":100,"high":120},
+			"MODETRIG":{"low":80,"high":100},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1206,7 +1206,7 @@
 			"SENSORPOS": [
 				{"POS":"E002","CMD":"ELECTRONS","STU":"940000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":0,"high":100},
+			"MODETRIG":{"low":0,"high":80},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1217,7 +1217,7 @@
 			"SENSORPOS": [
 			  {"POS": "E002","CMD": "WATERLEVEL","STU": "770000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":4,"high":12},
+			"MODETRIG":{"low":4,"high":7},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1227,7 +1227,7 @@
 			"SENSORPOS": [
 			  {"POS": "E002","CMD": "WATERLEVEL","STU": "770000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":0,"high":8},
+			"MODETRIG":{"low":0,"high":4},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1257,7 +1257,7 @@
 			"SENSORPOS": [
 			  {"POS": "E002","CMD": "WATERLEVEL","STU": "710000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":8,"high":10},
+			"MODETRIG":{"low":5,"high":8},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1267,7 +1267,7 @@
 			"SENSORPOS": [
 			  {"POS": "E002","CMD": "WATERLEVEL","STU": "710000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":0,"high":8},
+			"MODETRIG":{"low":0,"high":5},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1277,7 +1277,7 @@
 			"SENSORPOS": [
 			  {"POS": "E002","CMD": "WATERLEVEL","STU": "720000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":8,"high":10},
+			"MODETRIG":{"low":5,"high":8},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1287,7 +1287,7 @@
 			"SENSORPOS": [
 			  {"POS": "E002","CMD": "WATERLEVEL","STU": "720000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":0,"high":8},
+			"MODETRIG":{"low":0,"high":5},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1297,7 +1297,7 @@
 			"SENSORPOS": [
 			  {"POS": "E002","CMD": "WATERLEVEL","STU": "730000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":8,"high":10},
+			"MODETRIG":{"low":5,"high":8},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1307,7 +1307,7 @@
 			"SENSORPOS": [
 			  {"POS": "E002","CMD": "WATERLEVEL","STU": "730000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":0,"high":8},
+			"MODETRIG":{"low":0,"high":5},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1317,7 +1317,7 @@
 			"SENSORPOS": [
 			  {"POS": "E002","CMD": "WATERLEVEL","STU": "740000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":8,"high":10},
+			"MODETRIG":{"low":5,"high":8},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		},
@@ -1327,7 +1327,7 @@
 			"SENSORPOS": [
 			  {"POS": "E002","CMD": "WATERLEVEL","STU": "740000","GROUP": "00"}
 			],
-			"MODETRIG":{"low":0,"high":8},
+			"MODETRIG":{"low":0,"high":5},
 			"CHKMODE":0,
 			"CHKCOUNT":0
 		}

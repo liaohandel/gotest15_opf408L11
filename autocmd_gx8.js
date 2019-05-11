@@ -2237,7 +2237,7 @@ function GOBOX2LOOP(ljob){
 		case 1:
 			ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count = 0;
 			console.log(">>waterloop wlev7="+ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value+" type="+(typeof ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value));
-			if( ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value < 9){//### box2 lev is low=Lev9 check ###
+			if( ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value < 10){//### box2 lev is low=Lev9 check ###
 				ljob.SENSOR_CONTROL = 6; // add new water 
 			}else{
 				if(ljob.CHKLOOP.CHKVALUE.DELAY1 < 3 ){//box2 runloop 30min and ec/ph check
@@ -2356,7 +2356,7 @@ function GOBOX2LOOP(ljob){
 		case 10:
 			if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count >= 3){
 				ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count = 0;
-				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value <15){//chekc box2 not full=lev15 ###					
+				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value <14){//chekc box2 not full=lev15 ###					
 					ljob.CHKLOOP.CHKVALUE.DELAY2++;
 					if(ljob.CHKLOOP.CHKVALUE.DELAY2 < 120){ // < 60min auto stop WaterPUMP ###
 						ljob.CHKLOOP.CHKVALUE.WAIT1 = 0;
@@ -4441,7 +4441,7 @@ function autopumpmotoloop(ljob){
 			if(oloadval == ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value ){
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count <= 3)ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count ++;
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count >= 3){
-					if( ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value <= 8){//### box2 lev is low check 
+					if( ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value < 10){//### box2 lev is low check 
 						water_client_trige(ljob.CHKLOOP.DEVPOS.WPUMPA,"OFF");
 						ljob.CHKLOOP.CHKVALUE.WAIT1=10;
 						ljob.SENSOR_CONTROL = 14; // too low for wait for add water  
@@ -4464,7 +4464,7 @@ function autopumpmotoloop(ljob){
 				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
 				ljob.SENSOR_CONTROL=14;				
 			}else{				
-				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value > 10){//### box2 lev is low check 							
+				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value > 11){//### box2 lev is low check 							
 					ljob.SENSOR_CONTROL = 3;
 				}else {		
 					ljob.CHKLOOP.CHKVALUE.WAIT1=10;					
