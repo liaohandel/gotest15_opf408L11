@@ -2724,6 +2724,7 @@ function autotmloop(ljob){
 			ljob.CHKLOOP.CHKVALUE.INSTCODE2 = 1;
 			ljob.CHKLOOP.CHKVALUE.INSTCODEALL = "L111";
 			ljob.CHKLOOP.CHKVALUE.WKINMODE = 1;
+			ljob.CHKLOOP.CHKVALUE.RUNMODE = "1111";
 			ljob.SENSOR_CONTROL = 0;
 			break;
 		case 0://load pam to buffer 			
