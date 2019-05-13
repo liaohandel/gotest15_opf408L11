@@ -282,7 +282,7 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 						if(pos in autocmd.sch_autojob)autocmd.sch_autojob[pos].STATU=1;
 					}
 					if(cstu == "02"){//WATERLOOP mode5 OFF
-						pdbuffer.jautocmd.WATERLOOP[pos].SENSOR_CONTROL=0;
+						pdbuffer.jautocmd.WATERLOOP[pos].SENSOR_CONTROL=255;
 						pdbuffer.jautocmd.WATERLOOP[pos].STATU=0;	
 						if(pos == "autotmloop"){
 							tmlab="TEMPERATURE!LOOP";
@@ -308,7 +308,7 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 						pdbuffer.update_redis('jautocmd.WATERLOOP',()=>{console.log("JAUTO WATERLOOP Save ok !");});//update buffer to Files
 					}
 					if(cstu == "03"){//WATERLOOP mode5 ON
-						pdbuffer.jautocmd.WATERLOOP[pos].SENSOR_CONTROL=0;
+						pdbuffer.jautocmd.WATERLOOP[pos].SENSOR_CONTROL=255;
 						pdbuffer.jautocmd.WATERLOOP[pos].STATU=1;	
 						if(pos == "autotmloop"){// when start on 自動溫控 之溫度範圍 引用 溫度AUTO設定範圍值 為可調
 							tmlab="TEMPERATURE!LOOP";
