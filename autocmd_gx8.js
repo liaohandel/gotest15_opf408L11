@@ -2943,7 +2943,7 @@ function autotmloop(ljob){
 			switch(ljob.CHKLOOP.CHKVALUE.OUTMODE){
 				case 1:
 					console.log(">>autotmloop led=ON in15_out15 wkmode=1");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2101")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2101")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2101";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1HOT,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
@@ -2960,7 +2960,7 @@ function autotmloop(ljob){
 					break;
 				case 2:
 					console.log(">>autotmloop led=ON in15_out1520  wkmode=1");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2102")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2102")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2102";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1HOT,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
@@ -2977,7 +2977,7 @@ function autotmloop(ljob){
 					break;
 				case 3:
 					console.log(">>autotmloop led=ON in15_out2028 wkmode=1");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2103")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2103")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2103";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
@@ -3000,7 +3000,7 @@ function autotmloop(ljob){
 					break;
 				case 4:
 					console.log(">>autotmloop led=ON in15_out2835 wkmode=1");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2104")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2104")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2104";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
@@ -3021,7 +3021,7 @@ function autotmloop(ljob){
 					break;
 				case 5:
 					console.log(">>autotmloop led=ON in15_out35 wkmode=1");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2105")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2105")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2105";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
@@ -3050,7 +3050,7 @@ function autotmloop(ljob){
 			switch(ljob.CHKLOOP.CHKVALUE.OUTMODE){
 				case 1:
 					console.log(">>autotmloop led=ON in1520_out15 wkmode=2");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2201")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2201")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2201";
 					
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
@@ -3067,7 +3067,7 @@ function autotmloop(ljob){
 					break;
 				case 2:
 					console.log(">>autotmloop led=ON in1520_out1520  wkmode=2");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2202")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2202")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2202";
 					
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
@@ -3084,7 +3084,7 @@ function autotmloop(ljob){
 					break;
 				case 3:
 					console.log(">>autotmloop led=ON  in1520_out2028  wkmode=2");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2203")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2203")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2203";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
@@ -3104,7 +3104,7 @@ function autotmloop(ljob){
 					break;
 				case 4:
 					console.log(">>autotmloop led=ON  in1520_out2835  wkmode=2");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2204")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2204")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2204";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
@@ -3124,7 +3124,7 @@ function autotmloop(ljob){
 					break;
 				case 5:
 					console.log(">>autotmloop led=ON  in1520_out35  wkmode=2");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2205")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2205")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2205";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
@@ -3153,7 +3153,7 @@ function autotmloop(ljob){
 				case 1:
 					console.log(">>autotmloop led=ON  in2028_out15  wkmode=3");
 					sublevchk(ljob,true);
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2301")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2301")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2301";
 			// water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4AUTO,"AUTO");
 					
@@ -3172,7 +3172,7 @@ function autotmloop(ljob){
 				case 2:
 					console.log(">>autotmloop led=ON  in2028_out1520  wkmode=3");
 					sublevchk(ljob,true);
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2302")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2302")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2302";
 					
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
@@ -3191,7 +3191,7 @@ function autotmloop(ljob){
 				case 3:
 					console.log(">>autotmloop led=ON  in2028_out2028  wkmode=3");
 					sublevchk(ljob,true);
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2303")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2303")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2303";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			// water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4AUTO,"AUTO");
@@ -3209,7 +3209,7 @@ function autotmloop(ljob){
 				case 4:
 					console.log(">>autotmloop led=ON  in2028_out2835 wkmode=3");
 					sublevchk(ljob,false);
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2304")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2304")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2304";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
@@ -3227,7 +3227,7 @@ function autotmloop(ljob){
 				case 5:
 					console.log(">>autotmloop led=ON  in2028_out35 wkmode=3");
 					sublevchk(ljob,false);
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2305")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2305")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2305";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
@@ -3252,7 +3252,7 @@ function autotmloop(ljob){
 			switch(ljob.CHKLOOP.CHKVALUE.OUTMODE){
 				case 1:
 					console.log(">>autotmloop led=ON   in2835_out15 wkmode=4");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2401")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2401")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2401";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
@@ -3267,7 +3267,7 @@ function autotmloop(ljob){
 					break;
 				case 2:
 					console.log(">>autotmloop  led=ON  in2835_out1520 wkmode=4");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2402")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2402")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2402";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
@@ -3282,7 +3282,7 @@ function autotmloop(ljob){
 					break;
 				case 3:
 					console.log(">>autotmloop led=ON   in2835_out2028 wkmode=4");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2403")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2403")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2403";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
@@ -3296,7 +3296,7 @@ function autotmloop(ljob){
 					break;
 				case 4:
 					console.log(">>autotmloop led=ON   in2835_out2835 wkmode=4");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2404")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2404")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2404";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
@@ -3316,7 +3316,7 @@ function autotmloop(ljob){
 					break;
 				case 5:
 					console.log(">>autotmloop led=ON   in2835_out35 wkmode=4");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2405")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2405")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2405";
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
@@ -3342,7 +3342,7 @@ function autotmloop(ljob){
 			switch(ljob.CHKLOOP.CHKVALUE.OUTMODE){
 				case 1:
 					console.log(">>autotmloop led=ON   in35_out15 wkmode=5");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2501")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2501")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2501";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
@@ -3358,7 +3358,7 @@ function autotmloop(ljob){
 					break;
 				case 2:
 					console.log(">>autotmloop led=ON   in35_out1520 wkmode=5");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2502")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2502")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2502";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
@@ -3374,10 +3374,10 @@ function autotmloop(ljob){
 					break;
 				case 3:
 					console.log(">>autotmloop led=ON   in35_out2028 wkmode=5");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2503")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2503")break;
+					if(ljob.CHKLOOP.CHKVALUE.RUNMODE != "2503")water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1x10minM3,"AUTO");
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2503";
 			// water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
-			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1x10minM3,"AUTO");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 
@@ -3392,10 +3392,10 @@ function autotmloop(ljob){
 					break;
 				case 4:
 					console.log(">>autotmloop led=ON   in135_out2835 wkmode=5");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2504")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2504")break;
+					if(ljob.CHKLOOP.CHKVALUE.RUNMODE != "2504")water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1x10minM3,"AUTO");
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2504";
 			// water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");		
-			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1x10minM3,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
@@ -3409,10 +3409,10 @@ function autotmloop(ljob){
 					break;
 				case 5:
 					console.log(">>autotmloop led=ON   in35_out35 wkmode=5");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2505")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "2505")break;
+					if(ljob.CHKLOOP.CHKVALUE.RUNMODE != "2505")water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1x10minM3,"AUTO");
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "2505";
 			// water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
-			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1x10minM3,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DEVHOT,"OFF");	
@@ -3436,7 +3436,7 @@ function autotmloop(ljob){
 			switch(ljob.CHKLOOP.CHKVALUE.OUTMODE){
 				case 1:
 					console.log(">>autotmloop led=OFF  in15_out15 wkmode=1");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3101")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3101")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3101";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1HOT,"ON");
@@ -3454,7 +3454,7 @@ function autotmloop(ljob){
 					break;
 				case 2:
 					console.log(">>autotmloop led=OFF   in15_out1520 wkmode=1");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3102")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3102")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3102";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1HOT,"ON");
@@ -3472,7 +3472,7 @@ function autotmloop(ljob){
 					break;
 				case 3:
 					console.log(">>autotmloop led=OFF   in15_out2028 wkmode=1");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3103")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3103")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3103";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
@@ -3492,7 +3492,7 @@ function autotmloop(ljob){
 					break;
 				case 4:
 					console.log(">>autotmloop led=OFF   in15_out2835 wkmode=1");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3104")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3104")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3104";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
@@ -3510,7 +3510,7 @@ function autotmloop(ljob){
 					break;
 				case 5:
 					console.log(">>autotmloop led=OFF   in15_out35 wkmode=1");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3105")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3105")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3105";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
@@ -3536,7 +3536,7 @@ function autotmloop(ljob){
 			switch(ljob.CHKLOOP.CHKVALUE.OUTMODE){
 				case 1:
 					console.log(">>autotmloop led=OFF   in1520_out15 wkmode=2");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3201")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3201")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3201";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1HOT,"ON");
@@ -3554,7 +3554,7 @@ function autotmloop(ljob){
 					break;
 				case 2:
 					console.log(">>autotmloop led=OFF   in1520_out1520 wkmode=2");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3202")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3202")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3202";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1HOT,"ON");
@@ -3570,7 +3570,7 @@ function autotmloop(ljob){
 					break;
 				case 3:
 					console.log(">>autotmloop led=OFF   in1520_out2028 wkmode=2");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3203")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3203")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3203";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
@@ -3586,7 +3586,7 @@ function autotmloop(ljob){
 					break;
 				case 4:
 					console.log(">>autotmloop led=OFF   in1520_out2835 wkmode=2");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3204")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3204")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3204";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
@@ -3602,7 +3602,7 @@ function autotmloop(ljob){
 					break;
 				case 5:
 					console.log(">>autotmloop  led=OFF  in1520_out35 wkmode=2");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3205")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3205")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3205";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
@@ -3626,7 +3626,7 @@ function autotmloop(ljob){
 			switch(ljob.CHKLOOP.CHKVALUE.OUTMODE){
 				case 1:
 					console.log(">>autotmloop led=OFF   in2028_out15 wkmode=3");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3301")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3301")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3301";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
@@ -3642,7 +3642,7 @@ function autotmloop(ljob){
 					break;
 				case 2:
 					console.log(">>autotmloop  led=OFF  in2028_out1520 wkmode=3");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3302")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3302")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3302";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
@@ -3658,7 +3658,7 @@ function autotmloop(ljob){
 					break;
 				case 3:
 					console.log(">>autotmloop  led=OFF  in2028_out2028 wkmode=3");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3303")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3303")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3303";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
@@ -3675,7 +3675,7 @@ function autotmloop(ljob){
 					break;
 				case 4:
 					console.log(">>autotmloop led=OFF   in2028_out2835 wkmode=3");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3304")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3304")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3304";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"ON");
@@ -3691,7 +3691,7 @@ function autotmloop(ljob){
 					break;
 				case 5:
 					console.log(">>autotmloop  led=OFF  in2028_out35 wkmode=3");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3305")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3305")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3305";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");	
@@ -3713,7 +3713,7 @@ function autotmloop(ljob){
 			switch(ljob.CHKLOOP.CHKVALUE.OUTMODE){
 				case 1:
 					console.log(">>autotmloop led=OFF   in2835_out15 wkmode=4");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3401")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3401")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3401";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
@@ -3728,7 +3728,7 @@ function autotmloop(ljob){
 					break;
 				case 2:
 					console.log(">>autotmloop led=OFF   in2835_out1520 wkmode=4");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3402")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3402")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3402";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
@@ -3743,7 +3743,7 @@ function autotmloop(ljob){
 					break;
 				case 3:
 					console.log(">>autotmloop led=OFF   in2835_out2028 wkmode=4");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3403")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3403")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3403";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx1M3,"ON");
@@ -3760,7 +3760,7 @@ function autotmloop(ljob){
 					break;
 				case 4:
 					console.log(">>autotmloop led=OFF   in2835_out2835 wkmode=4");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3404")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3404")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3404";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.LEDM5ON100,"AUTO");//led=4 o
@@ -3777,7 +3777,7 @@ function autotmloop(ljob){
 					break;
 				case 5:
 					console.log(">>autotmloop led=OFF   in2835_out35 wkmode=4");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3405")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3405")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3405";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx5M3,"OFF");
@@ -3803,7 +3803,7 @@ function autotmloop(ljob){
 			switch(ljob.CHKLOOP.CHKVALUE.OUTMODE){
 				case 1:
 					console.log(">>autotmloop led=OFF   in35_out15 wkmode=5");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3501")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3501")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3501";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");
@@ -3818,7 +3818,7 @@ function autotmloop(ljob){
 					break;
 				case 2:
 					console.log(">>autotmloop led=OFF   in35_out1520 wkmode=5");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3502")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3502")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3502";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4ON,"AUTO")
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"OFF");;
@@ -3833,7 +3833,7 @@ function autotmloop(ljob){
 					break;
 				case 3:
 					console.log(">>autotmloop led=OFF   in35_out2028 wkmode=5");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3503")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3503")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3503";
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.REFx4MJAUTOOFF,"AUTO");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
@@ -3851,7 +3851,7 @@ function autotmloop(ljob){
 					break;
 				case 4:
 					console.log(">>autotmloop led=OFF   in35_out2835 wkmode=5");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3504")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3504")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3504";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
@@ -3868,7 +3868,7 @@ function autotmloop(ljob){
 					break;
 				case 5:
 					console.log(">>autotmloop led=OFF   in35_out35 wkmode=5");
-					if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3505")break;
+					// if(ljob.CHKLOOP.CHKVALUE.RUNMODE == "3505")break;
 					ljob.CHKLOOP.CHKVALUE.RUNMODE = "3505";
 			water_client_trige(ljob.CHKLOOP.DEVPOS.AIRM1,"ON");
 			water_client_trige(ljob.CHKLOOP.DEVPOS.REFx6M4OFF,"AUTO");
