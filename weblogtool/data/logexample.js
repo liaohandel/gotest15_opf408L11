@@ -1,0 +1,78 @@
+var logexample = {
+	"TM": {
+		"STATU": 0,
+		"SENSOR_CONTROL": 0,
+		"WAIT1": 0,
+		"INSTCODEALL": 0,
+		"H002": 0,
+		"H004": 0,
+		"H005": 0,
+		"E002": 0,
+		"LEDSAW": 0,
+		"LEDSAR": 0,
+		"LEDSBW": 0,
+		"LEDSBR": 0,
+		"LEDAW": 0,
+		"LEDAR": 0,
+		"LEDBW": 0,
+		"LEDBR": 0,
+		"FAN1": 0,
+		"FAN2": 0,
+		"FAN3": 0,
+		"FAN4": 0,
+		"AIR": 0,
+		"COOL": 0,
+		"HOT": 0,
+		"H010": 0,
+		"H011": 0
+	},
+	"PUMP": {
+		"STATU": 0,
+		"SENSOR_CONTROL": 0,
+		"WAIT1": 0,
+		"CWLEVEL": 0,
+		"FWLEVEL": 0,
+		"CWPUMP": 0,
+		"FWPUMP": 0,
+		"CFA1": 0,
+		"FPA1": 0,
+		"CFA2": 0,
+		"FPA2": 0,
+		"CFA3": 0,
+		"FPA3": 0,
+		"CFB1": 0,
+		"FPB1": 0,
+		"CFB2": 0,
+		"FPB2": 0,
+		"CFB3": 0,
+		"FPB3": 0
+	},
+	"WATER": {
+		"STATU": 0,
+		"SENSOR_CONTROL": 0,
+		"WAIT1": 0,
+		"CWLEVEL": 0,
+		"FWLEVEL": 0
+	},
+	"ECPH": {
+		"STATU": 0,
+		"SENSOR_CONTROL": 0,
+		"WAIT1": 0,
+		"PUMP": 0,
+		"TWA": 0,
+		"CWLEVEL": 0,
+		"FWLEVEL": 0
+	},
+	"DOSE": {
+		"STATU": 0,
+		"STATUA": 0,
+		"STATUB": 0,
+		"STATUC": 0,
+		"STATUD": 0,
+		"PUMPA": 0,
+		"PUMPB": 0,
+		"PUMPC": 0,
+		"PUMPD": 0
+	}
+};
+module.exports = logexample;

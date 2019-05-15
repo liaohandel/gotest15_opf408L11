@@ -1,0 +1,15 @@
+{
+  apps : [
+		{
+		name    : "weblogtool.js",
+		script  : "/home/pi/opcom_prj/gotest15_opf408L10/weblogtool/weblogtool.js",
+        cwd		: "/home/pi/opcom_prj/gotest15_opf408L10/weblogtool/",
+		out_file : "/dev/null",
+		error_file : "/logs/runerr.txt",
+		exec_mode  : "cluster",
+		env: {
+			NODE_ENV: "production"
+			}
+		}
+	]
+}
