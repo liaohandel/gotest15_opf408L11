@@ -896,9 +896,15 @@ function f3run(akey,cmd){
 						sch_autojob.CO2.stid = new setTimeout(function(){f3run("CO2","off")},sch_autojob[akey].loop[0].ont*60*1000); 
 						console.log(">> goto co2 off")
 					}else if(chkval.vmax <= sch_autojob[akey].chklow){
-						clearstid(sch_autojob[akey].stid);
-						sch_autojob.CO2.stid = new setTimeout(function(){f3run("CO2","on")},sch_autojob[akey].loop[0].ont*60*1000);	
-						console.log(">> goto co2 on")						
+						if(pdbuffer.pdjobj.PDDATA.Devtab.E002.C72.chtab["58"].sub == 0){
+							clearstid(sch_autojob[akey].stid);
+							sch_autojob.CO2.stid = new setTimeout(function(){f3run("CO2","on")},sch_autojob[akey].loop[0].ont*60*1000);	
+							console.log(">> goto co2 on")
+						}else{
+							clearstid(sch_autojob[akey].stid);
+							sch_autojob.CO2.stid = new setTimeout(function(){f3run("CO2","off")},sch_autojob[akey].loop[0].ont*60*1000); 
+							console.log(">> goto co2 off")
+						}
 					}
 					// else{
 						// clearstid(sch_autojob[akey].stid);
