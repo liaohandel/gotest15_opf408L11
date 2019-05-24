@@ -861,7 +861,7 @@
 			"STATUS": {
 				"stcnt": 3,
 				"stpt": 0,
-				"stmask": ["AUTO","ON","OFF"]
+				"stmask": ["AUTO","ON","OFF","LEDON","LEDOFF"]
 			},
 			"EVENT": {
 				"AUTO": [],
@@ -870,6 +870,18 @@
 				],
 				"OFF": [
 					{"CMD": "REGCMD/AUTOSETUP","POS": "MOTOUPDOWNA1","Action": "AUTO","STU": "00","GROUP": "00"}
+				],
+				"LEDON": [
+					{"CMD":"LED","POS":"A030","Action":"ON","STU":"220000","GROUP":"00" },
+					{"CMD":"LED","POS":"A031","Action":"ON","STU":"210000","GROUP":"00" },
+					{"CMD":"LED","POS":"A038","Action":"ON","STU":"220000","GROUP":"00" },
+					{"CMD":"LED","POS":"A039","Action":"ON","STU":"210000","GROUP":"00" }
+				],
+				"LEDOFF": [
+					{"CMD":"LED","POS":"A030","Action":"OFF","STU":"220064","GROUP":"00" },
+					{"CMD":"LED","POS":"A031","Action":"OFF","STU":"210064","GROUP":"00" },
+					{"CMD":"LED","POS":"A038","Action":"OFF","STU":"220064","GROUP":"00" },
+					{"CMD":"LED","POS":"A039","Action":"OFF","STU":"210064","GROUP":"00" }
 				]
 			}
 		},

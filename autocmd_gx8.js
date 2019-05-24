@@ -403,6 +403,7 @@ function f3run(akey,cmd){
 						device_auto_client(sch_autojob[akey].devpos,"ON")
 					}
 				}
+				pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVAAUTOSTU = 1;
 				//device_auto_client(sch_autojob[akey].devpos,"ON")
 				clearstid(sch_autojob[akey].stid);
 				sch_autojob.GROWLEDA1.stid = new setTimeout(function(){f3run("GROWLEDA1","off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
@@ -415,6 +416,7 @@ function f3run(akey,cmd){
 						device_auto_client(sch_autojob[akey].devpos,"OFF");
 					}
 				}
+				pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVAAUTOSTU = 0;
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
 				clearstid(sch_autojob[akey].stid);
 				sch_autojob.GROWLEDA1.stid = new setTimeout(function(){f3run("GROWLEDA1","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
@@ -430,6 +432,7 @@ function f3run(akey,cmd){
 							device_auto_client(sch_autojob[akey].devpos,"ON");
 						}
 					}
+					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVAAUTOSTU = 1;
 					//device_auto_client(sch_autojob[akey].devpos,"ON");
 				}else{
 					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 0;//### auto
@@ -438,6 +441,7 @@ function f3run(akey,cmd){
 							device_auto_client(sch_autojob[akey].devpos,"OFF");		
 						}
 					}
+					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVAAUTOSTU = 0;
 					//device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
 				clearstid(sch_autojob[akey].stid);
@@ -455,6 +459,7 @@ function f3run(akey,cmd){
 						device_auto_client(sch_autojob[akey].devpos,"ON")
 					}
 				}
+				pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVBAUTOSTU = 1;
 				//device_auto_client(sch_autojob[akey].devpos,"ON")
 				clearstid(sch_autojob[akey].stid);
 				sch_autojob.GROWLEDB1.stid = new setTimeout(function(){f3run("GROWLEDB1","off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
@@ -467,6 +472,7 @@ function f3run(akey,cmd){
 						device_auto_client(sch_autojob[akey].devpos,"OFF");
 					}
 				}
+				pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVBAUTOSTU = 0;
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
 				clearstid(sch_autojob[akey].stid);
 				sch_autojob.GROWLEDB1.stid = new setTimeout(function(){f3run("GROWLEDB1","on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
@@ -482,6 +488,7 @@ function f3run(akey,cmd){
 							device_auto_client(sch_autojob[akey].devpos,"ON");
 						}
 					}
+					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVBAUTOSTU = 1;
 					//device_auto_client(sch_autojob[akey].devpos,"ON");
 				}else{
 					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 0;//### auto
@@ -490,6 +497,7 @@ function f3run(akey,cmd){
 							device_auto_client(sch_autojob[akey].devpos,"OFF");		
 						}
 					}
+					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVBAUTOSTU = 0;
 					//device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
 				clearstid(sch_autojob[akey].stid);
@@ -1102,6 +1110,7 @@ function f3run(akey,cmd){
 						device_auto_client(sch_autojob[akey].devpos,"ON");
 					}
 				}
+				pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVAAUTOSTU = 1;
 				//device_auto_client(sch_autojob[akey].devpos,"ON")
 				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
@@ -1114,6 +1123,7 @@ function f3run(akey,cmd){
 						device_auto_client(sch_autojob[akey].devpos,"OFF");
 					}
 				}
+				pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVAAUTOSTU = 0;
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
 				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
@@ -1129,6 +1139,7 @@ function f3run(akey,cmd){
 							device_auto_client(sch_autojob[akey].devpos,"ON");
 						}
 					}
+					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVAAUTOSTU = 1;
 					//device_auto_client(sch_autojob[akey].devpos,"ON");
 				}else{
 					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 0;//### auto
@@ -1137,6 +1148,7 @@ function f3run(akey,cmd){
 							device_auto_client(sch_autojob[akey].devpos,"OFF");
 						}
 					}
+					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVAAUTOSTU = 0;
 					//device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
 				clearstid(sch_autojob[akey].stid);
@@ -1154,6 +1166,7 @@ function f3run(akey,cmd){
 						device_auto_client(sch_autojob[akey].devpos,"ON");
 					}
 				}
+				pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVBAUTOSTU = 1;
 				//device_auto_client(sch_autojob[akey].devpos,"ON")
 				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
@@ -1166,6 +1179,7 @@ function f3run(akey,cmd){
 						device_auto_client(sch_autojob[akey].devpos,"OFF");
 					}
 				}
+				pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVBAUTOSTU = 0;
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
 				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
@@ -1181,6 +1195,7 @@ function f3run(akey,cmd){
 							device_auto_client(sch_autojob[akey].devpos,"ON");
 						}
 					}
+					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVBAUTOSTU = 1;
 					//device_auto_client(sch_autojob[akey].devpos,"ON");
 				}else{
 					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 0;//### auto
@@ -1189,6 +1204,7 @@ function f3run(akey,cmd){
 							device_auto_client(sch_autojob[akey].devpos,"OFF");
 						}
 					}
+					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVBAUTOSTU = 0;
 					//device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
 				clearstid(sch_autojob[akey].stid);
@@ -1206,6 +1222,7 @@ function f3run(akey,cmd){
 						device_auto_client(sch_autojob[akey].devpos,"ON");
 					}
 				}
+				pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVAAUTOSTU = 1;
 				//device_auto_client(sch_autojob[akey].devpos,"ON")
 				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
@@ -1218,6 +1235,7 @@ function f3run(akey,cmd){
 						device_auto_client(sch_autojob[akey].devpos,"OFF");
 					}
 				}
+				pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVAAUTOSTU = 0;
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
 				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
@@ -1233,6 +1251,7 @@ function f3run(akey,cmd){
 							device_auto_client(sch_autojob[akey].devpos,"ON");
 						}
 					}
+					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVAAUTOSTU = 1;
 					//device_auto_client(sch_autojob[akey].devpos,"ON");
 				}else{
 					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 0;//### auto
@@ -1241,6 +1260,7 @@ function f3run(akey,cmd){
 							device_auto_client(sch_autojob[akey].devpos,"OFF");
 						}
 					}
+					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVAAUTOSTU = 0;
 					//device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
 				clearstid(sch_autojob[akey].stid);
@@ -1258,6 +1278,7 @@ function f3run(akey,cmd){
 						device_auto_client(sch_autojob[akey].devpos,"ON");
 					}
 				}
+				pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVBAUTOSTU = 1;
 				//device_auto_client(sch_autojob[akey].devpos,"ON")
 				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"off")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].ont*60*1000); 
@@ -1270,6 +1291,7 @@ function f3run(akey,cmd){
 						device_auto_client(sch_autojob[akey].devpos,"OFF");
 					}
 				}
+				pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVBAUTOSTU = 0;
 				//device_auto_client(sch_autojob[akey].devpos,"OFF")
 				clearstid(sch_autojob[akey].stid);
 				sch_autojob[akey].stid = new setTimeout(function(){f3run(akey,"on")},sch_autojob[akey].loop[sch_autojob[akey].loopcnt].offt*60*1000);         
@@ -1285,6 +1307,7 @@ function f3run(akey,cmd){
 							device_auto_client(sch_autojob[akey].devpos,"ON");
 						}
 					}
+					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVBAUTOSTU = 1;
 					//device_auto_client(sch_autojob[akey].devpos,"ON");
 				}else{
 					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVSTU = 0;//### auto
@@ -1293,6 +1316,7 @@ function f3run(akey,cmd){
 							device_auto_client(sch_autojob[akey].devpos,"OFF");
 						}
 					}
+					pdbuffer.jautocmd.WATERLOOP.autotmloop.CHKLOOP.CHKVALUE.LEDDRVBAUTOSTU = 0;
 					//device_auto_client(sch_autojob[akey].devpos,"OFF");					
 				}
 				clearstid(sch_autojob[akey].stid);
