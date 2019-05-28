@@ -171,7 +171,7 @@
 			},
 			"EVENT": {
 				"AUTO": [
-					{"CMD":"REGCMD/AUTOSETUP","POS":"PUMP","Action":"AUTO","STU":"01","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"PUMP","Action":"AUTO","STU":"00","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"autopumpmotoloop","Action":"AUTO","STU":"03","GROUP":"00" },
 					{"CMD":"REGCMD/AUTOSETUP","POS":"ECDOSELOOP","Action":"AUTO","STU":"03","GROUP":"00" },
 					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"9C003C5460","GROUP":"00" },
