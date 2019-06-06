@@ -1085,9 +1085,55 @@
 					{"CMD":"PUMP","POS":"E003","Action":"ON","STU":"4C0000","GROUP":"00" }
 				]
 			}
+		},
+		"K201": {
+			"STATUS": {
+				"stcnt": 3,
+				"stpt": 0,
+				"stmask": ["AUTO","ON","OFF"]
+			},
+			"EVENT": {
+				"AUTO": [],
+				"ON": [
+					{"CMD":"REGCMD/AUTOSETUP","POS":"DOSENEWADDSTU","Action":"AUTO","STU":"03","GROUP":"00" }
+				],
+				"OFF": [
+					{"CMD":"REGCMD/AUTOSETUP","POS":"DOSENEWADDSTU","Action":"AUTO","STU":"02","GROUP":"00" }
+				]
+			}
+		},
+		"K202": {
+			"STATUS": {
+				"stcnt": 3,
+				"stpt": 0,
+				"stmask": ["AUTO","ON","OFF"]
+			},
+			"EVENT": {
+				"AUTO": [],
+				"ON": [
+					{"CMD":"REGCMD/AUTOSETUP","POS":"DOSEECCHKSTU","Action":"AUTO","STU":"03","GROUP":"00" }
+				],
+				"OFF": [
+					{"CMD":"REGCMD/AUTOSETUP","POS":"DOSEECCHKSTU","Action":"AUTO","STU":"02","GROUP":"00" }
+				]
+			}
+		},
+		"K203": {
+			"STATUS": {
+				"stcnt": 3,
+				"stpt": 0,
+				"stmask": ["AUTO","ON","OFF"]
+			},
+			"EVENT": {
+				"AUTO": [],
+				"ON": [
+					{"CMD":"REGCMD/AUTOSETUP","POS":"DOSEPHCHKSTU","Action":"AUTO","STU":"03","GROUP":"00" }
+				],
+				"OFF": [
+					{"CMD":"REGCMD/AUTOSETUP","POS":"DOSEPHCHKSTU","Action":"AUTO","STU":"02","GROUP":"00" }
+				]
+			}
 		}
-		
-		
 	},
 
     "KEYPAD1": {

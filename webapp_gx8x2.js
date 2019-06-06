@@ -808,6 +808,19 @@ app.get('/PDINFO', function (req, res) {
 // time setup by "ON" : auto ip check or "SET" by command setup ### 20180908 
 //==============================================
 
+function set_linux_time(timedata){
+	let stimedata = timedata + "";
+	let stimedata2 = stimedata.substr(0, 4)
+	+ '-' + stimedata.substr(4, 2)
+	+ '-' + stimedata.substr(6, 2)
+	+ ' ' + stimedata.substr(8, 2)
+	+ ':' + stimedata.substr(10, 2)
+	+ ':' + stimedata.substr(12, 2);
+	exec('sudo timedatectl set-ntp no', function (error, stdout, stderr){
+		exec('sudo timedatectl set-time "' + stimedata2 + '"');
+	});
+}
+
 function set_city_time(timecity){
 	//let setiptime = spawn('sudo timedatectl',['set-timezone',timecity]);
 	setiptime = exec('sudo timedatectl set-timezone '+timecity);
@@ -851,9 +864,21 @@ function setnet_local_iptime(){
 		
 	});
 }
+function request_time(){
+	let timeurl = 'http://106.104.112.56/Cloud/API/v2/TimeCorrection?ID=' + setuuid + '&TimeCorrection=1';
+	console.log("request time =>"+timeurl);
+	client.get(timeurl,cargs, function (data, response) {
+		console.log("request time ok ...");
+	}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {console.log("timeout for client");req.abort();});
 
+	let timeurl220 = 'http://192.168.5.220/API/v2/TimeCorrection?ID=' + setuuid + '&TimeCorrection=1';
+	console.log("request time =>"+timeurl220);
+	client.get(timeurl220,cargs, function (data, response) {
+		console.log("request time ok ...");
+	}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {console.log("timeout for client");req.abort();});	
+}
 app.get('/SETTIME', function (req, res) {
-	console.log(req.query);	
+	console.log('SETTIME' + JSON.stringify(req.query));	
 	let cmd = req.query.Action
 	let uuid = req.query.UUID
 	let pos = req.query.POS
@@ -882,14 +907,15 @@ app.get('/SETTIME', function (req, res) {
 			break	
 		case "SET":	
 			res.json(jobj);
-			pdbuffer.jautocmd.DEVICESET.SETTIMEPAM.LOCALCITY = cstu;
-			set_city_time(cstu);
+			set_linux_time(cstu);
+			// pdbuffer.jautocmd.DEVICESET.SETTIMEPAM.LOCALCITY = cstu;
+			// set_city_time(cstu);
 			// pdbuffer.jautocmd_update(()=>{
 				// console.log("JAUTO Save ok !");									
 			// });			
-			pdbuffer.update_redis('jautocmd.DEVICESET',()=>{
-				console.log("JAUTO DEVICESET Save ok !");									
-			});
+			// pdbuffer.update_redis('jautocmd.DEVICESET',()=>{
+			// 	console.log("JAUTO DEVICESET Save ok !");									
+			// });
 			break	
 		default:
 			return 		
@@ -1963,7 +1989,7 @@ app.listen(setport, function () {
 		console.log("dsnurl = ", ddsnurl);
 		console.log("videodsnurl = ",vdsnurl);//devloadur
 		console.log("devloadur = ", devloadurl)
-
+		request_time();
 		//res.send(req.query.appfile + ' ' + req.query.index);
 		//res.send(webstr); 
 		

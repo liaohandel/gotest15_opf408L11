@@ -47,10 +47,10 @@ var sensorvalue = {
 	'PH': {
 		inc: 1,
 		add: 10,
-		stu: 70,
+		stu: 700,
 		maxlength: 4,
-		min: 10,
-		max: 130,
-		div: 10
+		min: 100,
+		max: 1300,
+		div: 100
 	}
 };

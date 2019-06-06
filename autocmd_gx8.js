@@ -2265,12 +2265,24 @@ function water_client_onecheck(devlist,devcmd){
 		}).on("error", function(err) {console.log("err for client");});	
 	}
 }
-
+function water_read_value(devlist){
+	let outksspos = devlist.POS;
+	let outkssfuncmd = devlist.CMD;
+	let typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
+	let typedevreg = devlist.STU.substr(0,2);
+	return pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;
+}
+function water_read_count(devlist){
+	let oloadval = water_read_value(devlist);
+	if(oloadval == devlist.Value ){
+		if(devlist.count <= 2)devlist.count++;//0,1,2 
+	}else{
+		devlist.Value = oloadval;//### lev scan load over 3 time is ready
+		devlist.count = 0;
+	}
+}
 //=== waterloop ====
 function GOBOX2LOOP(ljob){
-	let outksspos = "";
-	let typecmd = "";
-	let typedevreg = "";
 	let chkloadval = 0;
 	let oloadval = 0;
 	console.log(">>waterloop ="+ljob.SENSOR_CONTROL);
@@ -2286,12 +2298,7 @@ function GOBOX2LOOP(ljob){
 			waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6,"LOAD");
 			waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7,"LOAD");			
 			//water_client_trige(ljob.CHKLOOP.DEVPOS.M4,"OFF"); //check box2 is full	
-			
-			outksspos = ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.POS;
-			outkssfuncmd = ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.CMD;
-			typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
-			typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.STU.substr(0,2);
-			oloadval = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;//### lev scan load over 3 time is ready
+			oloadval = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6);
 			if(oloadval==0)break;
 			if(oloadval == ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.Value ){
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.count <= 2)ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.count ++;//0,1,2 
@@ -2300,11 +2307,7 @@ function GOBOX2LOOP(ljob){
 				ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.count = 0;				
 			}
 			
-			outksspos = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.POS;
-			outkssfuncmd = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.CMD;
-			typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
-			typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.STU.substr(0,2);
-			oloadval = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;//### lev scan load over 3 time is ready
+			oloadval = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7);
 			if(oloadval==0)break;
 			if(oloadval == ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value ){
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count <= 2)ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count ++;
@@ -2397,11 +2400,7 @@ function GOBOX2LOOP(ljob){
 			waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6,"LOAD");
 			waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7,"LOAD");
 			
-			outksspos = ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.POS;
-			outkssfuncmd = ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.CMD;			
-			typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
-			typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.STU.substr(0,2);
-			oloadval = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;
+			oloadval = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6);
 			if(oloadval==0)break;
 			if(oloadval == ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.Value ){ //### box1 lev check 
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.count <= 2)ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.count ++;
@@ -2410,11 +2409,7 @@ function GOBOX2LOOP(ljob){
 				ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.count = 0;				
 			}
 			
-			outksspos = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.POS;
-			outkssfuncmd = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.CMD;
-			typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
-			typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.STU.substr(0,2);
-			oloadval = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;
+			oloadval = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7);
 			if(oloadval==0)break;
 			if(oloadval == ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value ){//### box2 lev check 
 				if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count <= 2)ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.count ++;
@@ -2466,9 +2461,6 @@ function GOBOX2LOOP(ljob){
 
 //=== EC/PH scan & water clear ====
 function GOECDOSELOOP(ljob){
-	let outksspos = "";
-	let typecmd = "";
-	let typedevreg = "";
 	let chkloadval = 0;
 	let oloadval = 0;
 	let chkflag =0;
@@ -2492,11 +2484,7 @@ function GOECDOSELOOP(ljob){
 			//waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6,"LOAD");
 			waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7,"LOAD");
 					
-			outksspos = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.POS;
-			outkssfuncmd = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.CMD;
-			typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
-			typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.STU.substr(0,2);
-			oloadval = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;//### lev scan load over 3 time is ready
+			oloadval = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7);
 			if(oloadval==0)break;
 			
 			if(oloadval == ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value ){
@@ -2762,11 +2750,8 @@ function devhotdrvchk(ljob,devcmd){
 	if(devcmd=="ON") {
 		waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6,"LOAD");
 				
-		outksspos = ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.POS;
-		outkssfuncmd = ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.CMD;
-		typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
-		typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL6.STU.substr(0,2);
-		chkvalue = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;//### lev scan load over 3 time is ready
+		chkvalue = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL6);
+
 		console.log('devhotdrvchk = WATERLEVEL6 '+chkvalue);
 		if(chkvalue >= 10){//chekc box1 is full
 			//water devhot is ready 
@@ -2853,9 +2838,6 @@ function sublevchk(ljob,devautofan){
 }
 
 function autotmloop(ljob){
-	let outksspos = "";
-	let typecmd = "";
-	let typedevreg = "";
 	let chkloadval = 0;
 	let oloadval = 0;
 	let indoortmlist =[];
@@ -4375,9 +4357,6 @@ function tmdemoloop(ljob){
 //=== autoledmoto_updown_loop ===
 const ledmotokey = ["K042","K043","K044","K045","K046","K047"];
 function autoledmotoloop(ljob){
-	let outksspos = "";
-	let typecmd = "";
-	let typedevreg = "";
 	let chkloadval = 0;
 	let oloadval = 0;
 	let chkflag =0;
@@ -4479,9 +4458,6 @@ function autoledmotoloop(ljob){
 
 //=== autopumpmotoloop by s1,s2 select  ===
 function autopumpmotoloop(ljob){
-	let outksspos = "";
-	let typecmd = "";
-	let typedevreg = "";
 	let chkloadval = 0;
 	let oloadval = 0;
 	let chkflag =0;
@@ -4628,11 +4604,8 @@ function autopumpmotoloop(ljob){
 		case 13:			
 			waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7,"LOAD");
 					
-			outksspos = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.POS;
-			outkssfuncmd = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.CMD;
-			typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
-			typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.STU.substr(0,2);
-			oloadval = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;//### lev scan load over 3 time is ready
+			oloadval = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7);
+
 			if(oloadval==0)break;
 			
 			ljob.SENSOR_CONTROL=12;
@@ -4652,12 +4625,8 @@ function autopumpmotoloop(ljob){
 			break;
 		case 14: //delay 10min for when after auto working
 			waterlev_load_client(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7,"LOAD");
-			outksspos = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.POS;
-			outkssfuncmd = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.CMD;
-			typecmd = pdbuffer.pdjobj.CMDDATA[outkssfuncmd][0];
-			typedevreg = ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.STU.substr(0,2);
-			ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value = pdbuffer.pdjobj.PDDATA.Devtab[outksspos][typecmd]["chtab"][typedevreg].stu;//### lev scan load over 3 time is ready
-			
+			ljob.CHKLOOP.SENSORPOS.WATERLEVEL7.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL7);
+
 			if(ljob.CHKLOOP.CHKVALUE.WAIT1 > 0){
 				ljob.CHKLOOP.CHKVALUE.WAIT1 --;				
 				ljob.SENSOR_CONTROL=14;				
@@ -4676,6 +4645,161 @@ function autopumpmotoloop(ljob){
 	}
 }
 
+function DOSENEWADDSTU(ljob){
+	let api;
+	let reg;
+	console.log(">>DOSENEWADDSTU ="+ljob.SENSOR_CONTROL);
+	ljob.SENSOR_CONTROL = Number(ljob.SENSOR_CONTROL);
+
+	switch(ljob.SENSOR_CONTROL){
+		case 255:
+			for(api in pdbuffer.jautocmd.DEVLIST.DOSECHK.DOSENEWADD.EPOS){
+				reg = pdbuffer.jautocmd.DEVLIST.DOSECHK.DOSENEWADD.EPOS[api].STU.substr(0,2);
+				switch(reg){
+					case '44':
+						ljob.CHKLOOP.DEVPOS.MDOSEA = jobjcopy(pdbuffer.jautocmd.DEVLIST.DOSECHK.DOSENEWADD.EPOS[api]);
+						break;
+					case '45':
+						ljob.CHKLOOP.DEVPOS.MDOSEB = jobjcopy(pdbuffer.jautocmd.DEVLIST.DOSECHK.DOSENEWADD.EPOS[api]);
+						break;
+					case '46':
+						ljob.CHKLOOP.DEVPOS.MDOSEC = jobjcopy(pdbuffer.jautocmd.DEVLIST.DOSECHK.DOSENEWADD.EPOS[api]);
+						break;
+					case '61':
+						ljob.CHKLOOP.DEVPOS.MDOSED = jobjcopy(pdbuffer.jautocmd.DEVLIST.DOSECHK.DOSENEWADD.EPOS[api]);
+						break;
+					default:
+						break;
+				}
+			}
+			ljob.SENSOR_CONTROL = 0;
+			break;
+		case 0:
+			water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEA,"OFF");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEB,"OFF");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEC,"OFF");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSED,"OFF");
+			ljob.SENSOR_CONTROL = 1;
+			break;
+		case 1:
+			ljob.CHKLOOP.SENSORPOS.WATERLEVEL1.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL1);
+			ljob.CHKLOOP.SENSORPOS.WATERLEVEL2.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL2);
+			ljob.CHKLOOP.SENSORPOS.WATERLEVEL3.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL3);
+			ljob.CHKLOOP.SENSORPOS.WATERLEVEL4.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL4);
+			ljob.SENSOR_CONTROL = 2;
+			break;
+		case 2:
+			if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL1.Value > 3 &&
+				ljob.CHKLOOP.SENSORPOS.WATERLEVEL2.Value > 3 &&
+				ljob.CHKLOOP.SENSORPOS.WATERLEVEL3.Value > 3 &&
+				ljob.CHKLOOP.SENSORPOS.WATERLEVEL4.Value > 3){
+				water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEA,"ON");
+				water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEB,"ON");
+				water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEC,"ON");
+				water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSED,"ON");
+			}
+			ljob.SENSOR_CONTROL = 255;
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DOSENEWADDSTUOFF,"AUTO");
+			break;
+		default:	
+			ljob.SENSOR_CONTROL=0;
+			break;
+	}
+}
+function DOSEECCHKSTU(ljob){
+	let api;
+	let reg;
+	console.log(">>DOSEECCHKSTU ="+ljob.SENSOR_CONTROL);
+	ljob.SENSOR_CONTROL = Number(ljob.SENSOR_CONTROL);
+
+	switch(ljob.SENSOR_CONTROL){
+		case 255:
+			for(api in pdbuffer.jautocmd.DEVLIST.DOSECHK.DOSEECCHK.EPOS){
+				reg = pdbuffer.jautocmd.DEVLIST.DOSECHK.DOSEECCHK.EPOS[api].STU.substr(0,2);
+				switch(reg){
+					case '44':
+						ljob.CHKLOOP.DEVPOS.MDOSEA = jobjcopy(pdbuffer.jautocmd.DEVLIST.DOSECHK.DOSEECCHK.EPOS[api]);
+						break;
+					case '45':
+						ljob.CHKLOOP.DEVPOS.MDOSEB = jobjcopy(pdbuffer.jautocmd.DEVLIST.DOSECHK.DOSEECCHK.EPOS[api]);
+						break;
+					case '46':
+						ljob.CHKLOOP.DEVPOS.MDOSEC = jobjcopy(pdbuffer.jautocmd.DEVLIST.DOSECHK.DOSEECCHK.EPOS[api]);
+						break;
+					default:
+						break;
+				}
+			}
+			ljob.SENSOR_CONTROL = 0;
+			break;
+		case 0:
+			water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEA,"OFF");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEB,"OFF");
+			water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEC,"OFF");
+			ljob.SENSOR_CONTROL = 1;
+			break;
+		case 1:
+			ljob.CHKLOOP.SENSORPOS.WATERLEVEL1.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL1);
+			ljob.CHKLOOP.SENSORPOS.WATERLEVEL2.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL2);
+			ljob.CHKLOOP.SENSORPOS.WATERLEVEL3.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL3);
+			ljob.SENSOR_CONTROL = 2;
+			break;
+		case 2:
+			if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL1.Value > 3 &&
+				ljob.CHKLOOP.SENSORPOS.WATERLEVEL2.Value > 3 &&
+				ljob.CHKLOOP.SENSORPOS.WATERLEVEL3.Value > 3){
+				water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEA,"ON");
+				water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEB,"ON");
+				water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEC,"ON");
+			}
+			ljob.SENSOR_CONTROL = 255;
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DOSEECCHKSTUOFF,"AUTO");
+			break;
+		default:
+			ljob.SENSOR_CONTROL=0;
+			break;
+	}
+}
+function DOSEPHCHKSTU(ljob){
+	let api;
+	let reg;
+	console.log(">>DOSEPHCHKSTU ="+ljob.SENSOR_CONTROL);
+	ljob.SENSOR_CONTROL = Number(ljob.SENSOR_CONTROL);
+
+	switch(ljob.SENSOR_CONTROL){
+		case 255:
+			for(api in pdbuffer.jautocmd.DEVLIST.DOSECHK.DOSEPHCHK.EPOS){
+				reg = pdbuffer.jautocmd.DEVLIST.DOSECHK.DOSEPHCHK.EPOS[api].STU.substr(0,2);
+				switch(reg){
+					case '61':
+						ljob.CHKLOOP.DEVPOS.MDOSED = jobjcopy(pdbuffer.jautocmd.DEVLIST.DOSECHK.DOSEPHCHK.EPOS[api]);
+						break;
+					default:
+						break;
+				}
+			}
+			ljob.SENSOR_CONTROL = 0;
+			break;
+		case 0:
+			water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSED,"OFF");
+			ljob.SENSOR_CONTROL = 1;
+			break;
+		case 1:
+			ljob.CHKLOOP.SENSORPOS.WATERLEVEL4.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL4);
+			ljob.SENSOR_CONTROL = 2;
+			break;
+		case 2:
+			if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL4.Value > 3){
+				water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSED,"ON");
+			}
+			ljob.SENSOR_CONTROL = 255;
+			water_client_trige(ljob.CHKLOOP.DEVPOS.DOSEPHCHKSTUOFF,"AUTO");
+			break;
+		default:	
+			ljob.SENSOR_CONTROL=0;
+			break;
+	}
+}
 
 //============ auto status run by 30sec ===========================
 event.on('sec30status_event', function(){ 
@@ -4684,31 +4808,33 @@ event.on('sec30status_event', function(){
 		switch(jj){
 			case "BOX2LOOP":
 				if(pdbuffer.jautocmd.WATERLOOP.BOX2LOOP.STATU == 1)GOBOX2LOOP(pdbuffer.jautocmd.WATERLOOP.BOX2LOOP);
-				
 				break;
 			case "ECDOSELOOP":
 				if(pdbuffer.jautocmd.WATERLOOP.ECDOSELOOP.STATU == 1)GOECDOSELOOP(pdbuffer.jautocmd.WATERLOOP.ECDOSELOOP);
-				
 				break;
 			case "PHDOSELOOP":
 				if(pdbuffer.jautocmd.WATERLOOP.PHDOSELOOP.STATU == 1)GOPHDOSELOOP(pdbuffer.jautocmd.WATERLOOP.PHDOSELOOP);
-				
 				break;
 			case "autotmloop":
 				if(pdbuffer.jautocmd.WATERLOOP.autotmloop.STATU == 1)autotmloop(pdbuffer.jautocmd.WATERLOOP.autotmloop);
-				
 				break;
 			case "tmdemoloop":
 				if(pdbuffer.jautocmd.WATERLOOP.tmdemoloop.STATU == 1)tmdemoloop(pdbuffer.jautocmd.WATERLOOP.tmdemoloop);
-				
 				break;
 			case "autoledmotoloop":
 				if(pdbuffer.jautocmd.WATERLOOP.autoledmotoloop.STATU == 1)autoledmotoloop(pdbuffer.jautocmd.WATERLOOP.autoledmotoloop);
-				
 				break;
 			case "autopumpmotoloop":
 				if(pdbuffer.jautocmd.WATERLOOP.autopumpmotoloop.STATU == 1)autopumpmotoloop(pdbuffer.jautocmd.WATERLOOP.autopumpmotoloop);
-				
+				break;
+			case "DOSENEWADDSTU":
+				if(pdbuffer.jautocmd.WATERLOOP.DOSENEWADDSTU.STATU == 1)DOSENEWADDSTU(pdbuffer.jautocmd.WATERLOOP.DOSENEWADDSTU);
+				break;
+			case "DOSEECCHKSTU":
+				if(pdbuffer.jautocmd.WATERLOOP.DOSEECCHKSTU.STATU == 1)DOSEECCHKSTU(pdbuffer.jautocmd.WATERLOOP.DOSEECCHKSTU);
+				break;
+			case "DOSEPHCHKSTU":
+				if(pdbuffer.jautocmd.WATERLOOP.DOSEPHCHKSTU.STATU == 1)DOSEPHCHKSTU(pdbuffer.jautocmd.WATERLOOP.DOSEPHCHKSTU);
 				break;
 			default:
 				break;

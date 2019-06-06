@@ -358,13 +358,22 @@ router.get('/AUTOSETUP',function(req,res,next){	//ok
 				//$url = $DeviceIP.'/REGCMD/AUTOSETUP?UUID='.$DeviceUUID.'&POS=PUMPA&Action=SET&STU='.$ScheduleListID.'&GROUP=0000'; server api command demo 
 				//autojsonloadurl = "http://tscloud.opcom.com/Cloud/API/v2/AUTOJSON?SID="+cstu;
 				//offautojsonloadurl
-				if(group == 1){//check IPC =1 or WEB=0 auto json load set					
-					autojsonloadurl =  offautojsonloadurl+"?SID="+cstu;//GROUP = 0001 is IPC
-					console.log("get auto IPC ok...["+pos+"] link>>"+autojsonloadurl);
-				}else{//GROUP = 0000 or no define is web 
-					autojsonloadurl =  pdbuffer.pdjobj.PDDATA.v2autojsonloadurl+"?SID="+cstu;
-					console.log("get auto webserver ok...["+pos+"] link>>"+autojsonloadurl);
-					
+				if(pos == "DOSECHK"){
+					if(group == 1){//check IPC =1 or WEB=0 auto json load set					
+						autojsonloadurl =  'http://192.168.5.220/API/v2/SeedlingAUTOJSON' + "?SID=" + cstu;//GROUP = 0001 is IPC
+						console.log("get auto IPC ok...["+pos+"] link>>"+autojsonloadurl);
+					}else{//GROUP = 0000 or no define is web 
+						autojsonloadurl =  'http://106.104.112.56/Cloud/API/v2/SeedlingAUTOJSON' + "?SID=" + cstu;
+						console.log("get auto webserver ok...["+pos+"] link>>"+autojsonloadurl);
+					}
+				}else{
+					if(group == 1){//check IPC =1 or WEB=0 auto json load set					
+						autojsonloadurl =  offautojsonloadurl+"?SID="+cstu;//GROUP = 0001 is IPC
+						console.log("get auto IPC ok...["+pos+"] link>>"+autojsonloadurl);
+					}else{//GROUP = 0000 or no define is web 
+						autojsonloadurl =  pdbuffer.pdjobj.PDDATA.v2autojsonloadurl+"?SID="+cstu;
+						console.log("get auto webserver ok...["+pos+"] link>>"+autojsonloadurl);
+					}
 				}
 				if(pos == "DOSE"){							
 					//if(global.weblinkflag == 1)break;
