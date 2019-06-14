@@ -808,6 +808,26 @@ app.get('/PDINFO', function (req, res) {
 // time setup by "ON" : auto ip check or "SET" by command setup ### 20180908 
 //==============================================
 
+function paddingLeft(str, lenght) {
+	str = str + "";
+	if (str.length >= lenght)
+		return str;
+	else
+		return paddingLeft("0" + str, lenght);
+}
+function gettimestring() {
+	let nowtime = new Date();
+	let nowtimestring = ""
+		+ paddingLeft(nowtime.getFullYear(), 4)
+		+ '-' + paddingLeft(nowtime.getMonth() + 1, 2)
+		+ '-' + paddingLeft(nowtime.getDate(), 2)
+		+ ' ' + paddingLeft(nowtime.getHours(), 2)
+		+ ':' + paddingLeft(nowtime.getMinutes(), 2)
+		+ ':' + paddingLeft(nowtime.getSeconds(), 2);
+	return nowtimestring;
+}
+
+
 function set_linux_time(timedata){
 	let stimedata = timedata + "";
 	let stimedata2 = stimedata.substr(0, 4)
@@ -902,7 +922,8 @@ app.get('/SETTIME', function (req, res) {
 			setnet_local_iptime();// midway system time setup by Local ip 
 			break
 		case "LOAD":
-			jobj = pdbuffer.jautocmd.DEVICESET.SETTIMEPAM;
+			// jobj = pdbuffer.jautocmd.DEVICESET.SETTIMEPAM;
+			jobj["nowtime"] = gettimestring();
 			res.json(jobj);
 			break	
 		case "SET":	
