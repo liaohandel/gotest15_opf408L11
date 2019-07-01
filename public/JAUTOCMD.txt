@@ -1636,7 +1636,7 @@
 			"SENSOR_CONTROL":0, 
 			"TIMER": {
 				"EPOS": [
-					{"POS":"E002","CMD":"PUMP","STU":"9C003C5460","GROUP":"00"},
+					{"POS":"E002","CMD":"PUMP","STU":"9C012C1C20","GROUP":"00"},
 					{"POS":"E002","CMD":"PUMP","STU":"4F0000","GROUP":"00"}
 				],
 				"PWM": { "01": 0, "02": 0, "03": 0,  "04": 0 },
@@ -2305,7 +2305,7 @@
 					"M4":{"POS":"E002","CMD":"PUMP","STU":"430000","GROUP":"00"},
 					"M5":{"POS":"E002","CMD":"PUMP","STU":"4C0000","GROUP":"00"},
 					"M6":{"POS":"E002","CMD":"PUMP","STU":"4F0000","GROUP":"00"},
-					"M7":{"POS":"E002","CMD":"PUMP","STU":"9C003C5460","GROUP":"00"},
+					"M7":{"POS":"E002","CMD":"PUMP","STU":"9C012C1C20","GROUP":"00"},
 					"ADDWATEROFF":{"POS":"KEYPAD0","CMD":"REGCMD/KEYSETUP","STU":"OFF","GROUP":"K008"}						
 				},
 				"SENSORPOS":{
@@ -2333,7 +2333,7 @@
 					"M4":{"POS":"E002","CMD":"PUMP","STU":"430000","GROUP":"00"},
 					"M5":{"POS":"E002","CMD":"PUMP","STU":"4C0000","GROUP":"00"},
 					"M6":{"POS":"E002","CMD":"PUMP","STU":"4F0000","GROUP":"00"},
-					"M7":{"POS":"E002","CMD":"PUMP","STU":"9C003C5460","GROUP":"00"},
+					"M7":{"POS":"E002","CMD":"PUMP","STU":"9C012C1C20","GROUP":"00"},
 					"MDOSEA":{"POS":"E002","CMD":"PUMP","STU":"440000","GROUP":"00"},
 					"MDOSEB":{"POS":"E002","CMD":"PUMP","STU":"450000","GROUP":"00"},
 					"MDOSEC":{"POS":"E002","CMD":"PUMP","STU":"460000","GROUP":"00"},
@@ -2577,7 +2577,7 @@
 					"SWM4C":{"POS":"E003","CMD":"PUMP","STU":"4C0000","GROUP":"00"},
 
 					"WPUMPA":{"POS":"E002","CMD":"PUMP","STU":"4F0000","GROUP":"00"},
-					"WPUMPB":{"POS":"E002","CMD":"PUMP","STU":"9C003C5460","GROUP":"00"}					
+					"WPUMPB":{"POS":"E002","CMD":"PUMP","STU":"9C012C1C20","GROUP":"00"}					
 				},
 				"SENSORPOS":{
 					"WATERLEVEL6":{"POS":"E002","CMD":"WATERLEVEL","STU":"760000","GROUP":"00","Value":0,"count":0},
@@ -2607,7 +2607,7 @@
 					"M4":{"POS":"E002","CMD":"PUMP","STU":"430000","GROUP":"00"},
 					"M5":{"POS":"E002","CMD":"PUMP","STU":"4C0000","GROUP":"00"},
 					"M6":{"POS":"E002","CMD":"PUMP","STU":"4F0000","GROUP":"00"},
-					"M7":{"POS":"E002","CMD":"PUMP","STU":"9C003C5460","GROUP":"00"},
+					"M7":{"POS":"E002","CMD":"PUMP","STU":"9C012C1C20","GROUP":"00"},
 					"MDOSEA":{"POS":"E002","CMD":"PUMP","STU":"440000","GROUP":"00"},
 					"MDOSEB":{"POS":"E002","CMD":"PUMP","STU":"450000","GROUP":"00"},
 					"MDOSEC":{"POS":"E002","CMD":"PUMP","STU":"460000","GROUP":"00"},
@@ -2644,7 +2644,7 @@
 					"M4":{"POS":"E002","CMD":"PUMP","STU":"430000","GROUP":"00"},
 					"M5":{"POS":"E002","CMD":"PUMP","STU":"4C0000","GROUP":"00"},
 					"M6":{"POS":"E002","CMD":"PUMP","STU":"4F0000","GROUP":"00"},
-					"M7":{"POS":"E002","CMD":"PUMP","STU":"9C003C5460","GROUP":"00"},
+					"M7":{"POS":"E002","CMD":"PUMP","STU":"9C012C1C20","GROUP":"00"},
 					"MDOSEA":{"POS":"E002","CMD":"PUMP","STU":"440000","GROUP":"00"},
 					"MDOSEB":{"POS":"E002","CMD":"PUMP","STU":"450000","GROUP":"00"},
 					"MDOSEC":{"POS":"E002","CMD":"PUMP","STU":"460000","GROUP":"00"},
@@ -2681,7 +2681,7 @@
 					"M4":{"POS":"E002","CMD":"PUMP","STU":"430000","GROUP":"00"},
 					"M5":{"POS":"E002","CMD":"PUMP","STU":"4C0000","GROUP":"00"},
 					"M6":{"POS":"E002","CMD":"PUMP","STU":"4F0000","GROUP":"00"},
-					"M7":{"POS":"E002","CMD":"PUMP","STU":"9C003C5460","GROUP":"00"},
+					"M7":{"POS":"E002","CMD":"PUMP","STU":"9C012C1C20","GROUP":"00"},
 					"MDOSEA":{"POS":"E002","CMD":"PUMP","STU":"440000","GROUP":"00"},
 					"MDOSEB":{"POS":"E002","CMD":"PUMP","STU":"450000","GROUP":"00"},
 					"MDOSEC":{"POS":"E002","CMD":"PUMP","STU":"460000","GROUP":"00"},
