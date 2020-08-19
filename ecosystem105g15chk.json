@@ -2,8 +2,8 @@
   apps : [
 		{
 		name    : "webchktool.js",
-		script  : "/home/pi/opcom_prj/gotest15_opf408L10/webchktool/webchktool.js",
-        cwd		: "/home/pi/opcom_prj/gotest15_opf408L10/webchktool/",
+		script  : "/home/pi/opcom_prj/gotest15_opf408L11/webchktool/webchktool.js",
+        cwd		: "/home/pi/opcom_prj/gotest15_opf408L11/webchktool/",
 		out_file : "/dev/null",
 		error_file : "/logs/runerr.txt",
 		exec_mode  : "cluster",
