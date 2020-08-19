@@ -1,7 +1,7 @@
 {
 	"PDDATA":{
 		"OPFTYPE": "OPF403_20180919",
-		"UUID": "OFA1C002DC0E7105AD6A2886",
+		"UUID": "OFA1C00575572680B7D0B244",
 		"dsnurl": "http://106.104.112.56/Cloud/API/linkbox.php",
 		"videodsnurl": "http://106.104.112.56/Cloud/API/videobox.php",
 		"devloadurl": "http://106.104.112.56/Cloud/API/DeviceUpdate.php",
@@ -71,10 +71,22 @@
 							"E3":{"sub": 0,"stu": 0,"Data": 0}
 						}
 				},
-				"C73": 	{"sub": 0,"stu": 0,"Data": 0, 
+				"C71": 	{"sub": 0,"stu": 0,"Data": 0, 
 						"chtab":{
-							"00":{"sub": 0,"stu": 0,"Data": 0},
-							"31":{"sub": 0,"stu": 0,"Data": 0}
+							"21":{"sub": 0,"stu": 0,"Data": 0},
+							"22":{"sub": 0,"stu": 0,"Data": 0},
+							"23":{"sub": 0,"stu": 0,"Data": 0},
+							"24":{"sub": 0,"stu": 0,"Data": 0},
+							"25":{"sub": 0,"stu": 0,"Data": 0},
+							"26":{"sub": 0,"stu": 0,"Data": 0},
+							"27":{"sub": 0,"stu": 0,"Data": 0},
+							"28":{"sub": 0,"stu": 0,"Data": 0},
+							"29":{"sub": 0,"stu": 0,"Data": 0},
+							"2A":{"sub": 0,"stu": 0,"Data": 0},
+							"2B":{"sub": 0,"stu": 0,"Data": 0},
+							"2C":{"sub": 0,"stu": 0,"Data": 0},
+							"2D":{"sub": 0,"stu": 0,"Data": 0},
+							"2E":{"sub": 0,"stu": 0,"Data": 0}
 						}
 				},
 				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 
@@ -82,59 +94,12 @@
 							"40":{"sub": 0,"stu": 0,"Data": 0},
 							"41":{"sub": 0,"stu": 0,"Data": 0},
 							"42":{"sub": 0,"stu": 0,"Data": 0},
-							"43":{"sub": 0,"stu": 0,"Data": 0},
-							"44":{"sub": 0,"stu": 0,"Data": 0},
-							"45":{"sub": 0,"stu": 0,"Data": 0},
-							"46":{"sub": 0,"stu": 0,"Data": 0},
-							"47":{"sub": 0,"stu": 0,"Data": 0},
-							"48":{"sub": 0,"stu": 0,"Data": 0},
-							"49":{"sub": 0,"stu": 0,"Data": 0},
-							"4A":{"sub": 0,"stu": 0,"Data": 0},
-							"4B":{"sub": 0,"stu": 0,"Data": 0},
-							"4C":{"sub": 0,"stu": 0,"Data": 0},
-							"4D":{"sub": 0,"stu": 0,"Data": 0},
-							"4E":{"sub": 0,"stu": 0,"Data": 0},
-							"4F":{"sub": 0,"stu": 0,"Data": 0},
-							"50":{"sub": 0,"stu": 0,"Data": 0},
-							"51":{"sub": 0,"stu": 0,"Data": 0},
-							"52":{"sub": 0,"stu": 0,"Data": 0},
-							"53":{"sub": 0,"stu": 0,"Data": 0},
-							"54":{"sub": 0,"stu": 0,"Data": 0},
-							"55":{"sub": 0,"stu": 0,"Data": 0},
-							"56":{"sub": 0,"stu": 0,"Data": 0},
-							"57":{"sub": 0,"stu": 0,"Data": 0},
-							"58":{"sub": 0,"stu": 0,"Data": 0},
-							"59":{"sub": 0,"stu": 0,"Data": 0},
-							"5A":{"sub": 0,"stu": 0,"Data": 0},
-							"5B":{"sub": 0,"stu": 0,"Data": 0},
-							"5C":{"sub": 0,"stu": 0,"Data": 0},
-							"5D":{"sub": 0,"stu": 0,"Data": 0},
-							"5E":{"sub": 0,"stu": 0,"Data": 0},
-							"5F":{"sub": 0,"stu": 0,"Data": 0},
-							"60":{"sub": 0,"stu": 0,"Data": 0},
-							"61":{"sub": 0,"stu": 0,"Data": 0},
-							"62":{"sub": 0,"stu": 0,"Data": 0},
-							"63":{"sub": 0,"stu": 0,"Data": 0},
-							"64":{"sub": 0,"stu": 0,"Data": 0},
-							"65":{"sub": 0,"stu": 0,"Data": 0},
-							"66":{"sub": 0,"stu": 0,"Data": 0},
-							"67":{"sub": 0,"stu": 0,"Data": 0},
-							"68":{"sub": 0,"stu": 0,"Data": 0},
-							"9C":{"sub": 0,"stu": 0,"Data": 0},
-							"EE":{"sub": 0,"stu": 0,"Data": 0}
+							"43":{"sub": 0,"stu": 0,"Data": 0}
 						}
 				},
 				"C77": 	{"sub": 0,"stu": 0,"Data": 0, 
 						"chtab":{
-							"A1":{"sub": 0,"stu": 0,"Data": 0},
-							"A2":{"sub": 0,"stu": 0,"Data": 0},
-							"A3":{"sub": 0,"stu": 0,"Data": 0},
-							"A4":{"sub": 0,"stu": 0,"Data": 0}
-						}
-				},
-				"C76": 	{"sub": 0,"stu": 0,"Data": 0, 
-						"chtab":{
-							"91":{"sub": 0,"stu": 0,"Data": 0}
+							"A1":{"sub": 0,"stu": 0,"Data": 0)
 						}
 				},
 				"C78": 	{"sub": 0,"stu": 0,"Data": 0, 
@@ -151,25 +116,12 @@
 							"75":{"sub": 0,"stu": 0,"Data": 0},
 							"76":{"sub": 0,"stu": 0,"Data": 0},
 							"77":{"sub": 0,"stu": 0,"Data": 0},
-							
-							"78":{"sub": 0,"stu": 0,"Data": 0},
-							"79":{"sub": 0,"stu": 0,"Data": 0},
-							"7A":{"sub": 0,"stu": 0,"Data": 0},
-							"7B":{"sub": 0,"stu": 0,"Data": 0},
-							"7C":{"sub": 0,"stu": 0,"Data": 0},
-							"7D":{"sub": 0,"stu": 0,"Data": 0},
-							"7E":{"sub": 0,"stu": 0,"Data": 0},
-							"7F":{"sub": 0,"stu": 0,"Data": 0},
-							
-							"80":{"sub": 0,"stu": 0,"Data": 0},
-							"81":{"sub": 0,"stu": 0,"Data": 0},
-							"82":{"sub": 0,"stu": 0,"Data": 0},
-							"83":{"sub": 0,"stu": 0,"Data": 0},
-							"84":{"sub": 0,"stu": 0,"Data": 0},
-							"85":{"sub": 0,"stu": 0,"Data": 0},
-							"86":{"sub": 0,"stu": 0,"Data": 0},
-							"87":{"sub": 0,"stu": 0,"Data": 0},
-							"88":{"sub": 0,"stu": 0,"Data": 0}
+							"78":{"sub": 0,"stu": 0,"Data": 0}
+						}
+				},
+				"C7A": 	{"sub": 0,"stu": 0,"Data": 0, 
+						"chtab":{
+							"94":{"sub": 0,"stu": 0,"Data": 0}
 						}
 				},
 				"C7B": 	{"sub": 0,"stu": 0,"Data": 0, 
@@ -177,9 +129,9 @@
 							"93":{"sub": 0,"stu": 0,"Data": 0}
 						}
 				},
-				"C7A": 	{"sub": 0,"stu": 0,"Data": 0, 
+				"C7C": 	{"sub": 0,"stu": 0,"Data": 0, 
 						"chtab":{
-							"94":{"sub": 0,"stu": 0,"Data": 0}
+							"80":{"sub": 0,"stu": 0,"Data": 0}
 						}
 				},
 				"C74":  {"sub": 0,"stu": 0,"Data": 0,

@@ -4707,21 +4707,14 @@ function DOSENEWADDSTU(ljob){
 			ljob.SENSOR_CONTROL = 1;
 			break;
 		case 1:
-			ljob.CHKLOOP.SENSORPOS.WATERLEVEL1.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL1);
-			ljob.CHKLOOP.SENSORPOS.WATERLEVEL2.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL2);
-			ljob.CHKLOOP.SENSORPOS.WATERLEVEL3.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL3);
-			ljob.CHKLOOP.SENSORPOS.WATERLEVEL4.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL4);
+			ljob.CHKLOOP.SENSORPOS.WATERLEVEL1.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL1);//hi
+			ljob.CHKLOOP.SENSORPOS.WATERLEVEL2.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL2);//low
 			ljob.SENSOR_CONTROL = 2;
 			break;
 		case 2:
-			if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL1.Value > 3 &&
-				ljob.CHKLOOP.SENSORPOS.WATERLEVEL2.Value > 3 &&
-				ljob.CHKLOOP.SENSORPOS.WATERLEVEL3.Value > 3 &&
-				ljob.CHKLOOP.SENSORPOS.WATERLEVEL4.Value > 3){
+			if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL2.Value > 0 ){//### check water level is no Low
 				water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEA,"ON");
 				water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEB,"ON");
-				water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEC,"ON");
-				water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSED,"ON");
 			}
 			ljob.SENSOR_CONTROL = 255;
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DOSENEWADDSTUOFF,"AUTO");
@@ -4766,16 +4759,11 @@ function DOSEECCHKSTU(ljob){
 		case 1:
 			ljob.CHKLOOP.SENSORPOS.WATERLEVEL1.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL1);
 			ljob.CHKLOOP.SENSORPOS.WATERLEVEL2.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL2);
-			ljob.CHKLOOP.SENSORPOS.WATERLEVEL3.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL3);
 			ljob.SENSOR_CONTROL = 2;
 			break;
 		case 2:
-			if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL1.Value > 3 &&
-				ljob.CHKLOOP.SENSORPOS.WATERLEVEL2.Value > 3 &&
-				ljob.CHKLOOP.SENSORPOS.WATERLEVEL3.Value > 3){
+			if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL2.Value > 0 ){//### check water level is no Low
 				water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEA,"ON");
-				water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEB,"ON");
-				water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEC,"ON");
 			}
 			ljob.SENSOR_CONTROL = 255;
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DOSEECCHKSTUOFF,"AUTO");
@@ -4810,12 +4798,13 @@ function DOSEPHCHKSTU(ljob){
 			ljob.SENSOR_CONTROL = 1;
 			break;
 		case 1:
-			ljob.CHKLOOP.SENSORPOS.WATERLEVEL4.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL4);
+			ljob.CHKLOOP.SENSORPOS.WATERLEVEL1.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL1);
+			ljob.CHKLOOP.SENSORPOS.WATERLEVEL2.Value = water_read_value(ljob.CHKLOOP.SENSORPOS.WATERLEVEL2);
 			ljob.SENSOR_CONTROL = 2;
 			break;
 		case 2:
-			if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL4.Value > 3){
-				water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSED,"ON");
+			if(ljob.CHKLOOP.SENSORPOS.WATERLEVEL2.Value > 0){//### check water level is no Low
+				water_client_trige(ljob.CHKLOOP.DEVPOS.MDOSEB,"ON");
 			}
 			ljob.SENSOR_CONTROL = 255;
 			water_client_trige(ljob.CHKLOOP.DEVPOS.DOSEPHCHKSTUOFF,"AUTO");

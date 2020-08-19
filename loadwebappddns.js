@@ -4,6 +4,7 @@ var Emitter = require('events').EventEmitter;
 var platform = require('os').platform();
 var lock = require('lock')();
 var async = require('async');
+
 var uuid = require('uuid');
 var url = require('url');
 

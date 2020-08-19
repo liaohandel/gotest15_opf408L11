@@ -3,13 +3,13 @@ var apicmd = {
 		"mod": "url",
 		"name": "從感應器讀取資料到樹莓派(3in1 & 水位 & 水溫)",
 		"keyname": "強制讀取",
-		"url": "http://192.168.5.105:3000/loadcheck"
+		"url": "http://192.168.1.112:3000/loadcheck"
 	},
 	"typecheck": {
 		"mod": "url",
 		"name": "將感應器讀取的資料上傳到IPC和伺服器(3in1 & 水位 & 水溫 & EC & pH)",
 		"keyname": "強制傳送",
-		"url": "http://192.168.5.105:3000/typecheck"
+		"url": "http://192.168.1.112:3000/typecheck"
 	},
 	"ELECTRONS": {
 		"mod": "cmd",

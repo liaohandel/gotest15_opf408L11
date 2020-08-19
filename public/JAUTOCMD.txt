@@ -674,6 +674,7 @@
 				]
 			}
 		},
+		
 		"DOSECHK": {
 			"MODE":0,
 			"STATU":0,
@@ -764,6 +765,7 @@
 				"DOSEPHCHK!LOOP": "02000280"
 			}
 		},
+		
 		"IPCAMC906": {
 			"MODE":1, 
 			"STATU":0,
@@ -776,6 +778,7 @@
 				"OFF": "0001"
 			}
 		},
+		
 		"IPCAMC907": {
 			"MODE":1, 
 			"STATU":0,
