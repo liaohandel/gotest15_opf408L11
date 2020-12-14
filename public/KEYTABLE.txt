@@ -335,6 +335,15 @@
 		],
 		"sub": []
 	},
+	"PDDATA#PDDATA#Devtab#H007": {
+		"file": "PDDATA",
+		"path": [
+			"PDDATA",
+			"Devtab",
+			"H007"
+		],
+		"sub": []
+	},
 	"PDDATA#PDDATA#Devtab#H010": {
 		"file": "PDDATA",
 		"path": [
@@ -600,6 +609,22 @@
 		],
 		"sub": []
 	},
+	"JAUTOCMD#DEVLIST#WATERTMH010": {
+		"file": "JAUTOCMD",
+		"path": [
+			"DEVLIST",
+			"WATERTMH010"
+		],
+		"sub": []
+	},
+	"JAUTOCMD#DEVLIST#WATERTMH011": {
+		"file": "JAUTOCMD",
+		"path": [
+			"DEVLIST",
+			"WATERTMH011"
+		],
+		"sub": []
+	},
 	"JAUTOCMD#DEVLIST#CO2": {
 		"file": "JAUTOCMD",
 		"path": [
@@ -792,6 +817,38 @@
 		],
 		"sub": []
 	},
+	"JAUTOCMD#DEVLIST#DOSECHK": {
+		"file": "JAUTOCMD",
+		"path": [
+			"DEVLIST",
+			"DOSECHK"
+		],
+		"sub": []
+	},
+	"JAUTOCMD#DEVLIST#DOSENEWADD": {
+		"file": "JAUTOCMD",
+		"path": [
+			"DEVLIST",
+			"DOSENEWADD"
+		],
+		"sub": []
+	},
+	"JAUTOCMD#DEVLIST#DOSEECCHK": {
+		"file": "JAUTOCMD",
+		"path": [
+			"DEVLIST",
+			"DOSEECCHK"
+		],
+		"sub": []
+	},
+	"JAUTOCMD#DEVLIST#DOSEPHCHK": {
+		"file": "JAUTOCMD",
+		"path": [
+			"DEVLIST",
+			"DOSEPHCHK"
+		],
+		"sub": []
+	},
 	"JAUTOCMD#DEVLIST#IPCAMC906": {
 		"file": "JAUTOCMD",
 		"path": [
@@ -885,6 +942,14 @@
 		"path": [
 			"DEVLIST",
 			"PUMPB"
+		],
+		"sub": []
+	},
+	"JAUTOCMD#DEVLIST#LOOPDOSE": {
+		"file": "JAUTOCMD",
+		"path": [
+			"DEVLIST",
+			"LOOPDOSE"
 		],
 		"sub": []
 	},
@@ -2001,6 +2066,33 @@
 			"KEYLIB",
 			"KEYPAD0",
 			"K056"
+		],
+		"sub": []
+	},
+	"KEYPD#KEYLIB#KEYPAD0#K201": {
+		"file": "KEYPD",
+		"path": [
+			"KEYLIB",
+			"KEYPAD0",
+			"K201"
+		],
+		"sub": []
+	},
+	"KEYPD#KEYLIB#KEYPAD0#K202": {
+		"file": "KEYPD",
+		"path": [
+			"KEYLIB",
+			"KEYPAD0",
+			"K202"
+		],
+		"sub": []
+	},
+	"KEYPD#KEYLIB#KEYPAD0#K203": {
+		"file": "KEYPD",
+		"path": [
+			"KEYLIB",
+			"KEYPAD0",
+			"K203"
 		],
 		"sub": []
 	},

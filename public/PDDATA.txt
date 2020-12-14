@@ -99,7 +99,7 @@
 				},
 				"C77": 	{"sub": 0,"stu": 0,"Data": 0, 
 						"chtab":{
-							"A1":{"sub": 0,"stu": 0,"Data": 0)
+							"A1":{"sub": 0,"stu": 0,"Data": 0}
 						}
 				},
 				"C78": 	{"sub": 0,"stu": 0,"Data": 0, 

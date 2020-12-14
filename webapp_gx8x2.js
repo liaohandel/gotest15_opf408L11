@@ -147,7 +147,7 @@ var uploadregsensorbuff = [
 		{"POS":"E002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
 		{"POS":"E002","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"}
 	],
-	[[
+	[
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"740000","Type":"WATERLEVEL1","typecmd":"C79","typereg":"71"},
 		{"POS":"E002","CMD":"WATERLEVEL","STU":"750000","Type":"WATERLEVEL2","typecmd":"C79","typereg":"72"}
 	],

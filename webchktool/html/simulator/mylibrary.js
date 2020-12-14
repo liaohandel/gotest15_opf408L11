@@ -8,7 +8,7 @@ function paddingLeft(str, lenght) {
 
 function sendaapicmd(obj) {
 	for (let it in obj) {
-		let apicmd = 'http://192.168.1.112:3000/'
+		let apicmd = 'http://192.168.0.106:3000/'
 			+ obj[it].CMD
 			+ '?UUID=' + UUID.value
 			+ '&Action=' + obj[it].Action

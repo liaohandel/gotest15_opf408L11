@@ -18,8 +18,8 @@ var rx_size = 64;
 var tx_size = 64;
 var rx_pt = 0;
 var tx_pt = 0;
-var rx_buf = new Buffer(rx_size);
-var tx_buf = new Buffer(tx_size);
+var rx_buf = new Buffer.alloc(rx_size);
+var tx_buf = new Buffer.alloc(tx_size);
 var qrxcmd = [];
 var qtxcmd = [];
 
@@ -77,7 +77,7 @@ function rxchk(rbuf) {
 		console.log("check rxbuff ...x3! ", rx_pt, rx_size)
 		if (rx_pt > (rx_buf[2] + 2)) {
 			//console.log("check rxbuff ...x31! ",rx_pt,rx_size)			
-			sbuf = new Buffer(rx_buf[2] + 3);
+			sbuf = new Buffer.alloc(rx_buf[2] + 3);
 			rx_buf.copy(sbuf, 0, 0, rx_buf[2] + 3);
 			qrxcmd.push(sbuf.toString('hex'));
 			rx_pt = 0;
@@ -157,7 +157,7 @@ function rxtopacket() {
 	}
 	len = data[2] + 3;
 	if (dlen < len) {
-		if (rxdatabuffer.length <= 0) {
+		if (rxdatals.length <= 0) {
 			rxdatabuffer.unshift(sdata);
 		} else {
 			sdata2 = rxdatabuffer.shift();

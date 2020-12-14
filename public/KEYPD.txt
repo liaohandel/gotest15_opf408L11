@@ -16,16 +16,13 @@
 			},
 			"EVENT": {
 				"ON":  [
-					{"CMD":"PWM","POS":"E001","Action":"ON","STU":"000000","GROUP":"FF" },
-					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"680000","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"540000","GROUP":"00"}
+					{"CMD":"REGCMD/KEYSETUP","POS":"KEYPAD0","Action":"AUTO","STU":"AUTO","GROUP":"K007"}
 				],
 				"OFF": [
-					{"CMD":"PWM","POS":"E001","Action":"OFF","STU":"000000","GROUP":"FF"},
-					{"CMD":"PUMP","POS":"E002","Action":"SET","STU":"EE0000","GROUP":"00"},
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"680000","GROUP":"00" },
-					{"CMD":"REGCMD/KEYSETUP","POS":"KEYPAD0","Action":"AUTO","STU":"OFF","GROUP":"K002"},
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"540000","GROUP":"00"}
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"430000","GROUP":"00"},
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"400000","GROUP":"00"},
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"410000","GROUP":"00"},
+					{"CMD":"REGCMD/KEYSETUP","POS":"KEYPAD0","Action":"AUTO","STU":"OFF","GROUP":"K007"}
 				]
 			}
 		},
@@ -171,25 +168,15 @@
 			},
 			"EVENT": {
 				"AUTO": [
-					{"CMD":"REGCMD/AUTOSETUP","POS":"PUMP","Action":"AUTO","STU":"00","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"autopumpmotoloop","Action":"AUTO","STU":"03","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"ECDOSELOOP","Action":"AUTO","STU":"03","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"9C012C1C20","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"4F0000","GROUP":"00" }
+					{"CMD":"REGCMD/AUTOSETUP","POS":"PUMP","Action":"AUTO","STU":"01","GROUP":"00" }
 					],
 				"ON": [
 					{"CMD":"REGCMD/AUTOSETUP","POS":"PUMP","Action":"AUTO","STU":"00","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"autopumpmotoloop","Action":"AUTO","STU":"03","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"ECDOSELOOP","Action":"AUTO","STU":"03","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"9C012C1C20","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"4F0000","GROUP":"00" }
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"430000","GROUP":"00"}
 					],
 				"OFF": [
 					{"CMD":"REGCMD/AUTOSETUP","POS":"PUMP","Action":"AUTO","STU":"00","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"autopumpmotoloop","Action":"AUTO","STU":"02","GROUP":"00" },
-					{"CMD":"REGCMD/AUTOSETUP","POS":"ECDOSELOOP","Action":"AUTO","STU":"02","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"9C012C1C20","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"4F0000","GROUP":"00" }
+					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"430000","GROUP":"00"}
 					]
 			}
 		  },	  

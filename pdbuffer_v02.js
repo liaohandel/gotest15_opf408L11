@@ -36,7 +36,7 @@ var util = require('util');
 //=== UART comport module 
 //var ch1com = require('./utx7xipccom0')// IPC com port 0 RS232
 //var ch1com = require('./utx7xipccom1')// IPC com port 1 RS232
-var ch1com = require('./utx7x1')// rec oxfa and 0xfc command 
+var ch1com = require('./utx7x0')// rec oxfa and 0xfc command 
 //var ch1com = require('./utx5x2')
 //var ch3com = require('./utx5x3')
 //var ch4com = require('./utx5x4')
