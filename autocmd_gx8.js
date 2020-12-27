@@ -31,8 +31,8 @@ var ipccargs = {
 };
 var exec = require('child_process').exec;
 
-var pdbuffer  = require('./pdbuffer_v02.js');
-var cmdcode = require("./handelrs485x2");
+var pdbuffer  = require('./pdbuffer_v03.js');
+var cmdcode = require("./handelrs485x3");
 
 //=== syspub function ===
 function jobjcopy(jobj){
@@ -391,6 +391,7 @@ function f3run(akey,cmd){
 		console.log("["+akey+"] STATU=0");
 		return;
 	}
+	return;//wait for auto define by ofm 20201227
     switch(akey){
         case "GROWLEDA1":
             if(cmd == "on"){
@@ -1905,7 +1906,7 @@ function active_keypadjob(kpos,kcode,kactive){
 		console.log("keypad active update to webui   ok ...");
 	}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
 	
-	if(kcode in keypad1x8list){
+/* 	if(kcode in keypad1x8list){
 		keypadinx = keypad1x8list[kcode];
 		//console.log(">>key"+kcode +"="+keypadinx);
 				
@@ -1924,7 +1925,7 @@ function active_keypadjob(kpos,kcode,kactive){
 		ttbuf[9]=0x00;		
 		
 		pdbuffer.totxbuff(ttbuf);
-	}
+	} */
 	
 	//}		
 	
@@ -2889,8 +2890,8 @@ function autotmloop(ljob){
 				indoortmlist.push(ljob.CHKLOOP.SENSORPOS.INDOORTM5.Value);
 				indoortmlist.push(ljob.CHKLOOP.SENSORPOS.INDOORTM6.Value);
 				
-				ljob.CHKLOOP.SENSORPOS.OUTDOORTM.Value =  pdbuffer.pdjobj.PDDATA.Devtab.E002.C77.chtab["A1"].stu;
-				outdoortmlist.push(ljob.CHKLOOP.SENSORPOS.OUTDOORTM.Value);
+				//ljob.CHKLOOP.SENSORPOS.OUTDOORTM.Value =  pdbuffer.pdjobj.PDDATA.Devtab.E002.C77.chtab["A1"].stu;
+				//outdoortmlist.push(ljob.CHKLOOP.SENSORPOS.OUTDOORTM.Value);
 				
 				ljob.CHKLOOP.CHKVALUE.INSTDATALIST=jobjcopy(indoortmlist);
 				ljob.CHKLOOP.CHKVALUE.OUTSTDATALIST=jobjcopy(outdoortmlist);

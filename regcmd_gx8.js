@@ -26,9 +26,9 @@ var ipccargs = {
 };
 
 
-var pdbuffer  = require('./pdbuffer_v02.js');
+var pdbuffer  = require('./pdbuffer_v03.js');
 var autocmd = require('./autocmd_gx8.js');
-var cmdcode = require("./handelrs485x2");
+var cmdcode = require("./handelrs485x3");
 
 const offautojsonloadurl = "http://192.168.5.220/API/v2/AUTOJSON.php";//http://192.168.5.220/API/v2/AUTOJSON.php?SID=1
 

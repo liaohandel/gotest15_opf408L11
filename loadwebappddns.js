@@ -99,7 +99,7 @@ fs.readFile(filepath, function (err, content) {
 
 function loadddsn() {
 	console.log('recall link ngrok ...');
-	ngrok.disconnect(); // stops all
+	//ngrok.disconnect(); // stops all
 
 	ngrok.connect(setport, function (err, url) {
 		if (url === undefined) { //### this chek use the ngrok is fail  unlink .... 20180909 

@@ -327,6 +327,8 @@ function jkeypd_update(callback){
 //=============================
 
 //=== uart buffer tx loop 1 by 1 and rxbuff ====
+//01234567890123456789
+//f5010571021801020371
 //###=== rx buffer tx buffer sunfunciton ======
 function devloadtobuff(sub02cmd){	
 	console.log("check 02 rxcmd = "+sub02cmd)
@@ -337,7 +339,7 @@ function devloadtobuff(sub02cmd){
 	nsdevadd = Number("0x"+sdevadd);	
 	let offsettmval = 0;
 	
-	if(nsdevadd > 0xf0){
+	if(nsdevadd > 0xf0){//broadcase command call all device 
 		if(nsdevadd == 0xf1)return
 		if(nsdevadd == 0xfd){
 			if(sdevreg == "E1")sdevadd = sub02cmd.substring(14,16);  //get devadd map to pos
@@ -365,313 +367,69 @@ function devloadtobuff(sub02cmd){
 	console.log("check 02 rxcmd = "+sub02cmd+" reg="+sdevreg +" sop="+sdevpos);
 	
 	//device out status  load check 
+	ndevreglen =  Number("0x"+ss.substring(4,6))-4;//reg leng (by 1 byte)
+	ndevregadd =  Number("0x"+sdevreg);//the regadd 
 	switch(sdevreg.substring(0,1)){
-		case "2":	//LED #reg 21..2f		
-			if(sdevreg == "20"){
-				sdevstau21 = ss.substring(12,16);			//reg21 type	
-				xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["21"].stu = Number("0x"+sdevstau);
-				
-				sdevstau22 = ss.substring(16,20);			//reg22 type	
-				xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["22"].stu = Number("0x"+sdevstau);
-				
-				sdevstau23 = ss.substring(20,24);			//reg23 type	
-				xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["23"].stu = Number("0x"+sdevstau);				
-				
-			}else{
-				sdevstau = ss.substring(12,16);			//reg type	
-				//xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"][sdevreg].sub = Number("0x"+sdevsubcmd)
-				xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"][sdevreg].stu = Number("0x"+sdevstau);
-
+		case "0":	//LED #reg 0x00..0x0f
+			if(ndevregadd==0x03 && ndevreglen==0x02){
+				sdevstau = ss.substring(12,14);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["03"].stu = Number("0x"+sdevstau);//0x03
+				sdevstau = ss.substring(14,16);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["04"].stu = Number("0x"+sdevstau);//0x04
+			}
+			if(ndevregadd==0x0e && ndevreglen==0x05){
+				sdevstau = ss.substring(12,14);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["0E"].stu = Number("0x"+sdevstau);//0x0e
+				sdevstau = ss.substring(14,16);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["0F"].stu = Number("0x"+sdevstau);//0x0f
+				sdevstau = ss.substring(16,18);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["10"].stu = Number("0x"+sdevstau);//0x10
+				sdevstau = ss.substring(18,20);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["11"].stu = Number("0x"+sdevstau);//0x11
+				sdevstau = ss.substring(20,22);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["12"].stu = Number("0x"+sdevstau);//0x12
 			}
 			break
-		case "3":	//AIRFAN reg 31..3f
-			sdevstau = ss.substring(12,16);			//reg type	
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C73"]["chtab"][sdevreg].sub = Number("0x"+sdevsubcmd)
-			xpdjobj.PDDATA.Devtab[sdevpos]["C73"]["chtab"][sdevreg].stu = Number("0x"+sdevstau);
-			break		
-		case "4":	//PUMP reg 41..4f is basic pump address maping 
-			sdevstau = ss.substring(12,16);			//reg type	
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C72"]["chtab"][sdevreg].sub = Number("0x"+sdevsubcmd)
-			xpdjobj.PDDATA.Devtab[sdevpos]["C72"]["chtab"][sdevreg].stu = Number("0x"+sdevstau);
-			break		
-		case "5":	//PUMP reg 51..5f is extern pump address maping 
-			sdevstau = ss.substring(12,16);			//reg type	
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C72"]["chtab"][sdevreg].sub = Number("0x"+sdevsubcmd)
-			xpdjobj.PDDATA.Devtab[sdevpos]["C72"]["chtab"][sdevreg].stu = Number("0x"+sdevstau);
+		case "1":	//C71 key1..3 mode  reg 1D..1F
+			if(ndevregadd==0x1d && ndevreglen==0x03){
+				sdevstau = ss.substring(12,14);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["1D"].stu = Number("0x"+sdevstau);//0x03
+				sdevstau = ss.substring(14,16);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["1E"].stu = Number("0x"+sdevstau);//0x04
+				sdevstau = ss.substring(16,18);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["1F"].stu = Number("0x"+sdevstau);//0x04
+			}
 			break
-		case "6":	//PUMP reg61 .. 6f extern maping
-			sdevstau = ss.substring(12,16);			//reg type	
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C72"]["chtab"][sdevreg].sub = Number("0x"+sdevsubcmd)
-			xpdjobj.PDDATA.Devtab[sdevpos]["C72"]["chtab"][sdevreg].stu = Number("0x"+sdevstau);
+		case "6":	//sensor  reg60 .. 66 extern maping  U16 
+			if(ndevregadd==0x60 && ndevreglen==0x04){
+				sdevstau = ss.substring(12,16);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C78"]["chtab"]["60"].stu = Number("0x"+sdevstau);//0x60
+				sdevstau = ss.substring(16,20);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["61"].stu = Number("0x"+sdevstau);//0x61
+			}
+			if(ndevregadd==0x62 && ndevreglen==0x06){
+				sdevstau = ss.substring(12,16);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C7B"]["chtab"]["62"].stu = Number("0x"+sdevstau);//0x62
+				sdevstau = ss.substring(16,20);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C7A"]["chtab"]["63"].stu = Number("0x"+sdevstau);//0x63
+				sdevstau = ss.substring(20,24);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C76"]["chtab"]["64"].stu = Number("0x"+sdevstau);//0x64
+			}
+			if(ndevregadd==0x65 && ndevreglen==0x04){
+				sdevstau = ss.substring(12,16);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C78"]["chtab"]["65"].stu = Number("0x"+sdevstau);//0x65
+				sdevstau = ss.substring(16,20);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C77"]["chtab"]["66"].stu = Number("0x"+sdevstau);//0x66
+			}
 			break
 			
-		case "7":	//WATERLEVEL(C79) reg71 .. 7f extern maping 
-			sdevstau = ss.substring(12,16);			//reg type	
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C79"]["chtab"][sdevreg].sub = Number("0x"+sdevsubcmd)
-			chkval = Number("0x"+sdevstau);
-			chklevel = chkval;
-			switch(sdevreg){
-				case "71":
-					if(chkval <= 30)return;
-					chklevel = Math.round((chkval-3500)/25);//1 ..21
-					if(chklevel <= 0)chklevel=1;
-					//chklevel = chklevel	+1;//1 ..21
-					break	
-				case "72":
-					if(chkval <= 30)return;
-					chklevel = Math.round((chkval-3500)/25);//1 ..21
-					if(chklevel <= 0)chklevel=1;
-					//chklevel = chklevel	+1;//1 ..21
-					break	
-				case "73":
-					if(chkval <= 30)return;
-					chklevel = Math.round((chkval-3500)/25);//1 ..21
-					if(chklevel <= 0)chklevel=1;
-					//chklevel = chklevel	+1;//1 ..21
-					break	
-				case "74":
-					if(chkval <= 30)return;
-					chklevel = Math.round((chkval-3500)/25);//1 ..21
-					if(chklevel <= 0)chklevel=1;
-					//chklevel = chklevel	+1;//1 ..21
-					break	
-				case "75":
-					if(chkval <= 30)return;
-					chklevel = Math.round((chkval-3500)/25);//1 ..21
-					if(chklevel <= 0)chklevel=1;
-					//chklevel = chklevel	+1;//1 ..21
-					break	
-				case "76":	
-					if(chkval <= 30)return;			
-					chklevel = Math.round((chkval-3500)/25);//1 ..21
-					if(chklevel <= 0)chklevel=1;
-					//chklevel = chklevel	+1;//1 ..21
-					break	
-				case "77":
-					if(chkval <= 30)return;
-					chklevel = Math.round((chkval-3500)/25);
-					if(chklevel <= 0)chklevel=1;
-					//chklevel = chklevel	+1;//1 ..21
-					break	
-				default:
-					return;
-					break 	
-			}
-			if(chklevel <=0)chklevel=1;
-			if(chklevel >=20 )chklevel=20;// water level rang 1..20
-			xpdjobj.PDDATA.Devtab[sdevpos]["C79"]["chtab"][sdevreg].stu = chklevel;
-			return;
-			break		
-		//case "A":	//TEMPERATURE(C77)_regA1 .. AF
+		case "7":	//WATERLEVEL(C79) reg70 .. 7B flow and hall scan value U16
 			//sdevstau = ss.substring(12,16);			//reg type	
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C77"]["chtab"][sdevreg].sub = Number("0x"+sdevsubcmd)
-			
-			// offsettmval = 0 ;//system offset value 
-			// if(sdevpos in  jautocmd.DEVICESET.OFFSETTM)offsettmval = jautocmd.DEVICESET.OFFSETTM[sdevpos];
-			// xpdjobj.PDDATA.Devtab[sdevpos]["C77"]["chtab"][sdevreg].stu = Number("0x"+sdevstau) + offsettmval;
-			
-		//	xpdjobj.PDDATA.Devtab[sdevpos]["C77"]["chtab"][sdevreg].stu = Number("0x"+sdevstau);
-		//	break
+			//xpdjobj.PDDATA.Devtab[sdevpos]["C79"]["chtab"][sdevreg].stu = Number("0x"+sdevstau);
+			break		
 		default:
 			break 
 	};
-	
-	//sensor load check 
-	switch(sdevreg){
-		case "A1":	//TEMPERATURE(C77)	#regA1
-			sdevstau = ss.substring(12,16);			//reg type	
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C76"]["chtab"][sdevreg].sub = Number("0x"+sdevsubcmd)			
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C77"]["chtab"][sdevreg].stu = Number("0x"+sdevstau);				
-			offsettmval = 0 ;//system offset value 
-			if(sdevpos in  jautocmd.DEVICESET.OFFSETTM){
-				jautocmd.DEVICESET.CHKLOADTM[sdevpos] = Number("0x"+sdevstau);//load save the realytime value by sensor
-				offsettmval = jautocmd.DEVICESET.OFFSETTM[sdevpos];
-			}
-			xpdjobj.PDDATA.Devtab[sdevpos]["C77"]["chtab"][sdevreg].stu = Number("0x"+sdevstau) + offsettmval;	
-			
-			break
-		case "91":	//CO2(C76)	#reg91
-			sdevstau = ss.substring(12,16);			//reg type	
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C76"]["chtab"][sdevreg].sub = Number("0x"+sdevsubcmd)
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C76"]["chtab"][sdevreg].stu = Number("0x"+sdevstau);			
-			offsettmval = 0 ;//system offset value 	
-			if(sdevpos in  jautocmd.DEVICESET.OFFSETCO2){
-				jautocmd.DEVICESET.CHKLOADCO2[sdevpos] = Number("0x"+sdevstau);//load save the realytime value by sensor
-				offsettmval = jautocmd.DEVICESET.OFFSETCO2[sdevpos];
-			}
-			xpdjobj.PDDATA.Devtab[sdevpos]["C76"]["chtab"][sdevreg].stu = Number("0x"+sdevstau) + offsettmval;	
-			
-			break
-		case "92":	//RH(C78)	#reg92
-			sdevstau = ss.substring(12,16);			//reg type	
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C78"]["chtab"][sdevreg].sub = Number("0x"+sdevsubcmd)
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C78"]["chtab"][sdevreg].stu = Number("0x"+sdevstau);		
-			offsettmval = 0 ;//system offset value 	
-			if(sdevpos in  jautocmd.DEVICESET.OFFSETRH){
-				jautocmd.DEVICESET.CHKLOADRH[sdevpos] = Number("0x"+sdevstau);//load save the realytime value by sensor
-				offsettmval = jautocmd.DEVICESET.OFFSETRH[sdevpos];
-			}
-			xpdjobj.PDDATA.Devtab[sdevpos]["C78"]["chtab"][sdevreg].stu = Number("0x"+sdevstau) + offsettmval;
-			
-			break
-		case "93":	//PH(C7B)   #reg93
-			sdevstau = ss.substring(12,16);			//reg type	
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C7B"]["chtab"][sdevreg].sub = Number("0x"+sdevsubcmd)
-			xpdjobj.PDDATA.Devtab[sdevpos]["C7B"]["chtab"][sdevreg].stu = Number("0x"+sdevstau);		
-			break
-		case "94":	//ELECTRONS(C7A)#reg94
-			sdevstau = ss.substring(12,16);			//reg type	
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C7A"]["chtab"][sdevreg].sub = Number("0x"+sdevsubcmd)
-			buffchkval =  Number("0x"+sdevstau);
-			if(buffchkval <=100)buffchkval=0;
-			xpdjobj.PDDATA.Devtab[sdevpos]["C7A"]["chtab"][sdevreg].stu = buffchkval;		
-			break
-		case "81":	//PWM(C7C) #reg81
-			sdevstau = ss.substring(12,16);			//reg type	
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C7C"]["chtab"][sdevreg].sub = Number("0x"+sdevsubcmd)
-			xpdjobj.PDDATA.Devtab[sdevpos]["C7C"]["chtab"][sdevreg].stu = Number("0x"+sdevstau);		
-			break
-			
-		case "1F":	//GROUP(C74) #reg1f
-			sdevstau = ss.substring(12,16);			//reg type	
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C74"]["chtab"][sdevreg].sub = Number("0x"+sdevsubcmd)
-			xpdjobj.PDDATA.Devtab[sdevpos]["C74"]["chtab"][sdevreg].stu = Number("0x"+sdevstau);		
-			break	
-			
-		case "E0":	//MACADD #rege0
-			//sdevadd = ss.substring(12,24);
-			sdevmac = ss.substring(12,24);
-			sdevmactype = ss.substring(12,14);
-			console.log("pos="+sdevpos+" macadd="+sdevmac+" mactype="+sdevmactype);
-			xpdjobj.PDDATA.Devtab[sdevpos]["STATU"]["MACADD"] = sdevmac;//6 byte			
-			xpdjobj.PDDATA.Devtab[sdevpos]["STATU"]["MTYPE"] = sdevmactype;//1 byte			
-			break	
-			
-		case "E1":	//IPADD #rege1
-			//sdevmac = ss.substring(12,24);
-			//sdevmactype = ss.substring(12,14);.
-			break
-			
-		case "E2":	//FW_ver #rege2		
-			xpdjobj.PDDATA.Devtab[sdevpos].STATU.FWVER = ss.substring(12,16);//2 byte	
-			break	
-			
-		case "E3":	//HW_ver #rege3		
-			xpdjobj.PDDATA.Devtab[sdevpos].STATU.HWVER = ss.substring(12,16);//2 byte	
-			break	
-			
-		case "01":	//treescan #reg 01
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"][sdevreg].sub = 0x01 //ON 
-			xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"][sdevreg].stu = 0x01 //ON ok 0x00 is SCAN wait			
-			break	
-			
-		case "02":	//treelistdata #reg 02
-			treedata = ss.substr(12,24);//FA 20 10 00 02 02 020103F1840000000103003173  
-			treeindex = ss.substr(12,2);
-			inx = Number("0x"+treeindex);
-			if(inx == 0)jtreescan.SCANLIST=[];//when load tree root the clear tree 
-			jtreescan.SCANLIST[inx]=treedata;
-			console.log("inx="+inx+" data =["+treedata+"]");
-			
-			if(inx >= (jtreescan.SCANCOUNT-1)){
-				treescan_update(()=>{
-					console.log("treescan data save ok !")
-		    	});
-			}
-			break			
-		case "03":	//treecount #reg 03
-			sdevtreecount = ss.substr(12,4);//2 byte
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"][sdevreg].sub = Number("0x"+sdevsubcmd)//LOAD
-			xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"][sdevreg].stu = Number("0x"+sdevtreecount)//Count 		
-			jtreescan.SCANCOUNT = Number("0x"+sdevtreecount)//Count
-			console.log("tree count = "+jtreescan.SCANCOUNT);
-			break	
-			
-		case "04":	//Device TRIG event list #reg 04
-		    dinx =  ss.substring(12,4);//2 byte
-		    ndinx = Number("0x"+dinx);//2 byte
-			devndata =  ss.substring(16,36);//10 byte
-			
-			jkeypd.DEVLIB.DEVMODE.MODEORGLIST[ndinx]=devndata;
-			break	
-		case "05":	//Device TRIG count  #reg 05
-			dcnt =  ss.substring(12,16);//2 byte
-		    ndcnt = Number("0x"+dcnt);//2 byte
-			
-			jkeypd.DEVLIB.DEVMODE.DLCOUNT=ndcnt;		
-			break	
-			
-		case "06":	//Device TRIG event list #reg 06
-		    dinx =  ss.substring(12,16);//2 byte
-		    ndinx = Number("0x"+dinx);//2 byte
-			devndata =  ss.substring(16,36);//10 byte
-			
-			jkeypd.DEVLIB.DEVEVENTLIST.EVENTORGLIST[ndinx]=devndata;
-			break	
-		case "07":	//Device TRIG event count #reg 07
-			dcnt =  ss.substring(12,16);//2 byte
-		    ndcnt = Number("0x"+dcnt);//2 byte
-			
-			jkeypd.DEVLIB.DEVEVENTLIST.IDCOUNT=ndcnt;	
-			break	
-			
-		case "0F":	//Key ver load message #reg 0f
-			kinx =  ss.substring(12,16);//2 byte
-			nkinx = Number("0x"+kinx);	//2 byte
-			kvar = ss.substring(16,32);	//8 byte
-			if(nkinx == 1)jkeypd.KEYLIB.KEYPAD1.STATU.ver =kvar;
-			if(nkinx == 2)jkeypd.KEYLIB.KEYPAD2.STATU.ver =kvar;
-			if(nkinx == 3)jkeypd.KEYLIB.KEYPAD3.STATU.ver =kvar;
-			break
-			
-		case "10":	//key1 or key3 event list #reg 10
-			kinx =  ss.substring(12,16);//2 byte
-			nkinx = Number("0x"+kinx);//2 byte
-			kevndata =  ss.substring(16,36);//10 byte
-			
-			if(nsdevadd == 0x20){
-				jkeypd.KEYLIB.KEYPAD1.STATU.korglist[nkinx]=kevndata
-			}else if(nsdevadd == 0x21){
-				jkeypd.KEYLIB.KEYPAD3.STATU.korglist[nkinx]=kevndata			
-			}		
-			break
-			
-		case "11":	//key1 or key3 event count #reg 11
-			kcnt =  ss.substring(12,16);//2 byte
-			nkcnt = Number("0x"+kcnt);//2 byte
-			if(nsdevadd == 0x20){
-				jkeypd.KEYLIB.KEYPAD1.STATU.evncount=nkcnt
-			}else if(nsdevadd == 0x21){
-				jkeypd.KEYLIB.KEYPAD3.STATU.evncount=nkcnt			
-			}		
-			break	
-			
-		case "12":	//key2 event list #reg 12
-			kinx =  ss.substring(12,16);//2 byte
-			nkinx = Number("0x"+kinx);//2 byte
-			kevndata =  ss.substring(16,36);//10 byte
-			
-			if(nsdevadd == 0x20){
-				jkeypd.KEYLIB.KEYPAD2.STATU.korglist[nkinx]=kevndata
-			}else if(nsdevadd == 0x21){
-				//jkeypd.KEYLIB.KEYPAD3.STATU.korglist[nkinx]=kevndata			
-			}
-			break	
-
-		case "13":	//key2 event count #reg 13
-			kcnt =  ss.substring(12,16);//2 byte
-			nkcnt = Number("0x"+kcnt);//2 byte
-			if(nsdevadd == 0x20){
-				jkeypd.KEYLIB.KEYPAD2.STATU.evncount=nkcnt
-			}else if(nsdevadd == 0x21){
-				//jkeypd.KEYLIB.KEYPAD3.STATU.evncount=nkcnt			
-			}		
-			break
-			
-		default:
-			return 
-			
-	}
 }
 
 ERRMSG_CODE={
@@ -716,7 +474,9 @@ function totxbuff(ttbuf){
 	let sendmask = 0;
 	
 	//console.log("startx1 tx run ... txbuffer leng= "+sstxbuff.length);
-	
+	if(ttbuf.length >= 10){
+		//go();
+	}
 	if(sstxbuff.length == 0 )sendmask = 1;
 	sstxbuff.push(scmd)
 	//if (sstxbuff.length == 1){
@@ -726,7 +486,7 @@ function totxbuff(ttbuf){
 		//tx_timeout_chk = false;
 		setTimeout(function() { 
 			event.emit('txbuff_event'); 
-		}, 50);	
+		}, 100);	
 	}
 }
 
@@ -758,7 +518,7 @@ event.on('rxbuff_event', function() { //####
 			sdevcmd = ss.substring(8,10);
 			sdevreg = ss.substring(10,12);
 			if(startkey == "FC"){
-				devalarmbuff(ss);//add to alarmbuff[]
+				//devalarmbuff(ss);//add to alarmbuff[]
 			}else{			
 				sdevsubcmd = ss.substring(8,10);	
 				console.log("rx subcmd chek = "+sdevsubcmd)
@@ -1160,6 +920,8 @@ function allload(callback){
 		exports.pdjobj = xpdjobj;
 
 		jautocmd = redisfunc.jautocmd;
+		//jobj=jobjcopy(jautocmd);
+		//console.log(JSON.stringify(jobj));
 		exports.jautocmd = jautocmd;
 
 		jkeypd = redisfunc.jkeypd;

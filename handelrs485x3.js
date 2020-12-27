@@ -201,9 +201,10 @@ var rs485v060 = {
 	"sb0gledcmd" : "f5f10c000220123456789abcdef020"   	//REG-20 ..7f [0][1][2][3][4:cmd][5:reg][6,7,8,9,10,11:value][12,13:group],[14] by 408x2 led group
 	
 }
+
 var subcmdtype = {
-	"STATU" : "s70cmd",
-	"C71": "s71chcmd",
+	"c70": "s70cmd",
+	"C71": "s71cmd",
 	"C72": "s72cmd",
 	"C73": "s73cmd",
 	"C74": "s74cmd",
@@ -238,7 +239,7 @@ var subcmdtype = {
 }
 
 var apicmdtype = {
-	"STATU" : "GROUP",
+	"C70": "STATU",
 	"C71": "LED",
 	"C72": "PUMP",
 	"C73": "AIRFAN",
@@ -287,6 +288,7 @@ var r485subcmd = {
 }
 
 var R485CMDDATA = {
+		"STATU":["C70","POS","GROUP","Action","UUID","STU"],
 		"LED":["C71","POS","GROUP","Action","UUID","STU"],
 		"PUMP":["C72","POS","GROUP","Action","UUID"],
 		"AIRFAN":["C73","POS","GROUP","Action","UUID","STU"],
@@ -663,6 +665,8 @@ var devtablib = {
 		}
 }
 
+
+exports.rs485v060 = rs485v060
 exports.rs485v050 = rs485v050
 exports.rs485v040 = rs485v040
 exports.rs485v029 = rs485v029

@@ -37,6 +37,9 @@ xpdjobj = JSON.parse(fs.readFileSync(filepath).toString());
 jautocmd = JSON.parse(fs.readFileSync(filepath_jautocmd).toString());
 jkeypd = JSON.parse(fs.readFileSync(filepath_keypd).toString());
 
+function jobjcopy(jobj){
+	return JSON.parse(JSON.stringify(jobj));	
+}
 //每個key的形狀
 function newkey() {
 	let args = Array.prototype.slice.call(arguments);

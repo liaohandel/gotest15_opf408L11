@@ -31,7 +31,7 @@ var aqrxcmd =[];
 global.arxokflag = false;
 
 var sp = new SerialPort(portName, {
-  baudRate: 115200,
+  baudRate: 19200,
   dataBits: 8,
   parity: 'none',
   stopBits: 1,
@@ -56,8 +56,8 @@ function rxchk(rbuf){
 		if(rx_pt>0 && ( rx_buf[0]==0xfa || rx_buf[0]==0xfc ) ){
 			rbuf.copy(rx_buf,rx_pt,0)
 			rx_pt = rx_pt + rbuf.length
-			//console.log("check rxbuff ...x21! ",rx_pt,rx_size)
-			//console.log(rx_buf.toString('hex'))
+			console.log("check rxbuff ...x21! ",rx_pt,rx_size)
+			console.log(rx_buf.toString('hex'))
 		}else{			
 			//console.log("check rxbuff ...x22! ",rx_pt,rx_size)
 			for(i=0;i<rbuf.length;i++){
@@ -180,7 +180,7 @@ event.on('stsend', function() {
 
 sp.on('data', function (data) {
     console.log(data);
-    sdata = data.toString();
+    //sdata = data.toString();
 	rxchk(data)
     //console.log("=>"+rxcount); 
 	//rxcount++;
