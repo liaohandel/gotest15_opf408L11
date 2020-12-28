@@ -174,16 +174,17 @@
 			"STATUS": {
 			  "stcnt": 2,
 			  "stpt": 0,
-			  "stmask": ["OFF","ON"]
+			  "stmask": ["AUTO","ON","OFF"]
 			},
 			"EVENT": {
-			  "ON": [
-				{"CMD":"REGCMD/AUTOSETUP","POS":"BOX2LOOP","Action":"AUTO","STU":"03","GROUP":"00" }
+				"AUTO": [
+					{"CMD":"LED","POS":"E002","Action":"ON","STU":"420000","GROUP":"00" }
 				],
-			  "OFF": [
-				{"CMD":"REGCMD/AUTOSETUP","POS":"BOX2LOOP","Action":"AUTO","STU":"02","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"410000","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"430000","GROUP":"00" }
+				"ON": [
+					{"CMD":"LED","POS":"E002","Action":"ON","STU":"42FE00","GROUP":"00" }
+				],
+				"OFF": [
+					{"CMD":"LED","POS":"E002","Action":"ON","STU":"420000","GROUP":"00" }
 				]
 			}
 		  },	  

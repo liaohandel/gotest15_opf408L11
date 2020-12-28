@@ -4822,34 +4822,34 @@ event.on('sec30status_event', function(){
 		console.log("flow_auto["+jj+"] ="+pdbuffer.jautocmd.WATERLOOP[jj].STATU);
 		switch(jj){
 			case "BOX2LOOP":
-				if(pdbuffer.jautocmd.WATERLOOP.BOX2LOOP.STATU == 1)GOBOX2LOOP(pdbuffer.jautocmd.WATERLOOP.BOX2LOOP);
+				//if(pdbuffer.jautocmd.WATERLOOP.BOX2LOOP.STATU == 1)GOBOX2LOOP(pdbuffer.jautocmd.WATERLOOP.BOX2LOOP);
 				break;
 			case "ECDOSELOOP":
-				if(pdbuffer.jautocmd.WATERLOOP.ECDOSELOOP.STATU == 1)GOECDOSELOOP(pdbuffer.jautocmd.WATERLOOP.ECDOSELOOP);
+				//if(pdbuffer.jautocmd.WATERLOOP.ECDOSELOOP.STATU == 1)GOECDOSELOOP(pdbuffer.jautocmd.WATERLOOP.ECDOSELOOP);
 				break;
 			case "PHDOSELOOP":
-				if(pdbuffer.jautocmd.WATERLOOP.PHDOSELOOP.STATU == 1)GOPHDOSELOOP(pdbuffer.jautocmd.WATERLOOP.PHDOSELOOP);
+				//if(pdbuffer.jautocmd.WATERLOOP.PHDOSELOOP.STATU == 1)GOPHDOSELOOP(pdbuffer.jautocmd.WATERLOOP.PHDOSELOOP);
 				break;
 			case "autotmloop":
-				if(pdbuffer.jautocmd.WATERLOOP.autotmloop.STATU == 1)autotmloop(pdbuffer.jautocmd.WATERLOOP.autotmloop);
+				//if(pdbuffer.jautocmd.WATERLOOP.autotmloop.STATU == 1)autotmloop(pdbuffer.jautocmd.WATERLOOP.autotmloop);
 				break;
 			case "tmdemoloop":
-				if(pdbuffer.jautocmd.WATERLOOP.tmdemoloop.STATU == 1)tmdemoloop(pdbuffer.jautocmd.WATERLOOP.tmdemoloop);
+				//if(pdbuffer.jautocmd.WATERLOOP.tmdemoloop.STATU == 1)tmdemoloop(pdbuffer.jautocmd.WATERLOOP.tmdemoloop);
 				break;
 			case "autoledmotoloop":
-				if(pdbuffer.jautocmd.WATERLOOP.autoledmotoloop.STATU == 1)autoledmotoloop(pdbuffer.jautocmd.WATERLOOP.autoledmotoloop);
+				//if(pdbuffer.jautocmd.WATERLOOP.autoledmotoloop.STATU == 1)autoledmotoloop(pdbuffer.jautocmd.WATERLOOP.autoledmotoloop);
 				break;
 			case "autopumpmotoloop":
-				if(pdbuffer.jautocmd.WATERLOOP.autopumpmotoloop.STATU == 1)autopumpmotoloop(pdbuffer.jautocmd.WATERLOOP.autopumpmotoloop);
+				//if(pdbuffer.jautocmd.WATERLOOP.autopumpmotoloop.STATU == 1)autopumpmotoloop(pdbuffer.jautocmd.WATERLOOP.autopumpmotoloop);
 				break;
 			case "DOSENEWADDSTU":
-				if(pdbuffer.jautocmd.WATERLOOP.DOSENEWADDSTU.STATU == 1)DOSENEWADDSTU(pdbuffer.jautocmd.WATERLOOP.DOSENEWADDSTU);
+				//if(pdbuffer.jautocmd.WATERLOOP.DOSENEWADDSTU.STATU == 1)DOSENEWADDSTU(pdbuffer.jautocmd.WATERLOOP.DOSENEWADDSTU);
 				break;
 			case "DOSEECCHKSTU":
-				if(pdbuffer.jautocmd.WATERLOOP.DOSEECCHKSTU.STATU == 1)DOSEECCHKSTU(pdbuffer.jautocmd.WATERLOOP.DOSEECCHKSTU);
+				//if(pdbuffer.jautocmd.WATERLOOP.DOSEECCHKSTU.STATU == 1)DOSEECCHKSTU(pdbuffer.jautocmd.WATERLOOP.DOSEECCHKSTU);
 				break;
 			case "DOSEPHCHKSTU":
-				if(pdbuffer.jautocmd.WATERLOOP.DOSEPHCHKSTU.STATU == 1)DOSEPHCHKSTU(pdbuffer.jautocmd.WATERLOOP.DOSEPHCHKSTU);
+			//	if(pdbuffer.jautocmd.WATERLOOP.DOSEPHCHKSTU.STATU == 1)DOSEPHCHKSTU(pdbuffer.jautocmd.WATERLOOP.DOSEPHCHKSTU);
 				break;
 			default:
 				break;

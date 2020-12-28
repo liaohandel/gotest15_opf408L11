@@ -4,8 +4,8 @@ var fs = require('fs');
 var path = require('path');
 var setuuid = '1234567890abcdefghijk';
 //=== PDDATA.txt to pdjobj
-var filefirstname = "PDDATA"
-var filename = "PDDATA.txt"
+var filefirstname = "PDDATA3"
+var filename = "PDDATA3.txt"
 var filepath = path.join(__dirname, ("/public/" + filename));
 var xpdjobj = {} //pd buffer 
 

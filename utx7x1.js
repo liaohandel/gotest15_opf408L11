@@ -31,7 +31,7 @@ var aqrxcmd =[];
 global.arxokflag = false;
 
 var sp = new SerialPort(portName, {
-  baudRate: 19200,
+  baudRate: 38400,
   dataBits: 8,
   parity: 'none',
   stopBits: 1,

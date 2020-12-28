@@ -7,4 +7,4 @@ else
     echo "delete error"
 fi
 # cd /home/pi/opcom_prj/gotest15_opf408L10
-node buildkeytable.js
+node buildkeytablex3.js

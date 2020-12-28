@@ -376,6 +376,7 @@ function devloadtobuff(sub02cmd){
 				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["03"].stu = Number("0x"+sdevstau);//0x03
 				sdevstau = ss.substring(14,16);			//reg value by 1 byte	
 				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["04"].stu = Number("0x"+sdevstau);//0x04
+				break
 			}
 			if(ndevregadd==0x0e && ndevreglen==0x05){
 				sdevstau = ss.substring(12,14);			//reg value by 1 byte	
@@ -387,7 +388,8 @@ function devloadtobuff(sub02cmd){
 				sdevstau = ss.substring(18,20);			//reg value by 1 byte	
 				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["11"].stu = Number("0x"+sdevstau);//0x11
 				sdevstau = ss.substring(20,22);			//reg value by 1 byte	
-				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["12"].stu = Number("0x"+sdevstau);//0x12
+				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["12"].stu = Number("0x"+sdevstau)*2+1;//0x12
+				break
 			}
 			break
 		case "1":	//C71 key1..3 mode  reg 1D..1F
@@ -398,6 +400,7 @@ function devloadtobuff(sub02cmd){
 				xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["1E"].stu = Number("0x"+sdevstau);//0x04
 				sdevstau = ss.substring(16,18);			//reg value by 1 byte	
 				xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["1F"].stu = Number("0x"+sdevstau);//0x04
+				break
 			}
 			break
 		case "6":	//sensor  reg60 .. 66 extern maping  U16 
@@ -405,7 +408,9 @@ function devloadtobuff(sub02cmd){
 				sdevstau = ss.substring(12,16);			//reg value by 1 byte	
 				xpdjobj.PDDATA.Devtab[sdevpos]["C78"]["chtab"]["60"].stu = Number("0x"+sdevstau);//0x60
 				sdevstau = ss.substring(16,20);			//reg value by 1 byte	
-				xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["61"].stu = Number("0x"+sdevstau);//0x61
+				xpdjobj.PDDATA.Devtab[sdevpos]["C77"]["chtab"]["61"].stu = Number("0x"+sdevstau);//0x61
+				//console.log(JSON.stringify(xpdjobj.PDDATA.Devtab[sdevpos]));
+				break
 			}
 			if(ndevregadd==0x62 && ndevreglen==0x06){
 				sdevstau = ss.substring(12,16);			//reg value by 1 byte	
@@ -414,18 +419,50 @@ function devloadtobuff(sub02cmd){
 				xpdjobj.PDDATA.Devtab[sdevpos]["C7A"]["chtab"]["63"].stu = Number("0x"+sdevstau);//0x63
 				sdevstau = ss.substring(20,24);			//reg value by 1 byte	
 				xpdjobj.PDDATA.Devtab[sdevpos]["C76"]["chtab"]["64"].stu = Number("0x"+sdevstau);//0x64
+				//console.log(JSON.stringify(xpdjobj.PDDATA.Devtab[sdevpos]));
+				break
 			}
 			if(ndevregadd==0x65 && ndevreglen==0x04){
 				sdevstau = ss.substring(12,16);			//reg value by 1 byte	
 				xpdjobj.PDDATA.Devtab[sdevpos]["C78"]["chtab"]["65"].stu = Number("0x"+sdevstau);//0x65
 				sdevstau = ss.substring(16,20);			//reg value by 1 byte	
 				xpdjobj.PDDATA.Devtab[sdevpos]["C77"]["chtab"]["66"].stu = Number("0x"+sdevstau);//0x66
+				break
 			}
 			break
-			
 		case "7":	//WATERLEVEL(C79) reg70 .. 7B flow and hall scan value U16
-			//sdevstau = ss.substring(12,16);			//reg type	
-			//xpdjobj.PDDATA.Devtab[sdevpos]["C79"]["chtab"][sdevreg].stu = Number("0x"+sdevstau);
+			if(ndevregadd==0x70 && ndevreglen==0x03){
+				sdevstau = ss.substring(12,16);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C75"]["chtab"]["70"].stu = Number("0x"+sdevstau);//0x70
+				sdevstau = ss.substring(16,20);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C75"]["chtab"]["71"].stu = Number("0x"+sdevstau);//0x71
+				sdevstau = ss.substring(20,24);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C75"]["chtab"]["72"].stu = Number("0x"+sdevstau);//0x72
+				break
+			}
+			if(ndevregadd==0x73 && ndevreglen==0x02){
+				sdevstau = ss.substring(24,28);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C75"]["chtab"]["73"].stu = Number("0x"+sdevstau);//0x73
+				sdevstau = ss.substring(28,32);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C75"]["chtab"]["74"].stu = Number("0x"+sdevstau);//0x74
+				break
+			}
+			if(ndevregadd==0x76 && ndevreglen==0x03){
+				sdevstau = ss.substring(12,16);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C75"]["chtab"]["76"].stu = Number("0x"+sdevstau);//0x76
+				sdevstau = ss.substring(16,20);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C75"]["chtab"]["77"].stu = Number("0x"+sdevstau);//0x77
+				sdevstau = ss.substring(20,24);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C75"]["chtab"]["78"].stu = Number("0x"+sdevstau);//0x78
+				break
+			}
+			if(ndevregadd==0x79 && ndevreglen==0x02){
+				sdevstau = ss.substring(24,28);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C75"]["chtab"]["79"].stu = Number("0x"+sdevstau);//0x79
+				sdevstau = ss.substring(28,32);			//reg value by 1 byte	
+				xpdjobj.PDDATA.Devtab[sdevpos]["C75"]["chtab"]["7A"].stu = Number("0x"+sdevstau);//0x7A
+				break
+			}
 			break		
 		default:
 			break 

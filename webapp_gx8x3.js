@@ -121,32 +121,57 @@ var sensorbuff = [
 
 var regsensorbuff = [
 	[
-		{"POS":"E002","CMD":"STATU","STU":"030200","Type":"KEY","typecmd":"C70","typereg":"03"}
-	],
-	[
+		{"POS":"E002","CMD":"STATU","STU":"030200","Type":"KEY","typecmd":"C70","typereg":"03"},
 		{"POS":"E002","CMD":"STATU","STU":"0E0500","Type":"KEY","typecmd":"C70","typereg":"0E"}
 	],
 	[
 		{"POS":"E002","CMD":"LED","STU":"1D0300","Type":"POWERSTU","typecmd":"C71","typereg":"1D"}
 	],
 	[
-		{"POS":"E002","CMD":"RH","STU":"600200","Type":"AirRH","typecmd":"C78","typereg":"60"}
-	],
-	[
+		{"POS":"E002","CMD":"RH","STU":"600200","Type":"RH","typecmd":"C78","typereg":"60"},
 		{"POS":"E002","CMD":"PH","STU":"620300","Type":"PH","typecmd":"C7B","typereg":"62"}
 	],
 	[
-		{"POS":"E002","CMD":"RH","STU":"650200","Type":"AirRH","typecmd":"C78","typereg":"65"}
+		{"POS":"E002","CMD":"RH","STU":"650200","Type":"RH","typecmd":"C78","typereg":"65"},
+		{"POS":"E002","CMD":"UV","STU":"700300","Type":"UV","typecmd":"C75","typereg":"70"}
+	],
+	[
+		{"POS":"E002","CMD":"UV","STU":"730200","Type":"UV","typecmd":"C75","typereg":"73"}
+	],
+	[
+		{"POS":"E002","CMD":"UV","STU":"760300","Type":"UV","typecmd":"C75","typereg":"76"},
+		{"POS":"E002","CMD":"UV","STU":"790200","Type":"UV","typecmd":"C75","typereg":"79"}
 	]
 ]
 
 var uploadregsensorbuff = [
 	[
-		{"POS":"E002","CMD":"RH","STU":"600100","Type":"AirRH","typecmd":"C78","typereg":"60"},
-		{"POS":"E002","CMD":"TEMPERATURE","STU":"610100","Type":"AirTemp","typecmd":"C77","typereg":"61"},
+		{"POS":"E002","CMD":"RH","STU":"600100","Type":"RH","typecmd":"C78","typereg":"60"},
+		{"POS":"E002","CMD":"TEMPERATURE","STU":"610100","Type":"TEMPERATURE","typecmd":"C77","typereg":"61"}
+	],
+	[
+		{"POS":"E002","CMD":"PH","STU":"620000","Type":"PH","typecmd":"C7B","typereg":"62"},
+		{"POS":"E002","CMD":"ELECTRONS","STU":"630000","Type":"ELECTRONS","typecmd":"C7A","typereg":"63"},
+		{"POS":"E002","CMD":"CO2","STU":"640000","Type":"CO2","typecmd":"C76","typereg":"64"}
+	],
+	[
+		{"POS":"E002","CMD":"STATU","STU":"120100","Type":"WATERLEVEL7","typecmd":"C70","typereg":"12"}
+	]
+]
+
+var uploadecphbuff=[
+	[
+		{"POS":"E002","CMD":"PH","STU":"620100","Type":"PH","typecmd":"C7B","typereg":"62"},
+		{"POS":"E002","CMD":"ELECTRONS","STU":"630100","Type":"ELECTRONS","typecmd":"C7A","typereg":"63"}
+	]
+]
+/* var uploadregsensorbuff = [
+	[
+		{"POS":"E002","CMD":"RH","STU":"600100","Type":"RH","typecmd":"C78","typereg":"60"},
+		{"POS":"E002","CMD":"TEMPERATURE","STU":"610100","Type":"TEMPERATURE","typecmd":"C77","typereg":"61"},
 		{"POS":"E002","CMD":"PH","STU":"620100","Type":"PH","typecmd":"C7B","typereg":"62"},
 		{"POS":"E002","CMD":"ELECTRONS","STU":"630100","Type":"ELECTRONS","typecmd":"C7A","typereg":"63"},
-		{"POS":"E002","CMD":"CO2","STU":"640100","Type":"WO2","typecmd":"C76","typereg":"64"}
+		{"POS":"E002","CMD":"CO2","STU":"640100","Type":"CO2","typecmd":"C76","typereg":"64"}
 	],
 	[
 		{"POS":"E002","CMD":"LED","STU":"1D0100","Type":"POWERSTU","typecmd":"C71","typereg":"1D"},
@@ -154,17 +179,45 @@ var uploadregsensorbuff = [
 		{"POS":"E002","CMD":"LED","STU":"1F0100","Type":"WATERSTU","typecmd":"C71","typereg":"1F"}
 	],
 	[
-		{"POS":"E002","CMD":"STATU","STU":"030100","Type":"HICHK4","typecmd":"C70","typereg":"03"},
-		{"POS":"E002","CMD":"STATU","STU":"040100","Type":"LOWCHK5","typecmd":"C70","typereg":"04"}
-	],
-	[
 		{"POS":"E002","CMD":"STATU","STU":"0E0100","Type":"WARDOSE","typecmd":"C70","typereg":"0E"},
 		{"POS":"E002","CMD":"STATU","STU":"0F0100","Type":"WARWATER","typecmd":"C70","typereg":"0F"},
 		{"POS":"E002","CMD":"STATU","STU":"100100","Type":"ERRPUMPDOSE","typecmd":"C70","typereg":"10"},
 		{"POS":"E002","CMD":"STATU","STU":"110100","Type":"ERRPUMPWATER","typecmd":"C70","typereg":"11"},
-		{"POS":"E002","CMD":"STATU","STU":"120100","Type":"WATERLEVEL","typecmd":"C70","typereg":"12"}
+		{"POS":"E002","CMD":"STATU","STU":"120100","Type":"WATERLEVEL1","typecmd":"C70","typereg":"12"}
+	],
+	[
+		{"POS":"H003","CMD":"CO2","STU":"910000","Type":"CO2","typecmd":"C76","typereg":"91"},
+		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
+		{"POS":"H010","CMD":"TEMPERATURE","STU":"A10000","Type":"WaterTemp","typecmd":"C77","typereg":"A1"},
+		{"POS":"H011","CMD":"TEMPERATURE","STU":"A10000","Type":"WaterTemp","typecmd":"C77","typereg":"A1"}
+	],
+	[
+		{"POS":"H001","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
+		{"POS":"H002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
+		{"POS":"H004","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
+		{"POS":"H005","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
+		{"POS":"H006","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"},
+		{"POS":"E002","CMD":"TEMPERATURE","STU":"A10000","Type":"AirTemp","typecmd":"C77","typereg":"A1"}
+	],
+	[
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"710000","Type":"WATERLEVEL1","typecmd":"C79","typereg":"71"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"720000","Type":"WATERLEVEL2","typecmd":"C79","typereg":"72"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"730000","Type":"WATERLEVEL3","typecmd":"C79","typereg":"73"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"740000","Type":"WATERLEVEL4","typecmd":"C79","typereg":"74"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"750000","Type":"WATERLEVEL5","typecmd":"C79","typereg":"75"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"760000","Type":"WATERLEVEL6","typecmd":"C79","typereg":"76"},
+		{"POS":"E002","CMD":"WATERLEVEL","STU":"770000","Type":"WATERLEVEL7","typecmd":"C79","typereg":"77"}
+	],
+	[
+		{"POS":"H001","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
+		{"POS":"H002","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
+		{"POS":"H004","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
+		{"POS":"H005","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
+		{"POS":"H006","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"},
+		{"POS":"E002","CMD":"RH","STU":"920000","Type":"AirRH","typecmd":"C78","typereg":"92"}
 	]
-]
+	
+] */
 
 //var sbcountmax =13;
 var sbcountmax = regsensorbuff.length;
@@ -263,28 +316,29 @@ function  opf403_regdev_loadscan(regpos){ //poslist ,direct buffer LOAD save to 
 			cregadd = regpos[rr].STU.substr(0,2)//[0][1] 2 byte
 			creglen = regpos[rr].STU.substr(2,2)//[0][1] 2 byte
 			ttbuf = Buffer.from(cmdcode.rs485v060.s70cmd,'hex'); //"[0][1:add][2:len][3][4:cmd][5:REG][6,7:stu][8,9:groud][10]"f5 00 06 00 02 20 12 34 12 34 20"
-			ttbuf[1]= pdbuffer.pdjobj.PDDATA.Devtab[regpos[rr].POS].STATU.devadd;	
+			//ttbuf[1]= pdbuffer.pdjobj.PDDATA.Devtab[regpos[rr].POS].STATU.devadd;	
+			ttbuf[1]= 0x01;
 			ttbuf[4]= 0x02;//define for LOAD	
 			ttbuf[3]= Number('0x'+ttypecmd);//set typecmd code 				
 			ttbuf[5]= Number('0x'+cregadd);
 			ttbuf[6]= Number('0x'+creglen);
 			ttbuf[7]= 0x00;
 			pdbuffer.totxbuff(ttbuf);
-		}
-		
+		}	
 	}
 }
 
 var regcmdtab={
+	"STATU":"C70",
 	"AirRH":"C78",
 	"AirTemp":"C77",
 	"EC":"C7A",
 	"WaterTemp":"C77",
 	"WaterLevel":"C79",
 	"CO2":"C76",
+	"UV":"C75",
 	"TEMPERATURE":"C77",
 	"RH":"C78",
-	"WATERLEVEL":"C79",
 	"ELECTRONS":"C7A",
 	"PH":"C7B"	
 }
@@ -304,22 +358,18 @@ function opf403_regstulinkweb(regdevarr){
 		for(rr in regdevarr){
 			if(!(regdevarr[rr].POS in pdbuffer.pdjobj.PDDATA.Devtab))continue;//undefine pos is pass
 			jjpos=pdbuffer.pdjobj.PDDATA.Devtab[regdevarr[rr].POS];
+			//console.log("web http"+JSON.stringify(jjpos));
 			if(!(regdevarr[rr].CMD in regcmdtab ))continue;//undefine is pass			
 			regcmdcode = regcmdtab[regdevarr[rr].CMD]
 			if(!(regcmdcode in jjpos ))continue;//undefine is pass	
 			cregadd = regdevarr[rr].STU.substr(0,2)//[0][1] 2 byte
 			if(!(cregadd in jjpos[regcmdcode]["chtab"]))continue;//undefine is pass	
 			regval = jjpos[regcmdcode]["chtab"][cregadd].stu
-			
+			//console.log(">>web http CMD="+regdevarr[rr].CMD+" cmdcode="+regcmdcode+" regadd="+cregadd+" value="+regval);
 			if(regval >=5000)continue;//err valu too big
 			outregval=regval;
+			typemask = regdevarr[rr].Type
 			
-			typemask = regdevarr[rr].CMD
-			if(regdevarr[rr].CMD == "WATERLEVEL"){
-				typemask = regdevarr[rr].Type;
-				outregval=Math.ceil((regval/5)); // water level 1..20 => 1..5
-				if(outregval<=0)outregval=1;
-			}
 			regsensor_url = pdbuffer.pdjobj.PDDATA.v2sensorstatusurl+"?ID="+pdbuffer.setuuid+"&POS="+regdevarr[rr].POS+"&Type="+typemask+"&value="+outregval
 			console.log(">>web "+regsensor_url);
 			if(global.weblinkflag == 0){
@@ -565,7 +615,7 @@ app.get('/typecheck', function (req, res) { //sensor PDDATA buffer upload to web
 	if(uploadsbcount>=uploadsbcountmax)uploadsbcount=0;		
 	console.log("upload max="+uploadsbcountmax+" upload count="+uploadsbcount);			
 	opf403_regstulinkweb(uploadregsensorbuff[uploadsbcount]);
-	opf403_regstulinkweb220(uploadregsensorbuff[uploadsbcount]);
+	//opf403_regstulinkweb220(uploadregsensorbuff[uploadsbcount]);
 	
 });
 
@@ -2024,10 +2074,15 @@ app.listen(setport, function () {
 				uploadsbcount++;
 				if(uploadsbcount>=uploadsbcountmax)uploadsbcount=0;	
 				opf403_regstulinkweb(uploadregsensorbuff[uploadsbcount]);
-				opf403_regstulinkweb220(uploadregsensorbuff[uploadsbcount]);
+				//opf403_regstulinkweb220(uploadregsensorbuff[uploadsbcount]);
 			}
-		},2 * 60 * 1000);
+		},1 * 60 * 1000);
 		
+		
+//		setInterval(function(){
+//			opf403_regstulinkweb(uploadecphbuff[0]);
+//			//opf403_regstulinkweb220(uploadecphbuff[0]);
+//		},20 * 60 * 1000);
 		
 		// if(pdbuffer.pdjobj.PDDATA.linkoffmode == 0){//ext web mode
 		// 	ngrok.disconnect(); // stops all
@@ -2114,8 +2169,6 @@ app.listen(setport, function () {
 		//power on start command 
 		//autocmd.active_keypadjob('KEYPAD0','K001','ON');//POWER KEY ON
 	});
-	 
-
 });
 
 
