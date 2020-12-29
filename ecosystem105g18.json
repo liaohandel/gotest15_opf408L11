@@ -7,12 +7,12 @@
   apps : [
     // #1
     {
-		name	: "webapp_gx8x2.js",
-		script  : "/home/pi/opcom_prj/gotest15_opf408L11/webapp_gx8x2.js",
-        cwd		: "/home/pi/opcom_prj/gotest15_opf408L11/",
-		out_file 	: "/dev/null",
+		name	: "webapp_gx8x3.js",
+		script  : "/home/pi/opcom_prj/gotest15_opf408L11/webapp_gx8x3.js",
+        	cwd	: "/home/pi/opcom_prj/gotest15_opf408L11/",
+		out_file : "/dev/null",
 		error_file : "/logs/runerr.txt",
-		exec_mode  	: "cluster",
+		exec_mode  : "cluster",
 		env: {
 			NODE_ENV: "production"
 		}
@@ -20,8 +20,8 @@
     // #6
     {
 		name    : "iproot3000set.js",
-		script  : "/home/pi/opcom_prj/gotest15_opf408L11/iproot3000set106.js",
-        cwd		: "/home/pi/opcom_prj/gotest15_opf408L11/",
+		script  : "/home/pi/opcom_prj/gotest15_opf408L11/iproot3000set108.js",
+        	cwd	: "/home/pi/opcom_prj/gotest15_opf408L11/",
 		out_file : "/dev/null",
 		error_file : "/logs/runerr.txt",
 		exec_mode  : "cluster",

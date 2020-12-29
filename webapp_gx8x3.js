@@ -121,26 +121,13 @@ var sensorbuff = [
 
 var regsensorbuff = [
 	[
-		{"POS":"E002","CMD":"STATU","STU":"030200","Type":"KEY","typecmd":"C70","typereg":"03"},
+		{"POS":"E002","CMD":"LED","STU":"1D0400","Type":"POWERSTU","typecmd":"C71","typereg":"1D"},
 		{"POS":"E002","CMD":"STATU","STU":"0E0500","Type":"KEY","typecmd":"C70","typereg":"0E"}
 	],
 	[
-		{"POS":"E002","CMD":"LED","STU":"1D0300","Type":"POWERSTU","typecmd":"C71","typereg":"1D"}
-	],
-	[
+		{"POS":"E002","CMD":"LED","STU":"1D0400","Type":"POWERSTU","typecmd":"C71","typereg":"1D"},
 		{"POS":"E002","CMD":"RH","STU":"600200","Type":"RH","typecmd":"C78","typereg":"60"},
 		{"POS":"E002","CMD":"PH","STU":"620300","Type":"PH","typecmd":"C7B","typereg":"62"}
-	],
-	[
-		{"POS":"E002","CMD":"RH","STU":"650200","Type":"RH","typecmd":"C78","typereg":"65"},
-		{"POS":"E002","CMD":"UV","STU":"700300","Type":"UV","typecmd":"C75","typereg":"70"}
-	],
-	[
-		{"POS":"E002","CMD":"UV","STU":"730200","Type":"UV","typecmd":"C75","typereg":"73"}
-	],
-	[
-		{"POS":"E002","CMD":"UV","STU":"760300","Type":"UV","typecmd":"C75","typereg":"76"},
-		{"POS":"E002","CMD":"UV","STU":"790200","Type":"UV","typecmd":"C75","typereg":"79"}
 	]
 ]
 
@@ -155,6 +142,8 @@ var uploadregsensorbuff = [
 		{"POS":"E002","CMD":"CO2","STU":"640000","Type":"CO2","typecmd":"C76","typereg":"64"}
 	],
 	[
+		{"POS":"E002","CMD":"RH","STU":"600100","Type":"RH","typecmd":"C78","typereg":"60"},
+		{"POS":"E002","CMD":"TEMPERATURE","STU":"610100","Type":"TEMPERATURE","typecmd":"C77","typereg":"61"},
 		{"POS":"E002","CMD":"STATU","STU":"120100","Type":"WATERLEVEL7","typecmd":"C70","typereg":"12"}
 	]
 ]
@@ -1019,7 +1008,7 @@ app.get('/LED', function (req, res) {
 			//console.log("6>>"+group)
 			//ttbuf = Buffer.from(cmdcode.rs485v060.s70cmd,'hex'); 
 			//dev active
-			if(cregadd == "20"){ //F5 IPaddr 06 00 01 20 00 00 00
+			if(cregadd == "30"){ //F5 IPaddr 06 00 01 20 00 00 00
 				ttbuf = Buffer.from(cmdcode.rs485v050.sb0cmd,'hex'); //"[0][1:add][2:len][3][4:cmd][5:REG][6,7:stu][8]"f5 00 06 00 02 20 12 34 12 34 20"
 				cmdindex = pdbuffer.pdjobj.subcmd[cmd]			
 				ttbuf[4]= cmdindex;

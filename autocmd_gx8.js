@@ -1892,20 +1892,21 @@ function active_keypadjob(kpos,kcode,kactive){
 //if(run_cmd == "REGCMD/KEYSETUP"){
 	updatekeysstuatusurl= pdbuffer.pdjobj.PDDATA.v2keypadstatusupdateurl+"?ID="+pdbuffer.setuuid+"&KeypadID="+kpos+"&Index="+kcode+"&value="+kactive;
 	console.log("sudo active update to webui =>"+updatekeysstuatusurl);
-	
-		if(global.weblinkflag == 0){
-			client.get(updatekeysstuatusurl,cargs, function (data, response) {
-				console.log("keypad active update to webui   ok ...");
-			}).on("error", function(err) {console.log("err for clientx1");global.weblinkflag=1;}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
-		}
+	if(global.weblinkflag == 0){
+		client.get(updatekeysstuatusurl,cargs, function (data, response) {
+			console.log("keypad active update to webui   ok ...");
+		}).on("error", function(err) {console.log("err for clientx1");global.weblinkflag=1;}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
+	}
 	//autopushkeypad(kpos,kcode,kactive);
-	
+	//===IPC 220 call ===
+	/* 
 	updatekeysstuatusurl220 = "http://192.168.5.220/API/v2/KeypadUpdate.php"+"?ID="+pdbuffer.setuuid+"&KeypadID="+kpos+"&Index="+kcode+"&value="+kactive;
 	console.log("sudo active update to webui =>"+updatekeysstuatusurl220);
 	client.get(updatekeysstuatusurl220,ipccargs, function (data, response) {
 		console.log("keypad active update to webui   ok ...");
 	}).on("error", function(err) {console.log("err for client");}).on('requestTimeout', function (req) {req.abort();});
-	
+	 */
+	 
 /* 	if(kcode in keypad1x8list){
 		keypadinx = keypad1x8list[kcode];
 		//console.log(">>key"+kcode +"="+keypadinx);

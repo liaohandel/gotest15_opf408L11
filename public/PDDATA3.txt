@@ -15,7 +15,7 @@
 		"v2autojsonloadurl":  "http://106.104.112.56/Cloud/API/v2/AUTOJSON",
 		"v2keypadjsonloadurl": "http://106.104.112.56/Cloud/API/v2/AUTOJSON",
 		"v2keypadstatusupdateurl": "http://106.104.112.56/Cloud/API/v2/KeypadUpdate",
-		"linkoffmode":1,
+		"linkoffmode":0,
 		"Devtab": {	
 			"ESCAN":{"STATU":{"devadd":0,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"81", "FWVER":"0000", "HWVER":"0000"},
 				"C74": {"sub": 0,"stu": 0,"Data": 0,
@@ -92,7 +92,8 @@
 							"1C":{"sub": 0,"stu": 0,"Data": 0},
 							"1D":{"sub": 0,"stu": 0,"Data": 0},
 							"1E":{"sub": 0,"stu": 0,"Data": 0},
-							"1F":{"sub": 0,"stu": 0,"Data": 0}
+							"1F":{"sub": 0,"stu": 0,"Data": 0},
+							"20":{"sub": 0,"stu": 0,"Data": 0}
 						}
 				},
 				"C72": 	{"sub": 0,"stu": 0,"Data": 0, 

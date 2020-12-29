@@ -20,7 +20,7 @@
     // #6
     {
 		name    : "loadwebappddns.js",
-		script  : "/home/pi/opcom_prj/gotest15_opf408L11/loadwebappddns.js",
+		script  : "/home/pi/opcom_prj/gotest15_opf408L11/iproot3000set105.js",
         cwd		: "/home/pi/opcom_prj/gotest15_opf408L11/",
 		out_file : "/dev/null",
 		error_file : "/logs/runerr.txt",

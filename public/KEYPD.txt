@@ -178,13 +178,13 @@
 			},
 			"EVENT": {
 				"AUTO": [
-					{"CMD":"LED","POS":"E002","Action":"ON","STU":"420000","GROUP":"00" }
+					{"CMD":"LED","POS":"E002","Action":"ON","STU":"200200","GROUP":"00" }
 				],
 				"ON": [
-					{"CMD":"LED","POS":"E002","Action":"ON","STU":"42FE00","GROUP":"00" }
+					{"CMD":"LED","POS":"E002","Action":"ON","STU":"200100","GROUP":"00" }
 				],
 				"OFF": [
-					{"CMD":"LED","POS":"E002","Action":"ON","STU":"420000","GROUP":"00" }
+					{"CMD":"LED","POS":"E002","Action":"ON","STU":"200000","GROUP":"00" }
 				]
 			}
 		  },	  

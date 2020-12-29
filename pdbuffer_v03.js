@@ -72,6 +72,7 @@ var cmdcode = require("./handelrs485x3.js");
 
 //載入redis自製模板
 var redisfunc = require("./redisfunc.js");
+var autocmd = require('./autocmd_gx8.js');
 
 //=== PDDATA.txt to pdjobj
 var filename = "PDDATA3.txt"
@@ -103,6 +104,7 @@ var keypadpushbuffer =[];
 
 var tx_timeout_chk = false;
 
+var keycomm=["OFF","ON","AUTO","HI","LOW","SET","LOAD"];
 //=== syspub function ===
 function jobjcopy(jobj){
 	return JSON.parse(JSON.stringify(jobj));	
@@ -379,27 +381,47 @@ function devloadtobuff(sub02cmd){
 				break
 			}
 			if(ndevregadd==0x0e && ndevreglen==0x05){
-				sdevstau = ss.substring(12,14);			//reg value by 1 byte	
-				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["0E"].stu = Number("0x"+sdevstau);//0x0e
-				sdevstau = ss.substring(14,16);			//reg value by 1 byte	
-				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["0F"].stu = Number("0x"+sdevstau);//0x0f
-				sdevstau = ss.substring(16,18);			//reg value by 1 byte	
-				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["10"].stu = Number("0x"+sdevstau);//0x10
-				sdevstau = ss.substring(18,20);			//reg value by 1 byte	
-				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["11"].stu = Number("0x"+sdevstau);//0x11
+				ve1= Number("0x"+ss.substring(12,14));
+				ve2= Number("0x"+ss.substring(14,16));
+				ve3= Number("0x"+ss.substring(16,18));
+				ve4= Number("0x"+ss.substring(18,20));
+				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["0E"].stu = ve1;//0x0e alarm DOSE low PUMP,3001
+				if(ve1==0x01)ofmalarmcall("E002","PUMP","3001")//E002,PUMP,3001
+				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["0F"].stu = ve2;//0x0f alarm Water low PUMP,3002
+				if(ve2==0x01)ofmalarmcall("E002","PUMP","3002")//E002,PUMP,3002
+				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["10"].stu = ve3;//0x10 alarm Dose pump err PUMP,3003
+				if(ve3==0x01)ofmalarmcall("E002","PUMP","3003")//E002,PUMP,3003
+				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["11"].stu = ve4;//0x11 alarm Water pump err PUMP,3005
+				if(ve4==0x01)ofmalarmcall("E002","PUMP","3004")//E002,PUMP,3004
 				sdevstau = ss.substring(20,22);			//reg value by 1 byte	
 				xpdjobj.PDDATA.Devtab[sdevpos]["C70"]["chtab"]["12"].stu = Number("0x"+sdevstau)*2+1;//0x12
 				break
 			}
 			break
-		case "1":	//C71 key1..3 mode  reg 1D..1F
-			if(ndevregadd==0x1d && ndevreglen==0x03){
-				sdevstau = ss.substring(12,14);			//reg value by 1 byte	
-				xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["1D"].stu = Number("0x"+sdevstau);//0x03
-				sdevstau = ss.substring(14,16);			//reg value by 1 byte	
-				xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["1E"].stu = Number("0x"+sdevstau);//0x04
-				sdevstau = ss.substring(16,18);			//reg value by 1 byte	
-				xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["1F"].stu = Number("0x"+sdevstau);//0x04
+		case "1":	//C71 key1..3 mode  reg 1D..20
+			if(ndevregadd==0x1d && ndevreglen==0x04){
+				vk1= Number("0x"+ss.substring(12,14));
+				vk2= Number("0x"+ss.substring(14,16));
+				vk3= Number("0x"+ss.substring(16,18));
+				vk4= Number("0x"+ss.substring(18,20));
+				if(xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["1D"].stu != vk1){
+					xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["1D"].stu = vk1;//0x1D
+					ofmkeyupload("KEYPAD0","K001",keycomm[vk1]);//pos = KEYPAD0 , group = "K021" , STU=:ON75"
+				}
+				if(xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["1E"].stu != vk2){
+					xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["1E"].stu = vk2;//0x1E
+					ofmkeyupload("KEYPAD0","K006",keycomm[vk2]);//pos = KEYPAD0 , group = "K021" , STU=:ON75"
+				}
+				ofmkeyupload("KEYPAD0","K006",keycomm[vk2]);//pos = KEYPAD0 , group = "K021" , STU=:ON75"
+				//autocmd.active_keypadjob("KEYPAD0","K006",keycomm[vk2]);//pos = KEYPAD0 , group = "K021" , STU=:ON75"
+				if(xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["1F"].stu != vk3){
+					xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["1F"].stu = vk3;//0x1F
+					ofmkeyupload("KEYPAD0","K007",keycomm[vk3]);//pos = KEYPAD0 , group = "K021" , STU=:ON75"
+				}
+				if(xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["20"].stu != vk4){
+					xpdjobj.PDDATA.Devtab[sdevpos]["C71"]["chtab"]["20"].stu = vk4;//0x20
+					//ofmkeyupload("KEYPAD0","K008",keycomm[vk4]);//pos = KEYPAD0 , group = "K021" , STU=:ON75"
+				}
 				break
 			}
 			break
@@ -662,6 +684,27 @@ event.on('sendkeypad_event', function() { //FCC10681019E010281
 	}
 });
 
+function ofmkeyupload(kpos,kcode,kactive){
+	updatekeysstuatusurl="http://106.104.112.56/Cloud/API/v2/KeypadUpdate"+"?ID="+setuuid+"&KeypadID="+kpos+"&Index="+kcode+"&value="+kactive;
+	console.log("sudo active update to webui =>"+updatekeysstuatusurl);
+	if(global.weblinkflag == 0){
+		client.get(updatekeysstuatusurl,cargs, function (data, response) {
+			console.log("keypad active update to webui   ok ...");
+		}).on("error", function(err) {console.log("err for clientx1");global.weblinkflag=1;}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
+	}
+}
+
+
+function ofmalarmcall(apos,atype,alarmcode){//E002,PUMP,3001
+	//alarm code 0x4001 => by POS device list to upload
+	update_alarmcodeurl= "http://106.104.112.56/Cloud/API/v2/Alarm"+"?ID="+setuuid+"&POS="+apos+"&Type="+atype+"&value="+alarmcode+"&Data=0";
+	console.log(">>alarm update to web DB =>"+update_alarmcodeurl);
+	if(global.weblinkflag == 0){
+		client.get(update_alarmcodeurl,cargs, function (data, response) {
+			console.log("alarm code active update to webDB pump  ok ...");
+		}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
+	}
+}
 //0xFC alarm 主動回報 警告處置 KeyPAD 觸發 主動回報處置
 function devalarmbuff(alarmcmd){//fcc10681019f010381
 	//check pos onlink
