@@ -556,7 +556,7 @@ event.on('txbuff_event', function() {
 			//console.log(">>> rxbuff timeout check ...");
 			setTimeout(function() { 
 				event.emit('rxbuff_event'); 
-			}, 300); //#### tx bufffer dealy 1300ms ???
+			}, 500); //#### tx bufffer dealy 1300ms ???
 	   });			
 	}
 });
@@ -678,7 +678,7 @@ event.on('sendkeypad_event', function() { //FCC10681019E010281
 		setdevouturl = key105loadurl+"?KEY="+sdevkey+"&STATE="+sdevstu+"&EVENT="+sdevevent;       
 		console.log("url="+setdevouturl);
 		if(global.weblinkflag == 0){
-			client.get(setdevouturl, function (data, response) {}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;});
+			client.get(setdevouturl, function (data, response) {}).on("error", function(err) {console.log("err for client");global.weblinkflag=0;});
 		}
 		setTimeout(function(){event.emit('sendkeypad_event')},10);		
 	}
@@ -690,7 +690,7 @@ function ofmkeyupload(kpos,kcode,kactive){
 	if(global.weblinkflag == 0){
 		client.get(updatekeysstuatusurl,cargs, function (data, response) {
 			console.log("keypad active update to webui   ok ...");
-		}).on("error", function(err) {console.log("err for clientx1");global.weblinkflag=1;}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
+		}).on("error", function(err) {console.log("err for clientx1");global.weblinkflag=0;}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
 	}
 }
 
@@ -702,7 +702,7 @@ function ofmalarmcall(apos,atype,alarmcode){//E002,PUMP,3001
 	if(global.weblinkflag == 0){
 		client.get(update_alarmcodeurl,cargs, function (data, response) {
 			console.log("alarm code active update to webDB pump  ok ...");
-		}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
+		}).on("error", function(err) {console.log("err for client");global.weblinkflag=0;}).on('requestTimeout', function (req) {req.abort();});
 	}
 }
 //0xFC alarm 主動回報 警告處置 KeyPAD 觸發 主動回報處置
@@ -844,7 +844,7 @@ function devalarmbuff(alarmcmd){//fcc10681019f010381
 		if(global.weblinkflag == 0){
 					client.get(update_alarmcodeurl,cargs, function (data, response) {
 						console.log("alarm code active update to webDB pump  ok ...");
-					}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
+					}).on("error", function(err) {console.log("err for client");global.weblinkflag=0;}).on('requestTimeout', function (req) {req.abort();});
 		}
 				updateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS="+apos+"&Type="+atype+"&value="+alarmcode+"&Data=0";
 				console.log(">>alarm update to web DB =>"+updateipc_alarmcodeurl);
@@ -883,7 +883,7 @@ function devalarmbuff(alarmcmd){//fcc10681019f010381
 		if(global.weblinkflag == 0){
 			client.get(update_alarmcodeurl,cargs, function (data, response) {
 				console.log("alarm code active update to webDB   ok ...");
-			}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
+			}).on("error", function(err) {console.log("err for client");global.weblinkflag=0;}).on('requestTimeout', function (req) {req.abort();});
 		}
 
 		updateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+setuuid+"&POS="+apos+"&Type="+atype+"&value="+alarmcode+"&Data=0";

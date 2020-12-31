@@ -1895,7 +1895,7 @@ function active_keypadjob(kpos,kcode,kactive){
 	if(global.weblinkflag == 0){
 		client.get(updatekeysstuatusurl,cargs, function (data, response) {
 			console.log("keypad active update to webui   ok ...");
-		}).on("error", function(err) {console.log("err for clientx1");global.weblinkflag=1;}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
+		}).on("error", function(err) {console.log("err for clientx1");global.weblinkflag=0;}).on('requestTimeout', function (req) {console.log("timeout for clientx1");req.abort();});
 	}
 	//autopushkeypad(kpos,kcode,kactive);
 	//===IPC 220 call ===
@@ -2105,7 +2105,7 @@ function alarmchk_load(alarmjob){
 						if(global.weblinkflag == 0){
 										client.get(update_alarmcodeurl,cargs, function (data, response) {
 											console.log("alarm code active update to webDB   ok ...");
-										}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
+										}).on("error", function(err) {console.log("err for client");global.weblinkflag=0;}).on('requestTimeout', function (req) {req.abort();});
 						}			
 						
 			updateipc_alarmcodeurl= "http://192.168.5.220/API/v2/Alarm.php"+"?ID="+pdbuffer.setuuid+"&POS="+aapos+"&Type="+alarmjob.EPOS[dd].CMD+"&value="+alarmjob.AMCODE+"&Data="+chkval.vmax;
@@ -2139,7 +2139,7 @@ function alarmchk_load(alarmjob){
 							if(global.weblinkflag == 0){
 											client.get(failupdate_alarmcodeurl,cargs, function (data, response) {
 												console.log("alarm code active update to webDB   ok ...");
-											}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
+											}).on("error", function(err) {console.log("err for client");global.weblinkflag=0;}).on('requestTimeout', function (req) {req.abort();});
 							}
 						}	
 						if(failupdateipc_alarmcodeurl.length > 4){

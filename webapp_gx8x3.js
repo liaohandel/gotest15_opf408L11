@@ -121,13 +121,22 @@ var sensorbuff = [
 
 var regsensorbuff = [
 	[
-		{"POS":"E002","CMD":"LED","STU":"1D0400","Type":"POWERSTU","typecmd":"C71","typereg":"1D"},
+		{"POS":"E002","CMD":"LED","STU":"1D0400","Type":"POWERSTU","typecmd":"C71","typereg":"1D"}
+	],
+	[
 		{"POS":"E002","CMD":"STATU","STU":"0E0500","Type":"KEY","typecmd":"C70","typereg":"0E"}
 	],
 	[
-		{"POS":"E002","CMD":"LED","STU":"1D0400","Type":"POWERSTU","typecmd":"C71","typereg":"1D"},
-		{"POS":"E002","CMD":"RH","STU":"600200","Type":"RH","typecmd":"C78","typereg":"60"},
+		{"POS":"E002","CMD":"RH","STU":"600200","Type":"RH","typecmd":"C78","typereg":"60"}
+	],
+	[
 		{"POS":"E002","CMD":"PH","STU":"620300","Type":"PH","typecmd":"C7B","typereg":"62"}
+	],
+	[
+		{"POS":"E002","CMD":"UV","STU":"700300","Type":"WATERLEVEL","typecmd":"C75","typereg":"70"}
+	],
+	[
+		{"POS":"E002","CMD":"UV","STU":"760300","Type":"WATERLEVEL","typecmd":"C75","typereg":"76"}
 	]
 ]
 
@@ -138,12 +147,10 @@ var uploadregsensorbuff = [
 	],
 	[
 		{"POS":"E002","CMD":"PH","STU":"620000","Type":"PH","typecmd":"C7B","typereg":"62"},
-		{"POS":"E002","CMD":"ELECTRONS","STU":"630000","Type":"ELECTRONS","typecmd":"C7A","typereg":"63"},
-		{"POS":"E002","CMD":"CO2","STU":"640000","Type":"CO2","typecmd":"C76","typereg":"64"}
+		{"POS":"E002","CMD":"ELECTRONS","STU":"630000","Type":"ELECTRONS","typecmd":"C7A","typereg":"63"}
 	],
 	[
-		{"POS":"E002","CMD":"RH","STU":"600100","Type":"RH","typecmd":"C78","typereg":"60"},
-		{"POS":"E002","CMD":"TEMPERATURE","STU":"610100","Type":"TEMPERATURE","typecmd":"C77","typereg":"61"},
+		{"POS":"E002","CMD":"CO2","STU":"640000","Type":"CO2","typecmd":"C76","typereg":"64"},
 		{"POS":"E002","CMD":"STATU","STU":"120100","Type":"WATERLEVEL7","typecmd":"C70","typereg":"12"}
 	]
 ]
@@ -364,7 +371,7 @@ function opf403_regstulinkweb(regdevarr){
 			if(global.weblinkflag == 0){
 				client.get(regsensor_url,cargs, function (data, response) {
 					console.log("sensor uplaod url: load ok...");
-				}).on("error", function(err) {console.log("web err for client");global.weblinkflag=1;}).on('requestTimeout', function (req) {console.log("timeout for client");req.abort();});
+				}).on("error", function(err) {console.log("web err for client");global.weblinkflag=0;}).on('requestTimeout', function (req) {console.log("timeout for client");req.abort();});
 			}
 		}		
 	}	
@@ -1148,20 +1155,21 @@ app.get('/PUMP', function (req, res) {
 		if(!(funcode in pdbuffer.pdjobj.PDDATA.Devtab[pos]))return;
 		
 		let cregadd = cstu.substr(0,2)//[0][1] 1 byte  "9C12345678"[0][1] [2][3][4][5] [6][7][8][9]
-		
 		let	nstu = Number('0x'+cstu.substr(2,4))//[2][3][4][5] 2 byte
-		let nstu2 =0;
-		if(cstu.length >=10)nstu2=Number('0x'+cstu.substr(6,4))//[6][7][8][9] 2 byte
+		
+		//let nstu2 =0;
+		//if(cstu.length >=10)nstu2=Number('0x'+cstu.substr(6,4))//[6][7][8][9] 2 byte
 		let ttbuf = ""
 				
 		if(group==0){
 			//cmdindex = pdbuffer.pdjobj.subcmd[cmd];
-			
 			if(!(cregadd in pdbuffer.pdjobj.PDDATA.Devtab[pos][funcode]["chtab"]))return;
 			//dev active
 			
-			ttbuf = Buffer.from(cmdcode.rs485v050.sb0cmd,'hex'); //"[0][1:add][2:len][3][4:cmd][5:REG][6,7:stu][8,9:groud][10]"f5 00 06 00 02 20 12 34 12 34 20"
-			if(cstu.length >=10)ttbuf = Buffer.from(cmdcode.rs485v050.sb0gcmd,'hex'); //f5 f1 08 00 02 20 12 34 56 78 20
+			ttbuf = Buffer.from(cmdcode.rs485v060.s72cmdset,'hex'); //### ofm prj 20201231
+			//"[0][1:add][2:len][3][4:cmd][5:REG][6,7:stu][8,9:groud][10]"f5 00 06 00 02 20 12 34 12 34 20"
+			//0  1  2  3  4  5  6  7  8
+			//f5 01 06 72 04 40 03 00 72
 			
 			if(pos in pdbuffer.pdjobj.PDDATA.Devtab){ //check pos is working 
 			   ttbuf[1]= pdbuffer.pdjobj.PDDATA.Devtab[pos].STATU.devadd;
@@ -1170,36 +1178,34 @@ app.get('/PUMP', function (req, res) {
 			}
 
 			cmdindex = pdbuffer.pdjobj.subcmd[cmd]			
-			ttbuf[4]= cmdindex;
+			ttbuf[4]= cmdindex;//subcmd code
 			ttbuf[5]= Number('0x'+cregadd);
 			ttbuf[6]= nstu>>8;
 			ttbuf[7]= nstu&0x00ff;
-			if(cstu.length >=10){
-				ttbuf[8]= nstu2>>8;
-				ttbuf[9]= nstu2&0x00ff;				
-			}
+			//if(cstu.length >=10){
+			//	ttbuf[8]= nstu2>>8;
+			//	ttbuf[9]= nstu2&0x00ff;				
+			//}
 			//ttbuf[8]= group>>8;
 			//ttbuf[9]= group&0x00ff;
 				
 			switch(cmd){
 				case "OFF":
-					ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];	
-					pdbuffer.pdjobj.PDDATA.Devtab[pos][funcode]["chtab"][cregadd].sub=cmdindex;		
-					pdbuffer.pdjobj.PDDATA.Devtab[pos][funcode]["chtab"][cregadd].stu=nstu;	
-					console.log("PUMP >>1>"+cmd);			
+					ttbuf[1]=0x00;
 					break
 				case "ON":
-					ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];	
-					pdbuffer.pdjobj.PDDATA.Devtab[pos][funcode]["chtab"][cregadd].sub=cmdindex;		
-					pdbuffer.pdjobj.PDDATA.Devtab[pos][funcode]["chtab"][cregadd].stu=nstu;	
-					console.log("PUMP >>2>"+cmd);	
-					
+					ttbuf[1]=0x00;
+					//ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];	
+					//pdbuffer.pdjobj.PDDATA.Devtab[pos][funcode]["chtab"][cregadd].sub=cmdindex;		
+					//pdbuffer.pdjobj.PDDATA.Devtab[pos][funcode]["chtab"][cregadd].stu=nstu;	
+					//console.log("PUMP >>2>"+cmd);	
 					break
 				case "LOAD":
-					ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];
+					ttbuf[1]=0x00;
+					//ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];
 					break
 				case "SET":
-					ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];	
+					ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];
 					//pdbuffer.pdjobj.PDDATA.Devtab[pos][funcode]["chtab"][cregadd].sub=cmdindex;		
 					//pdbuffer.pdjobj.PDDATA.Devtab[pos][funcode]["chtab"][cregadd].stu=nstu;	
 					console.log("PUMP >>4>"+cmd);		

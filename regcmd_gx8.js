@@ -95,7 +95,7 @@ function keylistapicall(kapilist){
 		if(global.weblinkflag == 0){
 				client.get(updatekeysstuatusurl,cargs, function (data, response) {
 					console.log("keypad active update to webui   ok ...");
-				}).on("error", function(err) {console.log("err for client");global.weblinkflag=1;}).on('requestTimeout', function (req) {req.abort();});
+				}).on("error", function(err) {console.log("err for client");global.weblinkflag=0;}).on('requestTimeout', function (req) {req.abort();});
 		}
 				
 				updatekeysstuatusurl220 = "http://192.168.5.220/API/v2/KeypadUpdate.php"+"?ID="+pdbuffer.setuuid+"&KeypadID="+kapilist[kk].POS+"&Index="+kapilist[kk].GROUP+"&value="+kapilist[kk].STU;
