@@ -16,7 +16,7 @@
 		"v2keypadjsonloadurl": "http://106.104.112.56/Cloud/API/v2/AUTOJSON",
 		"v2keypadstatusupdateurl": "http://106.104.112.56/Cloud/API/v2/KeypadUpdate",
 		"linkoffmode":0,
-		"Devtab": {	
+		"Devtab": {
 			"ESCAN":{"STATU":{"devadd":0,"LINK": 1,"GROUP": 0,"MACADD":"000000000000","MTYPE":"81", "FWVER":"0000", "HWVER":"0000"},
 				"C74": {"sub": 0,"stu": 0,"Data": 0,
 						"chtab":{
