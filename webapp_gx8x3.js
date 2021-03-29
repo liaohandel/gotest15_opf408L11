@@ -1191,17 +1191,17 @@ app.get('/PUMP', function (req, res) {
 				
 			switch(cmd){
 				case "OFF":
-					ttbuf[1]=0x00;
+					//ttbuf[1]=0x01;
 					break
 				case "ON":
-					ttbuf[1]=0x00;
+					//ttbuf[1]=0x01;
 					//ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];	
 					//pdbuffer.pdjobj.PDDATA.Devtab[pos][funcode]["chtab"][cregadd].sub=cmdindex;		
 					//pdbuffer.pdjobj.PDDATA.Devtab[pos][funcode]["chtab"][cregadd].stu=nstu;	
 					//console.log("PUMP >>2>"+cmd);	
 					break
 				case "LOAD":
-					ttbuf[1]=0x00;
+					//ttbuf[1]=0x01;
 					//ttbuf[4]=pdbuffer.pdjobj.subcmd[cmd];
 					break
 				case "SET":

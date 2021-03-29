@@ -136,7 +136,7 @@
 		  },	  
 		"K006": {
 			"STATUS": {
-			  "stcnt": 2,
+			  "stcnt": 3,
 			  "stpt": 0,
 			  "stmask": ["AUTO","ON","OFF"]
 			},
@@ -154,7 +154,7 @@
 		  },	  
 		"K007": {
 			"STATUS": {
-			  "stcnt": 2,
+			  "stcnt": 3,
 			  "stpt": 0,
 			  "stmask": ["AUTO","ON","OFF"]
 			},
@@ -172,7 +172,7 @@
 		  },	  
 		"K008": {
 			"STATUS": {
-			  "stcnt": 2,
+			  "stcnt": 3,
 			  "stpt": 0,
 			  "stmask": ["AUTO","ON","OFF"]
 			},
@@ -188,6 +188,90 @@
 				]
 			}
 		  },	  
+		"K061": {
+			"STATUS": {
+			  "stcnt": 3,
+			  "stpt": 0,
+			  "stmask": ["AUTO","ON","OFF"]
+			},
+			"EVENT": {
+				"AUTO": [
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"48fe00","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"EXT1AUTO","Action":"AUTO","STU":"01","GROUP":"00" }
+				],
+				"ON": [
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"48fe00","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"EXT1AUTO","Action":"AUTO","STU":"00","GROUP":"00" }
+				],
+				"OFF": [
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"480000","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"EXT1AUTO","Action":"AUTO","STU":"00","GROUP":"00" }
+				]
+			}
+		  },	  
+		"K062": {
+			"STATUS": {
+			  "stcnt": 3,
+			  "stpt": 0,
+			  "stmask": ["AUTO","ON","OFF"]
+			},
+			"EVENT": {
+				"AUTO": [
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"49fe00","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"EXT2AUTO","Action":"AUTO","STU":"01","GROUP":"00" }
+				],
+				"ON": [
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"49fe00","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"EXT2AUTO","Action":"AUTO","STU":"00","GROUP":"00" }
+				],
+				"OFF": [
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"490000","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"EXT2AUTO","Action":"AUTO","STU":"00","GROUP":"00" }
+				]
+			}
+		  },	  
+		"K063": {
+			"STATUS": {
+			  "stcnt": 3,
+			  "stpt": 0,
+			  "stmask": ["AUTO","ON","OFF"]
+			},
+			"EVENT": {
+				"AUTO": [
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"46fe00","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"EXT3AUTO","Action":"AUTO","STU":"01","GROUP":"00" }
+				],
+				"ON": [
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"46fe00","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"EXT3AUTO","Action":"AUTO","STU":"00","GROUP":"00" }
+				],
+				"OFF": [
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"460000","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"EXT3AUTO","Action":"AUTO","STU":"00","GROUP":"00" }
+				]
+			}
+		  },	  
+		"K064": {
+			"STATUS": {
+			  "stcnt": 3,
+			  "stpt": 0,
+			  "stmask": ["AUTO","ON","OFF"]
+			},
+			"EVENT": {
+				"AUTO": [
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"47fe00","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"EXT4AUTO","Action":"AUTO","STU":"01","GROUP":"00" }
+				],
+				"ON": [
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"47fe00","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"EXT4AUTO","Action":"AUTO","STU":"00","GROUP":"00" }
+				],
+				"OFF": [
+					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"470000","GROUP":"00" },
+					{"CMD":"REGCMD/AUTOSETUP","POS":"EXT4AUTO","Action":"AUTO","STU":"00","GROUP":"00" }
+				]
+			}
+		  },
 		"K009": {
 			"STATUS": {
 			  "stcnt": 2,
@@ -209,8 +293,7 @@
 			"STATUS": {
 			  "stcnt": 2,
 			  "stpt": 0,
-			  "stmask": ["ON","OFF"
-			  ]
+			  "stmask": ["ON","OFF"]
 			},
 			"EVENT": {
 			  "ON":  [
@@ -322,37 +405,27 @@
 			  "stmask": ["AUTO","ON","OFF"]
 			},
 			"EVENT": {
-			  "AUTO": [
-				{"CMD":"REGCMD/AUTOSETUP","POS":"CO2","Action":"AUTO","STU":"01","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"590000","GROUP":"00" }],
-			  "ON": [
-				{"CMD":"REGCMD/AUTOSETUP","POS":"CO2","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"590000","GROUP":"00" }],
-			  "OFF": [
-				{"CMD":"REGCMD/AUTOSETUP","POS":"CO2","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"590000","GROUP":"00" }]
+				"AUTO": [
+				],
+				  "ON": [
+				],
+				  "OFF": [
+				]
 			}
 		  },
 		"K016": {
 			"STATUS": {
-			  "stcnt": 2,
+			  "stcnt": 3,
 			  "stpt": 0,
-			  "stmask": ["AUTO","OFF"]
+			  "stmask": ["AUTO","ON","OFF"]
 			},
 			"EVENT": {
-			"AUTO": [
-					{"CMD":"REGCMD/AUTOSETUP","POS":"WATERTM","Action":"AUTO","STU":"01","GROUP":"00" }
-			],
-			  "ON": [
-					{"CMD":"REGCMD/AUTOSETUP","POS":"WATERTM","Action":"AUTO","STU":"00","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"640000","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"480000","GROUP":"00" }
-			],
-			  "OFF": [
-					{"CMD":"REGCMD/AUTOSETUP","POS":"WATERTM","Action":"AUTO","STU":"00","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"640000","GROUP":"00" },
-					{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"480000","GROUP":"00" }
-			]
+				"AUTO": [
+				],
+				  "ON": [
+				],
+				  "OFF": [
+				]
 			}
 		  },
 		"K017": {
@@ -362,20 +435,11 @@
 			  "stmask": ["AUTO","ON","OFF"]
 			},
 			"EVENT": {
-			  "AUTO": [
-				{"CMD":"REGCMD/AUTOSETUP","POS":"SPRAY","Action":"AUTO","STU":"01","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"620000","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"420000","GROUP":"00" }
-			  ],
-			  "ON": [
-				{"CMD":"REGCMD/AUTOSETUP","POS":"SPRAY","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"620000","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"ON","STU":"420000","GROUP":"00" }
+				"AUTO": [
 				],
-			  "OFF": [
-				{"CMD":"REGCMD/AUTOSETUP","POS":"SPRAY","Action":"AUTO","STU":"00","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"620000","GROUP":"00" },
-				{"CMD":"PUMP","POS":"E002","Action":"OFF","STU":"420000","GROUP":"00" }
+				  "ON": [
+				],
+				  "OFF": [
 				]
 			}
 		  },

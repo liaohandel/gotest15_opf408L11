@@ -688,24 +688,72 @@
 			"SENSOR_CONTROL":2,
 			"RUNLOOP": {
 				"EPOS": [
-					{"POS":"E003","CMD":"PUMP","STU":"44000A","GROUP":"00"},
-					{"POS":"E003","CMD":"PUMP","STU":"45000A","GROUP":"00"},
-					{"POS":"E003","CMD":"PUMP","STU":"46000A","GROUP":"00"},
-					{"POS":"E003","CMD":"PUMP","STU":"61000A","GROUP":"00"}
 				],
 				"SENSORPOS": [
-					{"POS":"E003","CMD":"PH","STU":"930000","GROUP":"00"},
-					{"POS":"E003","CMD":"ELECTRONS","STU":"940000","GROUP":"00"}
 				],
 				"OUTSENSORPOS": [
-					{"POS":"E003","CMD":"PH","STU":"930000","GROUP":"00"},
-					{"POS":"E003","CMD":"ELECTRONS","STU":"940000","GROUP":"00"}
 				],
 				"SENSORDATA":{
 					"ECDATA":[0,0],
 					"PHDATA":[0,0]
 				},
 				"DOSE!LOOP": "00000000"
+			}
+		},
+		"EXT1AUTO": {
+			"MODE":1, 
+			"STATU":0,
+			"SENSOR_CONTROL":0,
+			"TIMER": {
+				"EPOS": [
+					{"POS":"E002","CMD":"PUMP","STU":"480000","GROUP":"00"}
+				],
+				"PWM": { "01": 0, "02": 0, "03": 0,  "04": 0 },
+				"ST": "0001",
+				"ON": "1600",
+				"OFF": "0800"
+			}
+		},
+		"EXT2AUTO": {
+			"MODE":1, 
+			"STATU":0,
+			"SENSOR_CONTROL":0,
+			"TIMER": {
+				"EPOS": [
+					{"POS":"E002","CMD":"PUMP","STU":"490000","GROUP":"00"}
+				],
+				"PWM": { "01": 0, "02": 0, "03": 0,  "04": 0 },
+				"ST": "0001",
+				"ON": "1600",
+				"OFF": "0800"
+			}
+		},
+		"EXT3AUTO": {
+			"MODE":1, 
+			"STATU":0,
+			"SENSOR_CONTROL":0,
+			"TIMER": {
+				"EPOS": [
+					{"POS":"E002","CMD":"PUMP","STU":"460000","GROUP":"00"}
+				],
+				"PWM": { "01": 0, "02": 0, "03": 0,  "04": 0 },
+				"ST": "0001",
+				"ON": "1600",
+				"OFF": "0800"
+			}
+		},
+		"EXT4AUTO": {
+			"MODE":1, 
+			"STATU":0,
+			"SENSOR_CONTROL":0,
+			"TIMER": {
+				"EPOS": [
+					{"POS":"E002","CMD":"PUMP","STU":"470000","GROUP":"00"}
+				],
+				"PWM": { "01": 0, "02": 0, "03": 0,  "04": 0 },
+				"ST": "0001",
+				"ON": "1600",
+				"OFF": "0800"
 			}
 		}
 
